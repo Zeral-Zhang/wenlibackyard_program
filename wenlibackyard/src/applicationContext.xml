@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+	
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+	
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	"
+	default-autowire="byName">
+
+	<!-- 使用上下文注解扫描配置 -->
+	<context:annotation-config></context:annotation-config>
+	<!-- 扫描组件包 -->
+	<context:component-scan base-package="com.biz"></context:component-scan>
+	<context:component-scan base-package="com.dao"></context:component-scan>
+	<context:component-scan base-package="com.service"></context:component-scan>
+	<context:component-scan base-package="com.action"></context:component-scan>
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url" value="jdbc:mysql://localhost:3306/wenlibackyard">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="zxx7235585"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">
+					true
+				</prop>
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.po.Favorite</value>
+				<value>com.po.Schoolinfo</value>
+				<value>com.po.Productinfo</value>
+				<value>com.po.Ordermain</value>
+				<value>com.po.Userdetailinfo</value>
+				<value>com.po.Producttype</value>
+				<value>com.po.Userinfo</value>
+				<value>com.po.Orderdetail</value>
+				<value>com.po.Regions</value></list>
+		</property>
+	</bean>
+	<!-- 注入事物管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 注入注解支持的事物管理器 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	</beans>
