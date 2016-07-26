@@ -1,9 +1,9 @@
 CREATE TABLE `favorite` (
-  `favoriteId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'йу╡ь╪п╠Ю╨е',
-  `productId` int(11) NOT NULL COMMENT 'илф╥╠Ю╨е',
-  `userId` varchar(60) NOT NULL COMMENT 'сц╩╖╠Ю╨е',
-  `createDate` date NOT NULL COMMENT 'йу╡ьй╠╪Д',
-  `context` varchar(50) DEFAULT NULL COMMENT '╠╦в╒',
+  `favoriteId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'О©╫у╡ь╪п╠О©╫О©╫',
+  `productId` int(11) NOT NULL COMMENT 'О©╫О©╫ф╥О©╫О©╫О©╫',
+  `userId` varchar(60) NOT NULL COMMENT 'О©╫ц╩О©╫О©╫О©╫О©╫',
+  `createDate` date NOT NULL COMMENT 'О©╫у╡О©╫й╠О©╫О©╫',
+  `context` varchar(50) DEFAULT NULL COMMENT 'О©╫О©╫в╒',
   PRIMARY KEY (`favoriteId`),
   UNIQUE KEY `userId` (`userId`),
   KEY `fk_favorite_productId` (`productId`),
@@ -12,11 +12,11 @@ CREATE TABLE `favorite` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `orderdetail` (
-  `orderDetailId` int(11) NOT NULL AUTO_INCREMENT COMMENT '╤╘╣╔цВо╦╠М╠Ю╨е',
-  `orderMainId` int(11) NOT NULL COMMENT '╤╘╣╔жВ╠М╠Ю╨е',
-  `productId` int(11) NOT NULL COMMENT 'илф╥╠Ю╨е',
-  `num` int(11) NOT NULL COMMENT '╤╘╧╨йЩа©',
-  `sumPrice` float DEFAULT NULL COMMENT '╣╔╦Жилф╥вэ╪ш',
+  `orderDetailId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'О©╫О©╫О©╫О©╫О©╫О©╫о╦О©╫О©╫О©╫О©╫',
+  `orderMainId` int(11) NOT NULL COMMENT 'О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫',
+  `productId` int(11) NOT NULL COMMENT 'О©╫О©╫ф╥О©╫О©╫О©╫',
+  `num` int(11) NOT NULL COMMENT 'О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫',
+  `sumPrice` float DEFAULT NULL COMMENT 'О©╫О©╫О©╫О©╫О©╫О©╫ф╥О©╫э╪О©╫',
   PRIMARY KEY (`orderDetailId`),
   KEY `fk_orderDetail_orderMainId` (`orderMainId`),
   KEY `fk_orderDetail_productId` (`productId`),
@@ -25,62 +25,62 @@ CREATE TABLE `orderdetail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `ordermain` (
-  `orderMainId` int(11) NOT NULL AUTO_INCREMENT COMMENT '╤╘╣╔жВ╠М╠Ю╨е',
-  `userId` varchar(60) NOT NULL COMMENT 'сц╩╖╠Ю╨е',
-  `state` int(11) DEFAULT NULL COMMENT 'оЗйш╣╔в╢л╛ё╗0-н╢╢╕юМё╛1-ря╢╕юМё╛2-рт╥╒╩Уё╛3-ряйу╩Уё╘',
-  `buyDate` date DEFAULT NULL COMMENT '╧╨бРхуфз',
-  `payDate` date DEFAULT NULL COMMENT '╦╤©Нхуфз',
-  `confirmDate` date DEFAULT NULL COMMENT 'х╥хохуфз',
-  `sumPrice` float DEFAULT '0' COMMENT 'вэ╪ш',
-  `context` varchar(50) DEFAULT NULL COMMENT '╠╦в╒',
+  `orderMainId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫',
+  `userId` varchar(60) NOT NULL COMMENT 'О©╫ц╩О©╫О©╫О©╫О©╫',
+  `state` int(11) DEFAULT NULL COMMENT 'О©╫О©╫О©╫ш╣О©╫в╢л╛О©╫О©╫0-н╢О©╫О©╫О©╫О©╫1-О©╫я╢О©╫О©╫О©╫2-О©╫т╥О©╫О©╫О©╫О©╫О©╫3-О©╫О©╫О©╫у╩О©╫О©╫О©╫',
+  `buyDate` date DEFAULT NULL COMMENT 'О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫',
+  `payDate` date DEFAULT NULL COMMENT 'О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫',
+  `confirmDate` date DEFAULT NULL COMMENT 'х╥О©╫О©╫О©╫О©╫О©╫О©╫',
+  `sumPrice` float DEFAULT '0' COMMENT 'О©╫э╪О©╫',
+  `context` varchar(50) DEFAULT NULL COMMENT 'О©╫О©╫в╒',
   PRIMARY KEY (`orderMainId`),
   UNIQUE KEY `userId` (`userId`),
   CONSTRAINT `fk_orderMain_userId` FOREIGN KEY (`userId`) REFERENCES `userinfo` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `productinfo` (
-  `productId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'илф╥╠Ю╨е',
-  `productName` varchar(20) NOT NULL COMMENT 'илф╥цШЁф',
-  `productTypeId` int(11) NOT NULL COMMENT 'илф╥юЮ╠П╠Ю╨е',
-  `brand` varchar(20) DEFAULT NULL COMMENT 'илф╥ф╥еф',
-  `context` text NOT NULL COMMENT 'илф╥цХйЖ',
-  `imgs` text NOT NULL COMMENT 'илф╥м╪ф╛',
-  `price` float NOT NULL COMMENT 'илф╥╪ш╦Я',
-  `pbdate` date NOT NULL COMMENT '╥╒╡╪хуфз',
-  `state` int(11) NOT NULL COMMENT 'илф╥в╢л╛',
+  `productId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'О©╫О©╫ф╥О©╫О©╫О©╫',
+  `productName` varchar(20) NOT NULL COMMENT 'О©╫О©╫ф╥О©╫О©╫О©╫О©╫',
+  `productTypeId` int(11) NOT NULL COMMENT 'О©╫О©╫ф╥О©╫О©╫О©╫О©╫О©╫',
+  `brand` varchar(20) DEFAULT NULL COMMENT 'О©╫О©╫ф╥ф╥О©╫О©╫',
+  `context` text NOT NULL COMMENT 'О©╫О©╫ф╥О©╫О©╫О©╫О©╫',
+  `imgs` text NOT NULL COMMENT 'О©╫О©╫ф╥м╪ф╛',
+  `price` float NOT NULL COMMENT 'О©╫О©╫ф╥О©╫ш╦О©╫',
+  `pbdate` date NOT NULL COMMENT 'О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫',
+  `state` int(11) NOT NULL COMMENT 'О©╫О©╫ф╥в╢л╛',
   PRIMARY KEY (`productId`),
   KEY `fk_procuctInfo_productTypeId` (`productTypeId`),
   CONSTRAINT `fk_procuctInfo_productTypeId` FOREIGN KEY (`productTypeId`) REFERENCES `producttype` (`productTypeId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `producttype` (
-  `productTypeId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'илф╥юЮ╠П╠Ю╨е',
-  `parentId` int(11) NOT NULL COMMENT '╦╦╠Ю╨е',
-  `productTypeName` varchar(20) NOT NULL COMMENT 'илф╥юЮ╠ПцШЁф',
-  `isDelete` int(11) NOT NULL DEFAULT '1' COMMENT 'йг╥Я©исц,д╛хо©исц',
-  `context` varchar(50) DEFAULT NULL COMMENT '╠╦в╒',
+  `productTypeId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'О©╫О©╫ф╥О©╫О©╫О©╫О©╫О©╫',
+  `parentId` int(11) NOT NULL COMMENT 'О©╫О©╫О©╫О©╫О©╫',
+  `productTypeName` varchar(20) NOT NULL COMMENT 'О©╫О©╫ф╥О©╫О©╫О©╫О©╫О©╫О©╫О©╫',
+  `isDelete` int(11) NOT NULL DEFAULT '1' COMMENT 'О©╫г╥О©╫О©╫О©╫О©╫,д╛О©╫о©О©╫О©╫О©╫',
+  `context` varchar(50) DEFAULT NULL COMMENT 'О©╫О©╫в╒',
   PRIMARY KEY (`productTypeId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `schoolinfo` (
-  `schoolInfoId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'пёдзпео╒╠Ю╨е',
+  `schoolInfoId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'пёО©╫О©╫О©╫О©╫о╒О©╫О©╫О©╫',
   `college` varchar(20) DEFAULT NULL COMMENT 'т╨',
   `department` varchar(20) DEFAULT NULL COMMENT 'о╣',
-  `classes` varchar(2) DEFAULT NULL COMMENT '╟Ю',
-  `grade` varchar(10) DEFAULT NULL COMMENT '╪╤',
+  `classes` varchar(2) DEFAULT NULL COMMENT 'О©╫О©╫',
+  `grade` varchar(10) DEFAULT NULL COMMENT 'О©╫О©╫',
   PRIMARY KEY (`schoolInfoId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `userdetailinfo` (
-  `userDetailId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'сц╩╖оЙо╦пео╒╠Ю╨е',
-  `userTel` varchar(13) DEFAULT NULL COMMENT 'сц╩╖╣Г╩╟╨е',
-  `userCity` varchar(20) DEFAULT NULL COMMENT 'сц╩╖Ёгйп',
-  `userProvince` varchar(20) DEFAULT NULL COMMENT 'сц╩╖й║╥щ',
-  `userLanguage` varchar(20) DEFAULT NULL COMMENT 'н╒пей╧сцсОят',
-  `userGender` varchar(1) DEFAULT '0' COMMENT 'сц╩╖пт╠П',
-  `userAge` int(11) NOT NULL DEFAULT '0' COMMENT 'сц╩╖дЙаД',
-  `schoolInfoId` int(11) DEFAULT NULL COMMENT 'пёдзпео╒╠Ю╨е',
-  `userId` varchar(60) NOT NULL COMMENT 'сц╩╖пео╒╠Ю╨е',
+  `userDetailId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'О©╫ц╩О©╫О©╫О©╫о╦О©╫О©╫о╒О©╫О©╫О©╫',
+  `userTel` varchar(13) DEFAULT NULL COMMENT 'О©╫ц╩О©╫О©╫Г╩╟О©╫О©╫',
+  `userCity` varchar(20) DEFAULT NULL COMMENT 'О©╫ц╩О©╫О©╫О©╫О©╫О©╫',
+  `userProvince` varchar(20) DEFAULT NULL COMMENT 'О©╫ц╩О©╫й║О©╫О©╫',
+  `userLanguage` varchar(20) DEFAULT NULL COMMENT 'н╒О©╫О©╫й╧О©╫О©╫О©╫О©╫О©╫О©╫',
+  `userGender` varchar(1) DEFAULT '0' COMMENT 'О©╫ц╩О©╫О©╫т╠О©╫',
+  `userAge` int(11) NOT NULL DEFAULT '0' COMMENT 'О©╫ц╩О©╫О©╫О©╫О©╫О©╫',
+  `schoolInfoId` int(11) DEFAULT NULL COMMENT 'пёО©╫О©╫О©╫О©╫о╒О©╫О©╫О©╫',
+  `userId` varchar(60) NOT NULL COMMENT 'О©╫ц╩О©╫О©╫О©╫о╒О©╫О©╫О©╫',
   PRIMARY KEY (`userDetailId`),
   UNIQUE KEY `userId` (`userId`),
   UNIQUE KEY `schoolInfoId` (`schoolInfoId`),
@@ -89,9 +89,20 @@ CREATE TABLE `userdetailinfo` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `userinfo` (
-  `userId` varchar(60) NOT NULL COMMENT 'сц╩╖╠Ю╨е',
-  `userNickName` varchar(20) NOT NULL COMMENT 'сц╩╖ЙгЁф',
-  `userHeadImgUrl` varchar(300) NOT NULL COMMENT 'сц╩╖м╥оЯ',
+  `userId` varchar(60) NOT NULL COMMENT 'О©╫ц╩О©╫О©╫О©╫О©╫',
+  `userNickName` varchar(20) NOT NULL COMMENT 'О©╫ц╩О©╫О©╫гЁО©╫',
+  `userHeadImgUrl` varchar(300) NOT NULL COMMENT 'О©╫ц╩О©╫м╥О©╫О©╫',
   PRIMARY KEY (`userId`),
   UNIQUE KEY `userId` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE BASIC_CONFIG
+(
+   ID                   VARCHAR(32) NOT NULL,
+   BASIC_CONFIG_ID      VARCHAR(50) NOT NULL,
+   NAME                 VARCHAR(50) COMMENT 'Е░█Г╖╟',
+   VALUE                VARCHAR(100) COMMENT 'Е─╪',
+   PRIMARY KEY (ID)
+);
+
+ALTER TABLE BASIC_CONFIG COMMENT 'Е÷╨Ф°╛Д©║Ф│╞И┘█Г╫╝Х║╗';

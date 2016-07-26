@@ -18,8 +18,8 @@ import com.util.XMLUtil;
  * @author Zeral 2016-7-20<br/>
  * 
  */
-@Service
-public abstract class SystemInitService {
+@Service("systemInitService")
+public class SystemInitService {
 
 	private static final Logger log = Logger.getLogger(SystemInitService.class);
 	
@@ -62,13 +62,6 @@ public abstract class SystemInitService {
 		databaseInitService.initDatabase(databaseInitInfo);
 	}
 
-	/**
-	 * 初始化数据
-	 * 
-	 * @author Zeral
-	 */
-	protected abstract void initData();
-
 	
 
 	/**
@@ -78,7 +71,6 @@ public abstract class SystemInitService {
 	 */
 	private void init(final ServletContext context) {
 		initDatabase();
-		initData();
 //		setSystemProperties(context);
 	}
 /*
