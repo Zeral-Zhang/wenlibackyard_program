@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseInitInfo initCode="table-versions" isBase="true">
+	<createInfo>
+		<sqlPath>sql/create/create_table_mysql.sql</sqlPath>
+		<!-- <procPath>sql/procedure/basic_upgrade_pro.sql</procPath> -->
+	</createInfo>
+	<updateInfo updateVersion="1.0">
+		<sqlPath>sql/update/update_sql_1.0.sql</sqlPath>
+	</updateInfo>
+</databaseInitInfo>
