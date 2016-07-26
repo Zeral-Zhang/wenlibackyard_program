@@ -3,7 +3,6 @@ package com.dao;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
@@ -13,6 +12,8 @@ import org.hibernate.SessionFactory;
 
 import static org.hibernate.criterion.Example.create;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +34,8 @@ import com.po.Schoolinfo;
 @Transactional
 @Service("SchoolinfoDAO")
 public class SchoolinfoDAO {
-	private static final Logger log = Logger.getLogger(SchoolinfoDAO.class);
+	private static final Logger log = LoggerFactory
+			.getLogger(SchoolinfoDAO.class);
 	// property constants
 	public static final String COLLEGE = "college";
 	public static final String DEPARTMENT = "department";
@@ -181,7 +183,6 @@ public class SchoolinfoDAO {
 			throw re;
 		}
 	}
-	
 
 	public static SchoolinfoDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (SchoolinfoDAO) ctx.getBean("SchoolinfoDAO");

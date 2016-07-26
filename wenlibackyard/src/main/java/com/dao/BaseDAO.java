@@ -18,13 +18,9 @@ import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.type.Type;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.shiyuesoft.common.bo.Sqlable;
-import com.shiyuesoft.common.criteria.Criteriable;
-import com.shiyuesoft.common.util.IPageInfo;
+import com.bean.PageBean;
 
 /**
  * 持久层基础类
@@ -99,14 +95,14 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<M> findByCriteria(IPageInfo pageInfo, Order... orders) {
+	public List<M> findByCriteria(PageBean pageBean, Order... orders) {
 		Criteria c = this.getSession().createCriteria(this.getClass());
-		c.setFirstResult(pageInfo.getOffset());
-		c.setMaxResults(pageInfo.getPageSize());
+		c.setFirstResult(pageBean.getOffset());
+		c.setMaxResults(pageBean.getRows());
 		for (Order order : orders) {
 			c.addOrder(order);
 		}
-		pageInfo.setTotalCount(count());
+		pageBean.setTotalCount(count());
 		List<M> results = c.list();
 		return results;
 	}
@@ -143,11 +139,11 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<M> findByExample(M model, IPageInfo pageInfo, Order... orders) {
+	public List<M> findByExample(M model, PageBean pageBean, Order... orders) {
 		Criteria criteria = getExampleCriteria(model);
-		criteria.setFirstResult(pageInfo.getOffset());
-		criteria.setMaxResults(pageInfo.getPageSize());
-		pageInfo.setTotalCount(this.count(model));
+		criteria.setFirstResult(pageBean.getOffset());
+		criteria.setMaxResults(pageBean.getRows());
+		pageBean.setTotalCount(this.count(model));
 		for (Order order : orders) {
 			criteria.addOrder(order);
 		}
@@ -198,11 +194,11 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<M> findAll(IPageInfo pageInfo,Order... orders) {
+	public List<M> findAll(PageBean pageBean,Order... orders) {
 		Criteria criteria = getSession().createCriteria(this.getEntityClass());
-		criteria.setFirstResult(pageInfo.getOffset());
-		criteria.setMaxResults(pageInfo.getPageSize());
-		pageInfo.setTotalCount(countAll());
+		criteria.setFirstResult(pageBean.getOffset());
+		criteria.setMaxResults(pageBean.getRows());
+		pageBean.setTotalCount(countAll());
 		for (Order order : orders) {
 			criteria.addOrder(order);
 		}
@@ -235,24 +231,6 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		return (Long) query.uniqueResult();
 	}
 
-	@SuppressWarnings("unchecked")
-	@Deprecated
-	/**
-	 * 此方法已经过期，不建议使用
-	 * @param clazz
-	 * @param hql
-	 * @param pageInfo
-	 * @param paramlist
-	 * @return
-	 */
-	public <M> List<M> findByHql(Class<M> clazz, String hql,
-			IPageInfo pageInfo, final Object... paramlist) {
-		Query query = getSession().createQuery(hql);
-		setParameters(query, paramlist);
-		query.setMaxResults(pageInfo.getPageSize());
-		query.setFirstResult(pageInfo.getOffset());
-		return query.list();
-	}
 
 	@SuppressWarnings("unchecked")
 	public List<M> findByHQL(String hql, final Object... paramlist) {
@@ -269,16 +247,16 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * @param paramlist
 	 * @return
 	 */
-	public <T> List<T> findByHQL(final String hql, final IPageInfo pageInfo,
+	public <T> List<T> findByHQL(final String hql, final PageBean pageBean,
 			final Class<T> clazz,final Object... paramlist) {
 		Query query = getSession().createQuery(hql);
 		setParameters(query, paramlist);
-		query.setFirstResult(pageInfo.getOffset());
-		query.setMaxResults(pageInfo.getPageSize());
+		query.setFirstResult(pageBean.getOffset());
+		query.setMaxResults(pageBean.getRows());
 		List<T> results = query.list();
 		String countHQL = hql.replaceFirst("(?i).*?from", "select count(*) from");
 		long count  = this.getCount(countHQL, paramlist);
-		pageInfo.setTotalCount(count);
+		pageBean.setTotalCount(count);
 		return results;
 	}
 	
@@ -291,15 +269,15 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * @param paramlist 查询语句的参数
 	 * @return
 	 */
-	public <T> List<T> findByHQL(final String queryHql, final String countHql,final IPageInfo pageInfo,
+	public <T> List<T> findByHQL(final String queryHql, final String countHql,final PageBean pageBean,
 			final Class<T> clazz,final Object... paramlist) {
 		Query query = getSession().createQuery(queryHql);
 		setParameters(query, paramlist);
-		query.setFirstResult(pageInfo.getOffset());
-		query.setMaxResults(pageInfo.getPageSize());
+		query.setFirstResult(pageBean.getOffset());
+		query.setMaxResults(pageBean.getRows());
 		List<T> results = query.list();
 		long count  = this.getCount(countHql, paramlist);
-		pageInfo.setTotalCount(count);
+		pageBean.setTotalCount(count);
 		return results;
 	}
 	
@@ -328,16 +306,16 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * @param paramlist
 	 * @return
 	 */
-	public  List<M> findByHQL(final String hql, final IPageInfo pageInfo,
+	public  List<M> findByHQL(final String hql, final PageBean pageBean,
 			final Object... paramlist) {
 		Query query = getSession().createQuery(hql);
 		setParameters(query, paramlist);
-		query.setFirstResult(pageInfo.getOffset());
-		query.setMaxResults(pageInfo.getPageSize());
+		query.setFirstResult(pageBean.getOffset());
+		query.setMaxResults(pageBean.getRows());
 		List<M> results = query.list();
 		String countHQL = hql.replaceFirst("(?i).*?from", "select count(*) from");
 		long count  = this.getCount(countHQL, paramlist);
-		pageInfo.setTotalCount(count);
+		pageBean.setTotalCount(count);
 		return results;
 	}
 	

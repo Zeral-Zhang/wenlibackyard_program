@@ -10,12 +10,6 @@ import com.po.Userinfo;
 public interface IUserAction {
 
 	/**
-	 * 用于用户授权验证
-	 * @return
-	 */
-	public String validate();
-	
-	/**
 	 * 模拟用户登录，用于本地测试 
 	 */
 	public void login();

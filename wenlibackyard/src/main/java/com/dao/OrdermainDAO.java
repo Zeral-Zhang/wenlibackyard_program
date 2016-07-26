@@ -4,14 +4,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import static org.hibernate.criterion.Example.create;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +35,8 @@ import com.po.Ordermain;
 @Transactional
 @Service("OrdermainDAO")
 public class OrdermainDAO {
-	private static final Logger log = Logger.getLogger(OrdermainDAO.class);
+	private static final Logger log = LoggerFactory
+			.getLogger(OrdermainDAO.class);
 	// property constants
 	public static final String STATE = "state";
 	public static final String SUM_PRICE = "sumPrice";
@@ -179,4 +183,28 @@ public class OrdermainDAO {
 	public static OrdermainDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (OrdermainDAO) ctx.getBean("OrdermainDAO");
 	}
+	
+	public List<Object> findByOriginalSql(String originalSql) {
+		log.debug("findByOriginal orderMain return List<Object>");
+		try {
+			SQLQuery query = getCurrentSession().createSQLQuery(originalSql);
+			@SuppressWarnings("unchecked")
+			List<Object> objlst = query.list();
+			log.debug("findOriginalSql successful");
+			return objlst;
+		} catch (HibernateException re) {
+			log.error("findOriginalSql failed", re);
+			throw re;
+		}
+	}
+
+	public List<Ordermain> findAllByUser(String userId, int page, int rows) {
+		String hql="from Ordermain o where o.userinfo.userId = ? order by o.confirmDate desc";
+		
+		Query query=getCurrentSession().createQuery(hql).setParameter(0, userId);
+		query.setFirstResult((page-1)*rows);
+		query.setMaxResults(rows);
+		return query.list();
+	}
+	
 }

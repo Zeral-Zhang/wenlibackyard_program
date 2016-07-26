@@ -2,17 +2,17 @@ package com.dao;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.internal.SQLQueryImpl;
 
 import static org.hibernate.criterion.Example.create;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +33,8 @@ import com.po.Userdetailinfo;
 @Transactional
 @Service("UserdetailinfoDAO")
 public class UserdetailinfoDAO {
-	private static final Logger log = Logger.getLogger(UserdetailinfoDAO.class);
+	private static final Logger log = LoggerFactory
+			.getLogger(UserdetailinfoDAO.class);
 	// property constants
 	public static final String USER_TEL = "userTel";
 	public static final String USER_CITY = "userCity";

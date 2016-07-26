@@ -3,7 +3,6 @@ package com.dao;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -11,8 +10,11 @@ import org.hibernate.SessionFactory;
 
 import static org.hibernate.criterion.Example.create;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.po.Producttype;
@@ -31,7 +33,8 @@ import com.po.Producttype;
 @Transactional
 @Service("ProducttypeDAO")
 public class ProducttypeDAO {
-	private static final Logger log = Logger.getLogger(ProducttypeDAO.class);
+	private static final Logger log = LoggerFactory
+			.getLogger(ProducttypeDAO.class);
 	// property constants
 	public static final String PARENT_ID = "parentId";
 	public static final String PRODUCT_TYPE_NAME = "productTypeName";
@@ -156,7 +159,6 @@ public class ProducttypeDAO {
 			throw re;
 		}
 	}
-
 	public void attachDirty(Producttype instance) {
 		log.debug("attaching dirty Producttype instance");
 		try {

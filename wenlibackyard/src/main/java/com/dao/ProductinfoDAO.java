@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -12,6 +11,8 @@ import org.hibernate.SessionFactory;
 
 import static org.hibernate.criterion.Example.create;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,13 +33,15 @@ import com.po.Productinfo;
 @Transactional
 @Service("ProductinfoDAO")
 public class ProductinfoDAO {
-	private static final Logger log = Logger.getLogger(ProductinfoDAO.class);
+	private static final Logger log = LoggerFactory
+			.getLogger(ProductinfoDAO.class);
 	// property constants
 	public static final String PRODUCT_NAME = "productName";
 	public static final String BRAND = "brand";
 	public static final String CONTEXT = "context";
 	public static final String IMGS = "imgs";
 	public static final String PRICE = "price";
+	public static final String NUMBER = "number";
 	public static final String STATE = "state";
 
 	private SessionFactory sessionFactory;
@@ -139,6 +142,10 @@ public class ProductinfoDAO {
 		return findByProperty(PRICE, price);
 	}
 
+	public List<Productinfo> findByNumber(Object number) {
+		return findByProperty(NUMBER, number);
+	}
+
 	public List<Productinfo> findByState(Object state) {
 		return findByProperty(STATE, state);
 	}
@@ -155,6 +162,37 @@ public class ProductinfoDAO {
 		}
 	}
 
+	/**
+	 * 根据发布日期逆序分页
+	 * */
+	public List<Productinfo> findAll(int page,int rows){
+		String hql="from Productinfo where 1=1 order by pbdate desc";
+		Query query=getCurrentSession().createQuery(hql);
+		query.setFirstResult((page-1)*rows);
+		query.setMaxResults(rows);
+		return query.list();
+	}
+	
+	/**
+	 * 获取最大页数
+	 * */
+	public int findMaxPage(int rows){
+		String hql="select count(productId) from Productinfo";
+		Query query=getCurrentSession().createQuery(hql);
+		int maxrow=0;
+		int maxpage=0;
+		//获取总记录数
+		maxrow=Integer.parseInt(query.list().get(0).toString());
+		if(maxrow==0){
+			maxpage=1;
+		}else{
+			maxpage=maxrow%rows==0?maxrow/rows:maxrow/rows+1;
+		}
+		
+		return maxpage;
+		
+	}
+	
 	public Productinfo merge(Productinfo detachedInstance) {
 		log.debug("merging Productinfo instance");
 		try {

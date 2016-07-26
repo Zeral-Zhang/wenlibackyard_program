@@ -3,6 +3,7 @@ package com.po;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,7 +23,7 @@ import javax.persistence.UniqueConstraint;
  * Ordermain entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "ordermain", catalog = "wenlibackyard", uniqueConstraints = @UniqueConstraint(columnNames = "userId"))
+@Table(name = "ordermain", catalog = "wenlibackyard")
 public class Ordermain implements java.io.Serializable {
 
 	// Fields
@@ -74,7 +76,7 @@ public class Ordermain implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "userId", unique = true, nullable = false)
+	@JoinColumn(name = "userId", nullable = false)
 	public Userinfo getUserinfo() {
 		return this.userinfo;
 	}
