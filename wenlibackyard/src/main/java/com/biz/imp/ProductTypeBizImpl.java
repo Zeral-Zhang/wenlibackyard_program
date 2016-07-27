@@ -10,8 +10,8 @@ import com.biz.IProductTypeBiz;
 import com.po.Producttype;
 import com.service.dao.DaoService;
 
-@Service("ProductTypeBiz")
-public class ProductTypeBiz implements IProductTypeBiz {
+@Service("ProductTypeBizImpl")
+public class ProductTypeBizImpl implements IProductTypeBiz {
 	@Resource(name="DaoService")
 	private DaoService daos;
 	

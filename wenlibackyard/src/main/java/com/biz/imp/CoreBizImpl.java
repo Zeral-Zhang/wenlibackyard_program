@@ -19,7 +19,7 @@ import com.util.MsgXmlUtil;
 import com.util.PropertiesConfigUtil;
 import com.util.SignUtil;
 
-@Service("CoreBiz")
+@Service("CoreBizImpl")
 public class CoreBizImpl implements ICoreBiz {
 	private static final Logger log = Logger.getLogger(CoreBizImpl.class);
 	public void checkSignature() throws IOException {

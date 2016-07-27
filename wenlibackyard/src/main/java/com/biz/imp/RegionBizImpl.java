@@ -12,8 +12,8 @@ import com.biz.IRegionBiz;
 import com.po.Regions;
 import com.service.dao.DaoService;
 
-@Service("RegionBiz")
-public class RegionBiz implements IRegionBiz {
+@Service("RegionBizImpl")
+public class RegionBizImpl implements IRegionBiz {
 	@Resource(name="DaoService")
 	private DaoService daos;
 	

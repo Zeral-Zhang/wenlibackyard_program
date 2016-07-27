@@ -13,8 +13,8 @@ import com.po.Productinfo;
 import com.po.Producttype;
 import com.service.dao.DaoService;
 
-@Service("ProductInfoBiz")
-public class ProductInfoBiz implements IProductInfobBiz {
+@Service("ProductInfoBizImpl")
+public class ProductInfoBizImpl implements IProductInfobBiz {
 	@Resource(name="DaoService")
 	private DaoService daos;
 	

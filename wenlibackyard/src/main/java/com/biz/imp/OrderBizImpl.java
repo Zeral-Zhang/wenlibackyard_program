@@ -11,8 +11,8 @@ import com.po.Orderdetail;
 import com.po.Ordermain;
 import com.service.dao.DaoService;
 
-@Service("OrderBiz")
-public class OrderBiz implements IOrderBiz {
+@Service("OrderBizImpl")
+public class OrderBizImpl implements IOrderBiz {
 	@Resource(name="DaoService")
 	private DaoService daos;
 	

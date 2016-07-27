@@ -13,17 +13,17 @@ import com.biz.IUserBiz;
 
 @Service("BizService")
 public class BizService {
-	@Resource(name="UserBiz")
+	@Resource(name="UserBizImpl")
 	private IUserBiz userbiz;
-	@Resource(name="CoreBiz")
+	@Resource(name="CoreBizImpl")
 	private ICoreBiz corebiz;
-	@Resource(name="RegionBiz")
+	@Resource(name="RegionBizImpl")
 	private IRegionBiz regionbiz;
-	@Resource(name="ProductTypeBiz")
+	@Resource(name="ProductTypeBizImpl")
 	private IProductTypeBiz productTypebiz;
-	@Resource(name="ProductInfoBiz")
+	@Resource(name="ProductInfoBizImpl")
 	private IProductInfobBiz productInfobiz;
-	@Resource(name="OrderBiz")
+	@Resource(name="OrderBizImpl")
 	private IOrderBiz orderBiz;
 
 	public IUserBiz getUserbiz() {

@@ -12,8 +12,8 @@ import com.po.Schoolinfo;
 import com.po.Userdetailinfo;
 import com.po.Userinfo;
 import com.service.dao.DaoService;
-@Service("UserBiz")
-public class UserBiz implements IUserBiz {
+@Service("UserBizImpl")
+public class UserBizImpl implements IUserBiz {
 	@Resource(name = "DaoService")
 	private DaoService daos;
 
