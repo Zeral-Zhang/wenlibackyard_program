@@ -79,7 +79,7 @@ CREATE TABLE `userdetailinfo` (
 CREATE TABLE `userinfo` (
   `userId` varchar(60) NOT NULL COMMENT '用户编号',
   `userNickName` varchar(20) NOT NULL COMMENT '用户昵称',
-  `userHeadImgUrl` varchar(300) NOT NULL COMMENT '用户头像',
+  `userHeadImgUrl` varchar(500) NOT NULL COMMENT '用户头像',
   PRIMARY KEY (`userId`),
   UNIQUE KEY `userId` (`userId`)
 );

@@ -14,19 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Service("DatabaseInitDAO")
 public class DatabaseInitDAO extends BaseDAO {
-	private SessionFactory sessionFactory;
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
-	private Session getCurrentSession() {
-		return sessionFactory.getCurrentSession();
-	}
-
-	protected void initDao() {
-		// do nothing
-	}
 	/**
 	 * 批量执行sql语句
 	 * 
@@ -37,7 +24,6 @@ public class DatabaseInitDAO extends BaseDAO {
 	public void excuteSql(List<String> sqls){		
 			try {
 				for (String sql : sqls) {
-					System.out.println(sql);
 					getCurrentSession().createSQLQuery(sql).executeUpdate();
 				}
 			} catch (Exception e) {

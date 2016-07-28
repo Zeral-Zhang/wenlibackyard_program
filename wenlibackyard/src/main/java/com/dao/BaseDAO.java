@@ -41,7 +41,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		this.sessionFactory = sessionFactory;
 	}
 
-	private Session getCurrentSession() {
+	protected Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
 

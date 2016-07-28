@@ -1,5 +1,6 @@
 package com.service.impl;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 
 import org.apache.log4j.Logger;
@@ -29,7 +30,7 @@ public class SystemInitService {
 	@Autowired
 	protected ISystemConfigService systemConfigService;*/
 	
-	@Autowired
+	@Resource(name="DatabaseInitService")
 	protected IDatabaseInitService databaseInitService;
 
 	/**
@@ -73,6 +74,7 @@ public class SystemInitService {
 		initDatabase();
 //		setSystemProperties(context);
 	}
+	
 /*
 	/**
 	 * 设置系统属性

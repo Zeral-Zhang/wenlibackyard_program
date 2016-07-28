@@ -20,19 +20,6 @@ import com.po.BasicConfig;
 @Transactional
 @Service("BasicConfigDAO")
 public class BasicConfigDAO extends BaseDAO<BasicConfig, String> {
-	private SessionFactory sessionFactory;
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
-	private Session getCurrentSession() {
-		return sessionFactory.getCurrentSession();
-	}
-
-	protected void initDao() {
-		// do nothing
-	}
 	/**
 	 * 根据basicConfigId查询一条记录出来
 	 * 

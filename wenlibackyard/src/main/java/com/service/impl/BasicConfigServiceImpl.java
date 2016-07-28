@@ -17,7 +17,7 @@ import com.service.IBasicConfigService;
 import com.service.dao.DaoService;
 
 
-@Service
+@Service("BasicConfigService")
 public class BasicConfigServiceImpl implements IBasicConfigService {
 
 	@Resource(name = "DaoService")

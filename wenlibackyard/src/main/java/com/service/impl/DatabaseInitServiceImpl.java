@@ -23,7 +23,7 @@ import com.util.ResourceUtil;
 import com.util.SQLUtil;
 
 
-@Service
+@Service("DatabaseInitService")
 public class DatabaseInitServiceImpl implements IDatabaseInitService {
 	
 	
@@ -41,7 +41,7 @@ public class DatabaseInitServiceImpl implements IDatabaseInitService {
 	}
 	
 
-	@Autowired
+	@Resource(name="BasicConfigService")
 	private IBasicConfigService basicConfigService;
 
 	public void createTables(List<String> sqlPaths, BasicConfig initVersion) {
