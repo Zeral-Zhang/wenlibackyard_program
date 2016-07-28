@@ -40,7 +40,7 @@ public class XMLUtil {
 		try {
 			root = serializer.read(rootClass, ResourceUtil.getResourceAsStream(xmlclasspath));
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 		return root;
 	}

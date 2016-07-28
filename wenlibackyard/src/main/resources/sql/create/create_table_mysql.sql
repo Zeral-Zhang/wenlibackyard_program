@@ -34,10 +34,12 @@ CREATE TABLE `productinfo` (
   `productId` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品编号',
   `productName` varchar(20) NOT NULL COMMENT '商品名称',
   `productTypeId` int(11) NOT NULL COMMENT '商品类别编号',
+  `number` int(11) NOT NULL COMMENT '商品数量',
   `brand` varchar(20) DEFAULT NULL COMMENT '商品品牌',
   `context` text NOT NULL COMMENT '商品描述',
   `imgs` text NOT NULL COMMENT '商品图片',
   `price` float NOT NULL COMMENT '商品价格',
+  `buydate` date NOT NULL COMMENT '购买日期',
   `pbdate` date NOT NULL COMMENT '发布日期',
   `state` int(11) NOT NULL COMMENT '商品状态',
   PRIMARY KEY (`productId`)
