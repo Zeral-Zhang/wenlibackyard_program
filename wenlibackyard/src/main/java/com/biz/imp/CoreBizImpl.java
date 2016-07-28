@@ -22,6 +22,7 @@ import com.util.SignUtil;
 @Service("CoreBizImpl")
 public class CoreBizImpl implements ICoreBiz {
 	private static final Logger log = Logger.getLogger(CoreBizImpl.class);
+	@Override
 	public void checkSignature() throws IOException {
 		log.info("##### valid url ");
 		Properties prop = PropertiesConfigUtil
@@ -50,6 +51,7 @@ public class CoreBizImpl implements ICoreBiz {
 		}
 	}
 
+	@Override
 	public void handleRequest() throws IOException {
 		log.info("##### process msg  ");
 		try {

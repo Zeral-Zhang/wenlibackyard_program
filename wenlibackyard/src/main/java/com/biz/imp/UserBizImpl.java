@@ -30,6 +30,7 @@ public class UserBizImpl implements IUserBiz {
 		return userInfo;
 	}
 
+	@Override
 	public void update(Userinfo userInfo) {
 		Userinfo oldUser = daos.getUserdao().findById(userInfo.getUserId());
 		Userdetailinfo userdetailinfo = oldUser.getUserdetailinfo();

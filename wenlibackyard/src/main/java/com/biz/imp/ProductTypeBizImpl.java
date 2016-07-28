@@ -23,6 +23,7 @@ public class ProductTypeBizImpl implements IProductTypeBiz {
 		this.daos = daos;
 	}
 
+	@Override
 	public List<Producttype> initProuctType() {
 		List<Producttype> productTypelst = daos.getProducttypeDAO().findAll();
 		if(productTypelst != null) {

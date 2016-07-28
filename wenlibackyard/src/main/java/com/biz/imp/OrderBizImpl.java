@@ -24,6 +24,7 @@ public class OrderBizImpl implements IOrderBiz {
 		this.daos = daos;
 	}
 
+	@Override
 	public boolean saveDetail(Orderdetail orderdetail) {
 		try {
 			daos.getOrderdetailDAO().save(orderdetail);
@@ -34,6 +35,7 @@ public class OrderBizImpl implements IOrderBiz {
 		}
 	}
 
+	@Override
 	public boolean saveMain(Ordermain ordermain) {
 		try {
 			daos.getOrdermainDAO().save(ordermain);
@@ -44,6 +46,7 @@ public class OrderBizImpl implements IOrderBiz {
 		}
 	}
 
+	@Override
 	public Orderdetail findDetail(Integer orderDetailId) {
 		Orderdetail orderdetail = daos.getOrderdetailDAO().findById(orderDetailId);
 		if(orderdetail != null) {
@@ -52,6 +55,7 @@ public class OrderBizImpl implements IOrderBiz {
 		return null;
 	}
 
+	@Override
 	public Ordermain findNewMain() {
 		List<Object> objlst = daos.getOrdermainDAO().findByOriginalSql("SELECT MAX(orderMainId) FROM orderMain;");
 		int id = -1;
@@ -63,6 +67,7 @@ public class OrderBizImpl implements IOrderBiz {
 		return null;
 	}
 
+	@Override
 	public List<Ordermain> findAllMain(String userId, int page, int rows) {
 		if(page < 1) page = 1;
 		if(rows < 1) rows = 5;

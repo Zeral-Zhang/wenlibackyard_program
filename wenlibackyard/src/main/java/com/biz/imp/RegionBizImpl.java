@@ -25,7 +25,7 @@ public class RegionBizImpl implements IRegionBiz {
 		this.daos = daos;
 	}
 
-
+	@Override
 	public List<Regions> findProvince() {
 		List<Regions> provinceslst = daos.getRegionDAO().findByLevel(0);
 		if(provinceslst != null) {
@@ -33,7 +33,8 @@ public class RegionBizImpl implements IRegionBiz {
 		}
 		return null;
 	}
-
+	
+	@Override
 	public List<Regions> findCitys(Integer fcode) {
 		List<Regions> citylst = daos.getRegionDAO().findByPCode(fcode);
 		if(citylst != null) {
