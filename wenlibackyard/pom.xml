@@ -207,7 +207,6 @@
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>${dom4j.version}</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<!-- simpleframework -->
@@ -215,7 +214,6 @@
 			<groupId>org.simpleframework</groupId>
 			<artifactId>simple-xml</artifactId>
 			<version>${spring.simple-xml.version}</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<!-- c3p0 -->
