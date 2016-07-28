@@ -4,7 +4,7 @@ package com.service;
 
 import java.util.List;
 
-import com.po.DatabaseInitInfo;
+import com.bean.DatabaseInitInfo;
 
 
 /**

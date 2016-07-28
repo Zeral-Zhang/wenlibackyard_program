@@ -1,4 +1,4 @@
-package com.po;
+package com.bean;
 
 import java.util.ArrayList;
 import java.util.List;

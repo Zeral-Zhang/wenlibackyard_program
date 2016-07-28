@@ -20,7 +20,7 @@ public class InitListener implements ServletContextListener {
 
 	public void contextInitialized(ServletContextEvent event) {
 		try {
-			SystemInitService.initialized("baseInitService", event.getServletContext());
+			SystemInitService.initialized("systemInitService", event.getServletContext());
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}

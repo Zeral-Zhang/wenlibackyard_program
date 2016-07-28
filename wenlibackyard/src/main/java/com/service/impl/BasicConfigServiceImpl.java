@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.TreeSet;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -12,32 +14,42 @@ import com.dao.BasicConfigDAO;
 import com.exception.BaseException;
 import com.po.BasicConfig;
 import com.service.IBasicConfigService;
+import com.service.dao.DaoService;
 
 
 @Service
 public class BasicConfigServiceImpl implements IBasicConfigService {
 
-	private BasicConfigDAO basicConfigDAO;
+	@Resource(name = "DaoService")
+	private DaoService daos;
+
+	public DaoService getDaos() {
+		return daos;
+	}
+
+	public void setDaos(DaoService daos) {
+		this.daos = daos;
+	}
 	
 	
 	public void save(BasicConfig basicConfig) {
-		basicConfigDAO.save(basicConfig);
+		daos.getBasicConfigDAO().save(basicConfig);
 	}
 
 	public void delete(String basicConfigId) {
-		basicConfigDAO.deleteObject(findByCode(basicConfigId));
+		daos.getBasicConfigDAO().deleteObject(findByCode(basicConfigId));
 	}
 
 	public void update(BasicConfig basicConfig) {
-		basicConfigDAO.update(basicConfig);
+		daos.getBasicConfigDAO().update(basicConfig);
 	}
 	
 	public void saveOrUpdate(BasicConfig basicConfig) {
-		basicConfigDAO.saveOrUpdate(basicConfig);
+		daos.getBasicConfigDAO().saveOrUpdate(basicConfig);
 	}
 
 	public BasicConfig findById(String id) {
-		return basicConfigDAO.findById(id);
+		return daos.getBasicConfigDAO().findById(id);
 	}
 	
 	public String findValueById(String basicConfigId) {
@@ -56,7 +68,7 @@ public class BasicConfigServiceImpl implements IBasicConfigService {
 	public BasicConfig findByCodeAndUnit(String code, String unitId) {
 		BasicConfig bc = new BasicConfig();
 		bc.setBasicConfigId(code);
-		return basicConfigDAO.findUnique(bc);
+		return daos.getBasicConfigDAO().findUnique(bc);
 	}
 
 	public BasicConfig findByCode(String code) {
@@ -68,7 +80,7 @@ public class BasicConfigServiceImpl implements IBasicConfigService {
 	}
 
 	public void deleteIdAndUnitId(String basicConfigId, String unitId) {
-		basicConfigDAO.deleteIdAndUnitId(basicConfigId, unitId);
+		daos.getBasicConfigDAO().deleteIdAndUnitId(basicConfigId, unitId);
 	}
 	
 	public void savePlatformSet(List<BasicConfig> basicConfigs,String unitId) {
@@ -78,12 +90,12 @@ public class BasicConfigServiceImpl implements IBasicConfigService {
 	}
 
 	public List<BasicConfig> findPlatformSet() {
-		return basicConfigDAO.findPlatformSet();
+		return daos.getBasicConfigDAO().findPlatformSet();
 	}
 
 	public List<BasicConfig> findByCodeAll(String code) {
 		BasicConfig bc = new BasicConfig();
 		bc.setBasicConfigId(code);
-		return basicConfigDAO.findByExample(bc);
+		return daos.getBasicConfigDAO().findByExample(bc);
 	}
 }

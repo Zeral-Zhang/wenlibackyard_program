@@ -2,7 +2,11 @@ package com.dao;
 
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.po.BasicConfig;
 
@@ -13,9 +17,22 @@ import com.po.BasicConfig;
  * @author Say
  * @date 2015年7月7日
  */
-@Repository
+@Transactional
+@Service("BasicConfigDAO")
 public class BasicConfigDAO extends BaseDAO<BasicConfig, String> {
-	
+	private SessionFactory sessionFactory;
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
+	private Session getCurrentSession() {
+		return sessionFactory.getCurrentSession();
+	}
+
+	protected void initDao() {
+		// do nothing
+	}
 	/**
 	 * 根据basicConfigId查询一条记录出来
 	 * 
@@ -26,7 +43,7 @@ public class BasicConfigDAO extends BaseDAO<BasicConfig, String> {
 	 */
 	public BasicConfig findByBasicConfigId(String basicConfigId) {
 		String hql = "from BasicConfig a where a.basicConfigId = ?";
-		return (BasicConfig) getSession().createQuery(hql).setParameter(0, basicConfigId).uniqueResult();
+		return (BasicConfig) getCurrentSession().createQuery(hql).setParameter(0, basicConfigId).uniqueResult();
 	}
 
 	/**

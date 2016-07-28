@@ -4,6 +4,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.dao.BasicConfigDAO;
+import com.dao.DatabaseInitDAO;
 import com.dao.OrderdetailDAO;
 import com.dao.OrdermainDAO;
 import com.dao.ProductinfoDAO;
@@ -12,9 +14,6 @@ import com.dao.RegionsDAO;
 import com.dao.SchoolinfoDAO;
 import com.dao.UserdetailinfoDAO;
 import com.dao.UserinfoDAO;
-import com.po.Productinfo;
-import com.po.Producttype;
-import com.po.Userdetailinfo;
 
 @Service("DaoService")
 public class DaoService {
@@ -34,6 +33,10 @@ public class DaoService {
 	private OrderdetailDAO orderdetailDAO;
 	@Resource(name="OrdermainDAO")
 	private OrdermainDAO ordermainDAO;
+	@Resource(name="BasicConfigDAO")
+	private BasicConfigDAO basicConfigDAO;
+	@Resource(name="DatabaseInitDAO")
+	private DatabaseInitDAO dataBaseInitDAO;
 	public UserinfoDAO getUserdao() {
 		return userdao;
 	}
@@ -98,4 +101,19 @@ public class DaoService {
 		this.ordermainDAO = ordermainDAO;
 	}
 
+	public BasicConfigDAO getBasicConfigDAO() {
+		return basicConfigDAO;
+	}
+
+	public void setBasicConfigDAO(BasicConfigDAO basicConfigDAO) {
+		this.basicConfigDAO = basicConfigDAO;
+	}
+
+	public DatabaseInitDAO getDataBaseInitDAO() {
+		return dataBaseInitDAO;
+	}
+
+	public void setDataBaseInitDAO(DatabaseInitDAO dataBaseInitDAO) {
+		this.dataBaseInitDAO = dataBaseInitDAO;
+	}
 }

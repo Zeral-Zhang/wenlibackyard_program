@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 /**
  * 系统配置实体类
  * 
- * @author Say
+ * @author Zeral
  * @date 2015-10-13
  */
 @Entity

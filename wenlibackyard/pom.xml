@@ -11,6 +11,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.1.6.RELEASE</spring.version>
+		<spring.simple-xml.version>2.6.7</spring.simple-xml.version>
 		<hibernate.version>4.3.8.Final</hibernate.version>
 		<struts2.version>2.3.20</struts2.version>
 		<gson.version>2.2.4</gson.version>
@@ -61,6 +62,13 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.simpleframework</groupId>
+			<artifactId>simple-xml</artifactId>
+			<version>${spring.simple-xml.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -139,6 +147,14 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 		</dependency>
+
+		<!-- jsp-api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+
 
 		<!-- jstl -->
 		<dependency>

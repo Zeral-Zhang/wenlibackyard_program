@@ -163,10 +163,8 @@ public class ProductAction implements IProductAction {
 
 		PageBean pb=(PageBean) session.getAttribute("pb");
 		pb=pb==null?new PageBean():pb;
-		System.out.println(pb.toString());
 		page=page<1?pb.getPage():page;
 		rows=rows<1?pb.getRows():rows;
-		System.out.println(page);
 		//获取最大页数
 		int maxpage=bizs.getProductInfobiz().findMaxPage(rows);
 		

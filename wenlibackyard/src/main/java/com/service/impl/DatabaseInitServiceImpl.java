@@ -6,16 +6,19 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bean.DatabaseInitInfo;
+import com.bean.DatabaseUpdateInfo;
 import com.dao.DatabaseInitDAO;
 import com.exception.BaseException;
 import com.po.BasicConfig;
-import com.po.DatabaseInitInfo;
-import com.po.DatabaseUpdateInfo;
 import com.service.IBasicConfigService;
 import com.service.IDatabaseInitService;
+import com.service.dao.DaoService;
 import com.util.ResourceUtil;
 import com.util.SQLUtil;
 
@@ -26,8 +29,17 @@ public class DatabaseInitServiceImpl implements IDatabaseInitService {
 	
 	static final String BASIC_TABLE_INIT_VERSIONS = "1.0";
 
-	@Autowired
-	private DatabaseInitDAO databaseInitDAO;
+	@Resource(name = "DaoService")
+	private DaoService daos;
+
+	public DaoService getDaos() {
+		return daos;
+	}
+
+	public void setDaos(DaoService daos) {
+		this.daos = daos;
+	}
+	
 
 	@Autowired
 	private IBasicConfigService basicConfigService;
@@ -63,7 +75,7 @@ public class DatabaseInitServiceImpl implements IDatabaseInitService {
 	 */
 	private boolean isDataBaseInit(DatabaseInitInfo initInfo) {
 		if (initInfo.isBase()) {
-			int count = databaseInitDAO.getTableCount();
+			int count = daos.getDataBaseInitDAO().getTableCount();
 			if (count <= 0) {
 				return false;
 			}
@@ -120,6 +132,7 @@ public class DatabaseInitServiceImpl implements IDatabaseInitService {
 		createProcedure(initInfo);
 		BasicConfig initVersion = new BasicConfig();
 		initVersion.setBasicConfigId(initInfo.getInitCode());
+		initVersion.setName("数据库版本");
 		initVersion.setValue(initInfo.getCreateInfo().getInitVersion());
 		basicConfigService.saveOrUpdate(initVersion);
 	}
@@ -133,7 +146,7 @@ public class DatabaseInitServiceImpl implements IDatabaseInitService {
 	private void executeSql(List<String> sqlPaths) {
 		for (String sqlPath : sqlPaths) {
 			List<String> sqls = SQLUtil.parseSQLFile(sqlPath);
-			databaseInitDAO.excuteSql(sqls);
+			daos.getDataBaseInitDAO().excuteSql(sqls);
 		}
 	}
 	/**
@@ -155,7 +168,7 @@ public class DatabaseInitServiceImpl implements IDatabaseInitService {
 				procSqls.add(sql);
 			}
 			try {
-				databaseInitDAO.excuteSql(procSqls);
+				daos.getDataBaseInitDAO().excuteSql(procSqls);
 			} catch (Exception e) {
 				throw new BaseException("执行sql文件："+procPath+"时出错！",e);
 			}

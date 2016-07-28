@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.po.DatabaseInitInfo;
+import com.bean.DatabaseInitInfo;
 import com.service.IDatabaseInitService;
 import com.util.XMLUtil;
 

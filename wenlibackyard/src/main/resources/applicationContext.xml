@@ -62,9 +62,11 @@
 				<value>com.po.Producttype</value>
 				<value>com.po.Userinfo</value>
 				<value>com.po.Orderdetail</value>
+				<value>com.po.BasicConfig</value>
 			</list>
 		</property>
 	</bean>
+	
 	<!-- 注入事物管理器 -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">

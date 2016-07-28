@@ -1,4 +1,4 @@
-package com.po;
+package com.bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,8 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
+
+import com.po.DatabaseCreateInfo;
 
 
 
