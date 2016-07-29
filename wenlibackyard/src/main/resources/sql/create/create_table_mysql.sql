@@ -112,6 +112,6 @@ ALTER TABLE orderdetail ADD CONSTRAINT `fk_orderDetail_orderMainId` FOREIGN KEY 
 ALTER TABLE orderdetail ADD CONSTRAINT `fk_orderDetail_productId` FOREIGN KEY (`productId`) REFERENCES `productinfo` (`productId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE ordermain ADD CONSTRAINT `fk_orderMain_userId` FOREIGN KEY (`userId`) REFERENCES `userinfo` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE productinfo ADD CONSTRAINT `fk_procuctInfo_productTypeId` FOREIGN KEY (`productTypeId`) REFERENCES `producttype` (`productTypeId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-ALTER TABLE productinfo ADD　CONSTRAINT `fk_procuctInfo_userId` FOREIGN KEY (`userId`) REFERENCES `userinfo` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE productinfo ADD CONSTRAINT `fk_procuctInfo_userId` FOREIGN KEY (`userId`) REFERENCES `userinfo` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE userdetailinfo ADD CONSTRAINT `fk_userDetailInfo_schoolInfoId` FOREIGN KEY (`schoolInfoId`) REFERENCES `schoolinfo` (`schoolInfoId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE userdetailinfo ADD CONSTRAINT `fk_userDetailInfo_userId` FOREIGN KEY (`userId`) REFERENCES `userinfo` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
