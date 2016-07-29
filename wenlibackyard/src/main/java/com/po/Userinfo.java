@@ -32,7 +32,8 @@ public class Userinfo implements java.io.Serializable {
 	private Set<Ordermain> ordermains = new HashSet<Ordermain>(0);
 	private Userdetailinfo userdetailinfo;
 	private Set<Favorite> favorites = new HashSet<Favorite>(0);
-
+	private Set<Productinfo> productinfos = new HashSet<Productinfo>(0);
+	
 	// Constructors
 
 	/** default constructor */
@@ -48,12 +49,13 @@ public class Userinfo implements java.io.Serializable {
 	/** full constructor */
 	public Userinfo(String userNickName, String userHeadImgUrl,
 			Set<Ordermain> ordermains, Userdetailinfo userdetailinfo,
-			Set<Favorite> favorites) {
+			Set<Favorite> favorites, Set<Productinfo> productinfos) {
 		this.userNickName = userNickName;
 		this.userHeadImgUrl = userHeadImgUrl;
 		this.ordermains = ordermains;
 		this.userdetailinfo = userdetailinfo;
 		this.favorites = favorites;
+		this.productinfos = productinfos;
 	}
 
 	// Property accessors
@@ -111,6 +113,15 @@ public class Userinfo implements java.io.Serializable {
 
 	public void setFavorites(Set<Favorite> favorites) {
 		this.favorites = favorites;
+	}
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userinfo")
+	public Set<Productinfo> getProductinfos() {
+		return this.productinfos;
+	}
+	
+	public void setProductinfos(Set<Productinfo> productinfos) {
+		this.productinfos = productinfos;
 	}
 
 }

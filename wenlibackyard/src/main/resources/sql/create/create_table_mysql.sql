@@ -1,3 +1,4 @@
+-- 创建收藏夹表
 CREATE TABLE `favorite` (
   `favoriteId` int(11) NOT NULL AUTO_INCREMENT COMMENT '收藏夹编号',
   `productId` int(11) NOT NULL COMMENT '商品编号',
@@ -8,6 +9,7 @@ CREATE TABLE `favorite` (
   UNIQUE KEY `userId` (`userId`)
 );
 
+-- 创建订单明细表
 CREATE TABLE `orderdetail` (
   `orderDetailId` int(11) NOT NULL AUTO_INCREMENT COMMENT '订单明细表编号',
   `orderMainId` int(11) NOT NULL COMMENT '订单主表编号',
@@ -17,6 +19,7 @@ CREATE TABLE `orderdetail` (
   PRIMARY KEY (`orderDetailId`)
 );
 
+-- 创建订单主表
 CREATE TABLE `ordermain` (
   `orderMainId` int(11) NOT NULL AUTO_INCREMENT COMMENT '订单主表编号',
   `userId` varchar(60) NOT NULL COMMENT '用户编号',
@@ -30,10 +33,12 @@ CREATE TABLE `ordermain` (
   UNIQUE KEY `userId` (`userId`)
 );
 
+-- 创建商品编号表
 CREATE TABLE `productinfo` (
   `productId` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品编号',
   `productName` varchar(20) NOT NULL COMMENT '商品名称',
   `productTypeId` int(11) NOT NULL COMMENT '商品类别编号',
+  `userId` varchar(60) NOT NULL COMMENT '用户编号',
   `number` int(11) NOT NULL COMMENT '商品数量',
   `brand` varchar(20) DEFAULT NULL COMMENT '商品品牌',
   `context` text NOT NULL COMMENT '商品描述',
@@ -45,6 +50,7 @@ CREATE TABLE `productinfo` (
   PRIMARY KEY (`productId`)
 );
 
+-- 创建商品类别表
 CREATE TABLE `producttype` (
   `productTypeId` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品类别编号',
   `parentId` int(11) NOT NULL COMMENT '父编号',
@@ -54,6 +60,7 @@ CREATE TABLE `producttype` (
   PRIMARY KEY (`productTypeId`)
 );
 
+-- 创建校内信息表
 CREATE TABLE `schoolinfo` (
   `schoolInfoId` int(11) NOT NULL AUTO_INCREMENT COMMENT '校内信息编号',
   `college` varchar(20) DEFAULT NULL COMMENT '院',
@@ -63,6 +70,7 @@ CREATE TABLE `schoolinfo` (
   PRIMARY KEY (`schoolInfoId`)
 );
 
+-- 创建用户详细信息表
 CREATE TABLE `userdetailinfo` (
   `userDetailId` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户详细信息编号',
   `userTel` varchar(13) DEFAULT NULL COMMENT '用户电话号',
@@ -78,6 +86,7 @@ CREATE TABLE `userdetailinfo` (
   UNIQUE KEY `schoolInfoId` (`schoolInfoId`)
 );
 
+-- 创建用户表
 CREATE TABLE `userinfo` (
   `userId` varchar(60) NOT NULL COMMENT '用户编号',
   `userNickName` varchar(20) NOT NULL COMMENT '用户昵称',
@@ -86,6 +95,7 @@ CREATE TABLE `userinfo` (
   UNIQUE KEY `userId` (`userId`)
 );
 
+-- 创建基本配置表
 CREATE TABLE BASIC_CONFIG
 (
    ID                   VARCHAR(32) NOT NULL,
@@ -102,5 +112,6 @@ ALTER TABLE orderdetail ADD CONSTRAINT `fk_orderDetail_orderMainId` FOREIGN KEY 
 ALTER TABLE orderdetail ADD CONSTRAINT `fk_orderDetail_productId` FOREIGN KEY (`productId`) REFERENCES `productinfo` (`productId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE ordermain ADD CONSTRAINT `fk_orderMain_userId` FOREIGN KEY (`userId`) REFERENCES `userinfo` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE productinfo ADD CONSTRAINT `fk_procuctInfo_productTypeId` FOREIGN KEY (`productTypeId`) REFERENCES `producttype` (`productTypeId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE productinfo ADD　CONSTRAINT `fk_procuctInfo_userId` FOREIGN KEY (`userId`) REFERENCES `userinfo` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE userdetailinfo ADD CONSTRAINT `fk_userDetailInfo_schoolInfoId` FOREIGN KEY (`schoolInfoId`) REFERENCES `schoolinfo` (`schoolInfoId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE userdetailinfo ADD CONSTRAINT `fk_userDetailInfo_userId` FOREIGN KEY (`userId`) REFERENCES `userinfo` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
