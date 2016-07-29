@@ -95,6 +95,16 @@ CREATE TABLE `userinfo` (
   UNIQUE KEY `userId` (`userId`)
 );
 
+-- 创建区域地址表
+CREATE TABLE `regions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` int(50) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `p_code` int(50) DEFAULT NULL,
+  `level` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
 -- 创建基本配置表
 CREATE TABLE BASIC_CONFIG
 (
