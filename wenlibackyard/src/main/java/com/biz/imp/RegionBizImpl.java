@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.action.IRegionAction;
@@ -14,33 +15,36 @@ import com.service.dao.DaoService;
 
 @Service("RegionBizImpl")
 public class RegionBizImpl implements IRegionBiz {
+	private static final Logger log = Logger.getLogger(OrderBizImpl.class);
 	@Resource(name="DaoService")
 	private DaoService daos;
 	
-	public DaoService getDaos() {
-		return daos;
-	}
-
-	public void setDaos(DaoService daos) {
-		this.daos = daos;
-	}
-
 	@Override
 	public List<Regions> findProvince() {
-		List<Regions> provinceslst = daos.getRegionDAO().findByLevel(0);
-		if(provinceslst != null) {
-			return provinceslst;
+		try {
+			List<Regions> provinceslst = daos.getRegionDAO().findByLevel(0);
+			if(provinceslst != null) {
+				return provinceslst;
+			}
+			return null;
+		} catch (Exception e) {
+			log.error("findProvince exception", e);
+			throw new RuntimeException(e);
 		}
-		return null;
 	}
 	
 	@Override
 	public List<Regions> findCitys(Integer fcode) {
-		List<Regions> citylst = daos.getRegionDAO().findByPCode(fcode);
-		if(citylst != null) {
-			return citylst;
+		try {
+			List<Regions> citylst = daos.getRegionDAO().findByPCode(fcode);
+			if(citylst != null) {
+				return citylst;
+			}
+			return null;
+		} catch (Exception e) {
+			log.error("findCitys exception", e);
+			throw new RuntimeException(e);
 		}
-		return null;
 	}
 
 

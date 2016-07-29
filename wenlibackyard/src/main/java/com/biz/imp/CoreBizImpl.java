@@ -23,31 +23,39 @@ import com.util.SignUtil;
 public class CoreBizImpl implements ICoreBiz {
 	private static final Logger log = Logger.getLogger(CoreBizImpl.class);
 	@Override
-	public void checkSignature() throws IOException {
+	public void checkSignature() {
 		log.info("##### valid url ");
-		Properties prop = PropertiesConfigUtil
-				.getProperties("account.properties");
-		HttpServletRequest request = ServletActionContext.getRequest();
-		HttpServletResponse response = ServletActionContext.getResponse();
-		if (request.getParameter("timestamp") == null) {// 如果是空打印出首页
-			request.setCharacterEncoding("utf-8");
-			response.setContentType("text/html;charset=UTF-8");
-			response.setCharacterEncoding("utf-8");
-			response.getWriter().write("文理后院测试平台");
-		} else {
-			String signature = request.getParameter("signature");// 微信加密签名
-			String timestamp = request.getParameter("timestamp");// 时间戳
-			String nonce = request.getParameter("nonce");// 随机数
-			String echostr = request.getParameter("echostr");// 随机字符串
-
-			// 校验成功返回 echostr，成功成为开发者；否则返回error，接入失败
-			if (SignUtil.validSign(signature, prop.getProperty("token"),
-					timestamp, nonce)) {
-				response.getWriter().write(echostr);
+		try {
+			Properties prop = PropertiesConfigUtil
+					.getProperties("account.properties");
+			HttpServletRequest request = ServletActionContext.getRequest();
+			HttpServletResponse response = ServletActionContext.getResponse();
+			if (request.getParameter("timestamp") == null) {// 如果是空打印出首页
+				request.setCharacterEncoding("utf-8");
+				response.setContentType("text/html;charset=UTF-8");
+				response.setCharacterEncoding("utf-8");
+				response.getWriter().write("文理后院测试平台");
 			} else {
-				response.getWriter().write("error");
+				String signature = request.getParameter("signature");// 微信加密签名
+				String timestamp = request.getParameter("timestamp");// 时间戳
+				String nonce = request.getParameter("nonce");// 随机数
+				String echostr = request.getParameter("echostr");// 随机字符串
+
+				// 校验成功返回 echostr，成功成为开发者；否则返回error，接入失败
+				if (SignUtil.validSign(signature, prop.getProperty("token"),
+						timestamp, nonce)) {
+					response.getWriter().write(echostr);
+				} else {
+					response.getWriter().write("error");
+				}
+				
 			}
-			
+		} catch (UnsupportedEncodingException e) {
+			log.error("valid url UnsupportedEncodingException", e);
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			log.error("valid url IOException", e);
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -113,11 +121,13 @@ public class CoreBizImpl implements ICoreBiz {
 				responseText("你的请求类型暂时无法处理，请尝试其它方式 /::) /::) /::)");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("process msg exception", e);
+			throw new RuntimeException(e);
 		}
 	}
 	
 	private void responseText(String responseStr) {
+		log.info("##### response msg  ");
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
 		try {
@@ -134,14 +144,14 @@ public class CoreBizImpl implements ICoreBiz {
 			response.getWriter().write(
 					new String(str.getBytes("UTF-8"), "ISO8859-1"));
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("response msg UnsupportedEncodingException", e);
+			throw new RuntimeException(e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("response msg IOException", e);
+			throw new RuntimeException(e);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("response msg Exception", e);
+			throw new RuntimeException(e);
 		}
 	}
 }

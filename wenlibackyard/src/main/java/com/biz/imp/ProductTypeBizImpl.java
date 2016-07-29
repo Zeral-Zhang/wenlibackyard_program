@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.biz.IProductTypeBiz;
@@ -12,24 +13,22 @@ import com.service.dao.DaoService;
 
 @Service("ProductTypeBizImpl")
 public class ProductTypeBizImpl implements IProductTypeBiz {
+	private static final Logger log = Logger.getLogger(OrderBizImpl.class);
 	@Resource(name="DaoService")
 	private DaoService daos;
 	
-	public DaoService getDaos() {
-		return daos;
-	}
-
-	public void setDaos(DaoService daos) {
-		this.daos = daos;
-	}
-
 	@Override
 	public List<Producttype> initProuctType() {
-		List<Producttype> productTypelst = daos.getProducttypeDAO().findAll();
-		if(productTypelst != null) {
-			return productTypelst;
+		try {
+			List<Producttype> productTypelst = daos.getProducttypeDAO().findAll();
+			if(productTypelst != null) {
+				return productTypelst;
+			}
+			return null;
+		} catch (Exception e) {
+			log.error("initProuctType exception", e);
+			throw new RuntimeException(e);
 		}
-		return null;
 	}
 
 }

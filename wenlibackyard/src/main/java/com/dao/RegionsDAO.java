@@ -2,6 +2,7 @@ package com.dao;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -9,8 +10,6 @@ import org.hibernate.SessionFactory;
 
 import static org.hibernate.criterion.Example.create;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +30,7 @@ import com.po.Regions;
 @Transactional
 @Service("RegionsDAO")
 public class RegionsDAO {
-	private static final Logger log = LoggerFactory.getLogger(RegionsDAO.class);
+	private static final Logger log = Logger.getLogger(RegionsDAO.class);
 	// property constants
 	public static final String CODE = "code";
 	public static final String NAME = "name";
