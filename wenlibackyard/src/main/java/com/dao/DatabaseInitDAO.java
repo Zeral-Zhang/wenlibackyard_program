@@ -8,10 +8,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
-@Transactional
 @Service("DatabaseInitDAO")
 public class DatabaseInitDAO extends BaseDAO {
 	/**

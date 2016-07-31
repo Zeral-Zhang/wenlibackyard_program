@@ -3,13 +3,13 @@
 	data-theme="a">
 	<div data-role="navbar">
 		<ul>
-			<li><a href="productList.jsp" rel="external" data-transition="flip" data-icon="bars">最新列表</a>
+			<li><a href="productList" rel="external" data-transition="flip" data-icon="bars">最新列表</a>
 			</li>
-			<li><a href="productCategory.jsp" rel="external" data-transition="flip"
+			<li><a href="productCategory" rel="external" data-transition="flip"
 				data-icon="search">发现</a></li>
-			<li><a href="shopcar.jsp" rel="external" data-transition="flip"
+			<li><a href="shopcar" rel="external" data-transition="flip"
 				data-icon="shop">购物车</a></li>
-			<li><a href="userInfo.jsp" rel="external" data-transition="flip"
+			<li><a href="userInfo" rel="external" data-transition="flip"
 				data-icon="user">个人</a></li>
 		</ul>
 	</div>

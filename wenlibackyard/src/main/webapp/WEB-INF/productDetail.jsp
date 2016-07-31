@@ -19,11 +19,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 		<!-- //for-mobile-apps -->
-		<link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-		<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
-		<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+		<link href="<%=path%>/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+		<link rel="stylesheet" href="<%=path%>/css/flexslider.css" type="text/css" media="screen" />
+		<link href="<%=path%>/css/style.css" rel="stylesheet" type="text/css" media="all" />
 		<!-- Include jQuery Mobile stylesheets -->
-		<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+		<link rel="stylesheet" href="<%=path%>/css/jquery.mobile-1.4.5.min.css">
 	</head>
 	<body>
 
@@ -48,22 +48,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<ul class="slides">
 										<li data-thumb="uppic/${requestScope.product.imgs}">
 											<div class="thumb-image">
-												<img src="uppic/${requestScope.product.imgs}" data-imagezoom="true" class="img-responsive">
+												<img src="<%=path%>/uppic/${requestScope.product.imgs}" data-imagezoom="true" class="img-responsive">
 											</div>
 										</li>
-										<li data-thumb="uppic/${requestScope.product.imgs}">
+										<li data-thumb="<%=path%>/uppic/${requestScope.product.imgs}">
 											<div class="thumb-image">
-												<img src="uppic/${requestScope.product.imgs}" data-imagezoom="true" class="img-responsive">
+												<img src="<%=path%>/uppic/${requestScope.product.imgs}" data-imagezoom="true" class="img-responsive">
 											</div>
 										</li>
-										<li data-thumb="uppic/${requestScope.product.imgs}">
+										<li data-thumb="<%=path%>/uppic/${requestScope.product.imgs}">
 											<div class="thumb-image">
-												<img src="uppic/${requestScope.product.imgs}" data-imagezoom="true" class="img-responsive">
+												<img src="<%=path%>/uppic/${requestScope.product.imgs}" data-imagezoom="true" class="img-responsive">
 											</div>
 										</li>
-										<li data-thumb="uppic/${requestScope.product.imgs}">
+										<li data-thumb="<%=path%>/uppic/${requestScope.product.imgs}">
 											<div class="thumb-image">
-												<img src="uppic/${requestScope.product.imgs}" data-imagezoom="true" class="img-responsive">
+												<img src="<%=path%>/uppic/${requestScope.product.imgs}" data-imagezoom="true" class="img-responsive">
 											</div>
 										</li>
 									</ul>
@@ -215,17 +215,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		</div><!-- /page -->
 		<!-- Include the jQuery library -->
-		<script src="js/jquery-2.1.4.min.js"></script>
+		<script src="<%=path%>/js/jquery-2.1.4.min.js"></script>
 		<!-- Include the jQuery Mobile library -->
-		<script src="js/jquery.mobile-1.4.5.min.js"></script>
+		<script src="<%=path%>/js/jquery.mobile-1.4.5.min.js"></script>
 		<!-- single -->
-		<script src="js/imagezoom.js"></script>
-		<script src="js/jquery.flexslider.js"></script>
+		<script src="<%=path%>/js/imagezoom.js"></script>
+		<script src="<%=path%>/js/jquery.flexslider.js"></script>
 		<!-- single -->
 		<!-- for bootstrap working -->
-		<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="<%=path%>/bootstrap/js/bootstrap.min.js"></script>
 		<!-- //for bootstrap working -->
-		<script src="js/jquery.easing.min.js"></script>
+		<script src="<%=path%>/js/jquery.easing.min.js"></script>
 		<!-- FlexSlider -->
 		<script>
 			$(function() {

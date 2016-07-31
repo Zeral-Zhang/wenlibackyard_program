@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import com.bean.PageBean;
 import com.biz.IProductInfobBiz;
 import com.googlecode.ehcache.annotations.Cacheable;
 import com.po.Productinfo;
@@ -22,8 +23,8 @@ public class ProductInfoBizImpl implements IProductInfobBiz {
 	private DaoService daos;
 
 	@Override
-	public boolean add(Productinfo productinfo) {
-		log.info("add Productinfo "+ productinfo.toString() +"");
+	public boolean save(Productinfo productinfo) {
+		log.info("save Productinfo "+ productinfo.toString() +"");
 		try {
 			// 给商品添加商品类别信息
 			Producttype producttype = daos.getProducttypeDAO()
@@ -41,20 +42,16 @@ public class ProductInfoBizImpl implements IProductInfobBiz {
 
 	@Cacheable(cacheName = CACHE_NAME)
 	@Override
-	public List<Productinfo> findAll(int page, int rows) {
-		if (page < 1)
-			page = 1;
-		if (rows < 1)
-			rows = 5;
+	public List<Productinfo> findAll(PageBean pageBean) throws Exception {
 		try {
-			return daos.getProductinfoDAO().findAll(page, rows);
+			return daos.getProductinfoDAO().findAll(pageBean);
 		} catch (Exception e) {
 			log.error("findAll Productinfo exception", e);
 			throw new RuntimeException(e);
 		}
 	}
 
-	public int findMaxPage(int rows) {
+	public int findMaxPage(int rows) throws Exception  {
 		if (rows < 1)
 			rows = 5;
 		try {
@@ -66,7 +63,7 @@ public class ProductInfoBizImpl implements IProductInfobBiz {
 	}
 
 	@Override
-	public Productinfo findDetail(Integer productId) {
+	public Productinfo findDetail(Integer productId) throws Exception  {
 		try {
 			Productinfo productinfo = daos.getProductinfoDAO().findById(productId);
 			if (productinfo != null) {

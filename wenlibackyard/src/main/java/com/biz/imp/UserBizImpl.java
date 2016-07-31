@@ -19,7 +19,7 @@ public class UserBizImpl implements IUserBiz {
 	@Resource(name = "DaoService")
 	private DaoService daos;
 
-	public Userinfo login(String userId) {
+	public Userinfo findUser(String userId) throws Exception {
 		try {
 			Userinfo userInfo = daos.getUserdao().findById(userId);
 			return userInfo;
@@ -30,7 +30,7 @@ public class UserBizImpl implements IUserBiz {
 	}
 
 	@Override
-	public void update(Userinfo userInfo) {
+	public void update(Userinfo userInfo) throws Exception  {
 		log.info("upate userinfo "+ userInfo.toString() +"");
 		try {
 			Userinfo oldUser = daos.getUserdao().findById(userInfo.getUserId());
@@ -40,21 +40,21 @@ public class UserBizImpl implements IUserBiz {
 				userdetailinfo.setUserTel(userInfo.getUserdetailinfo().getUserTel());
 				userdetailinfo.setUserAge(userInfo.getUserdetailinfo().getUserAge());
 				userdetailinfo.setUserLanguage(userInfo.getUserdetailinfo().getUserLanguage());
-				userdetailinfo.setUserProvince(getNameFromCode(userInfo.getUserdetailinfo().getUserProvince()));
-				userdetailinfo.setUserCity(getNameFromCode(userInfo.getUserdetailinfo().getUserCity()));
+				userdetailinfo.setUserProvince(findNameFromCode(userInfo.getUserdetailinfo().getUserProvince()));
+				userdetailinfo.setUserCity(findNameFromCode(userInfo.getUserdetailinfo().getUserCity()));
 				// 保存用户id到用户详细信息表中
 				userdetailinfo.setUserinfo(oldUser);
 				daos.getUserdetailinfoDAO().save(userdetailinfo);
-				List<Object> objlst = daos.getUserdetailinfoDAO().findByOriginalSql("SELECT MAX(userDetailId) FROM userdetailinfo");
+				List<Object[]> objlst = daos.getUserdetailinfoDAO().findBySQL("SELECT MAX(userDetailId) FROM userdetailinfo");
 				int id = -1;
-				if(objlst != null) id = (Integer) objlst.get(0); 
+				if(objlst != null) id = (Integer) objlst.get(0)[0]; 
 				oldUser.setUserdetailinfo(daos.getUserdetailinfoDAO().findById(id));
 			} else {
 				userdetailinfo.setUserTel(userInfo.getUserdetailinfo().getUserTel());
 				userdetailinfo.setUserAge(userInfo.getUserdetailinfo().getUserAge());
 				userdetailinfo.setUserLanguage(userInfo.getUserdetailinfo().getUserLanguage());
-				userdetailinfo.setUserProvince(getNameFromCode(userInfo.getUserdetailinfo().getUserProvince()));
-				userdetailinfo.setUserCity(getNameFromCode(userInfo.getUserdetailinfo().getUserCity()));
+				userdetailinfo.setUserProvince(findNameFromCode(userInfo.getUserdetailinfo().getUserProvince()));
+				userdetailinfo.setUserCity(findNameFromCode(userInfo.getUserdetailinfo().getUserCity()));
 				oldUser.setUserdetailinfo(userdetailinfo);
 			}
 			
@@ -67,9 +67,9 @@ public class UserBizImpl implements IUserBiz {
 				schoolinfo.setClasses(userInfo.getUserdetailinfo().getSchoolinfo().getClasses());
 				// 保存院校id到用户详细信息中
 				daos.getSchoolinfoDAO().save(schoolinfo);
-				List<Object> objlst = daos.getSchoolinfoDAO().findByOriginalSql("SELECT MAX(schoolInfoId) FROM schoolinfo");
+				List<Object[]> objlst = daos.getSchoolinfoDAO().findBySQL("SELECT MAX(schoolInfoId) FROM schoolinfo");
 				int id = -1;
-				if(objlst != null) id = (Integer) objlst.get(0); 
+				if(objlst != null) id = (Integer) objlst.get(0)[0]; 
 				oldUser.getUserdetailinfo().setSchoolinfo(daos.getSchoolinfoDAO().findById(id));
 			} else {
 				schoolinfo.setCollege(userInfo.getUserdetailinfo().getSchoolinfo().getCollege());
@@ -78,7 +78,7 @@ public class UserBizImpl implements IUserBiz {
 				schoolinfo.setClasses(userInfo.getUserdetailinfo().getSchoolinfo().getClasses());
 				oldUser.getUserdetailinfo().setSchoolinfo(schoolinfo);
 			}
-			daos.getUserdao().attachDirty(oldUser);
+			daos.getUserdao().saveOrUpdate(oldUser);
 			log.info("upate userinfo "+ userInfo.toString() +" success");
 		} catch (Exception e) {
 			log.error("upate userinfo "+ userInfo.toString() +" failed", e);
@@ -86,7 +86,7 @@ public class UserBizImpl implements IUserBiz {
 		}
 	}
 
-	public String getNameFromCode(String code) {
+	public String findNameFromCode(String code) throws Exception  {
 		try {
 			Integer codeInt = Integer.parseInt(code);
 			List<Regions> provincelst = daos.getRegionDAO().findByCode(codeInt);

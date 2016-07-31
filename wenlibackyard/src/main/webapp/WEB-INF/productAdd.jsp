@@ -22,16 +22,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="shortcut icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <!-- Bootstrap 3.3.5 -->
-<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-<link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css" media="all" />
-<link href="plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="<%=path%>/bootstrap/css/bootstrap.min.css">
+<link href="<%=path%>/css/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css" media="all" />
+<link href="<%=path%>/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<link href="<%=path%>/css/style.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 
 <body>
 	<div data-role="page" id="productAdd" data-title="添加商品">
 		<div data-role="header" data-position="fixed" data-theme="a">
-			<a href="./productList.jsp" data-rel="back"
+			<a href="productList.jsp" data-rel="back"
 				class="ui-btn ui-btn-left ui-alt-icon ui-nodisc-icon ui-corner-all ui-btn-icon-notext ui-icon-carat-l">Back</a>
 			<h2>添加商品</h2>
 		</div>
@@ -100,18 +100,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- /ui-content -->
 	</div>
 	<!-- jQuery 2.1.4 -->
-	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="<%=path%>/js/jquery-2.1.4.min.js"></script>
 	<!-- jQueryMobile 1.4.5 -->
-	<script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+	<script type="text/javascript" src="<%=path%>/js/jquery.mobile-1.4.5.min.js"></script>
 	<!-- Bootstrap 3.3.5 -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="<%=path%>/bootstrap/js/bootstrap.min.js"></script>
 	<!-- Datatimepicker -->
-	<script type="text/javascript" src="plugins/datetimepicker/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-	<script type="text/javascript" src="plugins/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script type="text/javascript" src="<%=path%>/plugins/datetimepicker/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="<%=path%>/plugins/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
 	<!-- kindeditor -->
-	<script type="text/javascript" src="plugins/kindeditor/kindeditor.js"></script>
-	<script type="text/javascript" src="plugins/kindeditor/lang/zh_CN.js"></script>
-	<script type="text/javascript" src="plugins/kindeditor/plugins/code/prettify.js"></script>
+	<script type="text/javascript" src="<%=path%>/plugins/kindeditor/kindeditor.js"></script>
+	<script type="text/javascript" src="<%=path%>/plugins/kindeditor/lang/zh_CN.js"></script>
+	<script type="text/javascript" src="<%=path%>/plugins/kindeditor/plugins/code/prettify.js"></script>
     <script>
       $(function () {
       // 初始化商品类别信息
@@ -147,9 +147,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 			KindEditor.ready(function(K) {
 			var editor1 = K.create('textarea[id="context"]', {
-				cssPath : 'plugins/kindeditor/plugins/code/prettify.css',
-				uploadJson : 'plugins/kindeditor/jsp/upload_json.jsp',
-				fileManagerJson : 'plugins/kindeditor/jsp/file_manager_json.jsp',
+				cssPath : '<%=path%>/plugins/kindeditor/plugins/code/prettify.css',
+				uploadJson : '<%=path%>/plugins/kindeditor/jsp/upload_json.jsp',
+				fileManagerJson : '<%=path%>/plugins/kindeditor/jsp/file_manager_json.jsp',
 				allowFileManager : true,
 				afterCreate : function() {
 					autoHeightMode : true;

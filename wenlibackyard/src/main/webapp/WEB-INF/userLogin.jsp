@@ -46,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				alert("用户名不存在");
     			} else if(obj.status == '1') {
     				alert("登陆成功");
-    				 window.location.href = '<%=path%>/productList.jsp';
+    				 window.location.href = '<%=path%>/${originURL}';
     			}
     		}
     	});

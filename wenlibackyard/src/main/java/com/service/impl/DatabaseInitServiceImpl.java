@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ import com.util.SQLUtil;
 
 @Service("DatabaseInitService")
 public class DatabaseInitServiceImpl implements IDatabaseInitService {
-	
+	private static final Logger log = Logger.getLogger(DatabaseInitServiceImpl.class);
 	
 	static final String BASIC_TABLE_INIT_VERSIONS = "1.0";
 
@@ -85,32 +86,42 @@ public class DatabaseInitServiceImpl implements IDatabaseInitService {
 		return config != null;
 	}
 
-	public void initDatabase(DatabaseInitInfo initInfo) {
+	public void initDatabase(DatabaseInitInfo initInfo) throws Exception {
 		createTables(initInfo);
 		updateTables(initInfo.getUpdateInfoList(), initInfo.getInitCode());
 	}
 
 	private void updateTables(List<DatabaseUpdateInfo> updateInfoList,
-			String initCode) {
+			String initCode) throws Exception {
+		log.info("updateTables");
 		if (updateInfoList.isEmpty()) {
 			return;
 		}
-		for (DatabaseUpdateInfo info : updateInfoList) {
-			BasicConfig version = basicConfigService.findByCode(initCode);
-			if(version != null){
-				if (Float.parseFloat(version.getValue()) >= Float.parseFloat(info
-						.getUpdateVersion())) {
-					continue;
-				}
-			}else{
-				version = new BasicConfig();
-				version.setBasicConfigId(initCode);
-			}			
-			executeSql(info.getSqlPaths());
-			createProcedure(info.getProcedurePaths());
-			
-			version.setValue(info.getUpdateVersion());
-			basicConfigService.saveOrUpdate(version);
+		try {
+			for (DatabaseUpdateInfo info : updateInfoList) {
+				BasicConfig version = basicConfigService.findByCode(initCode);
+				if(version != null){
+					if (Float.parseFloat(version.getValue()) >= Float.parseFloat(info
+							.getUpdateVersion())) {
+						continue;
+					}
+				}else{
+					version = new BasicConfig();
+					version.setBasicConfigId(initCode);
+				}			
+				executeSql(info.getSqlPaths());
+				createProcedure(info.getProcedurePaths());
+				
+				version.setValue(info.getUpdateVersion());
+				basicConfigService.saveOrUpdate(version);
+			}
+			log.info("updateTables success");
+		} catch (NumberFormatException e) {
+			log.error("updateTables failed", e);
+			throw new RuntimeException(e);
+		} catch (Exception e) {
+			log.error("updateTables failed", e);
+			throw new RuntimeException(e);
 		}
 
 	}
@@ -121,20 +132,26 @@ public class DatabaseInitServiceImpl implements IDatabaseInitService {
 	 * @param createInfo
 	 * @param initCode
 	 */
-	private void createTables(DatabaseInitInfo initInfo) {
-		if (isDataBaseInit(initInfo)) {
-			return;
+	private void createTables(DatabaseInitInfo initInfo) throws Exception {
+		log.info("createTables");
+		try {
+			if (isDataBaseInit(initInfo)) {
+				return;
+			}
+			if(initInfo.getCreateInfo() == null){
+				return;
+			}
+			executeSql(initInfo.getCreateInfo().getSqlPaths());
+			createProcedure(initInfo);
+			BasicConfig initVersion = new BasicConfig();
+			initVersion.setBasicConfigId(initInfo.getInitCode());
+			initVersion.setName("数据库版本");
+			initVersion.setValue(initInfo.getCreateInfo().getInitVersion());
+			basicConfigService.saveOrUpdate(initVersion);
+			log.info("createTables success");
+		} catch (Exception e) {
+			log.error("createTable failed", e);
 		}
-		if(initInfo.getCreateInfo() == null){
-			return;
-		}
-		executeSql(initInfo.getCreateInfo().getSqlPaths());
-		createProcedure(initInfo);
-		BasicConfig initVersion = new BasicConfig();
-		initVersion.setBasicConfigId(initInfo.getInitCode());
-		initVersion.setName("数据库版本");
-		initVersion.setValue(initInfo.getCreateInfo().getInitVersion());
-		basicConfigService.saveOrUpdate(initVersion);
 	}
 	
 

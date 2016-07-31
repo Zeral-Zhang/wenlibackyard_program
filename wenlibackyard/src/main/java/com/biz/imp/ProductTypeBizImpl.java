@@ -18,7 +18,7 @@ public class ProductTypeBizImpl implements IProductTypeBiz {
 	private DaoService daos;
 	
 	@Override
-	public List<Producttype> initProuctType() {
+	public List<Producttype> findProuctType() throws Exception  {
 		try {
 			List<Producttype> productTypelst = daos.getProducttypeDAO().findAll();
 			if(productTypelst != null) {

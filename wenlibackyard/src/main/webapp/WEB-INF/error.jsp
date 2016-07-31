@@ -24,30 +24,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 		<!-- Include jQuery Mobile stylesheets -->
-		<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
-		<link rel="stylesheet" href="css/listview-grid.css">
+		<link rel="stylesheet" href="<%=path%>/css/jquery.mobile-1.4.5.min.css">
+		<link rel="stylesheet" href="<%=path%>/css/css/listview-grid.css">
 		<!-- Include the jQuery library -->
-		<script src="js/jquery-2.1.4.min.js"></script>
+		<script src="<%=path%>/js/jquery-2.1.4.min.js"></script>
 		<!-- Include the jQuery Mobile library -->
-		<script src="js/jquery.mobile-1.4.5.min.js"></script>
+		<script src="<%=path%>/js/jquery.mobile-1.4.5.min.js"></script>
 		<!-- //for-mobile-apps -->
 		<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 		<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 		<!-- js -->
-		<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="<%=path%>/js/jquery-2.1.4.min.js"></script>
 		<!-- //js -->
 		<!-- single -->
-		<script src="js/imagezoom.js"></script>
-		<script src="js/jquery.flexslider.js"></script>
+		<script src="<%=path%>/js/imagezoom.js"></script>
+		<script src="<%=path%>/js/jquery.flexslider.js"></script>
 		<!-- single -->
 		<!-- cart -->
-		<script src="js/simpleCart.min.js"></script>
+		<script src="<%=path%>/js/simpleCart.min.js"></script>
 		<!-- cart -->
 		<!-- for bootstrap working -->
-		<script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
+		<script type="text/javascript" src="<%=path%>/js/bootstrap-3.1.1.min.js"></script>
 		<!-- //for bootstrap working -->
-		<script src="js/jquery.easing.min.js"></script>
+		<script src="<%=path%>/js/jquery.easing.min.js"></script>
         <style>
 			.findout{
 				padding:90px 0;

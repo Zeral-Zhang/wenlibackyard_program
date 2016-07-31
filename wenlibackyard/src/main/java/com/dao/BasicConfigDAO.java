@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.po.BasicConfig;
@@ -17,7 +18,6 @@ import com.po.BasicConfig;
  * @author Say
  * @date 2015年7月7日
  */
-@Transactional
 @Service("BasicConfigDAO")
 public class BasicConfigDAO extends BaseDAO<BasicConfig, String> {
 	/**

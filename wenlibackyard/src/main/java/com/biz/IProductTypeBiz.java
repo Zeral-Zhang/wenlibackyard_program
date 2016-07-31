@@ -8,6 +8,7 @@ public interface IProductTypeBiz {
 	/**
 	 * 初始化商品列表
 	 * @return
+	 * @throws Exception 
 	 */
-	public List<Producttype> initProuctType();
+	public List<Producttype> findProuctType() throws Exception;
 }
