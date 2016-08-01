@@ -1,12 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
- <s:if test="#session.userInfo==null">
- 	<c:redirect url="${request.servletContext.contextPath}/userLogin.jsp"></c:redirect>
- </s:if>
-<s:if test="#session.pb==null">
-	<c:redirect url="init_Product.action"></c:redirect>
-</s:if>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
 <!DOCTYPE html>
 <html lang="zh">
 	<head>
@@ -99,7 +98,7 @@
 								
 									<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
 									<div id="posts">
-										<s:iterator value="#session.pb.pagelist" var="product">
+										<s:iterator value="pageBean.pagelist" var="product">
 	   									 <div class="post">
 											<div class="col-md-3 product-men">
 												<div class="men-pro-item simpleCart_shelfItem">
@@ -128,7 +127,7 @@
 									</div>
 									<!-- 分页插件 -->
 									<div id="pagination">
-    									<a href="init_Product.action?page=${sessionScope.pb.page+1}" class="next">next</a>
+    									<a href="init_Product.action?pageBean.page=${pageBean.page+1}" class="next">next</a>
 									</div>
 										<div class="clearfix"></div>
 									</div>

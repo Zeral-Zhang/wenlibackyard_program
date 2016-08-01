@@ -20,7 +20,7 @@ public class RegionBizImpl implements IRegionBiz {
 	private DaoService daos;
 	
 	@Override
-	public List<Regions> findProvince() {
+	public List<Regions> findProvince() throws Exception  {
 		try {
 			List<Regions> provinceslst = daos.getRegionDAO().findByLevel(0);
 			if(provinceslst != null) {
@@ -34,7 +34,7 @@ public class RegionBizImpl implements IRegionBiz {
 	}
 	
 	@Override
-	public List<Regions> findCitys(Integer fcode) {
+	public List<Regions> findCitys(Integer fcode) throws Exception  {
 		try {
 			List<Regions> citylst = daos.getRegionDAO().findByPCode(fcode);
 			if(citylst != null) {

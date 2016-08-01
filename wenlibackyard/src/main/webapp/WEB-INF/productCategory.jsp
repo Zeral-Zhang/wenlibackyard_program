@@ -23,20 +23,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 				<!-- //for-mobile-apps -->
-		<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-		<link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css" media="all" />
+		<link href="<%=path%>/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+		<link href="<%=path%>/css/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css" media="all" />
 		<!-- pignose css -->
-		<link href="css/pignose.layerslider.css" rel="stylesheet" type="text/css" media="all" />
+		<link href="<%=path%>/css/pignose.layerslider.css" rel="stylesheet" type="text/css" media="all" />
 		<!-- //pignose css -->
-		<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+		<link href="<%=path%>/css/style.css" rel="stylesheet" type="text/css" media="all" />
 		<!-- js -->
-		<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="<%=path%>/js/jquery-2.1.4.min.js"></script>
 		<!-- //js -->
-		<script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+		<script type="text/javascript" src="<%=path%>/js/jquery.mobile-1.4.5.min.js"></script>
 		<!-- for bootstrap working -->
-		<script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
+		<script type="text/javascript" src="<%=path%>/js/bootstrap-3.1.1.min.js"></script>
 		<!-- //for bootstrap working -->
-		<script src="js/jquery.easing.min.js"></script>
+		<script src="<%=path%>/js/jquery.easing.min.js"></script>
 	</head>
 
 	<body>

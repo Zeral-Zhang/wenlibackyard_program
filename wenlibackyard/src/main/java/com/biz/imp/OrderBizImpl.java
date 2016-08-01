@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import com.bean.PageBean;
 import com.biz.IOrderBiz;
 import com.po.Orderdetail;
 import com.po.Ordermain;
@@ -45,7 +46,7 @@ public class OrderBizImpl implements IOrderBiz {
 	}
 
 	@Override
-	public Orderdetail findDetail(Integer orderDetailId) {
+	public Orderdetail findDetail(Integer orderDetailId) throws Exception {
 		Orderdetail orderdetail;
 		try {
 			orderdetail = daos.getOrderdetailDAO().findById(orderDetailId);
@@ -61,11 +62,11 @@ public class OrderBizImpl implements IOrderBiz {
 	}
 
 	@Override
-	public Ordermain findNewMain() {
+	public Ordermain findNewMain() throws Exception  {
 		try {
-			List<Object> objlst = daos.getOrdermainDAO().findByOriginalSql("SELECT MAX(orderMainId) FROM orderMain;");
+			List<Object[]> objlst = daos.getOrdermainDAO().findBySQL("SELECT MAX(orderMainId) FROM orderMain;");
 			int id = -1;
-			if(objlst != null) id = (Integer) objlst.get(0); 
+			if(objlst != null) id =  (int) objlst.get(0)[0]; 
 			Ordermain orderMain = daos.getOrdermainDAO().findById(id);
 			if(orderMain != null) {
 				return orderMain;
@@ -78,11 +79,9 @@ public class OrderBizImpl implements IOrderBiz {
 	}
 
 	@Override
-	public List<Ordermain> findAllMain(String userId, int page, int rows) {
+	public List<Ordermain> findAllMain(String userId, PageBean pageBean) throws Exception  {
 		try {
-			if(page < 1) page = 1;
-			if(rows < 1) rows = 5;
-			List<Ordermain> mainlst = daos.getOrdermainDAO().findAllByUser(userId, page, rows);
+			List<Ordermain> mainlst = daos.getOrdermainDAO().findAllByUser(userId, pageBean);
 			return mainlst;
 		} catch (Exception e) {
 			log.error("findAllMain exception", e);

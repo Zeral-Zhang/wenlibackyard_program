@@ -58,9 +58,13 @@ public class SystemInitService {
 	 * @author Zeral
 	 */
 	private void initDatabase() {
-		final DatabaseInitInfo databaseInitInfo = XMLUtil.getXMLRoot(
-				DatabaseInitInfo.class, "sql/DatabaseInitInfo.xml");
-		databaseInitService.initDatabase(databaseInitInfo);
+		try {
+			final DatabaseInitInfo databaseInitInfo = XMLUtil.getXMLRoot(
+					DatabaseInitInfo.class, "sql/DatabaseInitInfo.xml");
+			databaseInitService.initDatabase(databaseInitInfo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+		}
 	}
 
 	

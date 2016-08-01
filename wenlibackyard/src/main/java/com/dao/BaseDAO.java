@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
@@ -20,6 +21,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.type.Type;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bean.PageBean;
@@ -31,52 +33,84 @@ import com.bean.PageBean;
  * @param <M>
  * @param <PK>
  */
-@Transactional
 @Service("BaseDAO")
 public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializable> {
-
+	private static final Logger log = Logger
+			.getLogger(BaseDAO.class);
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
-	protected Session getCurrentSession() {
+	public Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
-	protected void initDao() {
+	public void initDao() {
 		// do nothing
 	}
 
-	public void save(M model) {
-		getCurrentSession().save(model);
+	public void save(M model) throws Exception {
+		try {
+			getCurrentSession().save(model);
+		} catch (Exception e) {
+			log.debug("save failed");
+			throw new RuntimeException(e);
+		}
 	}
 
-	public void saveOrUpdate(M model) {
-		getCurrentSession().saveOrUpdate(model);
+	public void saveOrUpdate(M model) throws Exception {
+		try {
+			getCurrentSession().saveOrUpdate(model);
+		} catch (Exception e) {
+			log.debug("saveOrUpdate failed");
+			throw new RuntimeException(e);
+		}
 	}
 
-	public void update(M model) {
-		getCurrentSession().update(model);
+	public void update(M model) throws Exception {
+		try {
+			getCurrentSession().update(model);
+		} catch (Exception e) {
+			log.debug("update failed");
+			throw new RuntimeException(e);
+		}
 	}
 
-	public void merge(M model) {
-		getCurrentSession().merge(model);
+	public void merge(M model) throws Exception {
+		try {
+			getCurrentSession().merge(model);
+		} catch (Exception e) {
+			log.debug("merge failed");
+			throw new RuntimeException(e);
+		}
 	}
 
-	public void delete(PK id) {
-		getCurrentSession().delete(this.findById(id));
+	public void delete(PK id) throws Exception {
+		try {
+			getCurrentSession().delete(this.findById(id));
+		} catch (Exception e) {
+			log.debug("delete failed");
+			throw new RuntimeException(e);
+		}
 	}
 
-	public void deleteObject(M model) {
-		getCurrentSession().delete(model);
+	public void deleteObject(M model) throws Exception {
+		try {
+			getCurrentSession().delete(model);
+		} catch (Exception e) {
+			log.debug("deleteobject failed");
+			throw new RuntimeException(e);
+		}
 	}
 
+	
 	public boolean exists(PK id) {
 		return findById(id) != null;
 	}
 
+	
 	@SuppressWarnings("unchecked")
 	public M findById(PK id) {
 		return (M) getCurrentSession().get(this.getEntityClass(), id);
@@ -88,6 +122,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * @param model
 	 * @return
 	 */
+	
 	@SuppressWarnings("unchecked")
 	public List<M> findByExample(M model, Order... orders) {
 		Criteria criteria = getExampleCriteria(model);
@@ -105,6 +140,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * @param orders
 	 * @return
 	 */
+	
 	@SuppressWarnings("unchecked")
 	public List<M> findByCriteria(PageBean pageBean, Order... orders) {
 		Criteria c = this.getCurrentSession().createCriteria(this.getClass());
@@ -123,6 +159,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * @param orders
 	 * @return
 	 */
+	
 	@SuppressWarnings("unchecked")
 	public List<M> findByCriteria(Order... orders) {
 		Criteria c = this.getCurrentSession().createCriteria(this.getClass());
@@ -149,6 +186,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * @param orders
 	 * @return
 	 */
+	
 	@SuppressWarnings("unchecked")
 	public List<M> findByExample(M model, PageBean pageBean, Order... orders) {
 		Criteria criteria = getExampleCriteria(model);
@@ -162,12 +200,14 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		return results;
 	}
 
+	
 	public Criteria getExampleCriteria(M model) {
 		Criteria criteria = getCurrentSession().createCriteria(this.getEntityClass())
 				.add(Example.create(model));
 		return criteria;
 	}
 
+	
 	public Criteria getExampleCriteria() {
 		Criteria criteria = getCurrentSession().createCriteria(this.getEntityClass());
 		return criteria;
@@ -179,6 +219,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * @param model
 	 * @return
 	 */
+	
 	@SuppressWarnings("unchecked")
 	public M findUnique(M model) {
 		M result = (M) getExampleCriteria(model).uniqueResult();
@@ -190,6 +231,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * 
 	 * @return
 	 */
+	
 	@SuppressWarnings("unchecked")
 	public List<M> findAll(Order... orders) {
 		Criteria criteria = getCurrentSession().createCriteria(this.getEntityClass());
@@ -204,6 +246,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * 
 	 * @return
 	 */
+	
 	@SuppressWarnings("unchecked")
 	public List<M> findAll(PageBean pageBean,Order... orders) {
 		Criteria criteria = getCurrentSession().createCriteria(this.getEntityClass());
@@ -221,6 +264,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * 
 	 * @return
 	 */
+	
 	public int countAll() {
 		Long total = aggregate(" select count(*) from "
 				+ this.getEntityClass().getSimpleName());
@@ -235,14 +279,14 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	}
 	
 	
-
+	
 	public Long countByHql(String hql, final Object... paramlist) {
 		Query query = getCurrentSession().createQuery(hql);
 		setParameters(query, paramlist);
 		return (Long) query.uniqueResult();
 	}
 
-
+	
 	@SuppressWarnings("unchecked")
 	public List<M> findByHQL(String hql, final Object... paramlist) {
 		Query query = getCurrentSession().createQuery(hql);
@@ -258,6 +302,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * @param paramlist
 	 * @return
 	 */
+	
 	public <T> List<T> findByHQL(final String hql, final PageBean pageBean,
 			final Class<T> clazz,final Object... paramlist) {
 		Query query = getCurrentSession().createQuery(hql);
@@ -280,6 +325,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * @param paramlist 查询语句的参数
 	 * @return
 	 */
+	
 	public <T> List<T> findByHQL(final String queryHql, final String countHql,final PageBean pageBean,
 			final Class<T> clazz,final Object... paramlist) {
 		Query query = getCurrentSession().createQuery(queryHql);
@@ -293,6 +339,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	}
 	
 	
+	
 	public <T> List<T> findByHQL(final String queryHql,
 			final Class<T> clazz,final Object... paramlist) {
 		Query query = getCurrentSession().createQuery(queryHql);
@@ -300,6 +347,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		List<T> results = query.list();
 		return results;
 	}
+	
 	
 	
 	public List findByHQLNotGeneric(final String queryHql,
@@ -317,6 +365,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * @param paramlist
 	 * @return
 	 */
+	
 	public  List<M> findByHQL(final String hql, final PageBean pageBean,
 			final Object... paramlist) {
 		Query query = getCurrentSession().createQuery(hql);
@@ -331,23 +380,26 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	}
 	
 	
+	
 	@SuppressWarnings("unchecked")
-	protected List<Object[]> findBySQL(final String sql,final Object... paramlist){
+	public List<Object[]> findBySQL(final String sql,final Object... paramlist){
 		Query query = getCurrentSession().createSQLQuery(sql);
 		setParameters(query, paramlist);
 		return query.list();
 	}
 
+	
 	@SuppressWarnings("unchecked")
-	protected <T> List<T> findBySQL(final String sql, Class<T> entityClass, final Object... paramlist) {
+	public <T> List<T> findBySQL(final String sql, Class<T> entityClass, final Object... paramlist) {
 		SQLQuery query = getCurrentSession().createSQLQuery(sql);
 		setParameters(query, paramlist);
 		query.addEntity(entityClass);
 		return query.list();
 	}
 
+	
 	@SuppressWarnings("unchecked")
-	protected List<Object[]> findByNamedQuery(String queryName,final Object... paramlist){
+	public List<Object[]> findByNamedQuery(String queryName,final Object... paramlist){
 		Query query = this.getCurrentSession().getNamedQuery(queryName);
 		setParameters(query, paramlist);
 		return query.list();
@@ -364,8 +416,9 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * @param paramlist
 	 * @return
 	 */
+	
 	@SuppressWarnings("unchecked")
-	protected <T> List<T> list(final String hql, final int firstResult,
+	public <T> List<T> list(final String hql, final int firstResult,
 			final int maxResult, final Object... paramlist) {
 		Query query = getCurrentSession().createQuery(hql);
 		setParameters(query, paramlist);
@@ -382,7 +435,8 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * @param paramlist
 	 * @return
 	 */
-	protected long getCount(String hql, Object... paramlist) {
+	
+	public long getCount(String hql, Object... paramlist) {
 		long result = -1;
 		List<?> list = findByHQL(hql, paramlist);
 		if (list != null && list.size() > 0) {
@@ -391,6 +445,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		return result;
 	}
 
+	
 	@SuppressWarnings("unchecked")
 	public <T> List<T> list(Criteria criteria) {
 		return criteria.list();
@@ -404,7 +459,8 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		getCurrentSession().clear();
 	}
 
-	protected List<M> listSelf(final String hql, final int pn,
+	
+	public List<M> listSelf(final String hql, final int pn,
 			final int pageSize, final Object... paramlist) {
 		return this.<M> list(hql, pn, pageSize, paramlist);
 	}
@@ -412,8 +468,9 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	/**
 	 * for in
 	 */
+	
 	@SuppressWarnings("unchecked")
-	protected <T> List<T> listWithIn(final String hql, final int start,
+	public <T> List<T> listWithIn(final String hql, final int start,
 			final int length, final Map<String, Collection<?>> map,
 			final Object... paramlist) {
 		Query query = getCurrentSession().createQuery(hql);
@@ -434,8 +491,9 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	/**
 	 * 根据查询条件返回唯一一条记录
 	 */
+	
 	@SuppressWarnings("unchecked")
-	protected <T> T unique(final String hql, final Object... paramlist) {
+	public <T> T unique(final String hql, final Object... paramlist) {
 		Query query = getCurrentSession().createQuery(hql);
 		setParameters(query, paramlist);
 		return (T) query.uniqueResult();
@@ -445,8 +503,9 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 * 
 	 * for in
 	 */
+	
 	@SuppressWarnings("unchecked")
-	protected <T> T aggregate(final String hql,
+	public <T> T aggregate(final String hql,
 			final Map<String, Collection<?>> map, final Object... paramlist) {
 		Query query = getCurrentSession().createQuery(hql);
 		if (paramlist != null) {
@@ -459,8 +518,9 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		return (T) query.uniqueResult();
 	}
 
+	
 	@SuppressWarnings("unchecked")
-	protected <T> T aggregate(final String hql, final Object... paramlist) {
+	public <T> T aggregate(final String hql, final Object... paramlist) {
 		Query query = getCurrentSession().createQuery(hql);
 		setParameters(query, paramlist);
 
@@ -471,7 +531,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	/**
 	 * 执行批处理语句.如 之间insert, update, delete 等.
 	 */
-	protected int executeBulk(final String hql, final Object... paramlist) {
+	public int executeBulk(final String hql, final Object... paramlist) {
 		Query query = getCurrentSession().createQuery(hql);
 		setParameters(query, paramlist);
 		Object result = query.executeUpdate();
@@ -486,8 +546,9 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		return result == null ? 0 : ((Integer) result).intValue();
 	}
 
+	
 	@SuppressWarnings("unchecked")
-	protected <T> T aggregateByNative(final String natvieSQL,
+	public <T> T aggregateByNative(final String natvieSQL,
 			final List<Entry<String, Type>> scalarList,
 			final Object... paramlist) {
 		SQLQuery query = getCurrentSession().createSQLQuery(natvieSQL);
@@ -501,21 +562,25 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		return (T) result;
 	}
 
+	
 	@SuppressWarnings("unchecked")
 	public <T> T unique(Criteria criteria) {
 		return (T) criteria.uniqueResult();
 	}
 
+	
 	public <T> List<T> list(DetachedCriteria criteria) {
 		return list(criteria.getExecutableCriteria(getCurrentSession()));
 	}
 
+	
 	@SuppressWarnings("unchecked")
 	public <T> T unique(DetachedCriteria criteria) {
 		return (T) unique(criteria.getExecutableCriteria(getCurrentSession()));
 	}
+	
 
-	protected void setParameters(Query query, Object[] paramlist) {
+	public void setParameters(Query query, Object[] paramlist) {
 		if (paramlist != null) {
 			for (int i = 0; i < paramlist.length; i++) {
 				if (paramlist[i] instanceof Date) {
@@ -536,7 +601,8 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		}
 	}
 	
-	protected List<Object[]> findBySqlable(String sql, Object...objects) {
+	
+	public List<Object[]> findBySqlable(String sql, Object...objects) {
 		SQLQuery query = this.getCurrentSession().createSQLQuery(sql);
 		for (int i = 0; i < objects.length; i++){
 			if(objects[i] != null){
@@ -546,6 +612,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		return query.list();
 	}
 
+	
 	@SuppressWarnings("unchecked")
 	public Class<M> getEntityClass() {
 		java.lang.reflect.Type type = getClass().getGenericSuperclass();
@@ -553,6 +620,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		return (Class<M>) (parameterizedType.getActualTypeArguments()[0]);
 	}
 
+	
 	public boolean isTableExist(String tableName) {
 		String sql = "select count(1) from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA=database() and table_name=?";
 		Query query = getCurrentSession().createSQLQuery(sql);
@@ -561,6 +629,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		return result.intValue() > 0;
 	}
 
+	
 	public boolean isViewExist(String viewName) {
 		String sql = "select count(1) from INFORMATION_SCHEMA.VIEWS WHERE TABLE_SCHEMA=database() and table_name=?";
 		Query query = getCurrentSession().createSQLQuery(sql);
@@ -569,7 +638,8 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		return result.intValue() > 0;
 	}
 	
-	protected String getNamedQueryString(String queryName) {
+	
+	public String getNamedQueryString(String queryName) {
 		Query query = this.getCurrentSession().getNamedQuery(queryName);
 		String queryString = query.getQueryString();
 		return queryString;

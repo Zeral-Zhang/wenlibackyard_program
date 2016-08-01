@@ -49,23 +49,29 @@ public class CarAction implements ICarAction {
 	}
 
 	@Action(value="add_Car", results={
-			@Result(name="success", location="shopcar.jsp", type="redirect")
+			@Result(name="success", location="/WEB-INF/shopcar.jsp", type="redirect"),
+			@Result(name="failed", location="/WEB-INF/error.jsp", type="redirect")
 	})
 	public String add() {
 		HttpServletRequest req = ServletActionContext.getRequest();
 		
-		MyCar car = (MyCar)req.getSession().getAttribute("mycar");
-		if(car == null) {
-			car = new MyCar();
-			req.getSession().setAttribute("mycar", car);
+		try {
+			MyCar car = (MyCar)req.getSession().getAttribute("mycar");
+			if(car == null) {
+				car = new MyCar();
+				req.getSession().setAttribute("mycar", car);
+			}
+			if(productId != null) {
+				Productinfo productinfo = bizs.getProductInfobiz().findDetail(productId);
+				Map<Integer,ShopCarItem> items = car.add(productinfo, num);
+				car.setItems(items);
+				car.sumPrice();
+				req.getSession().setAttribute("mycar", car);
+			}
+			return "success";
+		} catch (Exception e) {
+			return "failed";
 		}
-		if(productId != null) {
-			Productinfo productinfo = bizs.getProductInfobiz().findDetail(productId);
-			Map<Integer,ShopCarItem> items = car.add(productinfo, num);
-			car.setItems(items);
-			car.sumPrice();
-			req.getSession().setAttribute("mycar", car);
-		}
-		return "success";
+		
 	}
 }

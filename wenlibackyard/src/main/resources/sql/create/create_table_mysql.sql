@@ -95,6 +95,16 @@ CREATE TABLE `userinfo` (
   UNIQUE KEY `userId` (`userId`)
 );
 
+-- 创建区域地址表
+CREATE TABLE `regions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` int(50) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `p_code` int(50) DEFAULT NULL,
+  `level` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
 -- 创建基本配置表
 CREATE TABLE BASIC_CONFIG
 (
@@ -112,6 +122,6 @@ ALTER TABLE orderdetail ADD CONSTRAINT `fk_orderDetail_orderMainId` FOREIGN KEY 
 ALTER TABLE orderdetail ADD CONSTRAINT `fk_orderDetail_productId` FOREIGN KEY (`productId`) REFERENCES `productinfo` (`productId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE ordermain ADD CONSTRAINT `fk_orderMain_userId` FOREIGN KEY (`userId`) REFERENCES `userinfo` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE productinfo ADD CONSTRAINT `fk_procuctInfo_productTypeId` FOREIGN KEY (`productTypeId`) REFERENCES `producttype` (`productTypeId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-ALTER TABLE productinfo ADD　CONSTRAINT `fk_procuctInfo_userId` FOREIGN KEY (`userId`) REFERENCES `userinfo` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE productinfo ADD CONSTRAINT `fk_procuctInfo_userId` FOREIGN KEY (`userId`) REFERENCES `userinfo` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE userdetailinfo ADD CONSTRAINT `fk_userDetailInfo_schoolInfoId` FOREIGN KEY (`schoolInfoId`) REFERENCES `schoolinfo` (`schoolInfoId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE userdetailinfo ADD CONSTRAINT `fk_userDetailInfo_userId` FOREIGN KEY (`userId`) REFERENCES `userinfo` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT;

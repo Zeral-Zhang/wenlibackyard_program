@@ -2,6 +2,7 @@ package com.biz;
 
 import java.util.List;
 
+import com.bean.PageBean;
 import com.po.Productinfo;
 
 public interface IProductInfobBiz {
@@ -10,12 +11,12 @@ public interface IProductInfobBiz {
 	 * @param productinfo
 	 * @return
 	 */
-	boolean add(Productinfo productinfo);
+	boolean save(Productinfo productinfo);
 	
-	public List<Productinfo> findAll(int page, int rows);
+	public List<Productinfo> findAll(PageBean pageBean) throws Exception;
 	
-	public int findMaxPage(int rows);
+	public int findMaxPage(int rows) throws Exception;
 
-	public Productinfo findDetail(Integer productId);
+	public Productinfo findDetail(Integer productId) throws Exception;
 	
 }

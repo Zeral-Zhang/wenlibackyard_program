@@ -14,33 +14,35 @@ public interface IBasicConfigService {
 	/**
 	 * 保存一条系统配置信息
 	 * @param basicConfig 待保存对象
+	 * @throws Exception 
 	 */
-	void save(BasicConfig basicConfig);
+	void save(BasicConfig basicConfig) throws Exception;
 	
 	/**
 	 * 根据code删除一条数据
 	 * @param basicConfigId code值
+	 * @throws Exception 
 	 */
-	void delete(String basicConfigId);
+	void delete(String basicConfigId) throws Exception;
 
 	/**
 	 * 更新系统配置信息
 	 * @param basicConfig 待更新对象
 	 */
-	void update(BasicConfig basicConfig);
+	void update(BasicConfig basicConfig) throws Exception;
 	
 	/**
 	 * 保存或更新系统配置信息
 	 * @param basicConfig 待操作对象
 	 */
-	void saveOrUpdate(BasicConfig basicConfig);
+	void saveOrUpdate(BasicConfig basicConfig) throws Exception;
 	
 	/**
 	 * 根据id查询数据
 	 * @param id id值
 	 * @return 查询出的对象
 	 */
-	BasicConfig findById(String id);
+	BasicConfig findById(String id) throws Exception;
 	
 	
 	/**

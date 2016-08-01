@@ -19,4 +19,16 @@ public interface IUserAction {
 	 * @return
 	 */
 	public String update();
+	
+	/**
+	 * 初始化登陆
+	 * @return
+	 */
+	public String initLogin();
+	
+	/**
+	 * 初始化用户信息界面
+	 * @return
+	 */
+	public String initUserInfo();
 }

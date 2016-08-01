@@ -6,10 +6,12 @@ import java.util.TreeSet;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import com.biz.imp.ProductInfoBizImpl;
 import com.dao.BasicConfigDAO;
 import com.exception.BaseException;
 import com.po.BasicConfig;
@@ -19,6 +21,7 @@ import com.service.dao.DaoService;
 
 @Service("BasicConfigService")
 public class BasicConfigServiceImpl implements IBasicConfigService {
+	private static final Logger log = Logger.getLogger(BasicConfigServiceImpl.class);
 
 	@Resource(name = "DaoService")
 	private DaoService daos;
@@ -32,23 +35,52 @@ public class BasicConfigServiceImpl implements IBasicConfigService {
 	}
 	
 	
-	public void save(BasicConfig basicConfig) {
-		daos.getBasicConfigDAO().save(basicConfig);
+	public void save(BasicConfig basicConfig) throws Exception {
+		log.info("save BasicConfig "+ basicConfig.toString() +"");
+		try {
+			daos.getBasicConfigDAO().save(basicConfig);
+			log.info("add BasicConfig "+ basicConfig.toString() +" success");
+		} catch (Exception e) {
+			log.error("add BasicConfig "+ basicConfig.toString() +" failed", e);
+			throw new RuntimeException(e);
+		}
 	}
 
-	public void delete(String basicConfigId) {
-		daos.getBasicConfigDAO().deleteObject(findByCode(basicConfigId));
+	public void delete(String basicConfigId) throws Exception {
+		log.info("delete BasicConfig");
+		try {
+			daos.getBasicConfigDAO().deleteObject(findByCode(basicConfigId));
+			log.info("delete BasicConfig success");
+		} catch (Exception e) {
+			log.error("delete BasicConfig failed", e);
+			throw new RuntimeException(e);
+		}
 	}
 
-	public void update(BasicConfig basicConfig) {
-		daos.getBasicConfigDAO().update(basicConfig);
+	public void update(BasicConfig basicConfig) throws Exception {
+		log.info("update BasicConfig "+ basicConfig.toString() +"");
+		try {
+			daos.getBasicConfigDAO().update(basicConfig);
+			log.info("update BasicConfig "+ basicConfig.toString() +" success");
+		} catch (Exception e) {
+			log.error("update BasicConfig "+ basicConfig.toString() +" failed", e);
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public void saveOrUpdate(BasicConfig basicConfig) {
-		daos.getBasicConfigDAO().saveOrUpdate(basicConfig);
+		log.info("saveOrUpdate BasicConfig "+ basicConfig.toString() +"");
+		try {
+			daos.getBasicConfigDAO().saveOrUpdate(basicConfig);
+			log.info("saveOrUpdate BasicConfig "+ basicConfig.toString() +" success");
+		} catch (Exception e) {
+			log.error("saveOrUpdate BasicConfig "+ basicConfig.toString() +" failed", e);
+			throw new RuntimeException(e);
+		}
+		
 	}
 
-	public BasicConfig findById(String id) {
+	public BasicConfig findById(String id) throws Exception {
 		return daos.getBasicConfigDAO().findById(id);
 	}
 	

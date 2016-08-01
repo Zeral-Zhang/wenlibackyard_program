@@ -76,14 +76,34 @@
 		</property>
 	</bean>
 
+
 	<!-- 注入事物管理器 -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<!-- 注入注解支持的事物管理器 -->
+	
+	<!-- 采用aop切面方式geibiz层注入事物 -->
+<!-- 	 注入注解支持的事物管理器 
 	<tx:annotation-driven transaction-manager="transactionManager" />
-
+ -->
+ 	
+	<!-- 注入事务的传播属性，指定哪些方法需要使用事务 -->
+	<tx:advice id="txavd" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="del*" propagation="REQUIRED"/>
+			<tx:method name="find*" propagation="NOT_SUPPORTED"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 注入事务的切入点，指定哪些包和子包中的类需要使用事务 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* com.biz.*.* (..))" id="bizpoint"/>
+		<aop:advisor advice-ref="txavd" pointcut-ref="bizpoint"/>
+	</aop:config>
+	
 	<!-- ehcache缓存 -->
 	<bean id="cacheManager"
 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
