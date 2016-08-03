@@ -91,18 +91,17 @@
 	<!-- 注入事务的传播属性，指定哪些方法需要使用事务 -->
 	<tx:advice id="txavd" transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="get*" read-only="true" />
-			<tx:method name="find*" read-only="true" />
-			<tx:method name="is*" read-only="true"/>
-			<tx:method name="check*" read-only="true"/>
-			<tx:method name="systemInitialized" read-only="true"/>
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="del*" propagation="REQUIRED"/>
+			<tx:method name="find*" propagation="NOT_SUPPORTED"/>
 			<tx:method name="*" propagation="REQUIRED" rollback-for="Exception" />
 		</tx:attributes>
 	</tx:advice>
 	
 	<!-- 注入事务的切入点，指定哪些包和子包中的类需要使用事务 -->
 	<aop:config>
-		<aop:pointcut expression="execution(* com.service.*.* (..))" id="bizpoint"/>
+		<aop:pointcut expression="execution(* com.biz.*.* (..)) or execution(* com.service.*.*(..))" id="bizpoint"/>
 		<aop:advisor advice-ref="txavd" pointcut-ref="bizpoint"/>
 	</aop:config>
 	

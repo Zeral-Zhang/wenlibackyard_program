@@ -5,11 +5,9 @@
 		<sqlPath>sql/create/create_table_mysql.sql</sqlPath>
 		<sqlPath>sql/create/create_data_mysql.sql</sqlPath>
 		<!-- <procPath>sql/create/procedure/basic_upgrade_pro.sql</procPath> -->
-		
 	</createInfo>
-	<!-- 数据库版本更新 -->
+<!-- 	 数据库版本更新 
 	<updateInfo updateVersion="1.0">
-	
 		<sqlPath>sql/update/update_sql_1.0.sql</sqlPath>
-	</updateInfo>
+	</updateInfo> -->
 </databaseInitInfo>
