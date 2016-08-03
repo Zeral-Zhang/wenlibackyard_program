@@ -48,7 +48,7 @@ public class SystemInitService {
 					.getBean(beanName, SystemInitService.class);
 			initService.init(context);
 		} catch (Exception e) {
-			log.error(e.getMessage(), e);
+			log.error("初始化方法失败");
 		}
 	}
 
@@ -63,7 +63,7 @@ public class SystemInitService {
 					DatabaseInitInfo.class, "sql/DatabaseInitInfo.xml");
 			databaseInitService.initDatabase(databaseInitInfo);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			log.error("初始化数据库失败");
 		}
 	}
 
