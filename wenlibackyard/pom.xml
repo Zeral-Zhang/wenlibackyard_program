@@ -29,58 +29,14 @@
 		<ehcache.version>2.10.1</ehcache.version>
 		<ehcache-spring.version>1.2.0</ehcache-spring.version>
 	</properties>
-	<!-- 使用前请在maven配置文件中添加如下密码账户     <server>
-		<id>tomcat</id>
-		<username>bruce</username>
-		<password>bruce</password>
-	</server>
-	<server>
-		<id>releases</id>
-		<username>admin</username>
-		<password>rescue123</password>
-	</server>
-	<server>
-		<id>shiyue</id>
-		<username>admin</username>
-		<password>rescue123</password>
-	</server>
-	<server>
-		<id>shiyue-releases</id>
-		<username>admin</username>
-		<password>rescue123</password>
-	</server>
-	<server>
-		<id>shiyue-snapshots</id>
-		<username>admin</username>
-		<password>rescue123</password>
-	</server> -->
-	<!-- jar包仓库 -->
+
 	<repositories>
 		<repository>
-			<id>nexus</id>
+			<id>central</id>
+			<name>Human Readable Name for this Mirror.</name>
 			<url>http://139.196.26.227:8888/nexus-2.1.2/content/groups/public</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
 		</repository>
 	</repositories>
-
-	<!-- 插件仓库 -->
-	<pluginRepositories>
-		<pluginRepository>
-			<id>nexus</id>
-			<url>http://139.196.26.227:8888/nexus-2.1.2/content/groups/public</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
 
 	<dependencies>
 		<dependency>
