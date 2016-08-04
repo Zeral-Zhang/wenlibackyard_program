@@ -29,7 +29,7 @@
 		<ehcache.version>2.10.1</ehcache.version>
 		<ehcache-spring.version>1.2.0</ehcache-spring.version>
 	</properties>
-	
+
 	<repositories>
 		<repository>
 			<id>central</id>
@@ -267,6 +267,12 @@
 				<plugin>
 					<groupId>org.apache.tomcat.maven</groupId>
 					<artifactId>tomcat7-maven-plugin</artifactId>
+					<configuration>
+						<url>http://42.96.153.31:8080/manager/text</url>
+						<path>/${project.build.finalName}</path>
+						<username>Zeral</username>
+						<password>Zeral</password>
+					</configuration>
 					<version>2.2</version>
 				</plugin>
 				<!-- 资源文件编码 -->
