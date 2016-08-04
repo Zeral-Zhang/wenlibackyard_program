@@ -92,7 +92,7 @@ public class DatabaseInitServiceImpl implements IDatabaseInitService {
 	}
 
 	private void updateTables(List<DatabaseUpdateInfo> updateInfoList,
-			String initCode) throws Exception {
+			String initCode)  {
 		log.info("updateTables");
 		if (updateInfoList.isEmpty()) {
 			return;

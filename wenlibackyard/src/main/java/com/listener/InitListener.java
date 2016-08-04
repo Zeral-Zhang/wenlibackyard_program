@@ -22,7 +22,7 @@ public class InitListener implements ServletContextListener {
 		try {
 			SystemInitService.initialized("systemInitService", event.getServletContext());
 		} catch (Exception e) {
-			log.error(e.getMessage(), e);
+			log.error("初始化失败");
 		}
 	}
 	
