@@ -1,3 +1,4 @@
-*
-!/wenlibackyard/src/
+/*
+!.gitignore
+!/wenlibackyard/src/*
 !/wenlibackyard/pom.xml
