@@ -63,7 +63,7 @@ public class SystemInitService {
 					DatabaseInitInfo.class, "sql/DatabaseInitInfo.xml");
 			databaseInitService.initDatabase(databaseInitInfo);
 		} catch (Exception e) {
-			log.error("初始化数据库失败");
+			log.error("初始化数据库失败", e);
 		}
 	}
 
