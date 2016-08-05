@@ -28,8 +28,7 @@ public class RegionBizImpl implements IRegionBiz {
 			}
 			return null;
 		} catch (Exception e) {
-			log.error("findProvince exception", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("findProvince exception", e);
 		}
 	}
 	
@@ -42,8 +41,7 @@ public class RegionBizImpl implements IRegionBiz {
 			}
 			return null;
 		} catch (Exception e) {
-			log.error("findCitys exception", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("findCitys exception", e);
 		}
 	}
 

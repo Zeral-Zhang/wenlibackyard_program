@@ -55,8 +55,7 @@ public class OrderBizImpl implements IOrderBiz {
 			}
 			return null;
 		} catch (Exception e) {
-			log.error("findDetail exception "+ orderDetailId.toString() +"", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("findDetail exception "+ orderDetailId.toString() +"", e);
 		}
 		
 	}
@@ -73,8 +72,7 @@ public class OrderBizImpl implements IOrderBiz {
 			}
 			return null;
 		} catch (Exception e) {
-			log.error("findNewMain exception", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("findNewMain exception", e);
 		}
 	}
 
@@ -84,8 +82,7 @@ public class OrderBizImpl implements IOrderBiz {
 			List<Ordermain> mainlst = daos.getOrdermainDAO().findAllByUser(userId, pageBean);
 			return mainlst;
 		} catch (Exception e) {
-			log.error("findAllMain exception", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("findAllMain exception", e);
 		}
 	}
 

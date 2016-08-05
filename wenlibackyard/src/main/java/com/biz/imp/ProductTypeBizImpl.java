@@ -26,8 +26,7 @@ public class ProductTypeBizImpl implements IProductTypeBiz {
 			}
 			return null;
 		} catch (Exception e) {
-			log.error("initProuctType exception", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("initProuctType exception", e);
 		}
 	}
 

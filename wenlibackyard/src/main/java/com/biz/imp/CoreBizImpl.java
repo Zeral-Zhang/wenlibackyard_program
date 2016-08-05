@@ -51,11 +51,9 @@ public class CoreBizImpl implements ICoreBiz {
 				
 			}
 		} catch (UnsupportedEncodingException e) {
-			log.error("valid url UnsupportedEncodingException", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("valid url UnsupportedEncodingException", e);
 		} catch (IOException e) {
-			log.error("valid url IOException", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("valid url IOException", e);
 		}
 	}
 
@@ -121,8 +119,7 @@ public class CoreBizImpl implements ICoreBiz {
 				responseText("你的请求类型暂时无法处理，请尝试其它方式 /::) /::) /::)");
 			}
 		} catch (Exception e) {
-			log.error("process msg exception", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("process msg exception", e);
 		}
 	}
 	
@@ -144,14 +141,11 @@ public class CoreBizImpl implements ICoreBiz {
 			response.getWriter().write(
 					new String(str.getBytes("UTF-8"), "ISO8859-1"));
 		} catch (UnsupportedEncodingException e) {
-			log.error("response msg UnsupportedEncodingException", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("response msg UnsupportedEncodingException", e);
 		} catch (IOException e) {
-			log.error("response msg IOException", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("response msg IOException", e);
 		} catch (Exception e) {
-			log.error("response msg Exception", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("response msg Exception", e);
 		}
 	}
 }

@@ -46,8 +46,7 @@ public class ProductInfoBizImpl implements IProductInfobBiz {
 		try {
 			return daos.getProductinfoDAO().findAll(pageBean);
 		} catch (Exception e) {
-			log.error("findAll Productinfo exception", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("findAll Productinfo exception", e);
 		}
 	}
 
@@ -57,8 +56,7 @@ public class ProductInfoBizImpl implements IProductInfobBiz {
 		try {
 			return daos.getProductinfoDAO().findMaxPage(rows);
 		} catch (Exception e) {
-			log.error("findMaxPage Productinfo exception", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("findMaxPage Productinfo exception", e);
 		}
 	}
 
@@ -71,8 +69,7 @@ public class ProductInfoBizImpl implements IProductInfobBiz {
 			}
 			return null;
 		} catch (Exception e) {
-			log.error("findDetail Productinfo exception", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("findDetail Productinfo exception", e);
 		}
 	}
 

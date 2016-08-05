@@ -24,8 +24,7 @@ public class UserBizImpl implements IUserBiz {
 			Userinfo userInfo = daos.getUserdao().findById(userId);
 			return userInfo;
 		} catch (Exception e) {
-			log.error("login exception", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("login exception", e);
 		}
 	}
 
@@ -81,8 +80,7 @@ public class UserBizImpl implements IUserBiz {
 			daos.getUserdao().saveOrUpdate(oldUser);
 			log.info("upate userinfo "+ userInfo.toString() +" success");
 		} catch (Exception e) {
-			log.error("upate userinfo "+ userInfo.toString() +" failed", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("upate userinfo "+ userInfo.toString() +" failed", e);
 		}
 	}
 
@@ -96,8 +94,7 @@ public class UserBizImpl implements IUserBiz {
 			}
 			return value;
 		} catch (NumberFormatException e) {
-			log.error("getNameFromCodee userinfo", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("getNameFromCodee userinfo", e);
 		}
 	}
 }

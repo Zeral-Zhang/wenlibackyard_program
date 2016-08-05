@@ -1,19 +1,13 @@
 package com.service.impl;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.TreeSet;
 
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import com.biz.imp.ProductInfoBizImpl;
-import com.dao.BasicConfigDAO;
-import com.exception.BaseException;
 import com.po.BasicConfig;
 import com.service.IBasicConfigService;
 import com.service.dao.DaoService;
@@ -41,8 +35,7 @@ public class BasicConfigServiceImpl implements IBasicConfigService {
 			daos.getBasicConfigDAO().save(basicConfig);
 			log.info("add BasicConfig "+ basicConfig.toString() +" success");
 		} catch (Exception e) {
-			log.error("add BasicConfig "+ basicConfig.toString() +" failed", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("add BasicConfig "+ basicConfig.toString() +" failed", e);
 		}
 	}
 
@@ -52,8 +45,7 @@ public class BasicConfigServiceImpl implements IBasicConfigService {
 			daos.getBasicConfigDAO().deleteObject(findByCode(basicConfigId));
 			log.info("delete BasicConfig success");
 		} catch (Exception e) {
-			log.error("delete BasicConfig failed", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("delete BasicConfig failed", e);
 		}
 	}
 
@@ -63,8 +55,7 @@ public class BasicConfigServiceImpl implements IBasicConfigService {
 			daos.getBasicConfigDAO().update(basicConfig);
 			log.info("update BasicConfig "+ basicConfig.toString() +" success");
 		} catch (Exception e) {
-			log.error("update BasicConfig "+ basicConfig.toString() +" failed", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("update BasicConfig "+ basicConfig.toString() +" failed", e);
 		}
 	}
 	
@@ -74,8 +65,7 @@ public class BasicConfigServiceImpl implements IBasicConfigService {
 			daos.getBasicConfigDAO().saveOrUpdate(basicConfig);
 			log.info("saveOrUpdate BasicConfig "+ basicConfig.toString() +" success");
 		} catch (Exception e) {
-			log.error("saveOrUpdate BasicConfig "+ basicConfig.toString() +" failed", e);
-			throw new RuntimeException(e);
+			throw new RuntimeException("saveOrUpdate BasicConfig "+ basicConfig.toString() +" failed", e);
 		}
 		
 	}
@@ -87,7 +77,7 @@ public class BasicConfigServiceImpl implements IBasicConfigService {
 	public String findValueById(String basicConfigId) {
 		BasicConfig basicConfig = findByCode(basicConfigId);
 		if(basicConfig == null){
-			throw new BaseException("Not find BasicConfig by id:"+basicConfigId);
+			throw new RuntimeException("Not find BasicConfig by id:"+basicConfigId);
 		}
 		return basicConfig.getValue();
 	}
