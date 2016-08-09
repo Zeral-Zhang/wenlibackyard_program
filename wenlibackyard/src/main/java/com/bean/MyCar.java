@@ -35,8 +35,14 @@ public class MyCar {
 	
 	public Map<Integer, ShopCarItem> add(Productinfo product,int num){
 		ShopCarItem sc = items.get(product.getProductId());
-		if(sc!=null){
-			sc.setNum(sc.getNum()+num);
+		if(null != sc){
+			if(sc.getNum() == 1 && num < 0) {
+				sc.setNum(1);
+			} else if(sc.getNum()+num > product.getNumber()) {
+				sc.setNum(product.getNumber());
+			} else {
+				sc.setNum(sc.getNum()+num);
+			}
 			sc.setPrice(sc.getNum()*product.getPrice());
 		}else{
 			ShopCarItem shopcar = new ShopCarItem();

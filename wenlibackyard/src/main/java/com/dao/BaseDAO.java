@@ -55,8 +55,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		try {
 			getCurrentSession().save(model);
 		} catch (Exception e) {
-			log.debug("save failed");
-			throw new RuntimeException(e);
+			log.debug("save failed", e);
 		}
 	}
 
@@ -64,8 +63,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		try {
 			getCurrentSession().saveOrUpdate(model);
 		} catch (Exception e) {
-			log.debug("saveOrUpdate failed");
-			throw new RuntimeException(e);
+			log.debug("saveOrUpdate failed", e);
 		}
 	}
 
@@ -73,8 +71,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		try {
 			getCurrentSession().update(model);
 		} catch (Exception e) {
-			log.debug("update failed");
-			throw new RuntimeException(e);
+			log.debug("update failed", e);
 		}
 	}
 
@@ -82,8 +79,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		try {
 			getCurrentSession().merge(model);
 		} catch (Exception e) {
-			log.debug("merge failed");
-			throw new RuntimeException(e);
+			log.debug("merge failed", e);
 		}
 	}
 
@@ -91,8 +87,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		try {
 			getCurrentSession().delete(this.findById(id));
 		} catch (Exception e) {
-			log.debug("delete failed");
-			throw new RuntimeException(e);
+			log.debug("delete failed", e);
 		}
 	}
 
@@ -100,8 +95,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		try {
 			getCurrentSession().delete(model);
 		} catch (Exception e) {
-			log.debug("deleteobject failed");
-			throw new RuntimeException(e);
+			log.debug("deleteobject failed", e);
 		}
 	}
 
@@ -382,7 +376,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<Object[]> findBySQL(final String sql,final Object... paramlist){
+	public <T> List<T> findBySQL(final String sql,final Object... paramlist){
 		Query query = getCurrentSession().createSQLQuery(sql);
 		setParameters(query, paramlist);
 		return query.list();

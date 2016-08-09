@@ -12,7 +12,7 @@ import com.bean.ComplexButton;
 import com.bean.Menu;
 
 /**
- * @author Zeral_Zhang
+ * @author Zeral
  *
  */
 public class MenuCreateUtil {
@@ -22,19 +22,19 @@ public class MenuCreateUtil {
 	public static void main(String[] args) {
 		Properties prop = PropertiesConfigUtil
 				.getProperties("account.properties");
-		// µ÷ÓÃ½Ó¿Ú»ñÈ¡ access_token
+		// ï¿½ï¿½ï¿½Ã½Ó¿Ú»ï¿½È¡ access_token
 		AccessToken at = HttpsUtil.getAccessToken(prop.getProperty("appid"),
 				prop.getProperty("appsecret"));
 
 		if (null != at) {
-			// µ÷ÓÃ½Ó¿Ú´´½¨²Ëµ¥
+			// ï¿½ï¿½ï¿½Ã½Ó¿Ú´ï¿½ï¿½ï¿½ï¿½Ëµï¿½
 			int result = HttpsUtil.createMenu(getMenu(), at.getToken());
 
-			// ÅÐ¶Ï²Ëµ¥´´½¨½á¹û
+			// ï¿½Ð¶Ï²Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (0 == result) {
-				log.info("²Ëµ¥´´½¨³É¹¦£¡");
+				log.info("ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½");
 			} else {
-				log.info("²Ëµ¥´´½¨Ê§°Ü£¬´íÎóÂë£º{}", result);
+				log.info("ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£º{}", result);
 			}
 		}
 
@@ -42,56 +42,56 @@ public class MenuCreateUtil {
 
 	private static Menu getMenu() {
 		CommenButton btn11 = new CommenButton();
-		btn11.setName("¾ÉÎï³öÊÛ");
+		btn11.setName("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		btn11.setType("click");
 		btn11.setKey("11");
 
 		CommenButton btn12 = new CommenButton();
-		btn12.setName("·ÖÀà²éÑ¯");
+		btn12.setName("ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯");
 		btn12.setType("click");
 		btn12.setKey("12");
 
 		CommenButton btn13 = new CommenButton();
-		btn13.setName("½øÈëºóÔº");
+		btn13.setName("ï¿½ï¿½ï¿½ï¿½ï¿½Ôº");
 		btn13.setType("click");
 		btn13.setType("view");
 		btn13.setUrl("http://wenlibackyard.ngrok.natapp.cn/wenlibackyard/list.jsp");
 
 		CommenButton btn21 = new CommenButton();
-		btn21.setName("ÎÒµÄ¶©µ¥");
+		btn21.setName("ï¿½ÒµÄ¶ï¿½ï¿½ï¿½");
 		btn21.setType("click");
 		btn21.setKey("21");
 
 		CommenButton btn22 = new CommenButton();
-		btn22.setName("ÎÒµÄÊÕ²Ø");
+		btn22.setName("ï¿½Òµï¿½ï¿½Õ²ï¿½");
 		btn22.setType("click");
 		btn22.setKey("22");
 
 		CommenButton btn23 = new CommenButton();
-		btn23.setName("·¢²¼ÉÌÆ·");
+		btn23.setName("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·");
 		btn23.setType("click");
 		btn23.setKey("23");
 
 		CommenButton btn31 = new CommenButton();
-		btn31.setName("ÍÅ¶Ó½éÉÜ");
+		btn31.setName("ï¿½Å¶Ó½ï¿½ï¿½ï¿½");
 		btn31.setType("click");
 		btn31.setKey("31");
 
 		CommenButton btn32 = new CommenButton();
-		btn32.setName("Òâ¼û½¨Òé");
+		btn32.setName("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		btn32.setType("click");
 		btn32.setKey("32");
 
 		ComplexButton mainBtn1 = new ComplexButton();
-		mainBtn1.setName("ÎÄÀíºóÔº");
+		mainBtn1.setName("ï¿½ï¿½ï¿½ï¿½ï¿½Ôº");
 		mainBtn1.setSub_button(new CommenButton[] { btn11, btn12, btn13 });
 
 		ComplexButton mainBtn2 = new ComplexButton();
-		mainBtn2.setName("ÎÒµÄºóÔº");
+		mainBtn2.setName("ï¿½ÒµÄºï¿½Ôº");
 		mainBtn2.setSub_button(new CommenButton[] { btn21, btn22, btn23 });
 
 		ComplexButton mainBtn3 = new ComplexButton();
-		mainBtn3.setName("¹ØÓÚÎÒÃÇ");
+		mainBtn3.setName("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		mainBtn3.setSub_button(new CommenButton[] { btn31, btn32 });
 
 		Menu menu = new Menu();

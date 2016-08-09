@@ -25,11 +25,18 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "ordermain", catalog = "wenlibackyard")
 public class Ordermain implements java.io.Serializable {
+	public static final int UN_HANDLE = 0;
+	public static final int HANDLED = 1;
+	public static final int HAS_PRESS = 2;
+	public static final int HAS_CHECKED = 3;
 
 	// Fields
 
 	private Integer orderMainId;
 	private Userinfo userinfo;
+	/**
+	 * 销售单状态（0-未处理，1-已处理，2-以发货，3-已收货）
+	 */
 	private Integer state;
 	private Date buyDate;
 	private Date payDate;

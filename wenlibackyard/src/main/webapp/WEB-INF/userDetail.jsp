@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<body>
 		<div data-role="page" data-theme="a" id="userdetail" data-title="用户详情">
 			<div data-role="header" data-position="fixed" data-theme="a">
-				<a href="userInfo.jsp"  class="ui-btn ui-btn-left ui-alt-icon ui-nodisc-icon ui-corner-all ui-btn-icon-notext ui-icon-carat-l">返回</a>
+				<a href="userInfo"  class="ui-btn ui-btn-left ui-alt-icon ui-nodisc-icon ui-corner-all ui-btn-icon-notext ui-icon-carat-l">返回</a>
 				<a href="#updateUserDetail" class="ui-btn ui-icon-gear ui-btn-icon-right">修改</a>
 				<h2>用户详情</h2>
 			</div><!-- /header -->
@@ -133,7 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		<div data-role="page" data-theme="a" id="updateUserDetail" data-title="信息修改">
 			<div data-role="header" data-position="fixed" data-theme="a">
-				<a href="./userInfo.jsp" data-rel="back" class="ui-btn ui-btn-left ui-alt-icon ui-nodisc-icon ui-corner-all ui-btn-icon-notext ui-icon-carat-l">返回</a>
+				<a href="#userdetail" data-rel="back" class="ui-btn ui-btn-left ui-alt-icon ui-nodisc-icon ui-corner-all ui-btn-icon-notext ui-icon-carat-l">返回</a>
 				<h2>信息修改</h2>
 			</div><!-- /header -->
 			<div class="ui-content" role="main">

@@ -29,8 +29,7 @@ CREATE TABLE `ordermain` (
   `confirmDate` date DEFAULT NULL COMMENT '确认日期',
   `sumPrice` float DEFAULT '0' COMMENT '总价',
   `context` varchar(50) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`orderMainId`),
-  UNIQUE KEY `userId` (`userId`)
+  PRIMARY KEY (`orderMainId`)
 );
 
 -- 创建商品编号表

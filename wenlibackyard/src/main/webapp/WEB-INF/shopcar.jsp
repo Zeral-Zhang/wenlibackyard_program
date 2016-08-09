@@ -1,5 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>  
 <%
 String path = request.getContextPath();
@@ -54,7 +53,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</tr>
 								</thead>
 								<s:iterator value="#session.mycar.items" id="productId">
-									<tr class="rem1">
+									<tr class="rem1" id="<s:property value="#productId.key"/>">
+										<input value="<s:property value="value.product.price"/>" type="hidden">
 										<td class="invert-closeb">
 										<div class="rem">
 											<div class="close1"></div>
@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="checkout-left">
 
 							<div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
-								<a href="productList.jsp" rel="external"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>继续购物</a>
+								<a href="productList" rel="external"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>继续购物</a>
 							</div>
 							<div class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
 								<h4>购物清单</h4>
@@ -111,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<p>
 						商品详情
 					</p>
-					<a href="add_Order.action" class="ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-shadow ui-btn-icon-left ui-icon-check">购买: ￥${sessionScope.mycar.sumPrice}</a>
+					<a href="add_Order.action" rel="external" class="ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-shadow ui-btn-icon-left ui-icon-check">购买: ￥${sessionScope.mycar.sumPrice}</a>
 					<a href="javascript:;" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow" data-rel="back">取消</a>
 				</div>
 
@@ -127,25 +127,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- cart -->
 	<script src="js/simpleCart.min.js"></script>
 	<!-- cart -->
+	<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
 	<!-- for bootstrap working -->
 	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$('.close1').on('click', function() {
-				$('.rem1').fadeOut('slow', function() {
-					$('.rem1').remove();
-				});
+				var productId = $(this).closest(".rem1").attr("id");
+				$.ajax({
+					   type: "get",
+					   url: "${pageContext.request.contextPath}/removeFromCar.action",
+					   data: "productId="+ productId,
+					   success: function(msg){
+						   $('#'+productId).fadeOut('slow', function() {
+								 $('#'+productId).remove();
+							});
+					   }
+					});
 			});
 		/*--quantity--*/
 			$('.value-plus').on('click', function() {
+				var productId = $(this).closest(".rem1").attr("id");
 				var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) + 1;
-				divUpd.text(newVal);
+				$.ajax({
+					   type: "get",
+					   url: "${pageContext.request.contextPath}/changeQuantity.action",
+					   data: "productId="+ productId + "&num=1",
+					   success: function(msg){
+						   divUpd.text(newVal);
+					   }
+					});
 			});
 
 			$('.value-minus').on('click', function() {
+				var productId = $(this).closest(".rem1").attr("id");
 				var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) - 1;
 				if (newVal >= 1)
-					divUpd.text(newVal);
+					$.ajax({
+						   type: "get",
+						   url: "${pageContext.request.contextPath}/changeQuantity.action",
+						   data: "productId="+ productId + "&num=-1",
+						   success: function(msg){
+								divUpd.text(newVal);
+						   }
+						});
 			});
 		/*--//quantity--*/
 		});

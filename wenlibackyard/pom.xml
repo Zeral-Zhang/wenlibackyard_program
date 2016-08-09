@@ -14,7 +14,6 @@
 		<spring.simple-xml.version>2.6.7</spring.simple-xml.version>
 		<hibernate.version>4.3.8.Final</hibernate.version>
 		<struts2.version>2.3.20</struts2.version>
-		<gson.version>2.2.4</gson.version>
 		<dom4j.version>1.6.1</dom4j.version>
 		<spring.simple-xml.version>2.6.7</spring.simple-xml.version>
 		<c3p0.version>0.9.1.2</c3p0.version>
@@ -202,12 +201,6 @@
 			<version>${jstl.version}</version>
 		</dependency>
 
-		<!-- gson -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>${gson.version}</version>
-		</dependency>
 
 		<!-- xstream -->
 		<dependency>
@@ -272,6 +265,7 @@
 						<path>/${project.build.finalName}</path>
 						<username>Zeral</username>
 						<password>Zeral</password>
+						<uriEncoding>UTF-8</uriEncoding>
 					</configuration>
 					<version>2.2</version>
 				</plugin>

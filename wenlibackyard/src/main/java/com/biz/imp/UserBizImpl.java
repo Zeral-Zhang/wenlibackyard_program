@@ -24,7 +24,8 @@ public class UserBizImpl implements IUserBiz {
 			Userinfo userInfo = daos.getUserdao().findById(userId);
 			return userInfo;
 		} catch (Exception e) {
-			throw new RuntimeException("login exception", e);
+			log.error("find userinfo failed", e);
+			throw new RuntimeException("login exception");
 		}
 	}
 
@@ -34,7 +35,7 @@ public class UserBizImpl implements IUserBiz {
 		try {
 			Userinfo oldUser = daos.getUserdao().findById(userInfo.getUserId());
 			Userdetailinfo userdetailinfo = oldUser.getUserdetailinfo();
-			if(userdetailinfo == null) {
+			if(null == userdetailinfo) {
 				userdetailinfo = new Userdetailinfo();
 				userdetailinfo.setUserTel(userInfo.getUserdetailinfo().getUserTel());
 				userdetailinfo.setUserAge(userInfo.getUserdetailinfo().getUserAge());
@@ -44,9 +45,9 @@ public class UserBizImpl implements IUserBiz {
 				// 保存用户id到用户详细信息表中
 				userdetailinfo.setUserinfo(oldUser);
 				daos.getUserdetailinfoDAO().save(userdetailinfo);
-				List<Object[]> objlst = daos.getUserdetailinfoDAO().findBySQL("SELECT MAX(userDetailId) FROM userdetailinfo");
+				List<Integer> objlst = daos.getUserdetailinfoDAO().findBySQL("SELECT MAX(userDetailId) FROM userdetailinfo");
 				int id = -1;
-				if(objlst != null) id = (Integer) objlst.get(0)[0]; 
+				if(objlst != null) id = objlst.get(0); 
 				oldUser.setUserdetailinfo(daos.getUserdetailinfoDAO().findById(id));
 			} else {
 				userdetailinfo.setUserTel(userInfo.getUserdetailinfo().getUserTel());
@@ -58,7 +59,7 @@ public class UserBizImpl implements IUserBiz {
 			}
 			
 			Schoolinfo schoolinfo = oldUser.getUserdetailinfo().getSchoolinfo();
-			if(schoolinfo == null) {
+			if(null == schoolinfo) {
 				schoolinfo = new Schoolinfo();
 				schoolinfo.setCollege(userInfo.getUserdetailinfo().getSchoolinfo().getCollege());
 				schoolinfo.setDepartment(userInfo.getUserdetailinfo().getSchoolinfo().getDepartment());
@@ -66,9 +67,9 @@ public class UserBizImpl implements IUserBiz {
 				schoolinfo.setClasses(userInfo.getUserdetailinfo().getSchoolinfo().getClasses());
 				// 保存院校id到用户详细信息中
 				daos.getSchoolinfoDAO().save(schoolinfo);
-				List<Object[]> objlst = daos.getSchoolinfoDAO().findBySQL("SELECT MAX(schoolInfoId) FROM schoolinfo");
+				List<Integer> objlst = daos.getSchoolinfoDAO().findBySQL("SELECT MAX(schoolInfoId) FROM schoolinfo");
 				int id = -1;
-				if(objlst != null) id = (Integer) objlst.get(0)[0]; 
+				if(objlst != null) id = objlst.get(0); 
 				oldUser.getUserdetailinfo().setSchoolinfo(daos.getSchoolinfoDAO().findById(id));
 			} else {
 				schoolinfo.setCollege(userInfo.getUserdetailinfo().getSchoolinfo().getCollege());
@@ -80,7 +81,8 @@ public class UserBizImpl implements IUserBiz {
 			daos.getUserdao().saveOrUpdate(oldUser);
 			log.info("upate userinfo "+ userInfo.toString() +" success");
 		} catch (Exception e) {
-			throw new RuntimeException("upate userinfo "+ userInfo.toString() +" failed", e);
+			log.error("upate userinfo "+ userInfo.toString() +" failed", e);
+			throw new RuntimeException("upate userinfo "+ userInfo.toString() +" failed");
 		}
 	}
 
@@ -94,6 +96,7 @@ public class UserBizImpl implements IUserBiz {
 			}
 			return value;
 		} catch (NumberFormatException e) {
+			log.error("findNameFromCode failed", e);
 			throw new RuntimeException("getNameFromCodee userinfo", e);
 		}
 	}

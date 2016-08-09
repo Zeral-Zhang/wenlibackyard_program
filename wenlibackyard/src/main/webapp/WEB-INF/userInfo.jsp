@@ -7,7 +7,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
 <meta charset="utf-8" />
 <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<ul data-role="listview" data-inset="false">
 				<li data-icon="false">
 					</br> 
-					<a href="userDetail.jsp" rel="external"> 
+					<a href="userDetail" rel="external"> 
 						<img src="${sessionScope.userInfo.userHeadImgUrl}" alt="用户头像">
 						<h2>${sessionScope.userInfo.userNickName}</h2>
 						<p>${sessionScope.userInfo.userId}</p>
@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</li>
 				</br>
 				<li>
-					<a href="productAdd.jsp" rel="external" class="ui-btn ui-icon-heart ui-btn-icon-left">添加商品</a> 
+					<a href="productAdd" rel="external" class="ui-btn ui-icon-heart ui-btn-icon-left">添加商品</a> 
 					</br>
 				</li>
 				<li>

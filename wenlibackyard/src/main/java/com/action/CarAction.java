@@ -3,9 +3,8 @@ package com.action;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
@@ -15,15 +14,91 @@ import com.bean.MyCar;
 import com.bean.ShopCarItem;
 import com.po.Productinfo;
 import com.service.biz.BizService;
+import com.util.WebUtil;
 
 @Controller
 @Namespace("/")
 public class CarAction implements ICarAction {
-	@Resource(name="BizService")
+	@Resource(name = "BizService")
 	private BizService bizs;
 	private Integer productId;
 	private Integer num;
-	
+
+	@Action(value = "add_Car", results = { @Result(name = "success", location = "shopCar", type = "redirect"),
+			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
+	public String add() {
+		HttpSession session = WebUtil.getSession();
+		try {
+			MyCar car = (MyCar) session.getAttribute("mycar");
+			if (car == null) {
+				car = new MyCar();
+				WebUtil.getSession().setAttribute("mycar", car);
+			}
+			if (productId != null) {
+				Productinfo productinfo = bizs.getProductInfobiz().findDetail(productId);
+				Map<Integer, ShopCarItem> items = car.add(productinfo, num);
+				car.setItems(items);
+				car.sumPrice();
+				session.setAttribute("mycar", car);
+			}
+			return "success";
+		} catch (Exception e) {
+			return "failed";
+		}
+
+	}
+
+	@Action(value = "shopCar", results = { 
+			@Result(name = "success", location = "/WEB-INF/shopcar.jsp"),
+			@Result(name = "failed", location = "/WEB-INF/error.jsp") 
+		})
+	public String initShopCar() {
+		return "success";
+	}
+
+	@Action(value = "removeFromCar")
+	@Override
+	public void removeFromCar() {
+		HttpSession session = WebUtil.getSession();
+		try {
+			MyCar car = (MyCar) session.getAttribute("mycar");
+			if (car == null) {
+				WebUtil.sendInfoMsg("购物车为空");
+				return;
+			}
+			if (productId != null) {
+				Map<Integer, ShopCarItem> items = car.remove(productId);
+				car.setItems(items);
+				car.sumPrice();
+				session.setAttribute("mycar", car);
+			}
+		} catch (Exception e) {
+			WebUtil.sendErrorMsg("删除商品出错");
+		}
+	}
+
+	@Action(value = "changeQuantity")
+	@Override
+	public void changeQuantity() {
+		HttpSession session = WebUtil.getSession();
+		try {
+			MyCar car = (MyCar) session.getAttribute("mycar");
+			if (car == null) {
+				WebUtil.sendInfoMsg("购物车为空");
+				return;
+			}
+			if (productId != null) {
+				Productinfo product = bizs.getProductInfobiz().findDetail(productId);
+				Map<Integer, ShopCarItem> items = car.add(product, num);
+				car.setItems(items);
+				car.sumPrice();
+				session.setAttribute("mycar", car);
+			}
+		} catch (Exception e) {
+			WebUtil.sendErrorMsg("修改商品数量出错");
+		}
+	}
+
 	public Integer getProductId() {
 		return productId;
 	}
@@ -40,38 +115,4 @@ public class CarAction implements ICarAction {
 		this.num = num;
 	}
 
-	public BizService getBizs() {
-		return bizs;
-	}
-
-	public void setBizs(BizService bizs) {
-		this.bizs = bizs;
-	}
-
-	@Action(value="add_Car", results={
-			@Result(name="success", location="/WEB-INF/shopcar.jsp", type="redirect"),
-			@Result(name="failed", location="/WEB-INF/error.jsp", type="redirect")
-	})
-	public String add() {
-		HttpServletRequest req = ServletActionContext.getRequest();
-		
-		try {
-			MyCar car = (MyCar)req.getSession().getAttribute("mycar");
-			if(car == null) {
-				car = new MyCar();
-				req.getSession().setAttribute("mycar", car);
-			}
-			if(productId != null) {
-				Productinfo productinfo = bizs.getProductInfobiz().findDetail(productId);
-				Map<Integer,ShopCarItem> items = car.add(productinfo, num);
-				car.setItems(items);
-				car.sumPrice();
-				req.getSession().setAttribute("mycar", car);
-			}
-			return "success";
-		} catch (Exception e) {
-			return "failed";
-		}
-		
-	}
 }

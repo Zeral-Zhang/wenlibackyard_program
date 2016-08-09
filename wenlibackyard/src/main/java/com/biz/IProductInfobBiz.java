@@ -11,7 +11,7 @@ public interface IProductInfobBiz {
 	 * @param productinfo
 	 * @return
 	 */
-	boolean save(Productinfo productinfo);
+	public boolean save(Productinfo productinfo);
 	
 	public List<Productinfo> findAll(PageBean pageBean) throws Exception;
 	
@@ -19,4 +19,5 @@ public interface IProductInfobBiz {
 
 	public Productinfo findDetail(Integer productId) throws Exception;
 	
+	public boolean update(Productinfo productinfo);
 }

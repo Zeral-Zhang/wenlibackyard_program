@@ -11,10 +11,10 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * ¶Ôaccount.propertiesÎÄµµÄÚÈÝµÄ²Ù×÷Àà
- * »ñÈ¡Î¢ÐÅappid¡¢appsecret¡¢token¡¢account
+ * ï¿½ï¿½account.propertiesï¿½Äµï¿½ï¿½ï¿½ï¿½ÝµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½
+ * ï¿½ï¿½È¡Î¢ï¿½ï¿½appidï¿½ï¿½appsecretï¿½ï¿½tokenï¿½ï¿½account
  * 
- * @author Zeral_Zhang
+ * @author Zeral
  *
  */
 public class PropertiesConfigUtil {

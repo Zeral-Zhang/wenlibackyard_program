@@ -1,11 +1,8 @@
 package com.action;
 
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Properties;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -31,11 +28,16 @@ public class UserAction implements IUserAction {
 	@Resource(name = "BizService")
 	private BizService biz;
 
-	@Action(value = "userLogin", results = { @Result(name = "success", location = "/WEB-INF/userLogin.jsp", type = "dispatcher"), })
+	@Action(value = "userLogin", results = { @Result(name = "success", location = "/WEB-INF/userLogin.jsp") })
 	public String initLogin() {
 		return "success";
 	}
-
+	
+	@Action(value = "userDetail", results = { @Result(name = "success", location = "/WEB-INF/userDetail.jsp") })
+	public String initUserDetail() {
+		return "success";
+	}
+	
 	@Action(value = "login_User")
 	public void login() {
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -76,8 +78,8 @@ public class UserAction implements IUserAction {
 	}
 
 	@Action(value = "update_User", results = {
-			@Result(name = "success", location = "/WEB-INF/userDetail.jsp", type = "redirect"),
-			@Result(name = "failed", location = "/WEB-INF/error.jsp", type = "redirect") })
+			@Result(name = "success", location = "/WEB-INF/userDetail.jsp"),
+			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
 	public String update() {
 		try {
 			// 设置用户语言信息

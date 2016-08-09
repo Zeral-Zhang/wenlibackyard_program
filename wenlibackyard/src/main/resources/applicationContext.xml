@@ -72,6 +72,7 @@
 				<value>com.po.Userinfo</value>
 				<value>com.po.Orderdetail</value>
 				<value>com.po.BasicConfig</value>
+				<value>com.po.Regions</value>
 			</list>
 		</property>
 	</bean>

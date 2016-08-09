@@ -19,11 +19,11 @@ import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 
 import com.bean.PageBean;
-import com.google.gson.Gson;
 import com.po.Productinfo;
 import com.po.Producttype;
 import com.po.Userinfo;
 import com.service.biz.BizService;
+import com.util.WebUtil;
 
 @Controller
 @Namespace("/")
@@ -34,50 +34,23 @@ public class ProductAction implements IProductAction {
 	private Integer productId;
 
 	private PageBean pageBean;
-
-	public BizService getBizs() {
-		return bizs;
+	
+	@Action(value = "productAdd", results = {
+			@Result(name = "success", location = "/WEB-INF/productAdd.jsp"),
+			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
+	public String productAdd() {
+		return "success";
 	}
-
-	public void setBizs(BizService bizs) {
-		this.bizs = bizs;
-	}
-
-	public Productinfo getProductinfo() {
-		return productinfo;
-	}
-
-	public void setProductinfo(Productinfo productinfo) {
-		this.productinfo = productinfo;
-	}
-
-	public PageBean getPageBean() {
-		return pageBean;
-	}
-
-	public void setPageBean(PageBean pageBean) {
-		this.pageBean = pageBean;
-	}
-
-	public Integer getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Integer productId) {
-		this.productId = productId;
-	}
-
+	
 	@Action(value = "add_Product", results = {
-			@Result(name = "success", location = "/WEB-INF/productList.jsp", type = "redirect"),
-			@Result(name = "failed", location = "/WEB-INF/error.jsp", type = "redirect") })
+			@Result(name = "success", location = "productList", type="redirect"),
+			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
 	public String add() {
 		// 获取上传的服务器路径
-		String rpath = ServletActionContext.getServletContext()
-				.getRealPath("/");
+		String rpath = ServletActionContext.getServletContext().getRealPath("/");
 
 		// 判断是否存在上传的文件
-		if (productinfo.getPic() != null
-				&& productinfo.getPicFileName() != null) {
+		if (productinfo.getPic() != null && productinfo.getPicFileName() != null) {
 			// 获取文件名称
 			String fname = productinfo.getPicFileName();
 
@@ -103,8 +76,7 @@ public class ProductAction implements IProductAction {
 		// 添加商品发布日期
 		productinfo.setPbdate(new Date());
 		// 给商品添加用户信息
-		Userinfo user = (Userinfo) ServletActionContext.getRequest()
-				.getSession().getAttribute("userInfo");
+		Userinfo user = (Userinfo) ServletActionContext.getRequest().getSession().getAttribute("userInfo");
 		productinfo.setUserinfo(user);
 
 		boolean flag = bizs.getProductInfobiz().save(productinfo);
@@ -125,47 +97,43 @@ public class ProductAction implements IProductAction {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 			}
-			List<Producttype> productTypelst = bizs.getProductTypebiz()
-					.findProuctType();
-			Gson gson = new Gson();
-			// 防止陷入死循环，请求productType时懒加载productInfo，但是productInfo又请求productType
-			for (Producttype producttype : productTypelst) {
-				producttype.setProductinfos(null);
-			}
-			String productGson = gson.toJson(productTypelst);
-			out.write(productGson);
-			out.flush();
-			out.close();
+			List<Producttype> productTypelst = bizs.getProductTypebiz().findProuctType();
+			/*
+			 * Gson gson = new Gson(); //
+			 * 防止陷入死循环，请求productType时懒加载productInfo，但是productInfo又请求productType
+			 * for (Producttype producttype : productTypelst) {
+			 * producttype.setProductinfos(null); } String productGson =
+			 * gson.toJson(productTypelst); out.write(productGson); out.flush();
+			 * out.close();
+			 */
+			WebUtil.sendJSONArrayResponse(productTypelst, new String[] { "productinfos" });
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 		}
 	}
 
 	@Action(value = "productList", results = {
-			@Result(name = "success", location = "/WEB-INF/productList.jsp", type = "dispatcher"),
+			@Result(name = "success", location = "/WEB-INF/productList.jsp"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp"),
-			@Result(name = "login", location = "/WEB-INF/userLogin.jsp")
-	})
+			@Result(name = "login", location = "/WEB-INF/userLogin.jsp") })
 	public String initProduct() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();
-		
-		if(null == session.getAttribute("userInfo")) {
+
+		if (null == session.getAttribute("userInfo")) {
 			request.setAttribute("originURL", "productList");
 			return "login";
 		}
 		try {
 			pageBean = pageBean == null ? new PageBean() : pageBean;
 
-			pageBean.setMaxpage(bizs.getProductInfobiz().findMaxPage(
-					pageBean.getRows()));
+			pageBean.setMaxpage(bizs.getProductInfobiz().findMaxPage(pageBean.getRows()));
 			if (pageBean.getPage() > pageBean.getMaxpage()) {
 				pageBean.setPage(PageBean.DEFAULT_PAGE);
 			}
 
 			// 获取当前页的记录集合
-			List<Productinfo> lsemp = bizs.getProductInfobiz()
-					.findAll(pageBean);
+			List<Productinfo> lsemp = bizs.getProductInfobiz().findAll(pageBean);
 			// 封装数据到PageBean
 			pageBean.setPagelist(lsemp);
 
@@ -176,14 +144,13 @@ public class ProductAction implements IProductAction {
 	}
 
 	@Action(value = "find_ProductDetail", results = {
-			@Result(name = "success", location = "productDetail.jsp", type = "dispatcher"),
-			@Result(name = "failed", location = "/WEB-INF/error.jsp", type = "redirect") })
+			@Result(name = "success", location = "/WEB-INF/productDetail.jsp"),
+			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
 	public String findDetail() {
 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		try {
-			Productinfo productinfo = bizs.getProductInfobiz().findDetail(
-					productId);
+			Productinfo productinfo = bizs.getProductInfobiz().findDetail(productId);
 			if (productinfo != null) {
 				request.setAttribute("product", productinfo);
 				return "success";
@@ -193,6 +160,30 @@ public class ProductAction implements IProductAction {
 		} catch (Exception e) {
 			return "failed";
 		}
+	}
+
+	public Productinfo getProductinfo() {
+		return productinfo;
+	}
+
+	public void setProductinfo(Productinfo productinfo) {
+		this.productinfo = productinfo;
+	}
+
+	public PageBean getPageBean() {
+		return pageBean;
+	}
+
+	public void setPageBean(PageBean pageBean) {
+		this.pageBean = pageBean;
+	}
+
+	public Integer getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Integer productId) {
+		this.productId = productId;
 	}
 
 }

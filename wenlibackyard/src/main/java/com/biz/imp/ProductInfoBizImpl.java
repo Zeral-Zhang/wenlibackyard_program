@@ -73,4 +73,21 @@ public class ProductInfoBizImpl implements IProductInfobBiz {
 		}
 	}
 
+	@Override
+	public boolean update(Productinfo productinfo) {
+		log.info("update Productinfo "+ productinfo.toString() +"");
+		try {
+			// 更新商品类别信息
+			Producttype producttype = daos.getProducttypeDAO()
+					.findById(productinfo.getProducttype().getProductTypeId());
+			productinfo.setProducttype(producttype);
+			daos.getProductinfoDAO().update(productinfo);
+			log.info("update Productinfo "+ productinfo.toString() +" success");
+			return true;
+		} catch (Exception e) {
+			log.error("update Productinfo "+ productinfo.toString() +" failed", e);
+			return false;
+		}
+	}
+
 }
