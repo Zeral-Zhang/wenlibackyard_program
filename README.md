@@ -42,17 +42,18 @@
 
 下面将介绍如何使用MyEclipse IDE搭建项目：
 
-1. 从Git导入项目：
+1. 从Git地址导入项目：
 ![image](http://img.hoop8.com/1608B/jaQASMTi.png)
+2. 输入git地址输入自己的Github用户名和密码来进行管理：
 ![image](http://img.hoop8.com/1608B/rdauaUkp.png)
-2. 请选择主分支：
+3. 请选择主分支：
 ![image](http://img.hoop8.com/1608B/t5yCqvZB.png)
-3. 请确保选择该项目文件：
+4. 请确保选择该项目文件：
 ![image](http://img.hoop8.com/1608B/9Ynwnp0j.png)
-4. 将项目转化为Maven项目，右键项目->configure->convert to Maven Project
-5. 等待项目下载Jar包完成；
-6. 使用c3p0数据库连接池配置，请在tomcat/context.xml 中添加，具体用户名和密码请自行替换： 
-`<Resource acquireIncrement="10" 
+5. 将项目转化为Maven项目，右键项目->configure->convert to Maven Project
+6. 等待项目下载Jar包完成；
+7. 使用c3p0数据库连接池配置，请在tomcat/context.xml 中添加，具体用户名和密码请自行替换： 
+	`<Resource acquireIncrement="10" 
 		auth="Container" driverClass="com.mysql.jdbc.Driver" factory="org.apache.naming.factory.BeanFactory" 
 		jdbcUrl="jdbc:mysql://localhost:3306/wenlibackyard?autoReconnect=false&amp;useUnicode=true&amp;characterEncoding=utf8" 
 		maxIdleTime="25000" maxPoolSize="300" minPoolSize="5" name="jdbc/ZeralDS" 
@@ -79,7 +80,7 @@
 
 ## 作者
 
-* **Zeral** - *Initial work* - [PurpleBooth](https://zeral.site)
+* **Zeral** - *项目整体搭建* - [个人主页介绍https://zeral.site](https://zeral.site)
 
 请查看该列表 [contributors](https://github.com/Zeral-Zhang/wenlibackyard_program/contributors) 参与该项目人员。
 
