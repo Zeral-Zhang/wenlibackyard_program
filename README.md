@@ -1,110 +1,89 @@
 # 文理后院代码
 [![GitHub Stars](https://img.shields.io/github/stars/IgorAntun/node-chat.svg)](https://github.com/Zeral-Zhang/wenlibackyard_program/stargazers) [![GitHub Issues](https://img.shields.io/github/issues/IgorAntun/node-chat.svg)](https://github.com/Zeral-Zhang/wenlibackyard_program/issues) [![Current Version](https://img.shields.io/badge/version-1.0.7-green.svg)](https://github.com/Zeral-Zhang/wenlibackyard_program/node-chat) [![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://igorantun.com/chat) " [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/IgorAntun/node-chat?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-This is a node.js chat application powered by SockJS and Express that provides the main functions you'd expect from a chat, such as emojis, private messages, an admin system, etc.
+这是一个使用JavaSSH做为后端框架的Maven项目，项目设计被用来作为微信公众号版的一个校园二手购物网站，旨在给学生提供平台来进行旧物交易，或者二手物品转手操作，现在项目还处于完善阶段。
 
 ![Chat Preview](http://i.imgur.com/lgRe8z4.png)
 
 ## Demo
-You can test a fully working live demo at ~~https://igorantun.com/chat~~ *(demo currently offline)*
-- Type `/help` to get a list of the available chat commands
+你可以使用该链接访问网页独立版的文理后院，建议使用手机访问。 ~~https://zeral.site/wenlibackyard~~ *(demo 现在不可用)*
+- 微信测试号暂时不可用，项目处于维护期
 
 ---
 
-## Features
-- Material Design
-- Emoji support
-- User @mentioning
-- Private messaging
-- Message deleting (for admins)
-- Ability to kick/ban users (for admins)
-- See other user's IPs (for admins)
-- Other awesome features yet to be implemented
+## 特性
+- Maven 项目，企业级开发标准
+- 自动建表，项目上线升级功能
+- SSH后端框架，全注解开发
+- Maven插件，自动发布远程项目
+- 数据库连接池，eachche缓存，前台图片优化
+- 移动先行，响应式前台设计
+- 更多特性，请自行下载查看
 
-# Project Title
+# 文理后院二手购物平台
 
-One Paragraph of project description goes here
+一个不断升级中的JavaSSH购物平台网站
 
-## Getting Started
+## 项目搭建
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+下面将介绍如何搭建该项目，使项目能够正常发布和运行
 
-### Prerequisities
+### 环境要求
 
-What things you need to install the software and how to install them
+请确认已经安装了下面工具：
 
-```
-Give examples
-```
+* JDK1.5及以上
+* Maven
+* Tomcat7及以上
+* Mysql数据库
 
-### Installing
 
-A step by step series of examples that tell you have to get a development env running
+### 安装
 
-Stay what the step will be
+下面将介绍如何使用MyEclipse IDE搭建项目：
 
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+1. 从Git地址导入项目：
+![image](http://img.hoop8.com/1608B/jaQASMTi.png)
+2. 输入git地址输入自己的Github用户名和密码来进行管理：
+![image](http://img.hoop8.com/1608B/rdauaUkp.png)
+3. 请选择主分支：
+![image](http://img.hoop8.com/1608B/t5yCqvZB.png)
+4. 请确保选择该项目文件：
+![image](http://img.hoop8.com/1608B/9Ynwnp0j.png)
+5. 将项目转化为Maven项目，右键项目->configure->convert to Maven Project
+6. 等待项目下载Jar包完成；
+7. 使用c3p0数据库连接池配置，请在tomcat/context.xml 中添加，具体用户名和密码请自行替换： 
+	`<Resource acquireIncrement="10" 
+		auth="Container" driverClass="com.mysql.jdbc.Driver" factory="org.apache.naming.factory.BeanFactory" 
+		jdbcUrl="jdbc:mysql://localhost:3306/wenlibackyard?autoReconnect=false&amp;useUnicode=true&amp;characterEncoding=utf8" 
+		maxIdleTime="25000" maxPoolSize="300" minPoolSize="5" name="jdbc/ZeralDS" 
+		password="root" type="com.mchange.v2.c3p0.ComboPooledDataSource" user="root"/>`
+7. Mysql中新建数据库：wenlibackyard，charSet:utf-8
+8. 启动项目
 
 ```
-Give an example
+启动项目时请确保调整tomcat启动时间限制
 ```
 
-### And coding style tests
 
-Explain what these tests test and why
+## 使用Maven测试，发布项目
 
-```
-Give an example
-```
+项目介绍至此结束，如有如何疑问，请提交
 
-## Deployment
+## 如何贡献
 
-Add additional notes about how to deploy this on a live system
+请阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 查看咨询代码详情, 然后给我发送pull request请求。
 
-## Built With
+## 版本
 
-* Dropwizard - Bla bla bla
-* Maven - Maybe
-* Atom - ergaerga
+我们使用 [SemVer](http://semver.org/) 进行版本控制。查看具体版本， 请查看 [tags on this repository](https://github.com/Zeral-Zhang/wenlibackyard_program/tags). 
 
-## Contributing
+## 作者
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+* **Zeral** - *项目整体搭建* - [个人主页介绍https://zeral.site](https://zeral.site)
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+请查看该列表 [contributors](https://github.com/Zeral-Zhang/wenlibackyard_program/contributors) 参与该项目人员。
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+该项目遵守 MIT License - 查看 [LICENSE.md](LICENSE.md) 查看详情
