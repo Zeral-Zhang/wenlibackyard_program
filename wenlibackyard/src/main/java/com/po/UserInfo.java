@@ -13,17 +13,19 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
+
 /**
- * Userinfo entity. @author MyEclipse Persistence Tools
+ * 用户信息表
+ * @author Zeral
+ *
  */
 @Entity
-@Table(name = "userinfo", catalog = "wenlibackyard")
+@Table(name = "user_info")
 public class UserInfo implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -273826351985678325L;
+	private static final long serialVersionUID = 1L;
 	// Fields
 
 	private String userId;
@@ -48,20 +50,21 @@ public class UserInfo implements java.io.Serializable {
 
 	/** full constructor */
 	public UserInfo(String userNickName, String userHeadImgUrl,
-			Set<OrderMain> ordermains, UserDetailInfo userdetailinfo,
+			Set<OrderMain> orderMains, UserDetailInfo userDetailInfo,
 			Set<Favorite> favorites, Set<ProductInfo> productInfos) {
 		this.userNickName = userNickName;
 		this.userHeadImgUrl = userHeadImgUrl;
-		this.orderMains = ordermains;
-		this.userDetailInfo = userdetailinfo;
+		this.orderMains = orderMains;
+		this.userDetailInfo = userDetailInfo;
 		this.favorites = favorites;
 		this.productInfos = productInfos;
 	}
 
 	// Property accessors
 	@Id
-	@GeneratedValue
-	@Column(name = "userId", unique = true, nullable = false, length = 60)
+	@GeneratedValue(generator = "paymengtableGenerator")
+ 	@GenericGenerator(name = "paymengtableGenerator", strategy = "uuid")
+	@Column(name = "user_id", unique = true, nullable = false, length = 60)
 	public String getUserId() {
 		return this.userId;
 	}
@@ -70,7 +73,7 @@ public class UserInfo implements java.io.Serializable {
 		this.userId = userId;
 	}
 
-	@Column(name = "userNickName", nullable = false, length = 20)
+	@Column(name = "user_nick_name", nullable = false, length = 20)
 	public String getUserNickName() {
 		return this.userNickName;
 	}
@@ -79,7 +82,7 @@ public class UserInfo implements java.io.Serializable {
 		this.userNickName = userNickName;
 	}
 
-	@Column(name = "userHeadImgUrl", nullable = false, length = 300)
+	@Column(name = "user_head_img_url", nullable = false, length = 300)
 	public String getUserHeadImgUrl() {
 		return this.userHeadImgUrl;
 	}
@@ -88,7 +91,7 @@ public class UserInfo implements java.io.Serializable {
 		this.userHeadImgUrl = userHeadImgUrl;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userinfo")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userInfo")
 	public Set<OrderMain> getOrderMains() {
 		return this.orderMains;
 	}
@@ -97,7 +100,7 @@ public class UserInfo implements java.io.Serializable {
 		this.orderMains = ordermains;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userinfo")
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userInfo")
 	public UserDetailInfo getUserDetailInfo() {
 		return this.userDetailInfo;
 	}
@@ -106,7 +109,7 @@ public class UserInfo implements java.io.Serializable {
 		this.userDetailInfo = userdetailinfo;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userinfo")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userInfo")
 	public Set<Favorite> getFavorites() {
 		return this.favorites;
 	}
@@ -115,7 +118,7 @@ public class UserInfo implements java.io.Serializable {
 		this.favorites = favorites;
 	}
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userinfo")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userInfo")
 	public Set<ProductInfo> getProductInfos() {
 		return this.productInfos;
 	}

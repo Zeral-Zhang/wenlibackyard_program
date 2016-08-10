@@ -14,12 +14,15 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 /**
- * Favorite entity. @author MyEclipse Persistence Tools
+ * 收藏夹
+ * @author Zeral
+ *
  */
 @Entity
-@Table(name = "favorite", catalog = "wenlibackyard", uniqueConstraints = @UniqueConstraint(columnNames = "userId"))
+@Table(name = "favorite")
 public class Favorite implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	// Fields
 
 	private Integer favoriteId;
@@ -53,7 +56,7 @@ public class Favorite implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "favoriteId", unique = true, nullable = false)
+	@Column(name = "favorite_id", unique = true, nullable = false)
 	public Integer getFavoriteId() {
 		return this.favoriteId;
 	}
@@ -63,27 +66,27 @@ public class Favorite implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "productId", nullable = false)
-	public ProductInfo getProductinfo() {
+	@JoinColumn(name = "product_id", nullable = false)
+	public ProductInfo getProductInfo() {
 		return this.productInfo;
 	}
 
-	public void setProductinfo(ProductInfo productInfo) {
+	public void setProductInfo(ProductInfo productInfo) {
 		this.productInfo = productInfo;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "userId", unique = true, nullable = false)
-	public UserInfo getUserinfo() {
+	@JoinColumn(name = "user_id",  nullable = false)
+	public UserInfo getUserInfo() {
 		return this.userInfo;
 	}
 
-	public void setUserinfo(UserInfo userInfo) {
+	public void setUserInfo(UserInfo userInfo) {
 		this.userInfo = userInfo;
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "createDate", nullable = false, length = 10)
+	@Column(name = "create_date", nullable = false, length = 10)
 	public Date getCreateDate() {
 		return this.createDate;
 	}

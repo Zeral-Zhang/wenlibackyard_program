@@ -7,7 +7,6 @@ import org.simpleframework.xml.ElementList;
 /**
  * 数据库建表信息对象
  * @author Zeral
- * 2013-5-29
  */
 public class DatabaseCreateInfo {
 	

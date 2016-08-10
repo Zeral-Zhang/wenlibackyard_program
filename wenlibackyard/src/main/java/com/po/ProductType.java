@@ -11,13 +11,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 /**
- * Producttype entity. @author MyEclipse Persistence Tools
+ * 商品类别表
+ * @author Zeral
+ *
  */
 @Entity
-@Table(name = "producttype", catalog = "wenlibackyard")
+@Table(name = "product_type")
 public class ProductType implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	// Fields
 
 	private Integer productTypeId;
@@ -54,7 +58,7 @@ public class ProductType implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "productTypeId", unique = true, nullable = false)
+	@Column(name = "product_type_id", unique = true, nullable = false)
 	public Integer getProductTypeId() {
 		return this.productTypeId;
 	}
@@ -63,7 +67,7 @@ public class ProductType implements java.io.Serializable {
 		this.productTypeId = productTypeId;
 	}
 
-	@Column(name = "parentId", nullable = false)
+	@Column(name = "parent_id", nullable = false)
 	public Integer getParentId() {
 		return this.parentId;
 	}
@@ -72,7 +76,7 @@ public class ProductType implements java.io.Serializable {
 		this.parentId = parentId;
 	}
 
-	@Column(name = "productTypeName", nullable = false, length = 20)
+	@Column(name = "product_type_name", nullable = false, length = 20)
 	public String getProductTypeName() {
 		return this.productTypeName;
 	}
@@ -81,7 +85,7 @@ public class ProductType implements java.io.Serializable {
 		this.productTypeName = productTypeName;
 	}
 
-	@Column(name = "isDelete", nullable = false)
+	@Column(name = "is_Delete", nullable = false)
 	public Integer getIsDelete() {
 		return this.isDelete;
 	}
@@ -99,12 +103,12 @@ public class ProductType implements java.io.Serializable {
 		this.context = context;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "producttype")
-	public Set<ProductInfo> getProductinfos() {
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productType")
+	public Set<ProductInfo> getProductInfos() {
 		return this.productInfos;
 	}
 
-	public void setProductinfos(Set<ProductInfo> productInfos) {
+	public void setProductInfos(Set<ProductInfo> productInfos) {
 		this.productInfos = productInfos;
 	}
 

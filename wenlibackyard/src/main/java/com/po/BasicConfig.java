@@ -13,19 +13,14 @@ import org.hibernate.annotations.GenericGenerator;
  * 系统配置实体类
  * 
  * @author Zeral
- * @date 2015-10-13
+ * 
  */
 @Entity
 @Table(name = "basic_config")
 public class BasicConfig implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4887206742439115083L;
-	/**
-	 * 
-	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String id;
 	private String basicConfigId;
 	private String name;

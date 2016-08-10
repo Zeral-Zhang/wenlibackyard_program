@@ -7,12 +7,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Regions entity. @author MyEclipse Persistence Tools
+ * 区域信息表
+ * @author Zeral
+ *
  */
 @Entity
-@Table(name = "regions", catalog = "wenlibackyard")
+@Table(name = "regions")
 public class Regions implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	// Fields
 
 	private Integer id;

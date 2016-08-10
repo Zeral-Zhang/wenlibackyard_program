@@ -257,6 +257,15 @@
 		<finalName>wenlibackyard</finalName>
 		<pluginManagement>
 			<plugins>
+			
+				<!-- 项目骨架 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-archetype-plugin</artifactId>
+					<version>2.2</version>
+				</plugin>
+				
+				<!-- tomcat远程操作插件 -->
 				<plugin>
 					<groupId>org.apache.tomcat.maven</groupId>
 					<artifactId>tomcat7-maven-plugin</artifactId>
@@ -269,6 +278,7 @@
 					</configuration>
 					<version>2.2</version>
 				</plugin>
+				
 				<!-- 资源文件编码 -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -290,6 +300,7 @@
 						<target>1.7</target>
 					</configuration>
 				</plugin>
+				
 				<!-- 测试插件 -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -308,6 +319,18 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
+					<configuration>
+						<webResources>
+							<resource>
+								<filtering>true</filtering>
+								<directory>src/main/webapp</directory>
+								<includes>
+									<include>WEB-INF/web.xml</include>
+									<include>WEB-INF/log4j.properties</include>
+								</includes>
+							</resource>
+						</webResources>
+					</configuration>
 					<version>2.6</version>
 				</plugin>
 
@@ -328,6 +351,7 @@
 					</executions>
 				</plugin>
 
+				<!-- 生成文档插件 -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>

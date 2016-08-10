@@ -10,17 +10,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Orderdetail entity. @author MyEclipse Persistence Tools
+ * 订单详情表
+ * @author Zeral
+ *
  */
 @Entity
-@Table(name = "orderdetail", catalog = "wenlibackyard")
+@Table(name = "order_detail")
 public class OrderDetail implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	// Fields
 
 	private Integer orderDetailId;
-	private ProductInfo productinfo;
-	private OrderMain ordermain;
+	private ProductInfo productInfo;
+	private OrderMain orderMain;
 	private Integer num;
 	private Float sumPrice;
 
@@ -32,16 +35,16 @@ public class OrderDetail implements java.io.Serializable {
 
 	/** minimal constructor */
 	public OrderDetail(ProductInfo productInfo, OrderMain orderMain, Integer num) {
-		this.productinfo = productInfo;
-		this.ordermain = orderMain;
+		this.productInfo = productInfo;
+		this.orderMain = orderMain;
 		this.num = num;
 	}
 
 	/** full constructor */
 	public OrderDetail(ProductInfo productInfo, OrderMain orderMain,
 			Integer num, Float sumPrice) {
-		this.productinfo = productInfo;
-		this.ordermain = orderMain;
+		this.productInfo = productInfo;
+		this.orderMain = orderMain;
 		this.num = num;
 		this.sumPrice = sumPrice;
 	}
@@ -49,7 +52,7 @@ public class OrderDetail implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "orderDetailId", unique = true, nullable = false)
+	@Column(name = "order_detail_id", unique = true, nullable = false)
 	public Integer getOrderDetailId() {
 		return this.orderDetailId;
 	}
@@ -59,23 +62,23 @@ public class OrderDetail implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "productId", nullable = false)
-	public ProductInfo getProductinfo() {
-		return this.productinfo;
+	@JoinColumn(name = "product_id", nullable = false)
+	public ProductInfo getProductInfo() {
+		return this.productInfo;
 	}
 
-	public void setProductinfo(ProductInfo productInfo) {
-		this.productinfo = productInfo;
+	public void setProductInfo(ProductInfo productInfo) {
+		this.productInfo = productInfo;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "orderMainId", nullable = false)
-	public OrderMain getOrdermain() {
-		return this.ordermain;
+	@JoinColumn(name = "order_main_id", nullable = false)
+	public OrderMain getOrderMain() {
+		return this.orderMain;
 	}
 
-	public void setOrdermain(OrderMain orderMain) {
-		this.ordermain = orderMain;
+	public void setOrderMain(OrderMain orderMain) {
+		this.orderMain = orderMain;
 	}
 
 	@Column(name = "num", nullable = false)
@@ -87,7 +90,7 @@ public class OrderDetail implements java.io.Serializable {
 		this.num = num;
 	}
 
-	@Column(name = "sumPrice", precision = 12, scale = 0)
+	@Column(name = "sum_price", precision = 7, scale = 2)
 	public Float getSumPrice() {
 		return this.sumPrice;
 	}

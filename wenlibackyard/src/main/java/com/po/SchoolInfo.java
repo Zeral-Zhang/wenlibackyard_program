@@ -12,12 +12,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * Schoolinfo entity. @author MyEclipse Persistence Tools
+ * 院系信息表
+ * @author Zeral
+ *
  */
 @Entity
-@Table(name = "schoolinfo", catalog = "wenlibackyard")
+@Table(name = "school_info")
 public class SchoolInfo implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	// Fields
 
 	private Integer schoolInfoId;
@@ -25,7 +28,7 @@ public class SchoolInfo implements java.io.Serializable {
 	private String name;
 	private String pCode;
 	private Integer level;
-	private Set<UserDetailInfo> userdetailinfos = new HashSet<UserDetailInfo>(0);
+	private Set<UserDetailInfo> userDetailInfos = new HashSet<UserDetailInfo>(0);
 
 	// Constructors
 
@@ -35,18 +38,18 @@ public class SchoolInfo implements java.io.Serializable {
 
 	/** full constructor */
 	public SchoolInfo(String code, String name, String pCode,
-			Integer level, Set<UserDetailInfo> userdetailinfos) {
+			Integer level, Set<UserDetailInfo> userDetailInfos) {
 		this.code = code;
 		this.name = name;
 		this.pCode = pCode;
 		this.level = level;
-		this.userdetailinfos = userdetailinfos;
+		this.userDetailInfos = userDetailInfos;
 	}
 
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "schoolInfoId", unique = true, nullable = false)
+	@Column(name = "school_info_id", unique = true, nullable = false)
 	public Integer getSchoolInfoId() {
 		return this.schoolInfoId;
 	}
@@ -91,13 +94,13 @@ public class SchoolInfo implements java.io.Serializable {
 		this.level = level;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "schoolinfo")
-	public Set<UserDetailInfo> getUserdetailinfos() {
-		return this.userdetailinfos;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "schoolInfo")
+	public Set<UserDetailInfo> getUserDetailInfos() {
+		return this.userDetailInfos;
 	}
 
-	public void setUserdetailinfos(Set<UserDetailInfo> userdetailinfos) {
-		this.userdetailinfos = userdetailinfos;
+	public void setUserDetailInfos(Set<UserDetailInfo> userDetailInfos) {
+		this.userDetailInfos = userDetailInfos;
 	}
 
 }

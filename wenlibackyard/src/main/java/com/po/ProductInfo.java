@@ -20,17 +20,20 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 /**
- * Productinfo entity. @author MyEclipse Persistence Tools
+ * 商品信息表
+ * @author Zeral
+ *
  */
 @Entity
-@Table(name = "productinfo", catalog = "wenlibackyard")
+@Table(name = "product_info")
 public class ProductInfo implements java.io.Serializable {
-
+	
+	private static final long serialVersionUID = 1L;	
 	// Fields
-
+	
 	private Integer productId;
-	private ProductType producttype;
-	private UserInfo userinfo;
+	private ProductType productType;
+	private UserInfo userInfo;
 	private String productName;
 	private String brand;
 	private String context;
@@ -40,7 +43,7 @@ public class ProductInfo implements java.io.Serializable {
 	private Date buydate;
 	private Date pbdate;
 	private Integer state;
-	private Set<OrderDetail> orderdetails = new HashSet<OrderDetail>(0);
+	private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
 	private Set<Favorite> favorites = new HashSet<Favorite>(0);
 	/*********************与界面关联的属性***************************/
 	private File pic;
@@ -58,8 +61,8 @@ public class ProductInfo implements java.io.Serializable {
 	public ProductInfo(ProductType productType, UserInfo userInfo,
 			String productName, String context, String imgs, Float price,
 			Integer number, Date pbdate, Integer state) {
-		this.producttype = productType;
-		this.userinfo = userInfo;
+		this.productType = productType;
+		this.userInfo = userInfo;
 		this.productName = productName;
 		this.context = context;
 		this.imgs = imgs;
@@ -75,8 +78,8 @@ public class ProductInfo implements java.io.Serializable {
 			Float price, Integer number, Date buydate, Date pbdate,
 			Integer state, Set<OrderDetail> orderDetails,
 			Set<Favorite> favorites) {
-		this.producttype = productType;
-		this.userinfo = userInfo;
+		this.productType = productType;
+		this.userInfo = userInfo;
 		this.productName = productName;
 		this.brand = brand;
 		this.context = context;
@@ -86,14 +89,14 @@ public class ProductInfo implements java.io.Serializable {
 		this.buydate = buydate;
 		this.pbdate = pbdate;
 		this.state = state;
-		this.orderdetails = orderDetails;
+		this.orderDetails = orderDetails;
 		this.favorites = favorites;
 	}
 
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "productId", unique = true, nullable = false)
+	@Column(name = "product_id", unique = true, nullable = false)
 	public Integer getProductId() {
 		return this.productId;
 	}
@@ -103,26 +106,26 @@ public class ProductInfo implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "productTypeId", nullable = false)
-	public ProductType getProducttype() {
-		return this.producttype;
+	@JoinColumn(name = "product_type_id", nullable = false)
+	public ProductType getProductType() {
+		return this.productType;
 	}
 
-	public void setProducttype(ProductType productType) {
-		this.producttype = productType;
+	public void setProductType(ProductType productType) {
+		this.productType = productType;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "userId", nullable = false)
-	public UserInfo getUserinfo() {
-		return this.userinfo;
+	@JoinColumn(name = "user_id", nullable = false)
+	public UserInfo getUserInfo() {
+		return this.userInfo;
 	}
 
-	public void setUserinfo(UserInfo userInfo) {
-		this.userinfo = userInfo;
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
-	@Column(name = "productName", nullable = false, length = 20)
+	@Column(name = "product_name", nullable = false, length = 20)
 	public String getProductName() {
 		return this.productName;
 	}
@@ -158,7 +161,7 @@ public class ProductInfo implements java.io.Serializable {
 		this.imgs = imgs;
 	}
 
-	@Column(name = "price", nullable = false, precision = 12, scale = 0)
+	@Column(name = "price", nullable = false, precision = 7, scale = 2)
 	public Float getPrice() {
 		return this.price;
 	}
@@ -177,7 +180,7 @@ public class ProductInfo implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "buydate", length = 10)
+	@Column(name = "buy_date", length = 10)
 	public Date getBuydate() {
 		return this.buydate;
 	}
@@ -187,7 +190,7 @@ public class ProductInfo implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "pbdate", nullable = false, length = 10)
+	@Column(name = "pb_date", nullable = false, length = 10)
 	public Date getPbdate() {
 		return this.pbdate;
 	}
@@ -205,16 +208,16 @@ public class ProductInfo implements java.io.Serializable {
 		this.state = state;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productinfo")
-	public Set<OrderDetail> getOrderdetails() {
-		return this.orderdetails;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productInfo")
+	public Set<OrderDetail> getOrderDetails() {
+		return this.orderDetails;
 	}
 
-	public void setOrderdetails(Set<OrderDetail> orderDetails) {
-		this.orderdetails = orderDetails;
+	public void setOrderDetails(Set<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productinfo")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productInfo")
 	public Set<Favorite> getFavorites() {
 		return this.favorites;
 	}

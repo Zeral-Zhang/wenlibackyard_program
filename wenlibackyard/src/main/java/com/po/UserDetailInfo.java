@@ -13,16 +13,15 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 /**
- * Userdetailinfo entity. @author MyEclipse Persistence Tools
+ * 用户信息详情表
+ * @author Zeral
+ *
  */
 @Entity
-@Table(name = "userdetailinfo", catalog = "wenlibackyard", uniqueConstraints = { @UniqueConstraint(columnNames = "schoolInfoId") })
+@Table(name = "user_detail_info")
 public class UserDetailInfo implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4147990827448918428L;
+	private static final long serialVersionUID = 1L;
 	// Fields
 
 	private Integer userDetailId;
@@ -62,7 +61,7 @@ public class UserDetailInfo implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "userDetailId", unique = true, nullable = false)
+	@Column(name = "user_detail_id", unique = true, nullable = false)
 	public Integer getUserDetailId() {
 		return this.userDetailId;
 	}
@@ -72,26 +71,26 @@ public class UserDetailInfo implements java.io.Serializable {
 	}
 
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "userId")
-	public UserInfo getUserinfo() {
+	@JoinColumn(name = "user_id")
+	public UserInfo getUserInfo() {
 		return this.userInfo;
 	}
 
-	public void setUserinfo(UserInfo userinfo) {
+	public void setUserInfo(UserInfo userinfo) {
 		this.userInfo = userinfo;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "schoolInfoId", unique = true, nullable = true)
-	public SchoolInfo getSchoolinfo() {
+	@JoinColumn(name = "school_info_id", unique = true, nullable = true)
+	public SchoolInfo getSchoolInfo() {
 		return this.schoolInfo;
 	}
 
-	public void setSchoolinfo(SchoolInfo schoolinfo) {
+	public void setSchoolInfo(SchoolInfo schoolinfo) {
 		this.schoolInfo = schoolinfo;
 	}
 
-	@Column(name = "userTel", length = 13)
+	@Column(name = "user_tel", length = 13)
 	public String getUserTel() {
 		return this.userTel;
 	}
@@ -100,7 +99,7 @@ public class UserDetailInfo implements java.io.Serializable {
 		this.userTel = userTel;
 	}
 
-	@Column(name = "userCity", length = 20)
+	@Column(name = "user_city", length = 20)
 	public String getUserCity() {
 		return this.userCity;
 	}
@@ -109,7 +108,7 @@ public class UserDetailInfo implements java.io.Serializable {
 		this.userCity = userCity;
 	}
 
-	@Column(name = "userProvince", length = 20)
+	@Column(name = "user_province", length = 20)
 	public String getUserProvince() {
 		return this.userProvince;
 	}
@@ -118,7 +117,7 @@ public class UserDetailInfo implements java.io.Serializable {
 		this.userProvince = userProvince;
 	}
 
-	@Column(name = "userLanguage", length = 20)
+	@Column(name = "user_language", length = 20)
 	public String getUserLanguage() {
 		return this.userLanguage;
 	}
@@ -127,7 +126,7 @@ public class UserDetailInfo implements java.io.Serializable {
 		this.userLanguage = userLanguage;
 	}
 
-	@Column(name = "userGender", nullable = true, length = 1)
+	@Column(name = "user_gender", nullable = true, length = 1)
 	public String getUserGender() {
 		return this.userGender;
 	}
@@ -136,7 +135,7 @@ public class UserDetailInfo implements java.io.Serializable {
 		this.userGender = userGender;
 	}
 	
-	@Column(name = "userClass", length = 10)
+	@Column(name = "user_class", length = 10)
 	public String getUserClass() {
 		return userClass;
 	}
@@ -145,7 +144,7 @@ public class UserDetailInfo implements java.io.Serializable {
 		this.userClass = userClass;
 	}
 
-	@Column(name = "userGrade", length = 4)
+	@Column(name = "user_grade", length = 4)
 	public String getUserGrade() {
 		return userGrade;
 	}
@@ -154,7 +153,7 @@ public class UserDetailInfo implements java.io.Serializable {
 		this.userGrade = userGrade;
 	}
 
-	@Column(name = "userAge", nullable = true)
+	@Column(name = "user_age", nullable = true)
 	public Integer getUserAge() {
 		return this.userAge;
 	}

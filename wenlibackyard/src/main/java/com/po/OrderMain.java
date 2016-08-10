@@ -20,11 +20,14 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 /**
- * Ordermain entity. @author MyEclipse Persistence Tools
+ * 订单主表
+ * @author Zeral
+ *
  */
 @Entity
-@Table(name = "ordermain", catalog = "wenlibackyard")
+@Table(name = "order_main")
 public class OrderMain implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
 	public static final int UN_HANDLE = 0;
 	public static final int HANDLED = 1;
 	public static final int HAS_PRESS = 2;
@@ -33,7 +36,7 @@ public class OrderMain implements java.io.Serializable {
 	// Fields
 
 	private Integer orderMainId;
-	private UserInfo userinfo;
+	private UserInfo userInfo;
 	/**
 	 * 销售单状态（0-未处理，1-已处理，2-以发货，3-已收货）
 	 */
@@ -43,7 +46,7 @@ public class OrderMain implements java.io.Serializable {
 	private Date confirmDate;
 	private Float sumPrice;
 	private String context;
-	private Set<OrderDetail> orderdetails = new HashSet<OrderDetail>(0);
+	private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
 
 	// Constructors
 
@@ -53,27 +56,27 @@ public class OrderMain implements java.io.Serializable {
 
 	/** minimal constructor */
 	public OrderMain(UserInfo userInfo) {
-		this.userinfo = userInfo;
+		this.userInfo = userInfo;
 	}
 
 	/** full constructor */
 	public OrderMain(UserInfo userInfo, Integer state, Date buyDate,
 			Date payDate, Date confirmDate, Float sumPrice, String context,
 			Set<OrderDetail> orderDetails) {
-		this.userinfo = userInfo;
+		this.userInfo = userInfo;
 		this.state = state;
 		this.buyDate = buyDate;
 		this.payDate = payDate;
 		this.confirmDate = confirmDate;
 		this.sumPrice = sumPrice;
 		this.context = context;
-		this.orderdetails = orderDetails;
+		this.orderDetails = orderDetails;
 	}
 
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "orderMainId", unique = true, nullable = false)
+	@Column(name = "order_main_id", unique = true, nullable = false)
 	public Integer getOrderMainId() {
 		return this.orderMainId;
 	}
@@ -83,13 +86,13 @@ public class OrderMain implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "userId", nullable = false)
-	public UserInfo getUserinfo() {
-		return this.userinfo;
+	@JoinColumn(name = "user_id", nullable = false)
+	public UserInfo getUserInfo() {
+		return this.userInfo;
 	}
 
-	public void setUserinfo(UserInfo userInfo) {
-		this.userinfo = userInfo;
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
 	@Column(name = "state")
@@ -102,7 +105,7 @@ public class OrderMain implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "buyDate", length = 10)
+	@Column(name = "buy_date", length = 10)
 	public Date getBuyDate() {
 		return this.buyDate;
 	}
@@ -112,7 +115,7 @@ public class OrderMain implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "payDate", length = 10)
+	@Column(name = "pay_date", length = 10)
 	public Date getPayDate() {
 		return this.payDate;
 	}
@@ -122,7 +125,7 @@ public class OrderMain implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "confirmDate", length = 10)
+	@Column(name = "confirm_date", length = 10)
 	public Date getConfirmDate() {
 		return this.confirmDate;
 	}
@@ -131,7 +134,7 @@ public class OrderMain implements java.io.Serializable {
 		this.confirmDate = confirmDate;
 	}
 
-	@Column(name = "sumPrice", precision = 12, scale = 0)
+	@Column(name = "sum_price", precision = 7, scale = 2)
 	public Float getSumPrice() {
 		return this.sumPrice;
 	}
@@ -149,13 +152,13 @@ public class OrderMain implements java.io.Serializable {
 		this.context = context;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "ordermain")
-	public Set<OrderDetail> getOrderdetails() {
-		return this.orderdetails;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "orderMain")
+	public Set<OrderDetail> getOrderDetails() {
+		return this.orderDetails;
 	}
 
-	public void setOrderdetails(Set<OrderDetail> orderDetails) {
-		this.orderdetails = orderDetails;
+	public void setOrderDetails(Set<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 
 }
