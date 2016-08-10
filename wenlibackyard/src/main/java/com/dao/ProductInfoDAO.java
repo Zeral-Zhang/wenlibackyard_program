@@ -15,10 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.po.Productinfo;
+import com.po.ProductInfo;
 
-@Service("ProductinfoDAO")
-public class ProductinfoDAO extends BaseDAO<Productinfo, Integer> {
+@Service("ProductInfoDAO")
+public class ProductInfoDAO extends BaseDAO<ProductInfo, Integer> {
 	// property constants
 	public static final String PRODUCT_NAME = "productName";
 	public static final String BRAND = "brand";

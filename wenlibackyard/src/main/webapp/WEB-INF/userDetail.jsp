@@ -35,11 +35,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li>
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">电话
 							<p>
-								<s:if test="#session.userInfo.userdetailinfo.userTel == ''">
+								<s:if test="#session.userInfo.userDetailInfo.userTel == ''">
 									请补充电话信息
 								</s:if>
 								<s:else>
-									<s:property value="#session.userInfo.userdetailinfo.userTel"/>									
+									<s:property value="#session.userInfo.userDetailInfo.userTel"/>									
 								</s:else>
 							</p>
 						</a>
@@ -47,12 +47,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li>
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">城市
 							<p>
-								<s:if test="#session.userInfo.userdetailinfo.userProvince == ''">
+								<s:if test="#session.userInfo.userDetailInfo.userProvince == ''">
 									请补充城市信息
 								</s:if>
 								<s:else>
-									<s:property value="#session.userInfo.userdetailinfo.userProvince"/>
-									<s:property value="#session.userInfo.userdetailinfo.userCity"/>									
+									<s:property value="#session.userInfo.userDetailInfo.userProvince"/>
+									<s:property value="#session.userInfo.userDetailInfo.userCity"/>									
 								</s:else>
 							</p>
 						</a>
@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li>
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">语言
 							<p>
-								${sessionScope.userInfo.userdetailinfo.userLanguage}
+								${sessionScope.userInfo.userDetailInfo.userLanguage}
 							</p>
 							<!--用于设置国际化文件  --> 
 						</a>
@@ -70,11 +70,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li>
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">年龄
 							<p>
-								<s:if test="#session.userInfo.userdetailinfo.userAge == ''">
+								<s:if test="#session.userInfo.userDetailInfo.userAge == ''">
 									请补充年龄信息
 								</s:if>
 								<s:else>
-									<s:property value="#session.userInfo.userdetailinfo.userAge"/>									
+									<s:property value="#session.userInfo.userDetailInfo.userAge"/>									
 								</s:else>
 							</p>
 						</a>
@@ -82,11 +82,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li>
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">学院
 							<p>
-								<s:if test="#session.userInfo.userdetailinfo.schoolinfo.college == ''">
+								<s:if test="#session.userInfo.userDetailInfo.schoolinfo.college == ''">
 									请补充学院信息
 								</s:if>
 								<s:else>
-									<s:property value="#session.userInfo.userdetailinfo.schoolinfo.college"/>									
+									<s:property value="#session.userInfo.userDetailInfo.schoolinfo.college"/>									
 								</s:else>								
 							</p>
 						</a>
@@ -94,11 +94,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li>
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">院系
 							<p>
-								<s:if test="#session.userInfo.userdetailinfo.schoolinfo.department == ''">
+								<s:if test="#session.userInfo.userDetailInfo.schoolinfo.department == ''">
 									请补充院系信息
 								</s:if>
 								<s:else>
-									<s:property value="#session.userInfo.userdetailinfo.schoolinfo.department"/>									
+									<s:property value="#session.userInfo.userDetailInfo.schoolinfo.department"/>									
 								</s:else>
 							</p>
 						</a>
@@ -106,11 +106,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li>
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">年级
 							<p>
-								<s:if test="#session.userInfo.userdetailinfo.schoolinfo.grade == ''">
+								<s:if test="#session.userInfo.userDetailInfo.schoolinfo.grade == ''">
 									请补充年级信息
 								</s:if>
 								<s:else>
-									<s:property value="#session.userInfo.userdetailinfo.schoolinfo.grade"/>									
+									<s:property value="#session.userInfo.userDetailInfo.schoolinfo.grade"/>									
 								</s:else>
 							</p>
 						</a>
@@ -118,11 +118,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li>
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">班级
 							<p>
-								<s:if test="#session.userInfo.userdetailinfo.schoolinfo.classes == ''">
+								<s:if test="#session.userInfo.userDetailInfo.schoolinfo.classes == ''">
 									请补充班级信息
 								</s:if>
 								<s:else>
-									<s:property value="#session.userInfo.userdetailinfo.schoolinfo.classes"/>									
+									<s:property value="#session.userInfo.userDetailInfo.schoolinfo.classes"/>									
 								</s:else>
 							</p>
 						</a>
@@ -140,28 +140,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<form action="<%=path%>/update_User.action" method="post">
 					<input name="user.userId" value="${sessionScope.userInfo.userId}" type="hidden">
 					<label for="phoneNumber">电话:</label>
-					<input type="tel" name="user.userdetailinfo.userTel" id="phonenumber" placeholder="请输入电话" value="${sessionScope.userInfo.userdetailinfo.userTel}">
+					<input type="tel" name="user.userDetailInfo.userTel" id="phonenumber" placeholder="请输入电话" value="${sessionScope.userInfo.userDetailInfo.userTel}">
 					<label for="userAge">年龄:</label>
-					<input type="number" name="user.userdetailinfo.userAge" id="userAge" placeholder="请输入年龄" value="${sessionScope.userInfo.userdetailinfo.userAge}">
+					<input type="number" name="user.userDetailInfo.userAge" id="userAge" placeholder="请输入年龄" value="${sessionScope.userInfo.userDetailInfo.userAge}">
 					<fieldset data-role="controlgroup" data-type="horizontal">
 					    <legend>请选择您所在的城市信息:</legend>
 					    <label for="province">省</label>
-					    <select id="province" name="user.userdetailinfo.userProvince">
+					    <select id="province" name="user.userDetailInfo.userProvince">
 							<option selected value="-22">请选择</option>
 						</select>
 						<label for="city">市：</label>
-						<select id="city" name="user.userdetailinfo.userCity">
+						<select id="city" name="user.userDetailInfo.userCity">
 							<option selected value=-22>请选择</option>
 						</select>
 					</fieldset>
 					<label for="college">学院:</label>
-					<input type="text" name="user.userdetailinfo.schoolinfo.college" id="college" placeholder="请输入学院" value="${sessionScope.userInfo.userdetailinfo.schoolinfo.college}">
+					<input type="text" name="user.userDetailInfo.schoolinfo.college" id="college" placeholder="请输入学院" value="${sessionScope.userInfo.userDetailInfo.schoolinfo.college}">
 					<label for="department">院系：</label>
-					<input type="text" name="user.userdetailinfo.schoolinfo.department" id="department" placeholder="请输入院系" value="${session.userInfo.userdetailinfo.schoolinfo.department}">
+					<input type="text" name="user.userDetailInfo.schoolinfo.department" id="department" placeholder="请输入院系" value="${session.userInfo.userDetailInfo.schoolinfo.department}">
 					<label for="grade">年级：</label>
-					<input type="number" name="user.userdetailinfo.schoolinfo.grade" id="grade" placeholder="请输入年级" value="${session.userInfo.userdetailinfo.schoolinfo.grade}">
+					<input type="number" name="user.userDetailInfo.schoolinfo.grade" id="grade" placeholder="请输入年级" value="${session.userInfo.userDetailInfo.schoolinfo.grade}">
 					<label for="classes">班级：</label>
-					<input type="number" name="user.userdetailinfo.schoolinfo.classes" id="classes" placeholder="请输入班级" value="${session.userInfo.userdetailinfo.schoolinfo.classes}">
+					<input type="number" name="user.userDetailInfo.schoolinfo.classes" id="classes" placeholder="请输入班级" value="${session.userInfo.userDetailInfo.schoolinfo.classes}">
 					<input type="submit" value="提交">
 				</form>	
 			</div><!-- /content -->

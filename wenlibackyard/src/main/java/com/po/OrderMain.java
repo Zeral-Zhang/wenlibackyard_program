@@ -24,7 +24,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "ordermain", catalog = "wenlibackyard")
-public class Ordermain implements java.io.Serializable {
+public class OrderMain implements java.io.Serializable {
 	public static final int UN_HANDLE = 0;
 	public static final int HANDLED = 1;
 	public static final int HAS_PRESS = 2;
@@ -33,7 +33,7 @@ public class Ordermain implements java.io.Serializable {
 	// Fields
 
 	private Integer orderMainId;
-	private Userinfo userinfo;
+	private UserInfo userinfo;
 	/**
 	 * 销售单状态（0-未处理，1-已处理，2-以发货，3-已收货）
 	 */
@@ -43,31 +43,31 @@ public class Ordermain implements java.io.Serializable {
 	private Date confirmDate;
 	private Float sumPrice;
 	private String context;
-	private Set<Orderdetail> orderdetails = new HashSet<Orderdetail>(0);
+	private Set<OrderDetail> orderdetails = new HashSet<OrderDetail>(0);
 
 	// Constructors
 
 	/** default constructor */
-	public Ordermain() {
+	public OrderMain() {
 	}
 
 	/** minimal constructor */
-	public Ordermain(Userinfo userinfo) {
-		this.userinfo = userinfo;
+	public OrderMain(UserInfo userInfo) {
+		this.userinfo = userInfo;
 	}
 
 	/** full constructor */
-	public Ordermain(Userinfo userinfo, Integer state, Date buyDate,
+	public OrderMain(UserInfo userInfo, Integer state, Date buyDate,
 			Date payDate, Date confirmDate, Float sumPrice, String context,
-			Set<Orderdetail> orderdetails) {
-		this.userinfo = userinfo;
+			Set<OrderDetail> orderDetails) {
+		this.userinfo = userInfo;
 		this.state = state;
 		this.buyDate = buyDate;
 		this.payDate = payDate;
 		this.confirmDate = confirmDate;
 		this.sumPrice = sumPrice;
 		this.context = context;
-		this.orderdetails = orderdetails;
+		this.orderdetails = orderDetails;
 	}
 
 	// Property accessors
@@ -84,12 +84,12 @@ public class Ordermain implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userId", nullable = false)
-	public Userinfo getUserinfo() {
+	public UserInfo getUserinfo() {
 		return this.userinfo;
 	}
 
-	public void setUserinfo(Userinfo userinfo) {
-		this.userinfo = userinfo;
+	public void setUserinfo(UserInfo userInfo) {
+		this.userinfo = userInfo;
 	}
 
 	@Column(name = "state")
@@ -150,12 +150,12 @@ public class Ordermain implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "ordermain")
-	public Set<Orderdetail> getOrderdetails() {
+	public Set<OrderDetail> getOrderdetails() {
 		return this.orderdetails;
 	}
 
-	public void setOrderdetails(Set<Orderdetail> orderdetails) {
-		this.orderdetails = orderdetails;
+	public void setOrderdetails(Set<OrderDetail> orderDetails) {
+		this.orderdetails = orderDetails;
 	}
 
 }

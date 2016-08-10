@@ -28,6 +28,7 @@ public class ReginAction implements IRegionAction {
 	}
 
 	@Action(value = "initProvince_Region")
+	@Override
 	public void initProvince() {
 		try {
 			List<Regions> provincelst = biz.getRegionbiz().findProvince();
@@ -38,6 +39,7 @@ public class ReginAction implements IRegionAction {
 	}
 
 	@Action(value = "loadCitys_Region")
+	@Override
 	public void loadCitys() {
 		try {
 			String fcode = ServletActionContext.getRequest().getParameter("code");

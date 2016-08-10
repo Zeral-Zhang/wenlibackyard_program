@@ -2,7 +2,7 @@ package com.biz;
 
 import java.util.List;
 
-import com.po.Producttype;
+import com.po.ProductType;
 
 public interface IProductTypeBiz {
 	/**
@@ -10,5 +10,5 @@ public interface IProductTypeBiz {
 	 * @return
 	 * @throws Exception 
 	 */
-	public List<Producttype> findProuctType() throws Exception;
+	public List<ProductType> findProuctType() throws Exception;
 }

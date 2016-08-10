@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import com.bean.PageBean;
 import com.biz.IProductInfobBiz;
 import com.googlecode.ehcache.annotations.Cacheable;
-import com.po.Productinfo;
-import com.po.Producttype;
+import com.po.ProductInfo;
+import com.po.ProductType;
 import com.service.dao.DaoService;
 
 @Service("ProductInfoBizImpl")
@@ -23,26 +23,26 @@ public class ProductInfoBizImpl implements IProductInfobBiz {
 	private DaoService daos;
 
 	@Override
-	public boolean save(Productinfo productinfo) {
-		log.info("save Productinfo "+ productinfo.toString() +"");
+	public boolean save(ProductInfo productInfo) {
+		log.info("save Productinfo "+ productInfo.toString() +"");
 		try {
 			// 给商品添加商品类别信息
-			Producttype producttype = daos.getProducttypeDAO()
-					.findById(productinfo.getProducttype().getProductTypeId());
-			productinfo.setProducttype(producttype);
+			ProductType productType = daos.getProducttypeDAO()
+					.findById(productInfo.getProducttype().getProductTypeId());
+			productInfo.setProducttype(productType);
 			// 用户信息在action层添加
-			daos.getProductinfoDAO().save(productinfo);
-			log.info("add Productinfo "+ productinfo.toString() +" success");
+			daos.getProductinfoDAO().save(productInfo);
+			log.info("add Productinfo "+ productInfo.toString() +" success");
 			return true;
 		} catch (Exception e) {
-			log.error("add Productinfo "+ productinfo.toString() +" failed", e);
+			log.error("add Productinfo "+ productInfo.toString() +" failed", e);
 			return false;
 		}
 	}
 
 	@Cacheable(cacheName = CACHE_NAME)
 	@Override
-	public List<Productinfo> findAll(PageBean pageBean) throws Exception {
+	public List<ProductInfo> findAll(PageBean pageBean) throws Exception {
 		try {
 			return daos.getProductinfoDAO().findAll(pageBean);
 		} catch (Exception e) {
@@ -61,11 +61,11 @@ public class ProductInfoBizImpl implements IProductInfobBiz {
 	}
 
 	@Override
-	public Productinfo findDetail(Integer productId) throws Exception  {
+	public ProductInfo findDetail(Integer productId) throws Exception  {
 		try {
-			Productinfo productinfo = daos.getProductinfoDAO().findById(productId);
-			if (productinfo != null) {
-				return productinfo;
+			ProductInfo productInfo = daos.getProductinfoDAO().findById(productId);
+			if (productInfo != null) {
+				return productInfo;
 			}
 			return null;
 		} catch (Exception e) {
@@ -74,18 +74,18 @@ public class ProductInfoBizImpl implements IProductInfobBiz {
 	}
 
 	@Override
-	public boolean update(Productinfo productinfo) {
-		log.info("update Productinfo "+ productinfo.toString() +"");
+	public boolean update(ProductInfo productInfo) {
+		log.info("update Productinfo "+ productInfo.toString() +"");
 		try {
 			// 更新商品类别信息
-			Producttype producttype = daos.getProducttypeDAO()
-					.findById(productinfo.getProducttype().getProductTypeId());
-			productinfo.setProducttype(producttype);
-			daos.getProductinfoDAO().update(productinfo);
-			log.info("update Productinfo "+ productinfo.toString() +" success");
+			ProductType productType = daos.getProducttypeDAO()
+					.findById(productInfo.getProducttype().getProductTypeId());
+			productInfo.setProducttype(productType);
+			daos.getProductinfoDAO().update(productInfo);
+			log.info("update Productinfo "+ productInfo.toString() +" success");
 			return true;
 		} catch (Exception e) {
-			log.error("update Productinfo "+ productinfo.toString() +" failed", e);
+			log.error("update Productinfo "+ productInfo.toString() +" failed", e);
 			return false;
 		}
 	}

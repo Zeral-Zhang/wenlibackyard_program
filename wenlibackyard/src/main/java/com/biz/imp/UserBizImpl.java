@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.biz.IUserBiz;
 import com.po.Regions;
-import com.po.Schoolinfo;
-import com.po.Userdetailinfo;
-import com.po.Userinfo;
+import com.po.SchoolInfo;
+import com.po.UserDetailInfo;
+import com.po.UserInfo;
 import com.service.dao.DaoService;
 @Service("UserBizImpl")
 public class UserBizImpl implements IUserBiz {
@@ -19,9 +19,9 @@ public class UserBizImpl implements IUserBiz {
 	@Resource(name = "DaoService")
 	private DaoService daos;
 
-	public Userinfo findUser(String userId) throws Exception {
+	public UserInfo findUser(String userId) throws Exception {
 		try {
-			Userinfo userInfo = daos.getUserdao().findById(userId);
+			UserInfo userInfo = daos.getUserdao().findById(userId);
 			return userInfo;
 		} catch (Exception e) {
 			log.error("find userinfo failed", e);
@@ -30,53 +30,53 @@ public class UserBizImpl implements IUserBiz {
 	}
 
 	@Override
-	public void update(Userinfo userInfo) throws Exception  {
+	public void update(UserInfo userInfo) throws Exception  {
 		log.info("upate userinfo "+ userInfo.toString() +"");
 		try {
-			Userinfo oldUser = daos.getUserdao().findById(userInfo.getUserId());
-			Userdetailinfo userdetailinfo = oldUser.getUserdetailinfo();
-			if(null == userdetailinfo) {
-				userdetailinfo = new Userdetailinfo();
-				userdetailinfo.setUserTel(userInfo.getUserdetailinfo().getUserTel());
-				userdetailinfo.setUserAge(userInfo.getUserdetailinfo().getUserAge());
-				userdetailinfo.setUserLanguage(userInfo.getUserdetailinfo().getUserLanguage());
-				userdetailinfo.setUserProvince(findNameFromCode(userInfo.getUserdetailinfo().getUserProvince()));
-				userdetailinfo.setUserCity(findNameFromCode(userInfo.getUserdetailinfo().getUserCity()));
+			UserInfo oldUser = daos.getUserdao().findById(userInfo.getUserId());
+			UserDetailInfo userDetailInfo = oldUser.getUserDetailInfo();
+			if(null == userDetailInfo) {
+				userDetailInfo = new UserDetailInfo();
+				userDetailInfo.setUserTel(userInfo.getUserDetailInfo().getUserTel());
+				userDetailInfo.setUserAge(userInfo.getUserDetailInfo().getUserAge());
+				userDetailInfo.setUserLanguage(userInfo.getUserDetailInfo().getUserLanguage());
+				userDetailInfo.setUserProvince(findNameFromCode(userInfo.getUserDetailInfo().getUserProvince()));
+				userDetailInfo.setUserCity(findNameFromCode(userInfo.getUserDetailInfo().getUserCity()));
 				// 保存用户id到用户详细信息表中
-				userdetailinfo.setUserinfo(oldUser);
-				daos.getUserdetailinfoDAO().save(userdetailinfo);
-				List<Integer> objlst = daos.getUserdetailinfoDAO().findBySQL("SELECT MAX(userDetailId) FROM userdetailinfo");
+				userDetailInfo.setUserinfo(oldUser);
+				daos.getUserdetailinfoDAO().save(userDetailInfo);
+				List<Integer> objlst = daos.getUserdetailinfoDAO().findBySQL("SELECT MAX(userDetailId) FROM userdetailinfo WHERE userId = '" + userInfo.getUserId() + "'");
 				int id = -1;
 				if(objlst != null) id = objlst.get(0); 
-				oldUser.setUserdetailinfo(daos.getUserdetailinfoDAO().findById(id));
+				oldUser.setUserDetailInfo(daos.getUserdetailinfoDAO().findById(id));
 			} else {
-				userdetailinfo.setUserTel(userInfo.getUserdetailinfo().getUserTel());
-				userdetailinfo.setUserAge(userInfo.getUserdetailinfo().getUserAge());
-				userdetailinfo.setUserLanguage(userInfo.getUserdetailinfo().getUserLanguage());
-				userdetailinfo.setUserProvince(findNameFromCode(userInfo.getUserdetailinfo().getUserProvince()));
-				userdetailinfo.setUserCity(findNameFromCode(userInfo.getUserdetailinfo().getUserCity()));
-				oldUser.setUserdetailinfo(userdetailinfo);
+				userDetailInfo.setUserTel(userInfo.getUserDetailInfo().getUserTel());
+				userDetailInfo.setUserAge(userInfo.getUserDetailInfo().getUserAge());
+				userDetailInfo.setUserLanguage(userInfo.getUserDetailInfo().getUserLanguage());
+				userDetailInfo.setUserProvince(findNameFromCode(userInfo.getUserDetailInfo().getUserProvince()));
+				userDetailInfo.setUserCity(findNameFromCode(userInfo.getUserDetailInfo().getUserCity()));
+				oldUser.setUserDetailInfo(userDetailInfo);
 			}
 			
-			Schoolinfo schoolinfo = oldUser.getUserdetailinfo().getSchoolinfo();
-			if(null == schoolinfo) {
-				schoolinfo = new Schoolinfo();
-				schoolinfo.setCollege(userInfo.getUserdetailinfo().getSchoolinfo().getCollege());
-				schoolinfo.setDepartment(userInfo.getUserdetailinfo().getSchoolinfo().getDepartment());
-				schoolinfo.setGrade(userInfo.getUserdetailinfo().getSchoolinfo().getGrade());
-				schoolinfo.setClasses(userInfo.getUserdetailinfo().getSchoolinfo().getClasses());
+			SchoolInfo schoolInfo = oldUser.getUserDetailInfo().getSchoolinfo();
+			if(null == schoolInfo) {
+				schoolInfo = new SchoolInfo();
+				schoolInfo.setCode(userInfo.getUserDetailInfo().getSchoolinfo().getCode());
+				schoolInfo.setName(userInfo.getUserDetailInfo().getSchoolinfo().getName());
+				schoolInfo.setPCode(userInfo.getUserDetailInfo().getSchoolinfo().getPCode());
+				schoolInfo.setLevel(userInfo.getUserDetailInfo().getSchoolinfo().getLevel());
 				// 保存院校id到用户详细信息中
-				daos.getSchoolinfoDAO().save(schoolinfo);
+				daos.getSchoolinfoDAO().save(schoolInfo);
 				List<Integer> objlst = daos.getSchoolinfoDAO().findBySQL("SELECT MAX(schoolInfoId) FROM schoolinfo");
 				int id = -1;
 				if(objlst != null) id = objlst.get(0); 
-				oldUser.getUserdetailinfo().setSchoolinfo(daos.getSchoolinfoDAO().findById(id));
+				oldUser.getUserDetailInfo().setSchoolinfo(daos.getSchoolinfoDAO().findById(id));
 			} else {
-				schoolinfo.setCollege(userInfo.getUserdetailinfo().getSchoolinfo().getCollege());
-				schoolinfo.setDepartment(userInfo.getUserdetailinfo().getSchoolinfo().getDepartment());
-				schoolinfo.setGrade(userInfo.getUserdetailinfo().getSchoolinfo().getGrade());
-				schoolinfo.setClasses(userInfo.getUserdetailinfo().getSchoolinfo().getClasses());
-				oldUser.getUserdetailinfo().setSchoolinfo(schoolinfo);
+				schoolInfo.setCode(userInfo.getUserDetailInfo().getSchoolinfo().getCode());
+				schoolInfo.setName(userInfo.getUserDetailInfo().getSchoolinfo().getName());
+				schoolInfo.setPCode(userInfo.getUserDetailInfo().getSchoolinfo().getPCode());
+				schoolInfo.setLevel(userInfo.getUserDetailInfo().getSchoolinfo().getLevel());
+				oldUser.getUserDetailInfo().setSchoolinfo(schoolInfo);
 			}
 			daos.getUserdao().saveOrUpdate(oldUser);
 			log.info("upate userinfo "+ userInfo.toString() +" success");

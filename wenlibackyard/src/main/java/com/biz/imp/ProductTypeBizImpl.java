@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.biz.IProductTypeBiz;
-import com.po.Producttype;
+import com.po.ProductType;
 import com.service.dao.DaoService;
 
 @Service("ProductTypeBizImpl")
@@ -18,9 +18,9 @@ public class ProductTypeBizImpl implements IProductTypeBiz {
 	private DaoService daos;
 	
 	@Override
-	public List<Producttype> findProuctType() throws Exception  {
+	public List<ProductType> findProuctType() throws Exception  {
 		try {
-			List<Producttype> productTypelst = daos.getProducttypeDAO().findAll();
+			List<ProductType> productTypelst = daos.getProducttypeDAO().findAll();
 			if(productTypelst != null) {
 				return productTypelst;
 			}

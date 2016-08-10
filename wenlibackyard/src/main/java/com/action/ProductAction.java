@@ -15,13 +15,12 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 
 import com.bean.PageBean;
-import com.po.Productinfo;
-import com.po.Producttype;
-import com.po.Userinfo;
+import com.po.ProductInfo;
+import com.po.ProductType;
+import com.po.UserInfo;
 import com.service.biz.BizService;
 import com.util.WebUtil;
 
@@ -30,7 +29,7 @@ import com.util.WebUtil;
 public class ProductAction implements IProductAction {
 	@Resource(name = "BizService")
 	private BizService bizs;
-	private Productinfo productinfo;
+	private ProductInfo productInfo;
 	private Integer productId;
 
 	private PageBean pageBean;
@@ -42,17 +41,25 @@ public class ProductAction implements IProductAction {
 		return "success";
 	}
 	
+	@Action(value = "productCategory", results = {
+			@Result(name = "success", location = "/WEB-INF/productCategory.jsp"),
+			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
+	public String initProductCategory() {
+		return "success";
+	}
+	
 	@Action(value = "add_Product", results = {
 			@Result(name = "success", location = "productList", type="redirect"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
-	public String add() {
+	@Override
+	public String addProduct() {
 		// 获取上传的服务器路径
 		String rpath = ServletActionContext.getServletContext().getRealPath("/");
 
 		// 判断是否存在上传的文件
-		if (productinfo.getPic() != null && productinfo.getPicFileName() != null) {
+		if (productInfo.getPic() != null && productInfo.getPicFileName() != null) {
 			// 获取文件名称
-			String fname = productinfo.getPicFileName();
+			String fname = productInfo.getPicFileName();
 
 			// 获取文件的后缀
 			if (fname.lastIndexOf(".") != -1) {
@@ -66,22 +73,22 @@ public class ProductAction implements IProductAction {
 
 				try {
 					// 上传
-					FileUtils.copyFile(productinfo.getPic(), destFile);
-					productinfo.setImgs(newfname);// 设置文件名称到数据表
+					FileUtils.copyFile(productInfo.getPic(), destFile);
+					productInfo.setImgs(newfname);// 设置文件名称到数据表
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 				}
 			}
 		}
 		// 添加商品发布日期
-		productinfo.setPbdate(new Date());
+		productInfo.setPbdate(new Date());
 		// 给商品添加用户信息
-		Userinfo user = (Userinfo) ServletActionContext.getRequest().getSession().getAttribute("userInfo");
-		productinfo.setUserinfo(user);
+		UserInfo user = (UserInfo) ServletActionContext.getRequest().getSession().getAttribute("userInfo");
+		productInfo.setUserinfo(user);
 
-		boolean flag = bizs.getProductInfobiz().save(productinfo);
+		boolean flag = bizs.getProductInfobiz().save(productInfo);
 		if (flag) {
-			productinfo = null;
+			productInfo = null;
 			return "success";
 		}
 
@@ -89,6 +96,7 @@ public class ProductAction implements IProductAction {
 	}
 
 	@Action(value = "init_ProductType")
+	@Override
 	public void initProductType() {
 		try {
 			PrintWriter out = null;
@@ -97,7 +105,7 @@ public class ProductAction implements IProductAction {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 			}
-			List<Producttype> productTypelst = bizs.getProductTypebiz().findProuctType();
+			List<ProductType> productTypelst = bizs.getProductTypebiz().findProuctType();
 			/*
 			 * Gson gson = new Gson(); //
 			 * 防止陷入死循环，请求productType时懒加载productInfo，但是productInfo又请求productType
@@ -106,7 +114,7 @@ public class ProductAction implements IProductAction {
 			 * gson.toJson(productTypelst); out.write(productGson); out.flush();
 			 * out.close();
 			 */
-			WebUtil.sendJSONArrayResponse(productTypelst, new String[] { "productinfos" });
+			WebUtil.sendJSONArrayResponse(productTypelst, new String[] { "productInfos" });
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 		}
@@ -116,6 +124,7 @@ public class ProductAction implements IProductAction {
 			@Result(name = "success", location = "/WEB-INF/productList.jsp"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp"),
 			@Result(name = "login", location = "/WEB-INF/userLogin.jsp") })
+	@Override
 	public String initProduct() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();
@@ -133,7 +142,7 @@ public class ProductAction implements IProductAction {
 			}
 
 			// 获取当前页的记录集合
-			List<Productinfo> lsemp = bizs.getProductInfobiz().findAll(pageBean);
+			List<ProductInfo> lsemp = bizs.getProductInfobiz().findAll(pageBean);
 			// 封装数据到PageBean
 			pageBean.setPagelist(lsemp);
 
@@ -146,13 +155,14 @@ public class ProductAction implements IProductAction {
 	@Action(value = "find_ProductDetail", results = {
 			@Result(name = "success", location = "/WEB-INF/productDetail.jsp"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
+	@Override
 	public String findDetail() {
 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		try {
-			Productinfo productinfo = bizs.getProductInfobiz().findDetail(productId);
-			if (productinfo != null) {
-				request.setAttribute("product", productinfo);
+			ProductInfo productInfo = bizs.getProductInfobiz().findDetail(productId);
+			if (productInfo != null) {
+				request.setAttribute("product", productInfo);
 				return "success";
 			} else {
 				return "failed";
@@ -162,12 +172,12 @@ public class ProductAction implements IProductAction {
 		}
 	}
 
-	public Productinfo getProductinfo() {
-		return productinfo;
+	public ProductInfo getProductinfo() {
+		return productInfo;
 	}
 
-	public void setProductinfo(Productinfo productinfo) {
-		this.productinfo = productinfo;
+	public void setProductinfo(ProductInfo productinfo) {
+		this.productInfo = productinfo;
 	}
 
 	public PageBean getPageBean() {

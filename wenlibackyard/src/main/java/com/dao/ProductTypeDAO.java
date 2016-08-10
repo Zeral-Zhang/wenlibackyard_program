@@ -15,10 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.po.Producttype;
+import com.po.ProductType;
 
-@Service("ProducttypeDAO")
-public class ProducttypeDAO extends BaseDAO<Producttype, Integer> {
+@Service("ProductTypeDAO")
+public class ProductTypeDAO extends BaseDAO<ProductType, Integer> {
 	// property constants
 	public static final String PARENT_ID = "parentId";
 	public static final String PRODUCT_TYPE_NAME = "productTypeName";
@@ -33,19 +33,19 @@ public class ProducttypeDAO extends BaseDAO<Producttype, Integer> {
 			return queryObject.list();
 	}
 
-	public List<Producttype> findByParentId(Object parentId) {
+	public List<ProductType> findByParentId(Object parentId) {
 		return findByProperty(PARENT_ID, parentId);
 	}
 
-	public List<Producttype> findByProductTypeName(Object productTypeName) {
+	public List<ProductType> findByProductTypeName(Object productTypeName) {
 		return findByProperty(PRODUCT_TYPE_NAME, productTypeName);
 	}
 
-	public List<Producttype> findByIsDelete(Object isDelete) {
+	public List<ProductType> findByIsDelete(Object isDelete) {
 		return findByProperty(IS_DELETE, isDelete);
 	}
 
-	public List<Producttype> findByContext(Object context) {
+	public List<ProductType> findByContext(Object context) {
 		return findByProperty(CONTEXT, context);
 	}
 

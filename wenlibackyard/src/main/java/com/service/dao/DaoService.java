@@ -6,59 +6,59 @@ import org.springframework.stereotype.Service;
 
 import com.dao.BasicConfigDAO;
 import com.dao.DatabaseInitDAO;
-import com.dao.OrderdetailDAO;
-import com.dao.OrdermainDAO;
-import com.dao.ProductinfoDAO;
-import com.dao.ProducttypeDAO;
+import com.dao.OrderDetailDAO;
+import com.dao.OrderMainDAO;
+import com.dao.ProductInfoDAO;
+import com.dao.ProductTypeDAO;
 import com.dao.RegionsDAO;
-import com.dao.SchoolinfoDAO;
-import com.dao.UserdetailinfoDAO;
-import com.dao.UserinfoDAO;
+import com.dao.SchoolInfoDAO;
+import com.dao.UserDetailInfoDAO;
+import com.dao.UserInfoDAO;
 
 @Service("DaoService")
 public class DaoService {
-	@Resource(name="UserinfoDAO")
-	private UserinfoDAO userdao;
-	@Resource(name="UserdetailinfoDAO")
-	private UserdetailinfoDAO userdetailinfoDAO;
-	@Resource(name="SchoolinfoDAO")
-	private SchoolinfoDAO schoolinfoDAO;
+	@Resource(name="UserInfoDAO")
+	private UserInfoDAO userdao;
+	@Resource(name="UserDetailInfoDAO")
+	private UserDetailInfoDAO userDetailInfoDAO;
+	@Resource(name="SchoolInfoDAO")
+	private SchoolInfoDAO schoolInfoDAO;
 	@Resource(name="RegionsDAO")
 	private RegionsDAO regionDAO;
-	@Resource(name="ProductinfoDAO")
-	private ProductinfoDAO productinfoDAO;
-	@Resource(name="ProducttypeDAO")
-	private ProducttypeDAO producttypeDAO;
-	@Resource(name="OrderdetailDAO")
-	private OrderdetailDAO orderdetailDAO;
-	@Resource(name="OrdermainDAO")
-	private OrdermainDAO ordermainDAO;
+	@Resource(name="ProductInfoDAO")
+	private ProductInfoDAO productInfoDAO;
+	@Resource(name="ProductTypeDAO")
+	private ProductTypeDAO productTypeDAO;
+	@Resource(name="OrderDetailDAO")
+	private OrderDetailDAO orderDetailDAO;
+	@Resource(name="OrderMainDAO")
+	private OrderMainDAO orderMainDAO;
 	@Resource(name="BasicConfigDAO")
 	private BasicConfigDAO basicConfigDAO;
 	@Resource(name="DatabaseInitDAO")
 	private DatabaseInitDAO dataBaseInitDAO;
-	public UserinfoDAO getUserdao() {
+	public UserInfoDAO getUserdao() {
 		return userdao;
 	}
 
-	public void setUserdao(UserinfoDAO userdao) {
+	public void setUserdao(UserInfoDAO userdao) {
 		this.userdao = userdao;
 	}
 
-	public UserdetailinfoDAO getUserdetailinfoDAO() {
-		return userdetailinfoDAO;
+	public UserDetailInfoDAO getUserdetailinfoDAO() {
+		return userDetailInfoDAO;
 	}
 
-	public void setUserdetailinfoDAO(UserdetailinfoDAO userdetailinfoDAO) {
-		this.userdetailinfoDAO = userdetailinfoDAO;
+	public void setUserdetailinfoDAO(UserDetailInfoDAO userDetailInfoDAO) {
+		this.userDetailInfoDAO = userDetailInfoDAO;
 	}
 
-	public SchoolinfoDAO getSchoolinfoDAO() {
-		return schoolinfoDAO;
+	public SchoolInfoDAO getSchoolinfoDAO() {
+		return schoolInfoDAO;
 	}
 
-	public void setSchoolinfoDAO(SchoolinfoDAO schoolinfoDAO) {
-		this.schoolinfoDAO = schoolinfoDAO;
+	public void setSchoolinfoDAO(SchoolInfoDAO schoolInfoDAO) {
+		this.schoolInfoDAO = schoolInfoDAO;
 	}
 
 	public RegionsDAO getRegionDAO() {
@@ -69,36 +69,36 @@ public class DaoService {
 		this.regionDAO = regionDAO;
 	}
 
-	public ProductinfoDAO getProductinfoDAO() {
-		return productinfoDAO;
+	public ProductInfoDAO getProductinfoDAO() {
+		return productInfoDAO;
 	}
 
-	public void setProductinfoDAO(ProductinfoDAO productinfoDAO) {
-		this.productinfoDAO = productinfoDAO;
+	public void setProductinfoDAO(ProductInfoDAO productInfoDAO) {
+		this.productInfoDAO = productInfoDAO;
 	}
 
-	public ProducttypeDAO getProducttypeDAO() {
-		return producttypeDAO;
+	public ProductTypeDAO getProducttypeDAO() {
+		return productTypeDAO;
 	}
 
-	public void setProducttypeDAO(ProducttypeDAO producttypeDAO) {
-		this.producttypeDAO = producttypeDAO;
+	public void setProducttypeDAO(ProductTypeDAO productTypeDAO) {
+		this.productTypeDAO = productTypeDAO;
 	}
 
-	public OrderdetailDAO getOrderdetailDAO() {
-		return orderdetailDAO;
+	public OrderDetailDAO getOrderdetailDAO() {
+		return orderDetailDAO;
 	}
 
-	public void setOrderdetailDAO(OrderdetailDAO orderdetailDAO) {
-		this.orderdetailDAO = orderdetailDAO;
+	public void setOrderdetailDAO(OrderDetailDAO orderDetailDAO) {
+		this.orderDetailDAO = orderDetailDAO;
 	}
 
-	public OrdermainDAO getOrdermainDAO() {
-		return ordermainDAO;
+	public OrderMainDAO getOrdermainDAO() {
+		return orderMainDAO;
 	}
 
-	public void setOrdermainDAO(OrdermainDAO ordermainDAO) {
-		this.ordermainDAO = ordermainDAO;
+	public void setOrdermainDAO(OrderMainDAO orderMainDAO) {
+		this.orderMainDAO = orderMainDAO;
 	}
 
 	public BasicConfigDAO getBasicConfigDAO() {

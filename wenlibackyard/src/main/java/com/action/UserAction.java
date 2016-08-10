@@ -13,7 +13,7 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.stereotype.Controller;
 
-import com.po.Userinfo;
+import com.po.UserInfo;
 import com.service.biz.BizService;
 
 /**
@@ -23,7 +23,7 @@ import com.service.biz.BizService;
 @Controller
 @Namespace("/")
 public class UserAction implements IUserAction {
-	private Userinfo user;
+	private UserInfo user;
 	private String userid;
 	@Resource(name = "BizService")
 	private BizService biz;
@@ -39,6 +39,7 @@ public class UserAction implements IUserAction {
 	}
 	
 	@Action(value = "login_User")
+	@Override
 	public void login() {
 		HttpServletResponse response = ServletActionContext.getResponse();
 		HttpSession session = ServletActionContext.getRequest().getSession();
@@ -48,7 +49,7 @@ public class UserAction implements IUserAction {
 			if ("".equals(userid)) {
 				out.write("{\"status\":\"0\"}");
 			} else {
-				Userinfo userInfo = biz.getUserbiz().findUser(userid);
+				UserInfo userInfo = biz.getUserbiz().findUser(userid);
 				if (userInfo == null) {
 					out.write("{\"status\":\"-1\"}");
 				} else {
@@ -64,7 +65,7 @@ public class UserAction implements IUserAction {
 
 	@Action(value = "userInfo", results = {
 			@Result(name = "success", location = "/WEB-INF/userInfo.jsp"),
-			@Result(name = "login", location = "WEB-INF/userLogin.jsp")
+			@Result(name = "login", location = "/WEB-INF/userLogin.jsp")
 	})
 	@Override
 	public String initUserInfo() {
@@ -80,15 +81,16 @@ public class UserAction implements IUserAction {
 	@Action(value = "update_User", results = {
 			@Result(name = "success", location = "/WEB-INF/userDetail.jsp"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
+	@Override
 	public String update() {
 		try {
 			// 设置用户语言信息
-			user.getUserdetailinfo().setUserLanguage(
+			user.getUserDetailInfo().setUserLanguage(
 					ServletActionContext.getRequest().getLocale().toString());
 			// 修改用户信息，重新放置用户到session中
 			biz.getUserbiz().update(user);
 			// 通过id找到修改后的用户信息保存到session域中
-			Userinfo newUser = biz.getUserbiz().findUser(user.getUserId());
+			UserInfo newUser = biz.getUserbiz().findUser(user.getUserId());
 			ServletActionContext.getRequest().getSession()
 					.setAttribute("userInfo", newUser);
 			return "success";
@@ -97,11 +99,11 @@ public class UserAction implements IUserAction {
 		}
 	}
 
-	public Userinfo getUser() {
+	public UserInfo getUser() {
 		return user;
 	}
 
-	public void setUser(Userinfo user) {
+	public void setUser(UserInfo user) {
 		this.user = user;
 	}
 

@@ -18,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "userinfo", catalog = "wenlibackyard")
-public class Userinfo implements java.io.Serializable {
+public class UserInfo implements java.io.Serializable {
 
 	/**
 	 * 
@@ -29,33 +29,33 @@ public class Userinfo implements java.io.Serializable {
 	private String userId;
 	private String userNickName;
 	private String userHeadImgUrl;
-	private Set<Ordermain> ordermains = new HashSet<Ordermain>(0);
-	private Userdetailinfo userdetailinfo;
+	private Set<OrderMain> orderMains = new HashSet<OrderMain>(0);
+	private UserDetailInfo userDetailInfo;
 	private Set<Favorite> favorites = new HashSet<Favorite>(0);
-	private Set<Productinfo> productinfos = new HashSet<Productinfo>(0);
+	private Set<ProductInfo> productInfos = new HashSet<ProductInfo>(0);
 	
 	// Constructors
 
 	/** default constructor */
-	public Userinfo() {
+	public UserInfo() {
 	}
 
 	/** minimal constructor */
-	public Userinfo(String userNickName, String userHeadImgUrl) {
+	public UserInfo(String userNickName, String userHeadImgUrl) {
 		this.userNickName = userNickName;
 		this.userHeadImgUrl = userHeadImgUrl;
 	}
 
 	/** full constructor */
-	public Userinfo(String userNickName, String userHeadImgUrl,
-			Set<Ordermain> ordermains, Userdetailinfo userdetailinfo,
-			Set<Favorite> favorites, Set<Productinfo> productinfos) {
+	public UserInfo(String userNickName, String userHeadImgUrl,
+			Set<OrderMain> ordermains, UserDetailInfo userdetailinfo,
+			Set<Favorite> favorites, Set<ProductInfo> productInfos) {
 		this.userNickName = userNickName;
 		this.userHeadImgUrl = userHeadImgUrl;
-		this.ordermains = ordermains;
-		this.userdetailinfo = userdetailinfo;
+		this.orderMains = ordermains;
+		this.userDetailInfo = userdetailinfo;
 		this.favorites = favorites;
-		this.productinfos = productinfos;
+		this.productInfos = productInfos;
 	}
 
 	// Property accessors
@@ -89,21 +89,21 @@ public class Userinfo implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userinfo")
-	public Set<Ordermain> getOrdermains() {
-		return this.ordermains;
+	public Set<OrderMain> getOrderMains() {
+		return this.orderMains;
 	}
 
-	public void setOrdermains(Set<Ordermain> ordermains) {
-		this.ordermains = ordermains;
+	public void setOrderMains(Set<OrderMain> ordermains) {
+		this.orderMains = ordermains;
 	}
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userinfo")
-	public Userdetailinfo getUserdetailinfo() {
-		return this.userdetailinfo;
+	public UserDetailInfo getUserDetailInfo() {
+		return this.userDetailInfo;
 	}
 
-	public void setUserdetailinfo(Userdetailinfo userdetailinfo) {
-		this.userdetailinfo = userdetailinfo;
+	public void setUserDetailInfo(UserDetailInfo userdetailinfo) {
+		this.userDetailInfo = userdetailinfo;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userinfo")
@@ -116,12 +116,12 @@ public class Userinfo implements java.io.Serializable {
 	}
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userinfo")
-	public Set<Productinfo> getProductinfos() {
-		return this.productinfos;
+	public Set<ProductInfo> getProductInfos() {
+		return this.productInfos;
 	}
 	
-	public void setProductinfos(Set<Productinfo> productinfos) {
-		this.productinfos = productinfos;
+	public void setProductInfos(Set<ProductInfo> productInfos) {
+		this.productInfos = productInfos;
 	}
 
 }

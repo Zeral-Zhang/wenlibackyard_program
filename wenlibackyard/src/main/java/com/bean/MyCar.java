@@ -3,7 +3,7 @@ package com.bean;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.po.Productinfo;
+import com.po.ProductInfo;
 
 public class MyCar {
 	private Map<Integer, ShopCarItem> items = new HashMap<Integer, ShopCarItem>();
@@ -33,7 +33,7 @@ public class MyCar {
 		this.sumPrice = sumPrice;
 	}
 	
-	public Map<Integer, ShopCarItem> add(Productinfo product,int num){
+	public Map<Integer, ShopCarItem> add(ProductInfo product,int num){
 		ShopCarItem sc = items.get(product.getProductId());
 		if(null != sc){
 			if(sc.getNum() == 1 && num < 0) {
@@ -55,7 +55,7 @@ public class MyCar {
 		return items;
 	}
 	
-	public Map<Integer, ShopCarItem> dec(Productinfo product, int num) {
+	public Map<Integer, ShopCarItem> dec(ProductInfo product, int num) {
 		ShopCarItem sc = items.get(product.getProductId());
 		if (sc != null) {
 			sc.setNum(sc.getNum() - num);

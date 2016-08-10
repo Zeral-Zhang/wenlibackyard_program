@@ -5,7 +5,7 @@ public interface IProductAction {
 	 * 添加商品，添加成功返回商品列表界面
 	 * @return
 	 */
-	public String add();
+	public String addProduct();
 	
 	/**
 	 * 初始化商品类别信息

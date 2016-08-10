@@ -64,13 +64,13 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>com.po.Favorite</value>
-				<value>com.po.Schoolinfo</value>
-				<value>com.po.Productinfo</value>
-				<value>com.po.Ordermain</value>
-				<value>com.po.Userdetailinfo</value>
-				<value>com.po.Producttype</value>
-				<value>com.po.Userinfo</value>
-				<value>com.po.Orderdetail</value>
+				<value>com.po.SchoolInfo</value>
+				<value>com.po.ProductInfo</value>
+				<value>com.po.OrderMain</value>
+				<value>com.po.UserDetailInfo</value>
+				<value>com.po.ProductType</value>
+				<value>com.po.UserInfo</value>
+				<value>com.po.OrderDetail</value>
 				<value>com.po.BasicConfig</value>
 				<value>com.po.Regions</value>
 			</list>

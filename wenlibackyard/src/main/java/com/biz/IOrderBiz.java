@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.bean.MyCar;
 import com.bean.PageBean;
-import com.po.Orderdetail;
-import com.po.Ordermain;
-import com.po.Userinfo;
+import com.po.OrderDetail;
+import com.po.OrderMain;
+import com.po.UserInfo;
 
 public interface IOrderBiz {
 	/**
@@ -14,7 +14,7 @@ public interface IOrderBiz {
 	 * @param orderDetailId
 	 * @return
 	 */
-	public Orderdetail findDetail(Integer orderDetailId);
+	public OrderDetail findDetail(Integer orderDetailId);
 	
 	/**
 	 * 分页查询用户的订单主表
@@ -22,7 +22,7 @@ public interface IOrderBiz {
 	 * @param rows
 	 * @return
 	 */
-	public List<Ordermain> findAllMain(String userId, PageBean pageBean);
+	public List<OrderMain> findAllMain(String userId, PageBean pageBean);
 
 	/**
 	 * 保存用户订单信息
@@ -31,5 +31,5 @@ public interface IOrderBiz {
 	 * @return
 	 * @throws Exception 
 	 */
-	public boolean saveOrder(MyCar myCar, Userinfo user) throws Exception;
+	public boolean saveOrder(MyCar myCar, UserInfo user) throws Exception;
 }

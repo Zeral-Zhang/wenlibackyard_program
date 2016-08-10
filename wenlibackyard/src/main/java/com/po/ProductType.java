@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "producttype", catalog = "wenlibackyard")
-public class Producttype implements java.io.Serializable {
+public class ProductType implements java.io.Serializable {
 
 	// Fields
 
@@ -25,16 +25,16 @@ public class Producttype implements java.io.Serializable {
 	private String productTypeName;
 	private Integer isDelete;
 	private String context;
-	private Set<Productinfo> productinfos = new HashSet<Productinfo>(0);
+	private Set<ProductInfo> productInfos = new HashSet<ProductInfo>(0);
 
 	// Constructors
 
 	/** default constructor */
-	public Producttype() {
+	public ProductType() {
 	}
 
 	/** minimal constructor */
-	public Producttype(Integer parentId, String productTypeName,
+	public ProductType(Integer parentId, String productTypeName,
 			Integer isDelete) {
 		this.parentId = parentId;
 		this.productTypeName = productTypeName;
@@ -42,13 +42,13 @@ public class Producttype implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Producttype(Integer parentId, String productTypeName,
-			Integer isDelete, String context, Set<Productinfo> productinfos) {
+	public ProductType(Integer parentId, String productTypeName,
+			Integer isDelete, String context, Set<ProductInfo> productInfos) {
 		this.parentId = parentId;
 		this.productTypeName = productTypeName;
 		this.isDelete = isDelete;
 		this.context = context;
-		this.productinfos = productinfos;
+		this.productInfos = productInfos;
 	}
 
 	// Property accessors
@@ -100,12 +100,12 @@ public class Producttype implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "producttype")
-	public Set<Productinfo> getProductinfos() {
-		return this.productinfos;
+	public Set<ProductInfo> getProductinfos() {
+		return this.productInfos;
 	}
 
-	public void setProductinfos(Set<Productinfo> productinfos) {
-		this.productinfos = productinfos;
+	public void setProductinfos(Set<ProductInfo> productInfos) {
+		this.productInfos = productInfos;
 	}
 
 }

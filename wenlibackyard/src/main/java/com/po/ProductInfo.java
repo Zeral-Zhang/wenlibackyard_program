@@ -24,13 +24,13 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "productinfo", catalog = "wenlibackyard")
-public class Productinfo implements java.io.Serializable {
+public class ProductInfo implements java.io.Serializable {
 
 	// Fields
 
 	private Integer productId;
-	private Producttype producttype;
-	private Userinfo userinfo;
+	private ProductType producttype;
+	private UserInfo userinfo;
 	private String productName;
 	private String brand;
 	private String context;
@@ -40,7 +40,7 @@ public class Productinfo implements java.io.Serializable {
 	private Date buydate;
 	private Date pbdate;
 	private Integer state;
-	private Set<Orderdetail> orderdetails = new HashSet<Orderdetail>(0);
+	private Set<OrderDetail> orderdetails = new HashSet<OrderDetail>(0);
 	private Set<Favorite> favorites = new HashSet<Favorite>(0);
 	/*********************与界面关联的属性***************************/
 	private File pic;
@@ -51,15 +51,15 @@ public class Productinfo implements java.io.Serializable {
 	// Constructors
 
 	/** default constructor */
-	public Productinfo() {
+	public ProductInfo() {
 	}
 
 	/** minimal constructor */
-	public Productinfo(Producttype producttype, Userinfo userinfo,
+	public ProductInfo(ProductType productType, UserInfo userInfo,
 			String productName, String context, String imgs, Float price,
 			Integer number, Date pbdate, Integer state) {
-		this.producttype = producttype;
-		this.userinfo = userinfo;
+		this.producttype = productType;
+		this.userinfo = userInfo;
 		this.productName = productName;
 		this.context = context;
 		this.imgs = imgs;
@@ -70,13 +70,13 @@ public class Productinfo implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Productinfo(Producttype producttype, Userinfo userinfo,
+	public ProductInfo(ProductType productType, UserInfo userInfo,
 			String productName, String brand, String context, String imgs,
 			Float price, Integer number, Date buydate, Date pbdate,
-			Integer state, Set<Orderdetail> orderdetails,
+			Integer state, Set<OrderDetail> orderDetails,
 			Set<Favorite> favorites) {
-		this.producttype = producttype;
-		this.userinfo = userinfo;
+		this.producttype = productType;
+		this.userinfo = userInfo;
 		this.productName = productName;
 		this.brand = brand;
 		this.context = context;
@@ -86,7 +86,7 @@ public class Productinfo implements java.io.Serializable {
 		this.buydate = buydate;
 		this.pbdate = pbdate;
 		this.state = state;
-		this.orderdetails = orderdetails;
+		this.orderdetails = orderDetails;
 		this.favorites = favorites;
 	}
 
@@ -104,22 +104,22 @@ public class Productinfo implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "productTypeId", nullable = false)
-	public Producttype getProducttype() {
+	public ProductType getProducttype() {
 		return this.producttype;
 	}
 
-	public void setProducttype(Producttype producttype) {
-		this.producttype = producttype;
+	public void setProducttype(ProductType productType) {
+		this.producttype = productType;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userId", nullable = false)
-	public Userinfo getUserinfo() {
+	public UserInfo getUserinfo() {
 		return this.userinfo;
 	}
 
-	public void setUserinfo(Userinfo userinfo) {
-		this.userinfo = userinfo;
+	public void setUserinfo(UserInfo userInfo) {
+		this.userinfo = userInfo;
 	}
 
 	@Column(name = "productName", nullable = false, length = 20)
@@ -206,12 +206,12 @@ public class Productinfo implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productinfo")
-	public Set<Orderdetail> getOrderdetails() {
+	public Set<OrderDetail> getOrderdetails() {
 		return this.orderdetails;
 	}
 
-	public void setOrderdetails(Set<Orderdetail> orderdetails) {
-		this.orderdetails = orderdetails;
+	public void setOrderdetails(Set<OrderDetail> orderDetails) {
+		this.orderdetails = orderDetails;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productinfo")

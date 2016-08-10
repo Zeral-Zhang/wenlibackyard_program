@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 
 import com.bean.MyCar;
 import com.bean.ShopCarItem;
-import com.po.Productinfo;
+import com.po.ProductInfo;
 import com.service.biz.BizService;
 import com.util.WebUtil;
 
@@ -35,8 +35,8 @@ public class CarAction implements ICarAction {
 				WebUtil.getSession().setAttribute("mycar", car);
 			}
 			if (productId != null) {
-				Productinfo productinfo = bizs.getProductInfobiz().findDetail(productId);
-				Map<Integer, ShopCarItem> items = car.add(productinfo, num);
+				ProductInfo productInfo = bizs.getProductInfobiz().findDetail(productId);
+				Map<Integer, ShopCarItem> items = car.add(productInfo, num);
 				car.setItems(items);
 				car.sumPrice();
 				session.setAttribute("mycar", car);
@@ -88,7 +88,7 @@ public class CarAction implements ICarAction {
 				return;
 			}
 			if (productId != null) {
-				Productinfo product = bizs.getProductInfobiz().findDetail(productId);
+				ProductInfo product = bizs.getProductInfobiz().findDetail(productId);
 				Map<Integer, ShopCarItem> items = car.add(product, num);
 				car.setItems(items);
 				car.sumPrice();

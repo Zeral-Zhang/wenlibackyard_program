@@ -14,34 +14,34 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "orderdetail", catalog = "wenlibackyard")
-public class Orderdetail implements java.io.Serializable {
+public class OrderDetail implements java.io.Serializable {
 
 	// Fields
 
 	private Integer orderDetailId;
-	private Productinfo productinfo;
-	private Ordermain ordermain;
+	private ProductInfo productinfo;
+	private OrderMain ordermain;
 	private Integer num;
 	private Float sumPrice;
 
 	// Constructors
 
 	/** default constructor */
-	public Orderdetail() {
+	public OrderDetail() {
 	}
 
 	/** minimal constructor */
-	public Orderdetail(Productinfo productinfo, Ordermain ordermain, Integer num) {
-		this.productinfo = productinfo;
-		this.ordermain = ordermain;
+	public OrderDetail(ProductInfo productInfo, OrderMain orderMain, Integer num) {
+		this.productinfo = productInfo;
+		this.ordermain = orderMain;
 		this.num = num;
 	}
 
 	/** full constructor */
-	public Orderdetail(Productinfo productinfo, Ordermain ordermain,
+	public OrderDetail(ProductInfo productInfo, OrderMain orderMain,
 			Integer num, Float sumPrice) {
-		this.productinfo = productinfo;
-		this.ordermain = ordermain;
+		this.productinfo = productInfo;
+		this.ordermain = orderMain;
 		this.num = num;
 		this.sumPrice = sumPrice;
 	}
@@ -60,22 +60,22 @@ public class Orderdetail implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "productId", nullable = false)
-	public Productinfo getProductinfo() {
+	public ProductInfo getProductinfo() {
 		return this.productinfo;
 	}
 
-	public void setProductinfo(Productinfo productinfo) {
-		this.productinfo = productinfo;
+	public void setProductinfo(ProductInfo productInfo) {
+		this.productinfo = productInfo;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "orderMainId", nullable = false)
-	public Ordermain getOrdermain() {
+	public OrderMain getOrdermain() {
 		return this.ordermain;
 	}
 
-	public void setOrdermain(Ordermain ordermain) {
-		this.ordermain = ordermain;
+	public void setOrdermain(OrderMain orderMain) {
+		this.ordermain = orderMain;
 	}
 
 	@Column(name = "num", nullable = false)

@@ -15,9 +15,9 @@ import com.bean.MyCar;
 import com.bean.PageBean;
 import com.bean.ShopCarItem;
 import com.biz.IOrderBiz;
-import com.po.Orderdetail;
-import com.po.Ordermain;
-import com.po.Userinfo;
+import com.po.OrderDetail;
+import com.po.OrderMain;
+import com.po.UserInfo;
 import com.service.dao.DaoService;
 
 @Service("OrderBizImpl")
@@ -27,12 +27,12 @@ public class OrderBizImpl implements IOrderBiz {
 	private DaoService daos;
 
 	@Override
-	public Orderdetail findDetail(Integer orderDetailId) {
-		Orderdetail orderdetail;
+	public OrderDetail findDetail(Integer orderDetailId) {
+		OrderDetail orderDetail;
 		try {
-			orderdetail = daos.getOrderdetailDAO().findById(orderDetailId);
-			if (orderdetail != null) {
-				return orderdetail;
+			orderDetail = daos.getOrderdetailDAO().findById(orderDetailId);
+			if (orderDetail != null) {
+				return orderDetail;
 			}
 			return null;
 		} catch (Exception e) {
@@ -41,13 +41,13 @@ public class OrderBizImpl implements IOrderBiz {
 
 	}
 
-	public Ordermain findNewMain(String userId) {
+	public OrderMain findNewMain(String userId) {
 		try {
 			List<Integer> objlst = daos.getOrdermainDAO()
 					.findBySQL("SELECT MAX(orderMainId) FROM orderMain WHERE userId = '" + userId + "' ;");
 			int id = -1;
 			if (objlst != null) id = objlst.get(0);
-			Ordermain orderMain = daos.getOrdermainDAO().findById(id);
+			OrderMain orderMain = daos.getOrdermainDAO().findById(id);
 			return orderMain;
 		} catch (Exception e) {
 			log.error("findNewMain exception", e);
@@ -56,9 +56,9 @@ public class OrderBizImpl implements IOrderBiz {
 	}
 
 	@Override
-	public List<Ordermain> findAllMain(String userId, PageBean pageBean) {
+	public List<OrderMain> findAllMain(String userId, PageBean pageBean) {
 		try {
-			List<Ordermain> mainlst = daos.getOrdermainDAO().findAllByUser(userId, pageBean);
+			List<OrderMain> mainlst = daos.getOrdermainDAO().findAllByUser(userId, pageBean);
 			return mainlst;
 		} catch (Exception e) {
 			throw new RuntimeException("findAllMain exception", e);
@@ -66,23 +66,23 @@ public class OrderBizImpl implements IOrderBiz {
 	}
 
 	@Override
-	public boolean saveOrder(MyCar myCar, Userinfo user) {
+	public boolean saveOrder(MyCar myCar, UserInfo user) {
 		log.info("保存" + user.toString() + "订单");
 		try {
 			// 取出购物车信息存入订单表中，并清空购物车, 同时减少商品数量
 			Map<Integer, ShopCarItem> items = myCar.getItems();
-			Ordermain ordermain = new Ordermain();
-			ordermain.setSumPrice(myCar.getSumPrice());
-			ordermain.setUserinfo(user);
-			ordermain.setState(Ordermain.UN_HANDLE);
-			ordermain.setBuyDate(new Date());
+			OrderMain orderMain = new OrderMain();
+			orderMain.setSumPrice(myCar.getSumPrice());
+			orderMain.setUserinfo(user);
+			orderMain.setState(OrderMain.UN_HANDLE);
+			orderMain.setBuyDate(new Date());
 			// 存入订单主表信息
-			daos.getOrdermainDAO().save(ordermain);
+			daos.getOrdermainDAO().save(orderMain);
 
-			Set<Orderdetail> orderDetailSet = new HashSet<Orderdetail>();
+			Set<OrderDetail> orderDetailSet = new HashSet<OrderDetail>();
 			for (Integer key : items.keySet()) {
 				ShopCarItem item = items.get(key);
-				Orderdetail orderdetail = new Orderdetail();
+				OrderDetail orderdetail = new OrderDetail();
 				orderdetail.setNum(item.getNum());
 				orderdetail.setProductinfo(item.getProduct());
 				orderdetail.setSumPrice(item.getPrice());

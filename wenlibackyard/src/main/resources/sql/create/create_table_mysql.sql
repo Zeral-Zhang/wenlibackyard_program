@@ -7,7 +7,7 @@ CREATE TABLE `favorite` (
   `context` varchar(50) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`favoriteId`),
   UNIQUE KEY `userId` (`userId`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='收藏夹表';
 
 -- 创建订单明细表
 CREATE TABLE `orderdetail` (
@@ -17,7 +17,7 @@ CREATE TABLE `orderdetail` (
   `num` int(11) NOT NULL COMMENT '订购数量',
   `sumPrice` float DEFAULT NULL COMMENT '单个商品总价',
   PRIMARY KEY (`orderDetailId`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单明细表';
 
 -- 创建订单主表
 CREATE TABLE `ordermain` (
@@ -30,9 +30,9 @@ CREATE TABLE `ordermain` (
   `sumPrice` float DEFAULT '0' COMMENT '总价',
   `context` varchar(50) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`orderMainId`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单主表';
 
--- 创建商品编号表
+-- 创建商品表
 CREATE TABLE `productinfo` (
   `productId` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品编号',
   `productName` varchar(20) NOT NULL COMMENT '商品名称',
@@ -47,7 +47,7 @@ CREATE TABLE `productinfo` (
   `pbdate` date NOT NULL COMMENT '发布日期',
   `state` int(11) NOT NULL COMMENT '商品状态',
   PRIMARY KEY (`productId`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品表';
 
 -- 创建商品类别表
 CREATE TABLE `producttype` (
@@ -57,17 +57,17 @@ CREATE TABLE `producttype` (
   `isDelete` int(11) NOT NULL DEFAULT '1' COMMENT '是否可用,默认可用',
   `context` varchar(50) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`productTypeId`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品类别表';
 
--- 创建校内信息表
+-- 创建院系信息表
 CREATE TABLE `schoolinfo` (
   `schoolInfoId` int(11) NOT NULL AUTO_INCREMENT COMMENT '校内信息编号',
-  `college` varchar(20) DEFAULT NULL COMMENT '院',
-  `department` varchar(20) DEFAULT NULL COMMENT '系',
-  `classes` varchar(2) DEFAULT NULL COMMENT '班',
-  `grade` varchar(10) DEFAULT NULL COMMENT '级',
+  `code` varchar(20) DEFAULT NULL COMMENT '院系编码',
+  `name` varchar(20) DEFAULT NULL COMMENT '院系名称',
+  `p_code` varchar(20) DEFAULT NULL COMMENT '父级编码',
+  `level` int(11) DEFAULT '0' COMMENT '级别',
   PRIMARY KEY (`schoolInfoId`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='院系信息表';
 
 -- 创建用户详细信息表
 CREATE TABLE `userdetailinfo` (
@@ -79,11 +79,13 @@ CREATE TABLE `userdetailinfo` (
   `userGender` varchar(1) DEFAULT '0' COMMENT '用户性别',
   `userAge` int(11) NOT NULL DEFAULT '0' COMMENT '用户年龄',
   `schoolInfoId` int(11) DEFAULT NULL COMMENT '校内信息编号',
+  `userClass` varchar(10) DEFAULT NULL COMMENT '学生班级',
+  `userGrade` varchar(4) DEFAULT NULL COMMENT '学生年级',
   `userId` varchar(60) NOT NULL COMMENT '用户信息编号',
   PRIMARY KEY (`userDetailId`),
   UNIQUE KEY `userId` (`userId`),
   UNIQUE KEY `schoolInfoId` (`schoolInfoId`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户详细信息表';
 
 -- 创建用户表
 CREATE TABLE `userinfo` (
@@ -92,7 +94,7 @@ CREATE TABLE `userinfo` (
   `userHeadImgUrl` varchar(500) NOT NULL COMMENT '用户头像',
   PRIMARY KEY (`userId`),
   UNIQUE KEY `userId` (`userId`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- 创建区域地址表
 CREATE TABLE `regions` (
@@ -102,7 +104,7 @@ CREATE TABLE `regions` (
   `p_code` int(50) DEFAULT NULL,
   `level` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='区域地址表';
 
 -- 创建基本配置表
 CREATE TABLE BASIC_CONFIG
@@ -112,9 +114,9 @@ CREATE TABLE BASIC_CONFIG
    NAME                 VARCHAR(50) COMMENT '名称',
    VALUE                VARCHAR(100) COMMENT '值',
    PRIMARY KEY (ID)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='基本信息配置表';
 
-ALTER TABLE BASIC_CONFIG COMMENT '基本信息配置表';
+
 ALTER TABLE favorite ADD CONSTRAINT `fk_favorite_productId` FOREIGN KEY (`productId`) REFERENCES `productinfo` (`productId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE favorite ADD CONSTRAINT `fk_favorite_userId` FOREIGN KEY (`userId`) REFERENCES `userinfo` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE orderdetail ADD CONSTRAINT `fk_orderDetail_orderMainId` FOREIGN KEY (`orderMainId`) REFERENCES `ordermain` (`orderMainId`) ON DELETE RESTRICT ON UPDATE RESTRICT;

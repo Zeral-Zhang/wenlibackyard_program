@@ -17,7 +17,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "userdetailinfo", catalog = "wenlibackyard", uniqueConstraints = { @UniqueConstraint(columnNames = "schoolInfoId") })
-public class Userdetailinfo implements java.io.Serializable {
+public class UserDetailInfo implements java.io.Serializable {
 
 	/**
 	 * 
@@ -26,41 +26,36 @@ public class Userdetailinfo implements java.io.Serializable {
 	// Fields
 
 	private Integer userDetailId;
-	private Userinfo userinfo;
-	private Schoolinfo schoolinfo;
+	private UserInfo userInfo;
+	private SchoolInfo schoolInfo;
 	private String userTel;
 	private String userCity;
 	private String userProvince;
 	private String userLanguage;
 	private String userGender;
+	private String userClass;
+	private String userGrade;
 	private Integer userAge;
 
 	// Constructors
 
 	/** default constructor */
-	public Userdetailinfo() {
+	public UserDetailInfo() {
 	}
 
-	/** minimal constructor */
-	public Userdetailinfo(Userinfo userinfo, Schoolinfo schoolinfo,
-			String userGender, Integer userAge) {
-		this.userinfo = userinfo;
-		this.schoolinfo = schoolinfo;
-		this.userGender = userGender;
-		this.userAge = userAge;
-	}
 
-	/** full constructor */
-	public Userdetailinfo(Userinfo userinfo, Schoolinfo schoolinfo,
-			String userTel, String userCity, String userProvince,
-			String userLanguage, String userGender, Integer userAge) {
-		this.userinfo = userinfo;
-		this.schoolinfo = schoolinfo;
+	public UserDetailInfo(UserInfo userInfo, SchoolInfo schoolInfo, String userTel,
+			String userCity, String userProvince, String userLanguage, String userGender, String userClass,
+			String userGrade, Integer userAge) {
+		this.userInfo = userInfo;
+		this.schoolInfo = schoolInfo;
 		this.userTel = userTel;
 		this.userCity = userCity;
 		this.userProvince = userProvince;
 		this.userLanguage = userLanguage;
 		this.userGender = userGender;
+		this.userClass = userClass;
+		this.userGrade = userGrade;
 		this.userAge = userAge;
 	}
 
@@ -78,22 +73,22 @@ public class Userdetailinfo implements java.io.Serializable {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userId")
-	public Userinfo getUserinfo() {
-		return this.userinfo;
+	public UserInfo getUserinfo() {
+		return this.userInfo;
 	}
 
-	public void setUserinfo(Userinfo userinfo) {
-		this.userinfo = userinfo;
+	public void setUserinfo(UserInfo userinfo) {
+		this.userInfo = userinfo;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "schoolInfoId", unique = true, nullable = true)
-	public Schoolinfo getSchoolinfo() {
-		return this.schoolinfo;
+	public SchoolInfo getSchoolinfo() {
+		return this.schoolInfo;
 	}
 
-	public void setSchoolinfo(Schoolinfo schoolinfo) {
-		this.schoolinfo = schoolinfo;
+	public void setSchoolinfo(SchoolInfo schoolinfo) {
+		this.schoolInfo = schoolinfo;
 	}
 
 	@Column(name = "userTel", length = 13)
@@ -140,8 +135,26 @@ public class Userdetailinfo implements java.io.Serializable {
 	public void setUserGender(String userGender) {
 		this.userGender = userGender;
 	}
+	
+	@Column(name = "userClass", length = 10)
+	public String getUserClass() {
+		return userClass;
+	}
 
-	@Column(name = "userAge", nullable = false)
+	public void setUserClass(String userClass) {
+		this.userClass = userClass;
+	}
+
+	@Column(name = "userGrade", length = 4)
+	public String getUserGrade() {
+		return userGrade;
+	}
+
+	public void setUserGrade(String userGrade) {
+		this.userGrade = userGrade;
+	}
+
+	@Column(name = "userAge", nullable = true)
 	public Integer getUserAge() {
 		return this.userAge;
 	}
@@ -152,11 +165,9 @@ public class Userdetailinfo implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "Userdetailinfo [userDetailId=" + userDetailId + ", userinfo="
-				+ userinfo + ", schoolinfo=" + schoolinfo + ", userTel="
-				+ userTel + ", userCity=" + userCity + ", userProvince="
-				+ userProvince + ", userLanguage=" + userLanguage
-				+ ", userGender=" + userGender + ", userAge=" + userAge + "]";
+		return "UserDetailInfo [userDetailId=" + userDetailId + ", userInfo=" + userInfo + ", schoolInfo=" + schoolInfo
+				+ ", userTel=" + userTel + ", userCity=" + userCity + ", userProvince=" + userProvince
+				+ ", userLanguage=" + userLanguage + ", userGender=" + userGender + ", userClass=" + userClass
+				+ ", userGrade=" + userGrade + ", userAge=" + userAge + "]";
 	}
-
 }

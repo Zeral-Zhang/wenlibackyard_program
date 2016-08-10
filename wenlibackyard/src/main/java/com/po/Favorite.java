@@ -23,8 +23,8 @@ public class Favorite implements java.io.Serializable {
 	// Fields
 
 	private Integer favoriteId;
-	private Productinfo productinfo;
-	private Userinfo userinfo;
+	private ProductInfo productInfo;
+	private UserInfo userInfo;
 	private Date createDate;
 	private String context;
 
@@ -35,17 +35,17 @@ public class Favorite implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Favorite(Productinfo productinfo, Userinfo userinfo, Date createDate) {
-		this.productinfo = productinfo;
-		this.userinfo = userinfo;
+	public Favorite(ProductInfo productInfo, UserInfo userInfo, Date createDate) {
+		this.productInfo = productInfo;
+		this.userInfo = userInfo;
 		this.createDate = createDate;
 	}
 
 	/** full constructor */
-	public Favorite(Productinfo productinfo, Userinfo userinfo,
+	public Favorite(ProductInfo productInfo, UserInfo userInfo,
 			Date createDate, String context) {
-		this.productinfo = productinfo;
-		this.userinfo = userinfo;
+		this.productInfo = productInfo;
+		this.userInfo = userInfo;
 		this.createDate = createDate;
 		this.context = context;
 	}
@@ -64,22 +64,22 @@ public class Favorite implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "productId", nullable = false)
-	public Productinfo getProductinfo() {
-		return this.productinfo;
+	public ProductInfo getProductinfo() {
+		return this.productInfo;
 	}
 
-	public void setProductinfo(Productinfo productinfo) {
-		this.productinfo = productinfo;
+	public void setProductinfo(ProductInfo productInfo) {
+		this.productInfo = productInfo;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userId", unique = true, nullable = false)
-	public Userinfo getUserinfo() {
-		return this.userinfo;
+	public UserInfo getUserinfo() {
+		return this.userInfo;
 	}
 
-	public void setUserinfo(Userinfo userinfo) {
-		this.userinfo = userinfo;
+	public void setUserinfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
 	@Temporal(TemporalType.DATE)

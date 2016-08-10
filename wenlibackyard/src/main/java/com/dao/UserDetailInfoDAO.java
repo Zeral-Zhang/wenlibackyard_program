@@ -17,10 +17,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.po.Userdetailinfo;
+import com.po.UserDetailInfo;
 
-@Service("UserdetailinfoDAO")
-public class UserdetailinfoDAO extends BaseDAO<Userdetailinfo, Integer> {
+@Service("UserDetailInfoDAO")
+public class UserDetailInfoDAO extends BaseDAO<UserDetailInfo, Integer> {
 
 	// property constants
 	public static final String USER_TEL = "userTel";
@@ -38,27 +38,27 @@ public class UserdetailinfoDAO extends BaseDAO<Userdetailinfo, Integer> {
 			return queryObject.list();
 	}
 
-	public List<Userdetailinfo> findByUserTel(Object userTel) {
+	public List<UserDetailInfo> findByUserTel(Object userTel) {
 		return findByProperty(USER_TEL, userTel);
 	}
 
-	public List<Userdetailinfo> findByUserCity(Object userCity) {
+	public List<UserDetailInfo> findByUserCity(Object userCity) {
 		return findByProperty(USER_CITY, userCity);
 	}
 
-	public List<Userdetailinfo> findByUserProvince(Object userProvince) {
+	public List<UserDetailInfo> findByUserProvince(Object userProvince) {
 		return findByProperty(USER_PROVINCE, userProvince);
 	}
 
-	public List<Userdetailinfo> findByUserLanguage(Object userLanguage) {
+	public List<UserDetailInfo> findByUserLanguage(Object userLanguage) {
 		return findByProperty(USER_LANGUAGE, userLanguage);
 	}
 
-	public List<Userdetailinfo> findByUserGender(Object userGender) {
+	public List<UserDetailInfo> findByUserGender(Object userGender) {
 		return findByProperty(USER_GENDER, userGender);
 	}
 
-	public List<Userdetailinfo> findByUserAge(Object userAge) {
+	public List<UserDetailInfo> findByUserAge(Object userAge) {
 		return findByProperty(USER_AGE, userAge);
 	}
 

@@ -17,10 +17,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.po.Schoolinfo;
+import com.po.SchoolInfo;
 
-@Service("SchoolinfoDAO")
-public class SchoolinfoDAO extends BaseDAO<Schoolinfo, Integer> {
+@Service("SchoolInfoDAO")
+public class SchoolInfoDAO extends BaseDAO<SchoolInfo, Integer> {
 
 	// property constants
 	public static final String COLLEGE = "college";
@@ -37,19 +37,19 @@ public class SchoolinfoDAO extends BaseDAO<Schoolinfo, Integer> {
 			return queryObject.list();
 	}
 
-	public List<Schoolinfo> findByCollege(Object college) {
+	public List<SchoolInfo> findByCollege(Object college) {
 		return findByProperty(COLLEGE, college);
 	}
 
-	public List<Schoolinfo> findByDepartment(Object department) {
+	public List<SchoolInfo> findByDepartment(Object department) {
 		return findByProperty(DEPARTMENT, department);
 	}
 
-	public List<Schoolinfo> findByClasses(Object classes) {
+	public List<SchoolInfo> findByClasses(Object classes) {
 		return findByProperty(CLASSES, classes);
 	}
 
-	public List<Schoolinfo> findByGrade(Object grade) {
+	public List<SchoolInfo> findByGrade(Object grade) {
 		return findByProperty(GRADE, grade);
 	}
 }

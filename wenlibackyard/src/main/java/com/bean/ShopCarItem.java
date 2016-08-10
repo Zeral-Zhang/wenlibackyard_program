@@ -1,9 +1,9 @@
 package com.bean;
 
-import com.po.Productinfo;
+import com.po.ProductInfo;
 
 public class ShopCarItem {
-	private Productinfo product;
+	private ProductInfo product;
 	
 	private int num;
 	
@@ -15,11 +15,11 @@ public class ShopCarItem {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Productinfo getProduct() {
+	public ProductInfo getProduct() {
 		return product;
 	}
 
-	public void setProduct(Productinfo product) {
+	public void setProduct(ProductInfo product) {
 		this.product = product;
 	}
 
