@@ -28,8 +28,8 @@ public class ProductInfoBizImpl implements IProductInfobBiz {
 		try {
 			// 给商品添加商品类别信息
 			ProductType productType = daos.getProducttypeDAO()
-					.findById(productInfo.getProducttype().getProductTypeId());
-			productInfo.setProducttype(productType);
+					.findById(productInfo.getProductType().getProductTypeId());
+			productInfo.setProductType(productType);
 			// 用户信息在action层添加
 			daos.getProductinfoDAO().save(productInfo);
 			log.info("add Productinfo "+ productInfo.toString() +" success");
@@ -42,7 +42,7 @@ public class ProductInfoBizImpl implements IProductInfobBiz {
 
 	@Cacheable(cacheName = CACHE_NAME)
 	@Override
-	public List<ProductInfo> findAll(PageBean pageBean) throws Exception {
+	public List<ProductInfo> findAll(PageBean pageBean) {
 		try {
 			return daos.getProductinfoDAO().findAll(pageBean);
 		} catch (Exception e) {
@@ -50,7 +50,7 @@ public class ProductInfoBizImpl implements IProductInfobBiz {
 		}
 	}
 
-	public int findMaxPage(int rows) throws Exception  {
+	public int findMaxPage(int rows) {
 		if (rows < 1)
 			rows = 5;
 		try {
@@ -61,7 +61,7 @@ public class ProductInfoBizImpl implements IProductInfobBiz {
 	}
 
 	@Override
-	public ProductInfo findDetail(Integer productId) throws Exception  {
+	public ProductInfo findDetail(Integer productId) {
 		try {
 			ProductInfo productInfo = daos.getProductinfoDAO().findById(productId);
 			if (productInfo != null) {
@@ -79,8 +79,8 @@ public class ProductInfoBizImpl implements IProductInfobBiz {
 		try {
 			// 更新商品类别信息
 			ProductType productType = daos.getProducttypeDAO()
-					.findById(productInfo.getProducttype().getProductTypeId());
-			productInfo.setProducttype(productType);
+					.findById(productInfo.getProductType().getProductTypeId());
+			productInfo.setProductType(productType);
 			daos.getProductinfoDAO().update(productInfo);
 			log.info("update Productinfo "+ productInfo.toString() +" success");
 			return true;

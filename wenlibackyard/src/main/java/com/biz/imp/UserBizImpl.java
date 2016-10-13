@@ -43,7 +43,7 @@ public class UserBizImpl implements IUserBiz {
 				userDetailInfo.setUserProvince(findNameFromCode(userInfo.getUserDetailInfo().getUserProvince()));
 				userDetailInfo.setUserCity(findNameFromCode(userInfo.getUserDetailInfo().getUserCity()));
 				// 保存用户id到用户详细信息表中
-				userDetailInfo.setUserinfo(oldUser);
+				userDetailInfo.setUserInfo(oldUser);
 				daos.getUserdetailinfoDAO().save(userDetailInfo);
 				List<Integer> objlst = daos.getUserdetailinfoDAO().findBySQL("SELECT MAX(userDetailId) FROM userdetailinfo WHERE userId = '" + userInfo.getUserId() + "'");
 				int id = -1;
@@ -58,25 +58,25 @@ public class UserBizImpl implements IUserBiz {
 				oldUser.setUserDetailInfo(userDetailInfo);
 			}
 			
-			SchoolInfo schoolInfo = oldUser.getUserDetailInfo().getSchoolinfo();
+			SchoolInfo schoolInfo = oldUser.getUserDetailInfo().getSchoolInfo();
 			if(null == schoolInfo) {
 				schoolInfo = new SchoolInfo();
-				schoolInfo.setCode(userInfo.getUserDetailInfo().getSchoolinfo().getCode());
-				schoolInfo.setName(userInfo.getUserDetailInfo().getSchoolinfo().getName());
-				schoolInfo.setPCode(userInfo.getUserDetailInfo().getSchoolinfo().getPCode());
-				schoolInfo.setLevel(userInfo.getUserDetailInfo().getSchoolinfo().getLevel());
+				schoolInfo.setCode(userInfo.getUserDetailInfo().getSchoolInfo().getCode());
+				schoolInfo.setName(userInfo.getUserDetailInfo().getSchoolInfo().getName());
+				schoolInfo.setPCode(userInfo.getUserDetailInfo().getSchoolInfo().getPCode());
+				schoolInfo.setLevel(userInfo.getUserDetailInfo().getSchoolInfo().getLevel());
 				// 保存院校id到用户详细信息中
 				daos.getSchoolinfoDAO().save(schoolInfo);
 				List<Integer> objlst = daos.getSchoolinfoDAO().findBySQL("SELECT MAX(schoolInfoId) FROM schoolinfo");
 				int id = -1;
 				if(objlst != null) id = objlst.get(0); 
-				oldUser.getUserDetailInfo().setSchoolinfo(daos.getSchoolinfoDAO().findById(id));
+				oldUser.getUserDetailInfo().setSchoolInfo(daos.getSchoolinfoDAO().findById(id));
 			} else {
-				schoolInfo.setCode(userInfo.getUserDetailInfo().getSchoolinfo().getCode());
-				schoolInfo.setName(userInfo.getUserDetailInfo().getSchoolinfo().getName());
-				schoolInfo.setPCode(userInfo.getUserDetailInfo().getSchoolinfo().getPCode());
-				schoolInfo.setLevel(userInfo.getUserDetailInfo().getSchoolinfo().getLevel());
-				oldUser.getUserDetailInfo().setSchoolinfo(schoolInfo);
+				schoolInfo.setCode(userInfo.getUserDetailInfo().getSchoolInfo().getCode());
+				schoolInfo.setName(userInfo.getUserDetailInfo().getSchoolInfo().getName());
+				schoolInfo.setPCode(userInfo.getUserDetailInfo().getSchoolInfo().getPCode());
+				schoolInfo.setLevel(userInfo.getUserDetailInfo().getSchoolInfo().getLevel());
+				oldUser.getUserDetailInfo().setSchoolInfo(schoolInfo);
 			}
 			daos.getUserdao().saveOrUpdate(oldUser);
 			log.info("upate userinfo "+ userInfo.toString() +" success");

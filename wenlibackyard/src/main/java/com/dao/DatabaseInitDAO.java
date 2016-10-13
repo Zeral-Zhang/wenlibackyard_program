@@ -5,13 +5,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
-
+@SuppressWarnings("rawtypes")
 @Service("DatabaseInitDAO")
 public class DatabaseInitDAO extends BaseDAO {
 	/**
@@ -20,7 +16,6 @@ public class DatabaseInitDAO extends BaseDAO {
 	 * @param sqls
 	 * @throws SQLException
 	 */
-	@SuppressWarnings("deprecation")
 	public void excuteSql(List<String> sqls){		
 			try {
 				for (String sql : sqls) {

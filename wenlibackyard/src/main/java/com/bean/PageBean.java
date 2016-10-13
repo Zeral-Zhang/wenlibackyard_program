@@ -1,10 +1,14 @@
 package com.bean;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.List;
 
 public class PageBean implements Serializable {
-	public static final Integer DEFAULT_PAGE = 1;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static final Integer DEFAULT_PAGE = 0;
 	public static final Integer DEFAULT_ROWS = 8;
 
 	private int page = DEFAULT_PAGE; // 当前页
@@ -24,6 +28,7 @@ public class PageBean implements Serializable {
 		this.rows = rows;
 		this.maxpage = maxpage;
 		this.pagelist = pagelist;
+		
 	}
 
 	public int getPage() {
@@ -75,7 +80,10 @@ public class PageBean implements Serializable {
 	}
 
 	public int getOffset() {
-		return (this.page - 1) * this.rows;
+		if(offset != 0){
+			return offset;
+		}
+		return this.page * this.rows;
 	}
 
 	public void setOffset(int offset) {

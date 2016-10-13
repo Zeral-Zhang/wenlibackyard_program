@@ -2,20 +2,8 @@ package com.dao;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
-import org.hibernate.LockOptions;
 import org.hibernate.Query;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
-import static org.hibernate.criterion.Example.create;
-
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.po.UserDetailInfo;
 
@@ -30,7 +18,8 @@ public class UserDetailInfoDAO extends BaseDAO<UserDetailInfo, Integer> {
 	public static final String USER_GENDER = "userGender";
 	public static final String USER_AGE = "userAge";
 
-	public List findByProperty(String propertyName, Object value) {
+	@SuppressWarnings("unchecked")
+	public List<UserDetailInfo> findByProperty(String propertyName, Object value) {
 			String queryString = "from Userdetailinfo as model where model."
 					+ propertyName + "= ?";
 			Query queryObject = getCurrentSession().createQuery(queryString);

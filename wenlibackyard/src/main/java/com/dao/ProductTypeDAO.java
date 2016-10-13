@@ -2,18 +2,8 @@ package com.dao;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
-import org.hibernate.LockOptions;
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
-import static org.hibernate.criterion.Example.create;
-
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.po.ProductType;
 
@@ -25,7 +15,8 @@ public class ProductTypeDAO extends BaseDAO<ProductType, Integer> {
 	public static final String IS_DELETE = "isDelete";
 	public static final String CONTEXT = "context";
 	
-	public List findByProperty(String propertyName, Object value) {
+	@SuppressWarnings("unchecked")
+	public List<ProductType> findByProperty(String propertyName, Object value) {
 			String queryString = "from Producttype as model where model."
 					+ propertyName + "= ?";
 			Query queryObject = getCurrentSession().createQuery(queryString);

@@ -15,6 +15,8 @@ public class DatabaseCreateInfo {
 	/**建表脚本classpath*/
 	@ElementList(inline=true,entry="sqlPath")
 	private List<String> sqlPaths = new ArrayList<String>(){
+		private static final long serialVersionUID = 1L;
+
 		public boolean add(String e) {
 			e = e.trim();
 			return super.add(e);

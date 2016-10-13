@@ -73,7 +73,7 @@ public class OrderBizImpl implements IOrderBiz {
 			Map<Integer, ShopCarItem> items = myCar.getItems();
 			OrderMain orderMain = new OrderMain();
 			orderMain.setSumPrice(myCar.getSumPrice());
-			orderMain.setUserinfo(user);
+			orderMain.setUserInfo(user);
 			orderMain.setState(OrderMain.UN_HANDLE);
 			orderMain.setBuyDate(new Date());
 			// 存入订单主表信息
@@ -84,9 +84,9 @@ public class OrderBizImpl implements IOrderBiz {
 				ShopCarItem item = items.get(key);
 				OrderDetail orderdetail = new OrderDetail();
 				orderdetail.setNum(item.getNum());
-				orderdetail.setProductinfo(item.getProduct());
+				orderdetail.setProductInfo(item.getProduct());
 				orderdetail.setSumPrice(item.getPrice());
-				orderdetail.setOrdermain(findNewMain(user.getUserId()));
+				orderdetail.setOrderMain(findNewMain(user.getUserId()));
 				// 存入订单详情信息
 				daos.getOrderdetailDAO().save(orderdetail);
 				orderDetailSet.add(orderdetail);

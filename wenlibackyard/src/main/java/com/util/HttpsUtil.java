@@ -14,10 +14,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONException;
-import net.sf.json.JSONObject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +21,10 @@ import com.bean.AccessToken;
 import com.bean.Menu;
 import com.bean.SNSUserInfo;
 import com.bean.WeixinOauth2Token;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
 
 /**
  * @author Zeral
@@ -95,7 +95,8 @@ public class HttpsUtil {
         return wat;
     }
     
-    public static SNSUserInfo getSNSUserInfo(String accessToken, String openId) {
+    @SuppressWarnings({ "deprecation", "unchecked" })
+	public static SNSUserInfo getSNSUserInfo(String accessToken, String openId) {
         SNSUserInfo snsUserInfo = null;
         // ƴ�������ַ
         String requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";

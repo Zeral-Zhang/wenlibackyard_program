@@ -58,11 +58,10 @@ public class CoreBizImpl implements ICoreBiz {
 	}
 
 	@Override
-	public void handleRequest() throws IOException {
+	public void handleRequest() {
 		log.info("##### process msg  ");
 		try {
 			HttpServletRequest request = ServletActionContext.getRequest();
-			HttpServletResponse response = ServletActionContext.getResponse();
 			MsgRequest msgRequest = MsgXmlUtil.parseXml(request);// 获取发送的消息
 
 			// 根据请求类型处理不同的请求

@@ -2,7 +2,6 @@ package com.action;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
 
@@ -84,7 +83,7 @@ public class ProductAction implements IProductAction {
 		productInfo.setPbdate(new Date());
 		// 给商品添加用户信息
 		UserInfo user = (UserInfo) ServletActionContext.getRequest().getSession().getAttribute("userInfo");
-		productInfo.setUserinfo(user);
+		productInfo.setUserInfo(user);
 
 		boolean flag = bizs.getProductInfobiz().save(productInfo);
 		if (flag) {
@@ -99,21 +98,7 @@ public class ProductAction implements IProductAction {
 	@Override
 	public void initProductType() {
 		try {
-			PrintWriter out = null;
-			try {
-				out = ServletActionContext.getResponse().getWriter();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-			}
 			List<ProductType> productTypelst = bizs.getProductTypebiz().findProuctType();
-			/*
-			 * Gson gson = new Gson(); //
-			 * 防止陷入死循环，请求productType时懒加载productInfo，但是productInfo又请求productType
-			 * for (Producttype producttype : productTypelst) {
-			 * producttype.setProductinfos(null); } String productGson =
-			 * gson.toJson(productTypelst); out.write(productGson); out.flush();
-			 * out.close();
-			 */
 			WebUtil.sendJSONArrayResponse(productTypelst, new String[] { "productInfos" });
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

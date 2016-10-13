@@ -1,7 +1,5 @@
 package com.action;
 
-import com.po.UserInfo;
-
 /**
  * 用于用户请求处理，包括用户授权，模拟用户登陆
  * @author ZeralZhang

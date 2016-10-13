@@ -19,10 +19,7 @@ import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.type.Type;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.bean.PageBean;
 
@@ -303,6 +300,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		setParameters(query, paramlist);
 		query.setFirstResult(pageBean.getOffset());
 		query.setMaxResults(pageBean.getRows());
+		@SuppressWarnings("unchecked")
 		List<T> results = query.list();
 		String countHQL = hql.replaceFirst("(?i).*?from", "select count(*) from");
 		long count  = this.getCount(countHQL, paramlist);
@@ -326,6 +324,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		setParameters(query, paramlist);
 		query.setFirstResult(pageBean.getOffset());
 		query.setMaxResults(pageBean.getRows());
+		@SuppressWarnings("unchecked")
 		List<T> results = query.list();
 		long count  = this.getCount(countHql, paramlist);
 		pageBean.setTotalCount(count);
@@ -338,17 +337,19 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 			final Class<T> clazz,final Object... paramlist) {
 		Query query = getCurrentSession().createQuery(queryHql);
 		setParameters(query, paramlist);
+		@SuppressWarnings("unchecked")
 		List<T> results = query.list();
 		return results;
 	}
 	
 	
 	
-	public List findByHQLNotGeneric(final String queryHql,
+	public <T> List<T> findByHQLNotGeneric(final String queryHql,
 			final Object... paramlist) {
 		Query query = getCurrentSession().createQuery(queryHql);
 		setParameters(query, paramlist);
-		List results = query.list();
+		@SuppressWarnings("unchecked")
+		List<T> results = query.list();
 		return results;
 	}
 	
@@ -366,6 +367,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		setParameters(query, paramlist);
 		query.setFirstResult(pageBean.getOffset());
 		query.setMaxResults(pageBean.getRows());
+		@SuppressWarnings("unchecked")
 		List<M> results = query.list();
 		String countHQL = hql.replaceFirst("(?i).*?from", "select count(*) from");
 		long count  = this.getCount(countHQL, paramlist);
@@ -596,6 +598,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public List<Object[]> findBySqlable(String sql, Object...objects) {
 		SQLQuery query = this.getCurrentSession().createSQLQuery(sql);
 		for (int i = 0; i < objects.length; i++){

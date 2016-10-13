@@ -5,12 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.util.StrutsTypeConverter;
 
 public class DateConverter extends StrutsTypeConverter {
 	private static String DATE_TIME_FOMART = "yyyy-MM-dd";
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Object convertFromString(Map context, String[] values, Class toClass) {
 		Date date = null;
@@ -29,6 +29,7 @@ public class DateConverter extends StrutsTypeConverter {
 		return date;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public String convertToString(Map context, Object o) {
 		Date date = (Date) o;
