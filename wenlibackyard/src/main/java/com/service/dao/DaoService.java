@@ -49,15 +49,15 @@ public class DaoService {
 		return userDetailInfoDAO;
 	}
 
-	public void setUserdetailinfoDAO(UserDetailInfoDAO userDetailInfoDAO) {
+	public void setUserDetailInfoDAO(UserDetailInfoDAO userDetailInfoDAO) {
 		this.userDetailInfoDAO = userDetailInfoDAO;
 	}
 
-	public SchoolInfoDAO getSchoolinfoDAO() {
+	public SchoolInfoDAO getSchoolInfoDAO() {
 		return schoolInfoDAO;
 	}
 
-	public void setSchoolinfoDAO(SchoolInfoDAO schoolInfoDAO) {
+	public void setSchoolInfoDAO(SchoolInfoDAO schoolInfoDAO) {
 		this.schoolInfoDAO = schoolInfoDAO;
 	}
 
@@ -69,11 +69,11 @@ public class DaoService {
 		this.regionDAO = regionDAO;
 	}
 
-	public ProductInfoDAO getProductinfoDAO() {
+	public ProductInfoDAO getProductInfoDAO() {
 		return productInfoDAO;
 	}
 
-	public void setProductinfoDAO(ProductInfoDAO productInfoDAO) {
+	public void setProductInfoDAO(ProductInfoDAO productInfoDAO) {
 		this.productInfoDAO = productInfoDAO;
 	}
 
@@ -81,7 +81,7 @@ public class DaoService {
 		return productTypeDAO;
 	}
 
-	public void setProducttypeDAO(ProductTypeDAO productTypeDAO) {
+	public void setProductTypeDAO(ProductTypeDAO productTypeDAO) {
 		this.productTypeDAO = productTypeDAO;
 	}
 
@@ -89,7 +89,7 @@ public class DaoService {
 		return orderDetailDAO;
 	}
 
-	public void setOrderdetailDAO(OrderDetailDAO orderDetailDAO) {
+	public void setOrderDetailDAO(OrderDetailDAO orderDetailDAO) {
 		this.orderDetailDAO = orderDetailDAO;
 	}
 
@@ -97,7 +97,7 @@ public class DaoService {
 		return orderMainDAO;
 	}
 
-	public void setOrdermainDAO(OrderMainDAO orderMainDAO) {
+	public void setOrderMainDAO(OrderMainDAO orderMainDAO) {
 		this.orderMainDAO = orderMainDAO;
 	}
 

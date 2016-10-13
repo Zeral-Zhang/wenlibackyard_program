@@ -66,11 +66,11 @@ public class UserBizImpl implements IUserBiz {
 				schoolInfo.setPCode(userInfo.getUserDetailInfo().getSchoolInfo().getPCode());
 				schoolInfo.setLevel(userInfo.getUserDetailInfo().getSchoolInfo().getLevel());
 				// 保存院校id到用户详细信息中
-				daos.getSchoolinfoDAO().save(schoolInfo);
-				List<Integer> objlst = daos.getSchoolinfoDAO().findBySQL("SELECT MAX(schoolInfoId) FROM schoolinfo");
+				daos.getSchoolInfoDAO().save(schoolInfo);
+				List<Integer> objlst = daos.getSchoolInfoDAO().findBySQL("SELECT MAX(schoolInfoId) FROM schoolinfo");
 				int id = -1;
 				if(objlst != null) id = objlst.get(0); 
-				oldUser.getUserDetailInfo().setSchoolInfo(daos.getSchoolinfoDAO().findById(id));
+				oldUser.getUserDetailInfo().setSchoolInfo(daos.getSchoolInfoDAO().findById(id));
 			} else {
 				schoolInfo.setCode(userInfo.getUserDetailInfo().getSchoolInfo().getCode());
 				schoolInfo.setName(userInfo.getUserDetailInfo().getSchoolInfo().getName());

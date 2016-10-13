@@ -11,10 +11,10 @@ import com.po.SchoolInfo;
 public class SchoolInfoDAO extends BaseDAO<SchoolInfo, Integer> {
 
 	// property constants
-	public static final String COLLEGE = "college";
-	public static final String DEPARTMENT = "department";
-	public static final String CLASSES = "classes";
-	public static final String GRADE = "grade";
+	public static final String CODE = "code";
+	public static final String NAME = "name";
+	public static final String PCODE = "pCode";
+	public static final String LEVEL = "level";
 
 
 	@SuppressWarnings("unchecked")
@@ -26,19 +26,19 @@ public class SchoolInfoDAO extends BaseDAO<SchoolInfo, Integer> {
 			return queryObject.list();
 	}
 
-	public List<SchoolInfo> findByCollege(Object college) {
-		return findByProperty(COLLEGE, college);
+	public List<SchoolInfo> findByCode(Object college) {
+		return findByProperty(CODE, college);
 	}
 
-	public List<SchoolInfo> findByDepartment(Object department) {
-		return findByProperty(DEPARTMENT, department);
+	public List<SchoolInfo> findByNAME(Object department) {
+		return findByProperty(NAME, department);
 	}
 
-	public List<SchoolInfo> findByClasses(Object classes) {
-		return findByProperty(CLASSES, classes);
+	public List<SchoolInfo> findByPCode(Object classes) {
+		return findByProperty(PCODE, classes);
 	}
 
-	public List<SchoolInfo> findByGrade(Object grade) {
-		return findByProperty(GRADE, grade);
+	public List<SchoolInfo> findByLevel(Object grade) {
+		return findByProperty(LEVEL, grade);
 	}
 }

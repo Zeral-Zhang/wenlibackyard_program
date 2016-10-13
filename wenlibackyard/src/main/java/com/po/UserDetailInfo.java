@@ -24,15 +24,45 @@ public class UserDetailInfo implements java.io.Serializable {
 	// Fields
 
 	private Integer userDetailId;
+	/**
+	 * 用户基本信息
+	 */
 	private UserInfo userInfo;
+	/**
+	 * 系
+	 */
 	private SchoolInfo schoolInfo;
+	/**
+	 * 用户电话
+	 */
 	private String userTel;
+	/**
+	 * 用户城市
+	 */
 	private String userCity;
+	/**
+	 * 用户省
+	 */
 	private String userProvince;
+	/**
+	 * 微信使用语言
+	 */
 	private String userLanguage;
+	/**
+	 * 用户性别
+	 */
 	private String userGender;
+	/**
+	 * 用户班
+	 */
 	private String userClass;
+	/**
+	 * 用户级
+	 */
 	private String userGrade;
+	/**
+	 * 用户年龄
+	 */
 	private Integer userAge;
 
 	// Constructors
