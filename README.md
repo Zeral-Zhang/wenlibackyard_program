@@ -43,13 +43,9 @@
 下面将介绍如何使用MyEclipse IDE搭建项目：
 
 1. 从Git地址导入项目：
-![image](http://img.hoop8.com/1608B/jaQASMTi.png)
 2. 输入git地址输入自己的Github用户名和密码来进行管理：
-![image](http://img.hoop8.com/1608B/rdauaUkp.png)
 3. 请选择主分支：
-![image](http://img.hoop8.com/1608B/t5yCqvZB.png)
 4. 请确保选择该项目文件：
-![image](http://img.hoop8.com/1608B/9Ynwnp0j.png)
 5. 将项目转化为Maven项目，右键项目->configure->convert to Maven Project
 6. 等待项目下载Jar包完成；
 7. 使用c3p0数据库连接池配置，请在tomcat/context.xml 中添加，具体用户名和密码请自行替换： 
