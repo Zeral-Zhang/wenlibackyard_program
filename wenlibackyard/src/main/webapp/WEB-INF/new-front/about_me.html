@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<!-- Required meta tags always come first -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title>文理后院</title>
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/reset.css">
+	</head>
+	<body>
+		<!-- 顶部导航 -->
+		<div class="top">
+			<!-- 按钮 -->
+			<nav class="navbar navbar-light bg-faded about_nav">
+				<a href="#"><div class="go_back"></div></a><span>个人中心</span>
+			</nav>
+		</div>
+		<div class="about_mid">
+			<ul class="list-group">
+				<li class="list-group-item user_info">
+					<div class="user_info">
+						<div class="user_photo">
+							<img src="images/icon/p1.jpg"/>
+						</div>
+						<div class="user_name">
+							<span>winona</span>
+						</div>
+					</div>
+				</li>
+				<li class="list-group-item">
+					<a href="#">
+						<div class="list_img1"></div>正在售卖<span class="label label-default label-pill stay_right">1</span>
+					</a>
+				</li>
+				<li class="list-group-item">
+					<a href="#">
+						<div class="list_img2"></div>已卖出的<span class="label label-default label-pill stay_right">2</span>
+					</a>
+				</li>
+				<li class="list-group-item">
+					<a href="#">
+						<div class="list_img3"></div>我买到的<span class="label label-default label-pill stay_right">4</span>
+					</a>
+				</li>
+				<li class="list-group-item">
+					<a href="#">
+						<div class="list_img4"></div>我的收藏<span class="label label-default label-pill stay_right">5</span>
+					</a>
+				</li>
+				
+			</ul>
+		</div>
+		<!-- 底部导航 -->
+				<div class="bottom">
+			<ul>
+				<li>
+					<a href="index.html">
+						<div class="link_img1"></div>
+						首&nbsp;&nbsp;页
+					</a>
+				</li>
+				<li>
+					<a href="discovery.html">
+						<div class="link_img2"></div>
+						发&nbsp;&nbsp;现
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="link_img3"></div>
+						购物车
+					</a>
+				</li>
+				<li>
+					<a href="about_me.html">
+						<div class="link_img4"></div>
+						关于我
+					</a>
+				</li>
+			</ul>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<script type="text/javascript">
+			$(".nav_btn").click(function(event) {
+				/* Act on the event */
+				$(".nav_pane").toggle().css('height', $("body").height());
+				$(".bottom").toggle();
+			});
+		</script>
+	</body>
+</html>

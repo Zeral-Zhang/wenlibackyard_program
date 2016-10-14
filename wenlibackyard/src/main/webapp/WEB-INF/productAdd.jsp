@@ -43,19 +43,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</div>
 			<div class="container">
-				<form action="add_Product.action" method="post" data-ajax="false"
+				<form action="addProduct.action" method="post" data-ajax="false"
 					enctype="multipart/form-data">
 									<label for="productName">商品名称：</label>
-									<input type="text" name="productinfo.productName" class="form-control"
+									<input type="text" name="productInfo.productName" class="form-control"
 									id="productName" placeholder="商品名称">
 								<label for="brand">品牌：</label>
-								<input type="text" name="productinfo.brand" class="form-control"
+								<input type="text" name="productInfo.brand" class="form-control"
 									id="brand" placeholder="品牌">
 								<label for="buydate">购买时日期：</label>
 								<div class="input-group date form_date"
 										data-date="" data-date-format="yyyy-mm-dd"
 										data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-										<input id="buydate" name="productinfo.buydate" class="form-control"
+										<input id="buydate" name="productInfo.buyDate" class="form-control"
 											size="16" type="text" value="" readonly> 
 											<span class="input-group-addon">
 												<span class="glyphicon glyphicon-remove"></span>
@@ -65,16 +65,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											</span>
 									</div>
 								<label for="price">商品价格：</label>
-								<input type="number" name="productinfo.price" class="form-control"
+								<input type="number" name="productInfo.price" class="form-control"
 									id="price" placeholder="商品价格">
 								<label for="booktypeid">商品类别：</label>
-								<select name="productinfo.producttype.productTypeId">
+								<select name="productInfo.productType.productTypeId">
 										<optgroup label="请选择：" id="productType">
 										</optgroup>
 								</select>
 
 								<label for="state">商品状态：</label>
-								<select name="productinfo.state">
+								<select name="productInfo.state">
 										<optgroup label="请选择：">
 											<option value="0">不可用</option>
 											<option value="1">未上架</option>
@@ -83,13 +83,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										</optgroup>
 								</select>
 								<label for="num">商品数量：</label>
-								<input type="number" name="productinfo.number" class="form-control"
+								<input type="number" name="productInfo.number" class="form-control"
 									id="num" placeholder="商品数量">
 								<label for="productpic">商品图片：</label>
-								<input type="file" name="productinfo.pic" class="form-control"
+								<input type="file" name="productInfo.pic" class="form-control"
 									id="productpic" placeholder="商品图片">
 								<label for="context">商品介绍：</label>
-								 	<textarea id="context" name="productinfo.context" cols="100" rows="8" style="width:700px;height:200px;visibility:hidden;"></textarea>
+								 	<textarea id="context" name="productInfo.context" cols="100" rows="8" style="width:700px;height:200px;visibility:hidden;"></textarea>
 								<div class="">
 									<button type="submit" class="ui-shadow ui-btn ui-corner-all ui-btn-inline">提交</button>
 									<button type="reset" class="ui-shadow ui-btn ui-corner-all ui-btn-inline">重置</button>

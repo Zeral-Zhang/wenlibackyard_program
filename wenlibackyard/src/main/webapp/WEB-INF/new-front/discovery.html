@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<!-- Required meta tags always come first -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title>文理后院</title>
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/reset.css">
+	</head>
+	<body>
+		<!-- 顶部导航 -->
+		<div class="top">
+			<!-- 按钮 -->
+			<nav class="navbar navbar-light bg-faded about_nav">
+				<a href="#"><div class="go_back"></div></a><span>发现</span>
+			</nav>
+		</div>
+		<div class="dis_mid">
+			<ul class="list-group">
+				<li class="list-group-item">
+					<a href="college.html">
+						信息工程学院
+					</a>
+				</li>
+				<li class="list-group-item">
+					<a href="college.html">
+						人文学院
+					</a>
+				</li>
+				<li class="list-group-item">
+					<a href="college.html">
+						外国语学院
+					</a>
+				</li>
+				<li class="list-group-item">
+					<a href="college.html">
+						商学院
+					</a>
+				</li>
+				
+			</ul>
+		</div>
+		<!-- 底部导航 -->
+		<div class="bottom">
+			<ul>
+				<li>
+					<a href="index.html">
+						<div class="link_img1"></div>
+						首&nbsp;&nbsp;页
+					</a>
+				</li>
+				<li>
+					<a href="discovery.html">
+						<div class="link_img2"></div>
+						发&nbsp;&nbsp;现
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="link_img3"></div>
+						购物车
+					</a>
+				</li>
+				<li>
+					<a href="about_me.html">
+						<div class="link_img4"></div>
+						关于我
+					</a>
+				</li>
+			</ul>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<script type="text/javascript">
+			$(".nav_btn").click(function(event) {
+				/* Act on the event */
+				$(".nav_pane").toggle().css('height', $("body").height());
+				$(".bottom").toggle();
+			});
+		</script>
+	</body>
+</html>

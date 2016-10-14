@@ -47,7 +47,7 @@ public class ProductAction implements IProductAction {
 		return "success";
 	}
 	
-	@Action(value = "add_Product", results = {
+	@Action(value = "addProduct", results = {
 			@Result(name = "success", location = "productList", type="redirect"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
 	@Override
@@ -80,7 +80,7 @@ public class ProductAction implements IProductAction {
 			}
 		}
 		// 添加商品发布日期
-		productInfo.setPbdate(new Date());
+		productInfo.setPbDate(new Date());
 		// 给商品添加用户信息
 		UserInfo user = (UserInfo) ServletActionContext.getRequest().getSession().getAttribute("userInfo");
 		productInfo.setUserInfo(user);
@@ -157,12 +157,12 @@ public class ProductAction implements IProductAction {
 		}
 	}
 
-	public ProductInfo getProductinfo() {
+	public ProductInfo getProductInfo() {
 		return productInfo;
 	}
 
-	public void setProductinfo(ProductInfo productinfo) {
-		this.productInfo = productinfo;
+	public void setProductInfo(ProductInfo productInfo) {
+		this.productInfo = productInfo;
 	}
 
 	public PageBean getPageBean() {

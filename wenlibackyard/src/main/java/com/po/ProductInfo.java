@@ -40,8 +40,8 @@ public class ProductInfo implements java.io.Serializable {
 	private String imgs;
 	private Float price;
 	private Integer number;
-	private Date buydate;
-	private Date pbdate;
+	private Date buyDate;
+	private Date pbDate;
 	private Integer state;
 	private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
 	private Set<Favorite> favorites = new HashSet<Favorite>(0);
@@ -60,7 +60,7 @@ public class ProductInfo implements java.io.Serializable {
 	/** minimal constructor */
 	public ProductInfo(ProductType productType, UserInfo userInfo,
 			String productName, String context, String imgs, Float price,
-			Integer number, Date pbdate, Integer state) {
+			Integer number, Date pbDate, Integer state) {
 		this.productType = productType;
 		this.userInfo = userInfo;
 		this.productName = productName;
@@ -68,14 +68,14 @@ public class ProductInfo implements java.io.Serializable {
 		this.imgs = imgs;
 		this.price = price;
 		this.number = number;
-		this.pbdate = pbdate;
+		this.pbDate = pbDate;
 		this.state = state;
 	}
 
 	/** full constructor */
 	public ProductInfo(ProductType productType, UserInfo userInfo,
 			String productName, String brand, String context, String imgs,
-			Float price, Integer number, Date buydate, Date pbdate,
+			Float price, Integer number, Date buyDate, Date pbDate,
 			Integer state, Set<OrderDetail> orderDetails,
 			Set<Favorite> favorites) {
 		this.productType = productType;
@@ -86,8 +86,8 @@ public class ProductInfo implements java.io.Serializable {
 		this.imgs = imgs;
 		this.price = price;
 		this.number = number;
-		this.buydate = buydate;
-		this.pbdate = pbdate;
+		this.buyDate = buyDate;
+		this.pbDate = pbDate;
 		this.state = state;
 		this.orderDetails = orderDetails;
 		this.favorites = favorites;
@@ -181,22 +181,22 @@ public class ProductInfo implements java.io.Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "buy_date", length = 10)
-	public Date getBuydate() {
-		return this.buydate;
+	public Date getBuyDate() {
+		return this.buyDate;
 	}
 
-	public void setBuydate(Date buydate) {
-		this.buydate = buydate;
+	public void setBuyDate(Date buyDate) {
+		this.buyDate = buyDate;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "pb_date", nullable = false, length = 10)
-	public Date getPbdate() {
-		return this.pbdate;
+	public Date getPbDate() {
+		return this.pbDate;
 	}
 
-	public void setPbdate(Date pbdate) {
-		this.pbdate = pbdate;
+	public void setPbDate(Date pbDate) {
+		this.pbDate = pbDate;
 	}
 
 	@Column(name = "state", nullable = false)

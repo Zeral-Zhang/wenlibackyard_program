@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>用户注册</title>
+  <script type="text/javascript" src="jquery.min.js"></script>
+  <script>
+$(function () {
+   /* body... */
+   $("#btreg").click(function(event) {
+    /* Act on the event */
+     var uname = $("#uname").val();
+     var passwd = $("#passwd").val();
+     var sex = $(":radio[name='sex']:checked").val();
+     var edu = $("#edu").val();
+
+     var hbs = "";
+     $(":checkbox[name='ck']:checked").each(function() {
+
+      hbs+=$(this).val() +"&nbsp;"
+       
+     });
+
+     $("#txtuname").html(uname);
+     $("#txtpasswd").html(passwd);
+     $("#txtsex").html(sex);
+     $("#txtedu").html(edu);
+     $("#txthb").html(hbs);
+
+     $("#divregok").attr('style', 'display:block');
+     $("#divfrm").attr('style', 'display:none');
+   }); 
+   $("#btback").click(function(event) {
+     /* Act on the event */
+     $("#divregok").attr('style', 'display:none');
+     $("#divfrm").attr('style', 'display:block');
+   });
+});
+</script>
+
+</head>
+
+<body>
+  <div id="divfrm" style="display:block">
+    <form id="form1" name="form1" method="post" action="">
+
+      <table width="450" border="1" align="center" cellpadding="1" cellspacing="0">
+        <tr>
+          <td colspan="2" align="center" bgcolor="#99CCCC">用户注册</td>
+        </tr>
+        <tr>
+          <td width="50">账号:</td>
+          <td width="390">
+            <label for="uname"></label>
+            <input type="text" name="uname" id="uname" />
+          </td>
+        </tr>
+        <tr>
+          <td>密码:</td>
+          <td>
+            <input type="text" name="passwd" id="passwd" />
+          </td>
+        </tr>
+        <tr>
+          <td>性别:</td>
+          <td>
+            <input name="sex" type="radio" id="radio" value="男" checked="checked" />
+            男
+            <input type="radio" name="sex" id="radio2" value="女" />
+            女
+          </td>
+        </tr>
+        <tr>
+          <td>学历:</td>
+          <td>
+            <label for="edu"></label>
+            <select name="edu" id="edu">
+              <option value="高中" selected="selected">高中</option>
+              <option value="大学">大学</option>
+              <option value="研究生">研究生</option>
+              <option value="博士">博士</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>爱好:</td>
+          <td>
+            <input type="checkbox" name="ck" id="ck" value="围棋" />
+            围棋
+            <input type="checkbox" name="ck" id="ck" value="象棋" />
+            象棋
+            <input type="checkbox" name="ck" id="ck" value="跳棋" />
+            跳棋
+            <input type="checkbox" name="ck" id="ck" value="军棋" />
+            军棋
+            <input type="checkbox" name="ck" id="ck" value="五子棋" />
+            五子棋
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center" bgcolor="#99CCCC">
+            <input type="button" name="btreg" id="btreg" value="注册" />
+            <input type="reset" name="button" id="button" value="重置" />
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div id="divregok" style="display:none">
+    <table width="450" border="1" align="center" cellpadding="1" cellspacing="0">
+      <tr>
+        <td colspan="2" align="center" bgcolor="#99CCCC">用户注册</td>
+      </tr>
+      <tr>
+        <td width="50">账号:</td>
+        <td width="390">
+          <span id="txtuname"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>密码:</td>
+        <td>
+          <span id="txtpasswd"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>性别:</td>
+        <td>
+          <span id="txtsex"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>学历:</td>
+        <td>
+          <span id="txtedu"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>爱好:</td>
+        <td>
+          <span id="txthb"></span>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center" bgcolor="#99CCCC">
+          <input type="button" name="btback" id="btback" value="返回注册" />
+        </td>
+      </tr>
+    </table>
+  </div>
+
+</body>
+</html>
