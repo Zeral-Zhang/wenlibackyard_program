@@ -154,6 +154,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<option selected value=-22>请选择</option>
 						</select>
 					</fieldset>
+					<fieldset data-role="controlgroup" data-type="horizontal">
+					    <legend>请选择您的院系信息:</legend>
+					    <label for="college">学院</label>
+						<select id="college">
+							<option selected value="-22">请选择</option>
+							<c:forEach items="${schoolInfolst }" var="schoolInfo">
+								<option value="${schoolInfo.code }">${schoolInfo.name }</option>
+							</c:forEach>
+						</select>
+					    <select id="department" name="user.userDetailInfo.schoolInfo.code">
+							<option selected value="-22">请选择</option>
+						</select>
+					</fieldset>
 					<label for="college">学院:</label>
 					<input type="text" name="user.userDetailInfo.schoolinfo.college" id="college" placeholder="请输入学院" value="${sessionScope.userInfo.userDetailInfo.schoolinfo.college}">
 					<label for="department">院系：</label>
@@ -191,6 +204,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							$.get("loadCitys_Region.action",{code : $(this).val()}, function(data) {
 							$.each(data, function(i, item) {
 								$("#city").append(
+										"<option value='" + item.code + "'>"
+												+ item.name
+												+ "</option>");
+							});
+						}, "json");
+					});
+					
+					// 根据院code查找城系信息
+					$("#college").change(
+						function() {
+							objInit("#department");
+							$.get("loadDepartments.action",{code : $(this).val()}, function(data) {
+							$.each(data, function(i, item) {
+								$("#department").append(
 										"<option value='" + item.code + "'>"
 												+ item.name
 												+ "</option>");

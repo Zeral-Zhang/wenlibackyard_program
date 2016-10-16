@@ -111,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<p>
 						商品详情
 					</p>
-					<a href="add_Order.action" rel="external" class="ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-shadow ui-btn-icon-left ui-icon-check">购买: ￥${sessionScope.mycar.sumPrice}</a>
+					<a href="addOrder.action" rel="external" class="ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-shadow ui-btn-icon-left ui-icon-check">购买: ￥${sessionScope.mycar.sumPrice}</a>
 					<a href="javascript:;" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow" data-rel="back">取消</a>
 				</div>
 

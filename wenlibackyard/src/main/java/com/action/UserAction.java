@@ -1,6 +1,7 @@
 package com.action;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.stereotype.Controller;
 
+import com.po.SchoolInfo;
 import com.po.UserInfo;
 import com.service.biz.BizService;
 
@@ -25,6 +27,7 @@ import com.service.biz.BizService;
 public class UserAction implements IUserAction {
 	private UserInfo user;
 	private String userid;
+	private List<SchoolInfo> schoolInfolst;
 	@Resource(name = "BizService")
 	private BizService biz;
 
@@ -35,6 +38,11 @@ public class UserAction implements IUserAction {
 	
 	@Action(value = "userDetail", results = { @Result(name = "success", location = "/WEB-INF/userDetail.jsp") })
 	public String initUserDetail() {
+		try {
+			schoolInfolst = biz.getSchoolInfoBiz().findColleges();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "success";
 	}
 	
@@ -115,4 +123,11 @@ public class UserAction implements IUserAction {
 		this.userid = userid;
 	}
 
+	public List<SchoolInfo> getSchoolInfolst() {
+		return schoolInfolst;
+	}
+
+	public void setSchoolInfolst(List<SchoolInfo> schoolInfolst) {
+		this.schoolInfolst = schoolInfolst;
+	}
 }

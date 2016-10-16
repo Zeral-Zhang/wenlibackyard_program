@@ -9,6 +9,7 @@ import com.biz.IOrderBiz;
 import com.biz.IProductInfobBiz;
 import com.biz.IProductTypeBiz;
 import com.biz.IRegionBiz;
+import com.biz.ISchoolInfoBiz;
 import com.biz.IUserBiz;
 
 @Service("BizService")
@@ -25,6 +26,8 @@ public class BizService {
 	private IProductInfobBiz productInfobiz;
 	@Resource(name="OrderBizImpl")
 	private IOrderBiz orderBiz;
+	@Resource(name="SchoolInfoBizImpl")
+	private ISchoolInfoBiz schoolInfoBiz;
 
 	public IUserBiz getUserbiz() {
 		return userbiz;
@@ -72,6 +75,14 @@ public class BizService {
 
 	public void setOrderBiz(IOrderBiz orderBiz) {
 		this.orderBiz = orderBiz;
+	}
+
+	public ISchoolInfoBiz getSchoolInfoBiz() {
+		return schoolInfoBiz;
+	}
+
+	public void setSchoolInfoBiz(ISchoolInfoBiz schoolInfoBiz) {
+		this.schoolInfoBiz = schoolInfoBiz;
 	}
 	
 }

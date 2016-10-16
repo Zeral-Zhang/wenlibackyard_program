@@ -1,10 +1,8 @@
 package com.biz.imp;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -41,20 +39,6 @@ public class OrderBizImpl implements IOrderBiz {
 
 	}
 
-	public OrderMain findNewMain(String userId) {
-		try {
-			List<Integer> objlst = daos.getOrdermainDAO()
-					.findBySQL("SELECT MAX(orderMainId) FROM orderMain WHERE userId = '" + userId + "' ;");
-			int id = -1;
-			if (objlst != null) id = objlst.get(0);
-			OrderMain orderMain = daos.getOrdermainDAO().findById(id);
-			return orderMain;
-		} catch (Exception e) {
-			log.error("findNewMain exception", e);
-			throw new RuntimeException("findNewMain exception", e);
-		}
-	}
-
 	@Override
 	public List<OrderMain> findAllMain(String userId, PageBean pageBean) {
 		try {
@@ -79,17 +63,15 @@ public class OrderBizImpl implements IOrderBiz {
 			// 存入订单主表信息
 			daos.getOrdermainDAO().save(orderMain);
 
-			Set<OrderDetail> orderDetailSet = new HashSet<OrderDetail>();
 			for (Integer key : items.keySet()) {
 				ShopCarItem item = items.get(key);
 				OrderDetail orderdetail = new OrderDetail();
 				orderdetail.setNum(item.getNum());
 				orderdetail.setProductInfo(item.getProduct());
 				orderdetail.setSumPrice(item.getPrice());
-				orderdetail.setOrderMain(findNewMain(user.getUserId()));
+				orderdetail.setOrderMain(orderMain);
 				// 存入订单详情信息
 				daos.getOrderdetailDAO().save(orderdetail);
-				orderDetailSet.add(orderdetail);
 			}
 			log.info("保存" + user.toString() + "订单成功");
 			return true;

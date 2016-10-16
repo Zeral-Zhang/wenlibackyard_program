@@ -4,10 +4,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.biz.ISchoolInfoBiz;
 import com.po.SchoolInfo;
 import com.service.dao.DaoService;
 
+@Service("SchoolInfoBizImpl")
 public class SchoolInfoBizImpl implements ISchoolInfoBiz {
 
 	@Resource(name="DaoService")

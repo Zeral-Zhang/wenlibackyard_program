@@ -19,7 +19,7 @@ public class SchoolInfoDAO extends BaseDAO<SchoolInfo, Integer> {
 
 	@SuppressWarnings("unchecked")
 	public List<SchoolInfo> findByProperty(String propertyName, Object value) {
-			String queryString = "from Schoolinfo as model where model."
+			String queryString = "from SchoolInfo as model where model."
 					+ propertyName + "= ?";
 			Query queryObject = getCurrentSession().createQuery(queryString);
 			queryObject.setParameter(0, value);

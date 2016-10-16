@@ -29,7 +29,7 @@ public class OrderAction implements IOrderAction {
 	private PageBean pageBean;
 	private List<OrderMain> mainlst;
 
-	@Action(value = "add_Order", results = { 
+	@Action(value = "addOrder", results = { 
 			@Result(name = "success", location = "shopCar", type = "redirect"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp") 
 		})

@@ -86,11 +86,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</p>
 							<p>
 								<span class="item_price">发布时间：</span>
-								<span class="item_price">${requestScope.product.pbdate}</span>
+								<span class="item_price">${requestScope.product.pbDate}</span>
 							</p>
 							<p>
 								<span class="item_price">发布人：</span>
-								<span class="item_price">${requestScope.product.userinfo.userNickName}</span>
+								<span class="item_price">${requestScope.product.userInfo.userNickName}</span>
 							</p>
 							<div class="color-quality">
 								<div class="color-quality-right">
