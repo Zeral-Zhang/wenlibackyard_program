@@ -2,6 +2,7 @@ package com.dao;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Query;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ public class SchoolInfoDAO extends BaseDAO<SchoolInfo, Integer> {
 	// property constants
 	public static final String CODE = "code";
 	public static final String NAME = "name";
-	public static final String PCODE = "pCode";
+	public static final String _PCODE = "PCode";
 	public static final String LEVEL = "level";
 
 
@@ -26,19 +27,23 @@ public class SchoolInfoDAO extends BaseDAO<SchoolInfo, Integer> {
 			return queryObject.list();
 	}
 
-	public List<SchoolInfo> findByCode(Object college) {
-		return findByProperty(CODE, college);
+	public SchoolInfo findByCode(Object code) {
+		List<SchoolInfo> schoolInfolst = findByProperty(CODE, code);
+		if(CollectionUtils.isNotEmpty(schoolInfolst)) {
+			return schoolInfolst.get(0);
+		}
+		return null;
 	}
 
-	public List<SchoolInfo> findByNAME(Object department) {
-		return findByProperty(NAME, department);
+	public List<SchoolInfo> findByNAME(Object name) {
+		return findByProperty(NAME, name);
 	}
 
-	public List<SchoolInfo> findByPCode(Object classes) {
-		return findByProperty(PCODE, classes);
+	public List<SchoolInfo> findByPCode(Object pCode) {
+		return findByProperty(_PCODE, pCode);
 	}
 
-	public List<SchoolInfo> findByLevel(Object grade) {
-		return findByProperty(LEVEL, grade);
+	public List<SchoolInfo> findByLevel(Object level) {
+		return findByProperty(LEVEL, level);
 	}
 }

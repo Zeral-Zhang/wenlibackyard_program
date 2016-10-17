@@ -137,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<h2>信息修改</h2>
 			</div><!-- /header -->
 			<div class="ui-content" role="main">
-				<form action="<%=path%>/update_User.action" method="post">
+				<form action="<%=path%>/updateUser.action" method="post">
 					<input name="user.userId" value="${sessionScope.userInfo.userId}" type="hidden">
 					<label for="phoneNumber">电话:</label>
 					<input type="tel" name="user.userDetailInfo.userTel" id="phonenumber" placeholder="请输入电话" value="${sessionScope.userInfo.userDetailInfo.userTel}">
@@ -145,36 +145,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input type="number" name="user.userDetailInfo.userAge" id="userAge" placeholder="请输入年龄" value="${sessionScope.userInfo.userDetailInfo.userAge}">
 					<fieldset data-role="controlgroup" data-type="horizontal">
 					    <legend>请选择您所在的城市信息:</legend>
-					    <label for="province">省</label>
 					    <select id="province" name="user.userDetailInfo.userProvince">
-							<option selected value="-22">请选择</option>
+							<option value="-22">请选择</option>
 						</select>
-						<label for="city">市：</label>
 						<select id="city" name="user.userDetailInfo.userCity">
 							<option selected value=-22>请选择</option>
 						</select>
 					</fieldset>
 					<fieldset data-role="controlgroup" data-type="horizontal">
 					    <legend>请选择您的院系信息:</legend>
-					    <label for="college">学院</label>
 						<select id="college">
-							<option selected value="-22">请选择</option>
+							<option value="-22">请选择</option>
 							<c:forEach items="${schoolInfolst }" var="schoolInfo">
-								<option value="${schoolInfo.code }">${schoolInfo.name }</option>
+								<option value="${schoolInfo.code }" ${usreInfo.userDetailInfo.schoolInfo.code eq schoolInfo.code ? 'selected' : '' }>${schoolInfo.name }</option>
 							</c:forEach>
 						</select>
 					    <select id="department" name="user.userDetailInfo.schoolInfo.code">
 							<option selected value="-22">请选择</option>
 						</select>
 					</fieldset>
-					<label for="college">学院:</label>
-					<input type="text" name="user.userDetailInfo.schoolinfo.college" id="college" placeholder="请输入学院" value="${sessionScope.userInfo.userDetailInfo.schoolinfo.college}">
-					<label for="department">院系：</label>
-					<input type="text" name="user.userDetailInfo.schoolinfo.department" id="department" placeholder="请输入院系" value="${session.userInfo.userDetailInfo.schoolinfo.department}">
 					<label for="grade">年级：</label>
-					<input type="number" name="user.userDetailInfo.schoolinfo.grade" id="grade" placeholder="请输入年级" value="${session.userInfo.userDetailInfo.schoolinfo.grade}">
+					<input type="number" name="user.userDetailInfo.userGrade" id="grade" placeholder="请输入年级" value="${session.userInfo.userDetailInfo.userGrade}">
 					<label for="classes">班级：</label>
-					<input type="number" name="user.userDetailInfo.schoolinfo.classes" id="classes" placeholder="请输入班级" value="${session.userInfo.userDetailInfo.schoolinfo.classes}">
+					<input type="number" name="user.userDetailInfo.userClass" id="classes" placeholder="请输入班级" value="${session.userInfo.userDetailInfo.userClass}">
 					<input type="submit" value="提交">
 				</form>	
 			</div><!-- /content -->

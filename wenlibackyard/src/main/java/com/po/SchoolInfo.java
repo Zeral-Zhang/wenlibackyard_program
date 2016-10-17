@@ -26,7 +26,7 @@ public class SchoolInfo implements java.io.Serializable {
 	private Integer schoolInfoId;
 	private String code;
 	private String name;
-	private String pCode;
+	private String PCode;
 	private Integer level;
 	private Set<UserDetailInfo> userDetailInfos = new HashSet<UserDetailInfo>(0);
 
@@ -41,7 +41,7 @@ public class SchoolInfo implements java.io.Serializable {
 			Integer level, Set<UserDetailInfo> userDetailInfos) {
 		this.code = code;
 		this.name = name;
-		this.pCode = pCode;
+		this.PCode = pCode;
 		this.level = level;
 		this.userDetailInfos = userDetailInfos;
 	}
@@ -78,11 +78,11 @@ public class SchoolInfo implements java.io.Serializable {
 
 	@Column(name = "p_code", length = 20)
 	public String getPCode() {
-		return this.pCode;
+		return this.PCode;
 	}
 
 	public void setPCode(String pCode) {
-		this.pCode = pCode;
+		this.PCode = pCode;
 	}
 
 	@Column(name = "level", length = 10)

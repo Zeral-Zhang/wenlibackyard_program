@@ -86,7 +86,7 @@ public class UserAction implements IUserAction {
 		return "success";
 	}
 
-	@Action(value = "update_User", results = {
+	@Action(value = "updateUser", results = {
 			@Result(name = "success", location = "/WEB-INF/userDetail.jsp"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
 	@Override
@@ -103,6 +103,7 @@ public class UserAction implements IUserAction {
 					.setAttribute("userInfo", newUser);
 			return "success";
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "failed";
 		}
 	}
