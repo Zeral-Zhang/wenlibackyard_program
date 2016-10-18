@@ -1,7 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
 %>
 
 <!DOCTYPE html>
@@ -24,8 +23,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </form>
 
     </div> <!-- /container -->
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="<%=path %>/js/jquery.min.js"></script>
+    <script src="<%=path %>/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">
     	$(function() {
     		$('#submit').click(function() {

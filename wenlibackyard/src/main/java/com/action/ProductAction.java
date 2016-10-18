@@ -106,7 +106,7 @@ public class ProductAction implements IProductAction {
 	}
 
 	@Action(value = "productList", results = {
-			@Result(name = "success", location = "/WEB-INF/productList.jsp"),
+			@Result(name = "success", location = "/WEB-INF/new_front/productList.jsp"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp"),
 			@Result(name = "login", location = "/WEB-INF/userLogin.jsp") })
 	@Override

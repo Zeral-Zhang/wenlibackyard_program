@@ -82,11 +82,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li>
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">学院
 							<p>
-								<s:if test="#session.userInfo.userDetailInfo.schoolinfo.college == ''">
+								<s:if test="#session.userInfo.userDetailInfo.schoolInfo == ''">
 									请补充学院信息
 								</s:if>
 								<s:else>
-									<s:property value="#session.userInfo.userDetailInfo.schoolinfo.college"/>									
+									<s:property value="#session.userInfo.userDetailInfo.schoolInfo.name"/>									
 								</s:else>								
 							</p>
 						</a>
@@ -94,11 +94,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li>
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">院系
 							<p>
-								<s:if test="#session.userInfo.userDetailInfo.schoolinfo.department == ''">
+								<s:if test="#session.userInfo.userDetailInfo.schoolInfo == ''">
 									请补充院系信息
 								</s:if>
 								<s:else>
-									<s:property value="#session.userInfo.userDetailInfo.schoolinfo.department"/>									
+									<s:iterator value="departmentlst" id="department">
+										<s:if test="#session.userInfo.userDetailInfo.schoolInfo.PCode == #department.code">
+											<s:property value="#department.name"/>		
+										</s:if>
+									</s:iterator>
 								</s:else>
 							</p>
 						</a>
@@ -106,11 +110,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li>
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">年级
 							<p>
-								<s:if test="#session.userInfo.userDetailInfo.schoolinfo.grade == ''">
+								<s:if test="#session.userInfo.userDetailInfo.userGrade == ''">
 									请补充年级信息
 								</s:if>
 								<s:else>
-									<s:property value="#session.userInfo.userDetailInfo.schoolinfo.grade"/>									
+									<s:property value="#session.userInfo.userDetailInfo.userGrade"/>									
 								</s:else>
 							</p>
 						</a>
@@ -118,11 +122,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li>
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">班级
 							<p>
-								<s:if test="#session.userInfo.userDetailInfo.schoolinfo.classes == ''">
+								<s:if test="#session.userInfo.userDetailInfo.userClass == ''">
 									请补充班级信息
 								</s:if>
 								<s:else>
-									<s:property value="#session.userInfo.userDetailInfo.schoolinfo.classes"/>									
+									<s:property value="#session.userInfo.userDetailInfo.userClass"/>									
 								</s:else>
 							</p>
 						</a>
@@ -157,11 +161,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<select id="college">
 							<option value="-22">请选择</option>
 							<c:forEach items="${schoolInfolst }" var="schoolInfo">
-								<option value="${schoolInfo.code }" ${usreInfo.userDetailInfo.schoolInfo.code eq schoolInfo.code ? 'selected' : '' }>${schoolInfo.name }</option>
+								<option value="${schoolInfo.code }" ${userInfo.userDetailInfo.schoolInfo.PCode eq schoolInfo.code ? 'selected' : '' }>${schoolInfo.name }</option>
 							</c:forEach>
 						</select>
 					    <select id="department" name="user.userDetailInfo.schoolInfo.code">
 							<option selected value="-22">请选择</option>
+							<c:forEach items="${departmentlst }" var="schoolInfo">
+								<option value="${schoolInfo.code }" ${userInfo.userDetailInfo.schoolInfo.code eq schoolInfo.code ? 'selected' : '' }>${schoolInfo.name }</option>
+							</c:forEach>
 						</select>
 					</fieldset>
 					<label for="grade">年级：</label>
@@ -190,6 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											+ "</option>");
 						});
 					}, "json");
+				
 					// 根据省份code查找城市信息
 					$("#province").change(
 						function() {
@@ -217,7 +225,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							});
 						}, "json");
 					});
-					
 			});
 		</script>
 	</body>

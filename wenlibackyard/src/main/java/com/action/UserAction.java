@@ -1,14 +1,9 @@
 package com.action;
 
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
@@ -17,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import com.po.SchoolInfo;
 import com.po.UserInfo;
 import com.service.biz.BizService;
+import com.util.WebUtil;
+
+import net.sf.json.JSONObject;
 
 /**
  * @author Zeral_Zhang
@@ -24,10 +22,21 @@ import com.service.biz.BizService;
  */
 @Controller
 @Namespace("/")
-public class UserAction implements IUserAction {
+public class UserAction extends BaseAction implements IUserAction  {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private UserInfo user;
 	private String userid;
+	/**
+	 *  学院信息
+	 */
 	private List<SchoolInfo> schoolInfolst;
+	/**
+	 * 系信息
+	 */
+	private List<SchoolInfo> departmentlst;
+	
 	@Resource(name = "BizService")
 	private BizService biz;
 
@@ -40,6 +49,7 @@ public class UserAction implements IUserAction {
 	public String initUserDetail() {
 		try {
 			schoolInfolst = biz.getSchoolInfoBiz().findColleges();
+			departmentlst = biz.getSchoolInfoBiz().findByCollegeId(getLoginUser().getUserDetailInfo().getSchoolInfo().getPCode());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -49,24 +59,29 @@ public class UserAction implements IUserAction {
 	@Action(value = "login_User")
 	@Override
 	public void login() {
-		HttpServletResponse response = ServletActionContext.getResponse();
-		HttpSession session = ServletActionContext.getRequest().getSession();
-		PrintWriter out = null;
+		JSONObject object = null;
 		try {
-			out = response.getWriter();
 			if ("".equals(userid)) {
-				out.write("{\"status\":\"0\"}");
+				object = new JSONObject();
+				object.put("status", "0");
+				WebUtil.sendJSONObjectResponse(object);
 			} else {
 				UserInfo userInfo = biz.getUserbiz().findUser(userid);
 				if (userInfo == null) {
-					out.write("{\"status\":\"-1\"}");
+					object = new JSONObject();
+					object.put("status", "-1");
+					WebUtil.sendJSONObjectResponse(object);
 				} else {
-					session.setAttribute("userInfo", userInfo);
-					out.write("{\"status\":\"1\"}");
+					super.setLoginUser(userInfo);
+					object = new JSONObject();
+					object.put("status", "1");
+					WebUtil.sendJSONObjectResponse(object);
 				}
 			}
 		} catch (Exception e) {
-			out.write("{\"status\":\"-1\"}");
+			object = new JSONObject();
+			object.put("status", "-1");
+			WebUtil.sendJSONObjectResponse(object);
 		}
 
 	}
@@ -77,10 +92,8 @@ public class UserAction implements IUserAction {
 	})
 	@Override
 	public String initUserInfo() {
-		HttpServletRequest request = ServletActionContext.getRequest();
-		HttpSession session = request.getSession();
-		if (null == session.getAttribute("userInfo")) {
-			request.setAttribute("originURL", "userInfo");
+		if (null == super.getLoginUser()) {
+			getRequest().setAttribute("originURL", "userInfo");
 			return "login";
 		}
 		return "success";
@@ -93,14 +106,12 @@ public class UserAction implements IUserAction {
 	public String update() {
 		try {
 			// 设置用户语言信息
-			user.getUserDetailInfo().setUserLanguage(
-					ServletActionContext.getRequest().getLocale().toString());
+			user.getUserDetailInfo().setUserLanguage(getRequest().getLocale().toString());
 			// 修改用户信息，重新放置用户到session中
 			biz.getUserbiz().update(user);
 			// 通过id找到修改后的用户信息保存到session域中
 			UserInfo newUser = biz.getUserbiz().findUser(user.getUserId());
-			ServletActionContext.getRequest().getSession()
-					.setAttribute("userInfo", newUser);
+			super.setLoginUser(newUser);
 			return "success";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -131,4 +142,13 @@ public class UserAction implements IUserAction {
 	public void setSchoolInfolst(List<SchoolInfo> schoolInfolst) {
 		this.schoolInfolst = schoolInfolst;
 	}
+
+	public List<SchoolInfo> getDepartmentlst() {
+		return departmentlst;
+	}
+
+	public void setDepartmentlst(List<SchoolInfo> departmentlst) {
+		this.departmentlst = departmentlst;
+	}
+	
 }

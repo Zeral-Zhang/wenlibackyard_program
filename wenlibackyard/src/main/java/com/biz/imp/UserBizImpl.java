@@ -41,11 +41,10 @@ public class UserBizImpl implements IUserBiz {
 				userDetailInfo.setUserLanguage(userInfo.getUserDetailInfo().getUserLanguage());
 				userDetailInfo.setUserProvince(findNameFromCode(userInfo.getUserDetailInfo().getUserProvince()));
 				userDetailInfo.setUserCity(findNameFromCode(userInfo.getUserDetailInfo().getUserCity()));
+				userDetailInfo.setUserClass(userInfo.getUserDetailInfo().getUserClass());
+				userDetailInfo.setUserGrade(userInfo.getUserDetailInfo().getUserGrade());
 				// 保存用户id到用户详细信息表中
 				userDetailInfo.setUserInfo(oldUser);
-				/*List<Integer> objlst = daos.getUserdetailinfoDAO().findBySQL("SELECT MAX(userDetailId) FROM userdetailinfo WHERE userId = '" + userInfo.getUserId() + "'");
-				int id = -1;
-				if(objlst != null) id = objlst.get(0); */
 				oldUser.setUserDetailInfo(userDetailInfo);
 			} else {
 				userDetailInfo.setUserTel(userInfo.getUserDetailInfo().getUserTel());
@@ -53,6 +52,8 @@ public class UserBizImpl implements IUserBiz {
 				userDetailInfo.setUserLanguage(userInfo.getUserDetailInfo().getUserLanguage());
 				userDetailInfo.setUserProvince(findNameFromCode(userInfo.getUserDetailInfo().getUserProvince()));
 				userDetailInfo.setUserCity(findNameFromCode(userInfo.getUserDetailInfo().getUserCity()));
+				userDetailInfo.setUserClass(userInfo.getUserDetailInfo().getUserClass());
+				userDetailInfo.setUserGrade(userInfo.getUserDetailInfo().getUserGrade());
 				oldUser.setUserDetailInfo(userDetailInfo);
 			}
 			oldUser.getUserDetailInfo().setSchoolInfo(daos.getSchoolInfoDAO().findByCode(userInfo.getUserDetailInfo().getSchoolInfo().getCode()));
