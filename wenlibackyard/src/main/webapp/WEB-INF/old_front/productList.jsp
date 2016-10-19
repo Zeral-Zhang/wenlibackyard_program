@@ -22,11 +22,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<!-- for-mobile-apps -->
-		<link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-		<link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css" media="all" />
+		<link href="<%=path %>/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+		<link href="<%=path %>/css/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css" media="all" />
 		<!-- pignose css -->
-		<link href="css/pignose.layerslider.css" rel="stylesheet" type="text/css" media="all" />
-		<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+		<link href="<%=path %>/css/pignose.layerslider.css" rel="stylesheet" type="text/css" media="all" />
+		<link href="<%=path %>/css/style.css" rel="stylesheet" type="text/css" media="all" />
 	</head>
 	<body>
 		<div data-role="page" data-theme="a" id="productlist" data-title="最新列表">
@@ -425,16 +425,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<jsp:include page="foot.jsp"></jsp:include>
 		</div><!-- /page -->
 <!-- jquery -->
-<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/jquery.min.js"></script>
 <!-- jqueryMobile -->
-<script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/jquery.mobile-1.4.5.min.js"></script>
 <!-- bootstrap working -->
-<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/js/bootstrap.min.js"></script>
 <!-- //for bootstrap working -->
-<script src="js/jquery.easing.min.js"></script>
-<script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
-<script type="text/javascript" src="js/pignose.layerslider.js"></script>
-<script type="text/javascript" src="js/jquery-ias.min.js"></script>
+<script src="<%=path %>/js/jquery.easing.min.js"></script>
+<script src="<%=path %>/js/easyResponsiveTabs.js" type="text/javascript"></script>
+<script type="text/javascript" src="<%=path %>/js/pignose.layerslider.js"></script>
+<script type="text/javascript" src="<%=path %>/js/jquery-ias.min.js"></script>
 <script type="text/javascript">	
 		$(function() {	
 			var pageCount = 1;
