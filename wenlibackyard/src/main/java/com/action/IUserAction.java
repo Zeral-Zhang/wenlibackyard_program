@@ -28,5 +28,17 @@ public interface IUserAction {
 	 * 初始化用户信息界面
 	 * @return
 	 */
-	public String initUserInfo();
+	public String toUserInfo();
+
+	/**
+	 * 初始化用户详情页面
+	 * @return
+	 */
+	public String toUserDetail();
+
+	/**
+	 * 修改用户详情
+	 * @return
+	 */
+	String toChangeUserDetail();
 }

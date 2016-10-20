@@ -45,8 +45,15 @@ public class UserAction extends BaseAction implements IUserAction  {
 		return "success";
 	}
 	
-	@Action(value = "userDetail", results = { @Result(name = "success", location = "/WEB-INF/userDetail.jsp") })
-	public String initUserDetail() {
+	@Action(value = "toUserDetail", results = { @Result(name = "success", location = "/WEB-INF/new_front/userDetail.jsp") })
+	@Override
+	public String toUserDetail() {
+		return "success";
+	}
+	
+	@Action(value = "toChangeUserDetail", results = { @Result(name = "success", location = "/WEB-INF/userDetail.jsp") })
+	@Override
+	public String toChangeUserDetail() {
 		try {
 			schoolInfolst = biz.getSchoolInfoBiz().findColleges();
 			departmentlst = biz.getSchoolInfoBiz().findByCollegeId(getLoginUser().getUserDetailInfo().getSchoolInfo().getPCode());
@@ -86,12 +93,12 @@ public class UserAction extends BaseAction implements IUserAction  {
 
 	}
 
-	@Action(value = "userInfo", results = {
-			@Result(name = "success", location = "/WEB-INF/userInfo.jsp"),
+	@Action(value = "toUserInfo", results = {
+			@Result(name = "success", location = "/WEB-INF/new_front/userInfo.jsp"),
 			@Result(name = "login", location = "/WEB-INF/userLogin.jsp")
 	})
 	@Override
-	public String initUserInfo() {
+	public String toUserInfo() {
 		if (null == super.getLoginUser()) {
 			getRequest().setAttribute("originURL", "userInfo");
 			return "login";
@@ -150,5 +157,6 @@ public class UserAction extends BaseAction implements IUserAction  {
 	public void setDepartmentlst(List<SchoolInfo> departmentlst) {
 		this.departmentlst = departmentlst;
 	}
+
 	
 }

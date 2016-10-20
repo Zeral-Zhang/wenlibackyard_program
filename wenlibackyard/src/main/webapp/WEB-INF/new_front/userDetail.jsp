@@ -1,9 +1,9 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
 %>
 <!DOCTYPE html>
 <html lang="zh">
@@ -19,32 +19,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-		<!-- Include jQuery Mobile stylesheets -->
-		<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
-		<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+		<link href="<%=path %>/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+		<link rel="stylesheet" href="<%=path %>/css/reset.css">
 	</head>
 	<body>
-		<div data-role="page" data-theme="a" id="userdetail" data-title="用户详情">
-			<div data-role="header" data-position="fixed" data-theme="a">
-				<a href="userInfo"  class="ui-btn ui-btn-left ui-alt-icon ui-nodisc-icon ui-corner-all ui-btn-icon-notext ui-icon-carat-l">返回</a>
-				<a href="#updateUserDetail" class="glyphicon glyphicon-cog">修改</a>
-				<h2>用户详情</h2>
-			</div><!-- /header -->
-			<div class="ui-content" role="main">
-				<ul data-role="listview" data-inset="false">
-					<li>
+			<!-- 顶部导航 -->
+			<div class="top">
+				<!-- 按钮 -->
+				<nav class="navbar navbar-light bg-faded about_nav">
+					 <ul class="nav navbar-nav navbar-left">
+				      <a href="#"><div class="go_back"></div></a>
+				    </ul>
+					<span>用户详情</span>
+					<ul class="nav navbar-nav navbar-left">
+				      <a href="#updateUserDetail" class="glyphicon glyphicon-cog"></a>
+				    </ul>
+				</nav>
+			</div>
+		<div class="container">
+			<div class="row" role="main">
+				<ul class="list-group">
+					<li class="list-group-item">
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">电话
-							<p>
-								<s:if test="#session.userInfo.userDetailInfo.userTel == ''">
-									请补充电话信息
-								</s:if>
-								<s:else>
-									<s:property value="#session.userInfo.userDetailInfo.userTel"/>									
-								</s:else>
-							</p>
+							<s:if test="#session.userInfo.userDetailInfo.userTel == ''">
+								请补充电话信息
+							</s:if>
+							<s:else>
+								<s:property value="#session.userInfo.userDetailInfo.userTel"/>									
+							</s:else>
 						</a>
 					</li>
-					<li>
+					<li class="list-group-item">
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">城市
 							<p>
 								<s:if test="#session.userInfo.userDetailInfo.userProvince == ''">
@@ -57,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</p>
 						</a>
 					</li>
-					<li>
+					<li class="list-group-item">
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">语言
 							<p>
 								${sessionScope.userInfo.userDetailInfo.userLanguage}
@@ -67,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</li>
 					
 
-					<li>
+					<li class="list-group-item">
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">年龄
 							<p>
 								<s:if test="#session.userInfo.userDetailInfo.userAge == ''">
@@ -79,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</p>
 						</a>
 					</li>
-					<li>
+					<li class="list-group-item">
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">学院
 							<p>
 								<s:if test="#session.userInfo.userDetailInfo.schoolInfo == ''">
@@ -91,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</p>
 						</a>
 					</li>
-					<li>
+					<li class="list-group-item">
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">院系
 							<p>
 								<s:if test="#session.userInfo.userDetailInfo.schoolInfo == ''">
@@ -107,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</p>
 						</a>
 					</li>
-					<li>
+					<li class="list-group-item">
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">年级
 							<p>
 								<s:if test="#session.userInfo.userDetailInfo.userGrade == ''">
@@ -119,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</p>
 						</a>
 					</li>
-					<li>
+					<li class="list-group-item">
 						<a href="#" class="ui-btn ui-icon-heart ui-btn-icon-left">班级
 							<p>
 								<s:if test="#session.userInfo.userDetailInfo.userClass == ''">
@@ -180,9 +185,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div><!-- /content -->
 		</div><!-- /page -->
 				<!-- Include the jQuery library -->
-		<script src="js/jquery-2.1.4.min.js"></script>
-		<!-- Include the jQuery Mobile library -->
-		<script src="js/jquery.mobile-1.4.5.min.js"></script>
+		<script src="<%=path %>/js/jquery.min.js"></script>
 		<script type="text/javascript">
 			$(function() {
 				function objInit(obj) {		// 下拉列表框初始化

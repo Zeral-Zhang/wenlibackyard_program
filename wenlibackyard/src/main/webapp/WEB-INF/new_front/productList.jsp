@@ -249,23 +249,8 @@
 			</div>
 		</div>
 	</div>
-	<!-- 底部导航 -->
-	<div class="bottom">
-		<ul>
-			<li><a href="index.html">
-					<div class="link_img1"></div> 首&nbsp;&nbsp;页
-			</a></li>
-			<li><a href="discovery.html">
-					<div class="link_img2"></div> 发&nbsp;&nbsp;现
-			</a></li>
-			<li><a href="#">
-					<div class="link_img3"></div> 购物车
-			</a></li>
-			<li><a href="about_me.html">
-					<div class="link_img4"></div> 关于我
-			</a></li>
-		</ul>
-	</div>
+	<jsp:include page="foot.jsp"></jsp:include>
+	
 	<script src="<%=path%>/js/jquery.min.js"></script>
 	<script src="<%=path%>/bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript">

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String path = request.getContextPath();
 %>
@@ -12,7 +13,7 @@
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 		<title>文理后院</title>
 		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap.css">
+		<link rel="stylesheet" href="<%=path %>/bootstrap/css/bootstrap.css">
 		<link rel="stylesheet" href="<%=path %>/css/reset.css">
 	</head>
 	<body>
@@ -20,18 +21,18 @@
 		<div class="top">
 			<!-- 按钮 -->
 			<nav class="navbar navbar-light bg-faded about_nav">
-				<a href="#"><div class="go_back"></div></a><span>个人中心</span>
+				<span class="container">个人中心</span>
 			</nav>
 		</div>
 		<div class="about_mid">
 			<ul class="list-group">
-				<li class="list-group-item user_info">
+				<li class="list-group-item user_info" onclick="window.location.href='<%=path %>/toUserDetail'">
 					<div class="user_info">
 						<div class="user_photo">
-							<img src="<%=path %>/images/icon/p1.jpg"/>
+							<img src="${sessionScope.userInfo.userHeadImgUrl}"/>
 						</div>
 						<div class="user_name">
-							<span>winona</span>
+							<span>${sessionScope.userInfo.userNickName}</span>
 						</div>
 					</div>
 				</li>
@@ -41,8 +42,8 @@
 					</a>
 				</li>
 				<li class="list-group-item">
-					<a href="#">
-						<div class="list_img2"></div>已卖出的<span class="label label-default label-pill stay_right">2</span>
+					<a href="<%=path %>/productAdd">
+						<div class="list_img2"></div>添加商品<span class="label label-default label-pill stay_right">2</span>
 					</a>
 				</li>
 				<li class="list-group-item">
@@ -58,37 +59,10 @@
 				
 			</ul>
 		</div>
-		<!-- 底部导航 -->
-				<div class="bottom">
-			<ul>
-				<li>
-					<a href="index.html">
-						<div class="link_img1"></div>
-						首&nbsp;&nbsp;页
-					</a>
-				</li>
-				<li>
-					<a href="discovery.html">
-						<div class="link_img2"></div>
-						发&nbsp;&nbsp;现
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<div class="link_img3"></div>
-						购物车
-					</a>
-				</li>
-				<li>
-					<a href="about_me.html">
-						<div class="link_img4"></div>
-						关于我
-					</a>
-				</li>
-			</ul>
-		</div>
-		<script src="js/jquery.min.js"></script>
-		<script src="js/bootstrap.js"></script>
+		<jsp:include page="foot.jsp"></jsp:include>
+		
+		<script src="<%=path %>/js/jquery.min.js"></script>
+		<script src="<%=path %>/bootstrap/js/bootstrap.js"></script>
 		<script type="text/javascript">
 			$(".nav_btn").click(function(event) {
 				/* Act on the event */
