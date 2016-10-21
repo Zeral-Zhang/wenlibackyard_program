@@ -26,15 +26,13 @@
 	<div class="top">
 		<!-- 按钮 -->
 		<nav class="navbar navbar-light bg-faded">
-			<a href="#" class="add_btn"><img src="<%=path%>/images/add.png" /></a>
-			<div class="input-group">
-
-				<input type="text" class="form-control" placeholder="请输入商品关键字">
-				<span><a href="#" class="search_btn"><img
-						src="<%=path%>/images/search.png" /></a></span>
-			</div>
-
-
+			<ul class="nav navbar-nav navbar-left">
+		    	<a href="#" class="add_btn"><img src="<%=path%>/images/add.png" /></a>
+			</ul>
+			<ul>
+				<input type="text" class="form-control" placeholder="请输入商品关键字" />
+		      	<span><a href="#" class="search_btn"><img src="<%=path%>/images/search.png" /></a></span>
+		    </ul>
 			<button class="navbar-toggler nav_btn" type="button">
 				<img src="<%=path%>/images/icon/more.png">
 			</button>

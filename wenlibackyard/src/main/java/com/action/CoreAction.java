@@ -25,7 +25,7 @@ public class CoreAction implements ICoreAction {
 		this.bizs = bizs;
 	}
 
-	@Action(value = "handle_Core")
+	@Action(value = "handleCore")
 	public String handle() {
 		String method = ServletActionContext.getRequest().getMethod();
 		try {
