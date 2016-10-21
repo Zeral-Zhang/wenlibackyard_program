@@ -16,11 +16,11 @@ public interface IProductAction {
 	/**
 	 * 初始化商品信息
 	 */
-	public String initProduct();
+	public String toProductList();
 	
 	/**
 	 * 查找商品详细信息
 	 * @return
 	 */
-	public String findDetail();
+	public String toProductDetail();
 }

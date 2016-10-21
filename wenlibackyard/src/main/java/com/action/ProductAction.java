@@ -1,7 +1,5 @@
 package com.action;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
@@ -19,79 +17,64 @@ import org.springframework.stereotype.Controller;
 import com.bean.PageBean;
 import com.po.ProductInfo;
 import com.po.ProductType;
-import com.po.UserInfo;
 import com.service.biz.BizService;
 import com.util.WebUtil;
 
 @Controller
 @Namespace("/")
-public class ProductAction implements IProductAction {
+public class ProductAction extends BaseAction implements IProductAction {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Resource(name = "BizService")
 	private BizService bizs;
 	private ProductInfo productInfo;
 	private Integer productId;
+	private List<String> fileSrcs;
 
 	private PageBean pageBean;
-	
-	@Action(value = "productAdd", results = {
-			@Result(name = "success", location = "/WEB-INF/productAdd.jsp"),
+
+	@Action(value = "productAdd", results = { @Result(name = "success", location = "/WEB-INF/productAdd.jsp"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
 	public String productAdd() {
 		return "success";
 	}
-	
-	@Action(value = "productCategory", results = {
-			@Result(name = "success", location = "/WEB-INF/productCategory.jsp"),
+
+	@Action(value = "productCategory", results = { @Result(name = "success", location = "/WEB-INF/productCategory.jsp"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
 	public String initProductCategory() {
 		return "success";
 	}
-	
-	@Action(value = "addProduct", results = {
-			@Result(name = "success", location = "productList", type="redirect"),
+
+	@Action(value = "addProduct", results = { @Result(name = "success", location = "productList", type = "redirect"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
 	@Override
 	public String addProduct() {
-		// 获取上传的服务器路径
-		String rpath = ServletActionContext.getServletContext().getRealPath("/");
-
-		// 判断是否存在上传的文件
-		if (productInfo.getPic() != null && productInfo.getPicFileName() != null) {
-			// 获取文件名称
-			String fname = productInfo.getPicFileName();
-
-			// 获取文件的后缀
-			if (fname.lastIndexOf(".") != -1) {
-				String ext = fname.substring(fname.lastIndexOf("."));
-
-				// 改名
-				String newfname = new Date().getTime() + ext;
-
-				// 创建文件对象，制定上传文件的位置
-				File destFile = new File(rpath + "/uppic/" + newfname);
-
-				try {
-					// 上传
-					FileUtils.copyFile(productInfo.getPic(), destFile);
-					productInfo.setImgs(newfname);// 设置文件名称到数据表
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
+		try {
+			// 添加商品图片信息
+			StringBuffer stringBuffer = new StringBuffer();
+			if (CollectionUtils.isNotEmpty(fileSrcs)) {
+				for (String src : fileSrcs) {
+					stringBuffer.append(src).append(":");
 				}
+				productInfo.setImgs(stringBuffer.toString());
 			}
-		}
-		// 添加商品发布日期
-		productInfo.setPbDate(new Date());
-		// 给商品添加用户信息
-		UserInfo user = (UserInfo) ServletActionContext.getRequest().getSession().getAttribute("userInfo");
-		productInfo.setUserInfo(user);
+			// 添加商品发布日期
+			productInfo.setPbDate(new Date());
+			// 给商品添加用户信息
+			productInfo.setUserInfo(getLoginUser());
 
-		boolean flag = bizs.getProductInfobiz().save(productInfo);
-		if (flag) {
-			productInfo = null;
-			return "success";
+			boolean flag = bizs.getProductInfobiz().save(productInfo);
+			// 防止重复提交
+			if(flag) {
+				productInfo = null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "failed";
 		}
-
-		return "failed";
+		return "success";
 	}
 
 	@Action(value = "init_ProductType")
@@ -101,16 +84,16 @@ public class ProductAction implements IProductAction {
 			List<ProductType> productTypelst = bizs.getProductTypebiz().findProuctType();
 			WebUtil.sendJSONArrayResponse(productTypelst, new String[] { "productInfos" });
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
-	@Action(value = "productList", results = {
+	@Action(value = "toProductList", results = {
 			@Result(name = "success", location = "/WEB-INF/new_front/productList.jsp"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp"),
 			@Result(name = "login", location = "/WEB-INF/userLogin.jsp") })
 	@Override
-	public String initProduct() {
+	public String toProductList() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();
 
@@ -137,21 +120,16 @@ public class ProductAction implements IProductAction {
 		}
 	}
 
-	@Action(value = "find_ProductDetail", results = {
-			@Result(name = "success", location = "/WEB-INF/productDetail.jsp"),
+	@Action(value = "toProductDetail", results = {
+			@Result(name = "success", location = "/WEB-INF/new_front/productDetail.jsp"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
 	@Override
-	public String findDetail() {
-
-		HttpServletRequest request = ServletActionContext.getRequest();
+	public String toProductDetail() {
 		try {
-			ProductInfo productInfo = bizs.getProductInfobiz().findDetail(productId);
-			if (productInfo != null) {
-				request.setAttribute("product", productInfo);
-				return "success";
-			} else {
-				return "failed";
+			if (productId != null) {
+				productInfo = bizs.getProductInfobiz().findDetail(productId);
 			}
+			return "success";
 		} catch (Exception e) {
 			return "failed";
 		}
@@ -181,4 +159,11 @@ public class ProductAction implements IProductAction {
 		this.productId = productId;
 	}
 
+	public List<String> getFileSrcs() {
+		return fileSrcs;
+	}
+
+	public void setFileSrcs(List<String> fileSrcs) {
+		this.fileSrcs = fileSrcs;
+	}
 }

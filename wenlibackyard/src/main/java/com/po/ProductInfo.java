@@ -1,6 +1,5 @@
 package com.po;
 
-import java.io.File;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 /**
  * 商品信息表
@@ -45,10 +43,6 @@ public class ProductInfo implements java.io.Serializable {
 	private Integer state;
 	private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
 	private Set<Favorite> favorites = new HashSet<Favorite>(0);
-	/*********************与界面关联的属性***************************/
-	private File pic;
-	private String picFileName;
-	private String picContentType;
 	
 	
 	// Constructors
@@ -225,33 +219,4 @@ public class ProductInfo implements java.io.Serializable {
 	public void setFavorites(Set<Favorite> favorites) {
 		this.favorites = favorites;
 	}
-
-	/**********************于界面关联的属性***************************/
-	@Transient
-	public File getPic() {
-		return pic;
-	}
-
-	public void setPic(File pic) {
-		this.pic = pic;
-	}
-
-	@Transient
-	public String getPicContentType() {
-		return picContentType;
-	}
-
-	public void setPicContentType(String picContentType) {
-		this.picContentType = picContentType;
-	}
-
-	@Transient
-	public String getPicFileName() {
-		return picFileName;
-	}
-
-	public void setPicFileName(String picFileName) {
-		this.picFileName = picFileName;
-	}
-
 }

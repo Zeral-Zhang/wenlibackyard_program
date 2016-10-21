@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.biz.ICoreBiz;
+import com.biz.IFileInfoBiz;
 import com.biz.IOrderBiz;
 import com.biz.IProductInfobBiz;
 import com.biz.IProductTypeBiz;
@@ -14,20 +15,22 @@ import com.biz.IUserBiz;
 
 @Service("BizService")
 public class BizService {
-	@Resource(name="UserBizImpl")
+	@Resource(name = "UserBizImpl")
 	private IUserBiz userbiz;
-	@Resource(name="CoreBizImpl")
+	@Resource(name = "CoreBizImpl")
 	private ICoreBiz corebiz;
-	@Resource(name="RegionBizImpl")
+	@Resource(name = "RegionBizImpl")
 	private IRegionBiz regionbiz;
-	@Resource(name="ProductTypeBizImpl")
+	@Resource(name = "ProductTypeBizImpl")
 	private IProductTypeBiz productTypebiz;
-	@Resource(name="ProductInfoBizImpl")
+	@Resource(name = "ProductInfoBizImpl")
 	private IProductInfobBiz productInfobiz;
-	@Resource(name="OrderBizImpl")
+	@Resource(name = "OrderBizImpl")
 	private IOrderBiz orderBiz;
-	@Resource(name="SchoolInfoBizImpl")
+	@Resource(name = "SchoolInfoBizImpl")
 	private ISchoolInfoBiz schoolInfoBiz;
+	@Resource(name = "FileInfoBizImpl")
+	private IFileInfoBiz fileInfoBiz;
 
 	public IUserBiz getUserbiz() {
 		return userbiz;
@@ -84,5 +87,13 @@ public class BizService {
 	public void setSchoolInfoBiz(ISchoolInfoBiz schoolInfoBiz) {
 		this.schoolInfoBiz = schoolInfoBiz;
 	}
-	
+
+	public IFileInfoBiz getFileInfoBiz() {
+		return fileInfoBiz;
+	}
+
+	public void setFileInfoBiz(IFileInfoBiz fileInfoBiz) {
+		this.fileInfoBiz = fileInfoBiz;
+	}
+
 }

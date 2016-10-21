@@ -33,9 +33,13 @@ img {
 	padding: 0.625rem;
 	color:#4C4C4C;
 }
-.top .navbar{
+.input-group {
+	display: -webkit-flex;
 	display: flex;
-	justify-content: space-between;
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	justify-content: center;
 }
 .top .input-group input{
 	width:10rem;

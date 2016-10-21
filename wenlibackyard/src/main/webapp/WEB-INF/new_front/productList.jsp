@@ -26,13 +26,13 @@
 	<div class="top">
 		<!-- 按钮 -->
 		<nav class="navbar navbar-light bg-faded">
-			<ul class="nav navbar-nav navbar-left">
+			<div style="float:left;">
 		    	<a href="#" class="add_btn"><img src="<%=path%>/images/add.png" /></a>
-			</ul>
-			<ul>
-				<input type="text" class="form-control" placeholder="请输入商品关键字" />
-		      	<span><a href="#" class="search_btn"><img src="<%=path%>/images/search.png" /></a></span>
-		    </ul>
+			</div>
+			<div class="input-group">
+			    	<input type="text" class="form-control" placeholder="请输入商品关键字" />
+			      	<span><a href="#" class="search_btn"><img src="<%=path%>/images/search.png" /></a></span>
+		      	</div>
 			<button class="navbar-toggler nav_btn" type="button">
 				<img src="<%=path%>/images/icon/more.png">
 			</button>
@@ -149,7 +149,7 @@
 					</s:iterator>
 					<div class="col-xs-6">
 						<div class="card">
-							<a href="product_more.html">
+							<a href="<%=path %>/toProductDetail.action?productId=${product.productId}">
 								<div class="card_img">
 									<img class="card-img-top center-block"
 										src="<%=path%>/images/product/p1.jpg"

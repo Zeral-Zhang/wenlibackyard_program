@@ -18,6 +18,19 @@ CREATE TABLE `order_detail` (
   PRIMARY KEY (`order_detail_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单明细表';
 
+CREATE TABLE FILE_INFO
+(
+   ID                   VARCHAR(50) NOT NULL COMMENT 'file_id',
+   NAME                 VARCHAR(200) COMMENT 'file_name',
+   ORIGINAL_FORMAT      VARCHAR(20) COMMENT 'original_format',
+   PATH                 VARCHAR(200) COMMENT 'path',
+   PUBLISH_TIME         DATETIME COMMENT 'publish_time',
+   FILE_SIZE            DOUBLE COMMENT 'file_size',
+   STATUS               INT(11) COMMENT 'status',
+   PRIMARY KEY (ID)
+);
+ALTER TABLE FILE_INFO COMMENT '附件';
+
 -- 创建订单主表
 CREATE TABLE `order_main` (
   `order_main_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '订单主表编号',
