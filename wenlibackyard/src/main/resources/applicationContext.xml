@@ -72,6 +72,7 @@
 				<value>com.po.UserInfo</value>
 				<value>com.po.OrderDetail</value>
 				<value>com.po.BasicConfig</value>
+				<value>com.po.FileInfo</value>
 				<value>com.po.Regions</value>
 			</list>
 		</property>

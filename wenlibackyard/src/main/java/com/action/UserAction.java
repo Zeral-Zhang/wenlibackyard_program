@@ -22,21 +22,21 @@ import net.sf.json.JSONObject;
  */
 @Controller
 @Namespace("/")
-public class UserAction extends BaseAction implements IUserAction  {
-	
+public class UserAction extends BaseAction implements IUserAction {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private UserInfo user;
 	private String userid;
 	/**
-	 *  学院信息
+	 * 学院信息
 	 */
 	private List<SchoolInfo> schoolInfolst;
 	/**
 	 * 系信息
 	 */
 	private List<SchoolInfo> departmentlst;
-	
+
 	@Resource(name = "BizService")
 	private BizService biz;
 
@@ -44,25 +44,25 @@ public class UserAction extends BaseAction implements IUserAction  {
 	public String initLogin() {
 		return "success";
 	}
-	
-	@Action(value = "toUserDetail", results = { @Result(name = "success", location = "/WEB-INF/new_front/userDetail.jsp") })
+
+	@Action(value = "toUserDetail", results = {
+			@Result(name = "success", location = "/WEB-INF/new_front/userDetail.jsp"),
+			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
 	@Override
 	public String toUserDetail() {
-		return "success";
-	}
-	
-	@Action(value = "toChangeUserDetail", results = { @Result(name = "success", location = "/WEB-INF/userDetail.jsp") })
-	@Override
-	public String toChangeUserDetail() {
 		try {
 			schoolInfolst = biz.getSchoolInfoBiz().findColleges();
-			departmentlst = biz.getSchoolInfoBiz().findByCollegeId(getLoginUser().getUserDetailInfo().getSchoolInfo().getPCode());
+			if (null != getLoginUser().getUserDetailInfo()) {
+				departmentlst = biz.getSchoolInfoBiz()
+						.findByCollegeId(getLoginUser().getUserDetailInfo().getSchoolInfo().getPCode());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "failed";
 		}
 		return "success";
 	}
-	
+
 	@Action(value = "login_User")
 	@Override
 	public void login() {
@@ -93,10 +93,8 @@ public class UserAction extends BaseAction implements IUserAction  {
 
 	}
 
-	@Action(value = "toUserInfo", results = {
-			@Result(name = "success", location = "/WEB-INF/new_front/userInfo.jsp"),
-			@Result(name = "login", location = "/WEB-INF/userLogin.jsp")
-	})
+	@Action(value = "toUserInfo", results = { @Result(name = "success", location = "/WEB-INF/new_front/userInfo.jsp"),
+			@Result(name = "login", location = "/WEB-INF/userLogin.jsp") })
 	@Override
 	public String toUserInfo() {
 		if (null == super.getLoginUser()) {
@@ -106,8 +104,7 @@ public class UserAction extends BaseAction implements IUserAction  {
 		return "success";
 	}
 
-	@Action(value = "updateUser", results = {
-			@Result(name = "success", location = "/WEB-INF/userDetail.jsp"),
+	@Action(value = "updateUser", results = { @Result(name = "success", location = "/WEB-INF/userDetail.jsp"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
 	@Override
 	public String update() {
@@ -157,6 +154,4 @@ public class UserAction extends BaseAction implements IUserAction  {
 	public void setDepartmentlst(List<SchoolInfo> departmentlst) {
 		this.departmentlst = departmentlst;
 	}
-
-	
 }

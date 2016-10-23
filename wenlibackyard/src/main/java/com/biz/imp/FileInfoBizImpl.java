@@ -16,7 +16,7 @@ import com.dao.FileInfoDao;
 import com.po.FileInfo;
 import com.util.FileUtil;
 
-@Service("OrderBizImpl")
+@Service("FileInfoBizImpl")
 public class FileInfoBizImpl implements IFileInfoBiz {
 	private static final Logger log = Logger.getLogger(OrderBizImpl.class);
 	@Resource(name = "FileInfoDao")

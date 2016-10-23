@@ -27,18 +27,18 @@ public class ReginAction implements IRegionAction {
 		this.biz = biz;
 	}
 
-	@Action(value = "initProvince_Region")
+	@Action(value = "initProvince")
 	@Override
 	public void initProvince() {
 		try {
 			List<Regions> provincelst = biz.getRegionbiz().findProvince();
 			WebUtil.sendJSONArrayResponse(provincelst);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
-	@Action(value = "loadCitys_Region")
+	@Action(value = "loadCitys")
 	@Override
 	public void loadCitys() {
 		try {
