@@ -53,8 +53,7 @@ public class UserAction extends BaseAction implements IUserAction {
 		try {
 			schoolInfolst = biz.getSchoolInfoBiz().findColleges();
 			if (null != getLoginUser().getUserDetailInfo()) {
-				departmentlst = biz.getSchoolInfoBiz()
-						.findByCollegeId(getLoginUser().getUserDetailInfo().getSchoolInfo().getPCode());
+				departmentlst = biz.getSchoolInfoBiz().findByCollegeId(getLoginUser().getUserDetailInfo().getSchoolInfo().getPCode());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -104,7 +103,7 @@ public class UserAction extends BaseAction implements IUserAction {
 		return "success";
 	}
 
-	@Action(value = "updateUser", results = { @Result(name = "success", location = "/WEB-INF/userDetail.jsp"),
+	@Action(value = "updateUser", results = { @Result(name="success", location="toUserDetail",type="redirectAction"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
 	@Override
 	public String update() {

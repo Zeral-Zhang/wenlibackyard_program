@@ -31,37 +31,32 @@ public class UserBizImpl implements IUserBiz {
 	@Override
 	public void update(UserInfo userInfo) {
 		log.info("upate userinfo "+ userInfo.toString() +"");
-		try {
-			UserInfo oldUser = daos.getUserdao().findById(userInfo.getUserId());
-			UserDetailInfo userDetailInfo = oldUser.getUserDetailInfo();
-			if(null == userDetailInfo) {
-				userDetailInfo = new UserDetailInfo();
-				userDetailInfo.setUserTel(userInfo.getUserDetailInfo().getUserTel());
-				userDetailInfo.setUserAge(userInfo.getUserDetailInfo().getUserAge());
-				userDetailInfo.setUserLanguage(userInfo.getUserDetailInfo().getUserLanguage());
-				userDetailInfo.setUserProvince(findNameFromCode(userInfo.getUserDetailInfo().getUserProvince()));
-				userDetailInfo.setUserCity(findNameFromCode(userInfo.getUserDetailInfo().getUserCity()));
-				userDetailInfo.setUserClass(userInfo.getUserDetailInfo().getUserClass());
-				userDetailInfo.setUserGrade(userInfo.getUserDetailInfo().getUserGrade());
-				// 保存用户id到用户详细信息表中
-				userDetailInfo.setUserInfo(oldUser);
-				oldUser.setUserDetailInfo(userDetailInfo);
-			} else {
-				userDetailInfo.setUserTel(userInfo.getUserDetailInfo().getUserTel());
-				userDetailInfo.setUserAge(userInfo.getUserDetailInfo().getUserAge());
-				userDetailInfo.setUserLanguage(userInfo.getUserDetailInfo().getUserLanguage());
-				userDetailInfo.setUserProvince(findNameFromCode(userInfo.getUserDetailInfo().getUserProvince()));
-				userDetailInfo.setUserCity(findNameFromCode(userInfo.getUserDetailInfo().getUserCity()));
-				userDetailInfo.setUserClass(userInfo.getUserDetailInfo().getUserClass());
-				userDetailInfo.setUserGrade(userInfo.getUserDetailInfo().getUserGrade());
-				oldUser.setUserDetailInfo(userDetailInfo);
-			}
-			oldUser.getUserDetailInfo().setSchoolInfo(daos.getSchoolInfoDAO().findByCode(userInfo.getUserDetailInfo().getSchoolInfo().getCode()));
-			daos.getUserdao().saveOrUpdate(oldUser);
-			log.info("upate userinfo "+ userInfo.toString() +" success");
-		} catch (Exception e) {
-			log.error("upate userinfo "+ userInfo.toString() +" failed", e);
+		UserInfo oldUser = daos.getUserdao().findById(userInfo.getUserId());
+		UserDetailInfo userDetailInfo = oldUser.getUserDetailInfo();
+		if(null == userDetailInfo) {
+			userDetailInfo = new UserDetailInfo();
+			userDetailInfo.setUserTel(userInfo.getUserDetailInfo().getUserTel());
+			userDetailInfo.setUserAge(userInfo.getUserDetailInfo().getUserAge());
+			userDetailInfo.setUserLanguage(userInfo.getUserDetailInfo().getUserLanguage());
+			userDetailInfo.setUserProvince(findNameFromCode(userInfo.getUserDetailInfo().getUserProvince()));
+			userDetailInfo.setUserCity(findNameFromCode(userInfo.getUserDetailInfo().getUserCity()));
+			userDetailInfo.setUserClass(userInfo.getUserDetailInfo().getUserClass());
+			userDetailInfo.setUserGrade(userInfo.getUserDetailInfo().getUserGrade());
+			// 保存用户id到用户详细信息表中
+			userDetailInfo.setUserInfo(oldUser);
+			oldUser.setUserDetailInfo(userDetailInfo);
+		} else {
+			userDetailInfo.setUserTel(userInfo.getUserDetailInfo().getUserTel());
+			userDetailInfo.setUserAge(userInfo.getUserDetailInfo().getUserAge());
+			userDetailInfo.setUserLanguage(userInfo.getUserDetailInfo().getUserLanguage());
+			userDetailInfo.setUserProvince(findNameFromCode(userInfo.getUserDetailInfo().getUserProvince()));
+			userDetailInfo.setUserCity(findNameFromCode(userInfo.getUserDetailInfo().getUserCity()));
+			userDetailInfo.setUserClass(userInfo.getUserDetailInfo().getUserClass());
+			userDetailInfo.setUserGrade(userInfo.getUserDetailInfo().getUserGrade());
+			oldUser.setUserDetailInfo(userDetailInfo);
 		}
+		oldUser.getUserDetailInfo().setSchoolInfo(daos.getSchoolInfoDAO().findByCode(userInfo.getUserDetailInfo().getSchoolInfo().getCode()));
+		daos.getUserdao().saveOrUpdate(oldUser);
 	}
 
 	public String findNameFromCode(String code) {

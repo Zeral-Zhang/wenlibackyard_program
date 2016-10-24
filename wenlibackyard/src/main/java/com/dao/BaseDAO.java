@@ -48,7 +48,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		// do nothing
 	}
 
-	public void save(M model) throws Exception {
+	public void save(M model) {
 		try {
 			getCurrentSession().save(model);
 		} catch (Exception e) {
@@ -56,7 +56,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		}
 	}
 
-	public void saveOrUpdate(M model) throws Exception {
+	public void saveOrUpdate(M model) {
 		try {
 			getCurrentSession().saveOrUpdate(model);
 		} catch (Exception e) {
@@ -64,7 +64,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		}
 	}
 
-	public void update(M model) throws Exception {
+	public void update(M model) {
 		try {
 			getCurrentSession().update(model);
 		} catch (Exception e) {
@@ -72,7 +72,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		}
 	}
 
-	public void merge(M model) throws Exception {
+	public void merge(M model) {
 		try {
 			getCurrentSession().merge(model);
 		} catch (Exception e) {
@@ -80,7 +80,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		}
 	}
 
-	public void delete(PK id) throws Exception {
+	public void delete(PK id) {
 		try {
 			getCurrentSession().delete(this.findById(id));
 		} catch (Exception e) {
@@ -88,7 +88,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		}
 	}
 
-	public void deleteObject(M model) throws Exception {
+	public void deleteObject(M model) {
 		try {
 			getCurrentSession().delete(model);
 		} catch (Exception e) {

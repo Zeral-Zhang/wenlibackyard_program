@@ -98,7 +98,7 @@ public class ProductAction extends BaseAction implements IProductAction {
 		HttpSession session = request.getSession();
 
 		if (null == session.getAttribute("userInfo")) {
-			request.setAttribute("originURL", "productList");
+			request.setAttribute("originURL", "toProductList");
 			return "login";
 		}
 		try {
