@@ -35,9 +35,10 @@ public class ProductAction extends BaseAction implements IProductAction {
 
 	private PageBean pageBean;
 
-	@Action(value = "productAdd", results = { @Result(name = "success", location = "/WEB-INF/productAdd.jsp"),
+	@Action(value = "toProductAdd", results = {
+			@Result(name = "success", location = "/WEB-INF/new_front/productAdd.jsp"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
-	public String productAdd() {
+	public String toProductAdd() {
 		return "success";
 	}
 
@@ -67,7 +68,7 @@ public class ProductAction extends BaseAction implements IProductAction {
 
 			boolean flag = bizs.getProductInfobiz().save(productInfo);
 			// 防止重复提交
-			if(flag) {
+			if (flag) {
 				productInfo = null;
 			}
 		} catch (Exception e) {

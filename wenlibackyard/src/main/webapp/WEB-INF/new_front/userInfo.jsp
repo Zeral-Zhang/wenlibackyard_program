@@ -42,7 +42,7 @@
 					</a>
 				</li>
 				<li class="list-group-item">
-					<a href="<%=path %>/productAdd">
+					<a href="<%=path %>/toProductAdd">
 						<div class="list_img2"></div>添加商品<span class="label label-default label-pill stay_right">2</span>
 					</a>
 				</li>

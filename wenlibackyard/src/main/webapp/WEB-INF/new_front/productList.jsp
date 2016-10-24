@@ -27,7 +27,7 @@
 		<!-- 按钮 -->
 		<nav class="navbar navbar-light bg-faded">
 			<div style="float:left;">
-		    	<a href="#" class="add_btn"><img src="<%=path%>/images/add.png" /></a>
+		    	<a href="<%=path %>/toProductList" class="add_btn"><img src="<%=path%>/images/add.png" /></a>
 			</div>
 			<div class="input-group">
 			    	<input type="text" class="form-control" placeholder="请输入商品关键字" />
