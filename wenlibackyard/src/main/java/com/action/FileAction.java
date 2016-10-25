@@ -36,10 +36,11 @@ public class FileAction extends BaseAction {
 	public void uploadFile() {
 		try {
 			log.info("=========开始上传文件======================================");
-			bizs.getFileInfoBiz().uploadAndSaveFile(this.uploadFileName, this.upload, this.fileInfo);
-			String result = this.fileInfo.getId() + ":" + this.fileInfo.getName() + ":" + this.fileInfo.getPath();
-
-			WebUtil.sendResponse(result);
+			File file = bizs.getFileInfoBiz().uploadAndSaveFile(this.uploadFileName, this.upload,
+					this.fileInfo == null ? new FileInfo() : this.fileInfo);
+			if (file != null) {
+				WebUtil.sendResponse(file.getPath());
+			}
 			log.info("==========文件上传完毕======================================");
 		} catch (Exception e) {
 			e.printStackTrace();
