@@ -32,7 +32,7 @@
 		<!-- 按钮 -->
 		<nav class="navbar navbar-light bg-faded about_nav">
 			<a href="<%=path%>/toUserInfo"><span class="go_back"></span></a>
-			<span>添加商品</span>
+			<span class="container">添加商品</span>
 		</nav>
 	</div>
 	<div class="container">
@@ -109,23 +109,42 @@
 	                    <input class="weui-input" type="number" name="productInfo.number" pattern="[0-9]*" placeholder="商品数量"/>
 	                </div>
            	 	</div>
+           	 	<div class="weui-gallery" id="gallery">
+		            <span class="weui-gallery__img" id="galleryImg"></span>
+		            <div class="weui-gallery__opr">
+		                <a href="javascript:" class="weui-gallery__del">
+		                    <i class="weui-icon-delete weui-icon_gallery-delete"></i>
+		                </a>
+		            </div>
+		        </div>
            	 	 <div class="weui-cell">
-	                <div class="weui-cell__bd">
-	                    <div class="weui-uploader">
-	                        <div class="weui-uploader__hd">
-	                            <p class="weui-uploader__title">图片上传</p>
-	                            <div class="weui-uploader__info">0/5</div>
-	                        </div>
-	                        <div class="weui-uploader__bd">
-	                            <ul class="weui-uploader__files" id="uploaderFiles">
-	                            </ul>
-	                            <div class="weui-uploader__input-box">
-	                                <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple />
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-           		 </div>
+	               <div class="weui-cell__bd">
+	                   <div class="weui-uploader">
+	                       <div class="weui-uploader__hd">
+	                           <p class="weui-uploader__title">图片上传</p>
+	                           <div class="weui-uploader__info">0/2</div>
+	                       </div>
+	                       <div class="weui-uploader__bd">
+	                           <ul class="weui-uploader__files" id="uploaderFiles">
+	                               <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)"></li>
+	                               <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)"></li>
+	                               <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)"></li>
+	                               <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+	                                   <div class="weui-uploader__file-content">
+	                                       <i class="weui-icon-warn"></i>
+	                                   </div>
+	                               </li>
+	                               <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+	                                   <div class="weui-uploader__file-content">50%</div>
+	                               </li>
+	                           </ul>
+	                           <div class="weui-uploader__input-box">
+	                               <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple />
+	                           </div>
+	                       </div>
+	                   </div>
+                	</div>
+            	</div>
            	</div>
 		</form>
 	</div>
@@ -178,19 +197,54 @@
 	      ;
 	
 	  $uploaderInput.on("change", function(e){
-	      var src, url = window.URL || window.webkitURL || window.mozURL, files = e.target.files;
-	      for (var i = 0, len = files.length; i < len; ++i) {
-	          var file = files[i];
-	
-	          if (url) {
-	              src = url.createObjectURL(file);
-	          } else {
-	              src = e.target.result;
-	          }
-	
-	          $uploaderFiles.append($(tmpl.replace('#url#', src)));
+	      var src, tests = {
+	    	      url: !!(window.URL || window.webkitURL || window.mozURL),
+	    	      formdata: !!window.FormData
+	    	    }, files = e.target.files;
+	      if(files.length > 5) {
+	    	  alertify.warning('只能上传五张图片');
+	      } else {
+	    	  var formData = tests.formdata ? new FormData() : null;
+	    	  for (var i = 0, len = files.length; i < len; ++i) {
+		          src = tests.url ? url.createObjectURL(file) : e.target.result;
+		          if (tests.formdata) 
+		        	  {
+			        	  formData.append('upload', files[i]);
+				          formData.append('uploadFileName', file.name);
+		        	  }
+		    	  }
+	    	  
+	        	//ajax异步上传  
+              $.ajax({  
+                  url: "<%=path%>/uploadFile",  
+                  type: "POST",  
+                  data: formData,  
+                  xhr: function(){ //获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数  
+                      myXhr = $.ajaxSettings.xhr();  
+                      if(myXhr.upload){ //检查upload属性是否存在  
+                          //绑定progress事件的回调函数  
+                          myXhr.upload.addEventListener('progress',progressHandlingFunction, false);   
+                      }  
+                      return myXhr; //xhr对象返回给jQuery使用  
+                  },  
+                  success: function(result){  
+                	  $uploaderFiles.append($(tmpl.replace('#url#', src)));
+                  },  
+                  contentType: false, //必须false才会自动加上正确的Content-Type  
+                  processData: false  //必须false才会避开jQuery对 formdata 的默认处理  
+              });  
 	      }
 	  });
+	  
+		//上传进度回调函数：  
+	    function progressHandlingFunction(e) {  
+	        if (e.lengthComputable) {  
+	            $('progress').attr({value : e.loaded, max : e.total}); //更新数据到进度条  
+	            var percent = e.loaded/e.total*100;  
+	            $('#progress').html(e.loaded + "/" + e.total+" bytes. " + percent.toFixed(2) + "%");  
+	        }  
+	    } 
+		
 	  $uploaderFiles.on("click", "li", function(){
 	      $galleryImg.attr("style", this.getAttribute("style"));
 	      $gallery.fadeIn(100);

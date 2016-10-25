@@ -42,6 +42,7 @@ public class FileAction extends BaseAction {
 			WebUtil.sendResponse(result);
 			log.info("==========文件上传完毕======================================");
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error(e.getMessage(), e);
 		}
 	}
