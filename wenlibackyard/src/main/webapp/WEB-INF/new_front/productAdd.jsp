@@ -36,7 +36,7 @@
 		</nav>
 	</div>
 	<div class="container">
-		<form id="userForm" action="<%=path%>/updateUser.action" method="post">
+		<form id="userForm" action="<%=path%>/addProduct.action" method="post">
 			<input name="user.userId" value="${sessionScope.userInfo.userId}" type="hidden">
 			<div class="weui-cells weui-cells_form">
 				<div class="weui-cell">
@@ -178,7 +178,9 @@
 				forceParse : 0
 			});
 		});
-	      var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
+	      var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)">' +
+	      		     '<input type="hidden" name="#name#" value="#value#"/>' +
+	      		     '</li>',
 	      $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),
 	      $uploaderInput = $("#uploaderInput"),
 	      $uploaderFiles = $("#uploaderFiles")
@@ -207,12 +209,12 @@
 		        	 	 var formData = tests.formdata ? new FormData() : null;
 			        	  formData.append('upload', files[i]);
 				          formData.append('uploadFileName', files[i].name);
+				          formData.append('fileInfo.name', files[i].name);
 				        //ajax异步上传  
 			              $.ajax({  
 			                  url: "<%=path%>/uploadFile",  
 			                  type: "POST",  
 			                  data: formData,
-			                  dataType: "json",
 			                  xhr: function(){ //获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数  
 			                      myXhr = $.ajaxSettings.xhr();  
 			                      if(myXhr.upload){ //检查upload属性是否存在  
@@ -221,9 +223,9 @@
 			                      }  
 			                      return myXhr; //xhr对象返回给jQuery使用  
 			                  },  
-			                  success: function(result){  
-		                		 $uploaderFiles.append($(tmpl.replace('#url#', src)));
-		                		 alertify.success('上传成功了');
+			                  success: function(result){ 
+			                	 var fileInfo = result.split(':');
+		                		 $uploaderFiles.append($(tmpl.replace('#url#', src).replace('#name#', 'fileSrc['+$fileLength+']').replace('#value#', fileInfo[2])));
 			                  },  
 			                  contentType: false, //必须false才会自动加上正确的Content-Type  
 			                  processData: false  //必须false才会避开jQuery对 formdata 的默认处理  
