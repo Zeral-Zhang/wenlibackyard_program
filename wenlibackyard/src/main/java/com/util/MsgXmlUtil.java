@@ -21,7 +21,7 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 
 /**
- * ¶ÔÇëÇóÊı¾İºÍ·µ»ØÊı¾İ½øĞĞ´¦ÀíÀà
+ * å¯¹è¯·æ±‚æ•°æ®å’Œè¿”å›æ•°æ®è¿›è¡Œå¤„ç†ç±»
  * 
  * @author Runaway
  *
@@ -29,71 +29,71 @@ import com.thoughtworks.xstream.io.xml.XppDriver;
 @SuppressWarnings("unchecked")
 public class MsgXmlUtil {
 	/**  
-	 *  ·µ»ØÏûÏ¢ÀàĞÍ£ºÎÄ±¾ 
+	 *  è¿”å›æ¶ˆæ¯ç±»å‹ï¼šæ–‡æœ¬ 
 	 *
 	 */
 	public static final String RESP_MESSAGE_TYPE_TEXT = "text"; 
 	/** 
-	 * ·µ»ØÏûÏ¢ÀàĞÍ£ºÒôÀÖ
+	 * è¿”å›æ¶ˆæ¯ç±»å‹ï¼šéŸ³ä¹
 	 *
 	 */ 
 	public static final String RESP_MESSAGE_TYPE_MUSIC = "music";
 	/** 
-	 * ·µ»ØÏûÏ¢ÀàĞÍ£ºÍ¼ÎÄ 
+	 * è¿”å›æ¶ˆæ¯ç±»å‹ï¼šå›¾æ–‡ 
 	 * 
 	 */
 	public static final String RESP_MESSAGE_TYPE_NEWS = "news"; 
 	/**  
-	 *  ÇëÇóÏûÏ¢ÀàĞÍ£ºÎÄ±¾ 
+	 *  è¯·æ±‚æ¶ˆæ¯ç±»å‹ï¼šæ–‡æœ¬ 
 	 *
 	 */
 	public static final String REQ_MESSAGE_TYPE_TEXT = "text";
 	/** 
-	 * ÇëÇóÏûÏ¢ÀàĞÍ£ºÍ¼Æ¬
+	 * è¯·æ±‚æ¶ˆæ¯ç±»å‹ï¼šå›¾ç‰‡
 	 *  
 	 */ 
 	public static final String REQ_MESSAGE_TYPE_IMAGE = "image";
 	/** 
-	 *  ÇëÇóÏûÏ¢ÀàĞÍ£ºÁ´½Ó 
+	 *  è¯·æ±‚æ¶ˆæ¯ç±»å‹ï¼šé“¾æ¥ 
 	 *   
 	 */ 
 	public static final String REQ_MESSAGE_TYPE_LINK = "link"; 
 	/** 
-	 * ÇëÇóÏûÏ¢ÀàĞÍ£ºµØÀíÎ»ÖÃ
+	 * è¯·æ±‚æ¶ˆæ¯ç±»å‹ï¼šåœ°ç†ä½ç½®
 	 *  
 	 */
 	public static final String REQ_MESSAGE_TYPE_LOCATION = "location"; 
 	/**
-	 * ÇëÇóÏûÏ¢ÀàĞÍ£ºÒôÆµ
+	 * è¯·æ±‚æ¶ˆæ¯ç±»å‹ï¼šéŸ³é¢‘
 	 *  
 	 */ 
 	public static final String REQ_MESSAGE_TYPE_VOICE = "voice"; 
 	 /** 
-	  * ÇëÇóÏûÏ¢ÀàĞÍ£ºÍÆËÍ
+	  * è¯·æ±‚æ¶ˆæ¯ç±»å‹ï¼šæ¨é€
 	  *  
 	  */
 	public static final String REQ_MESSAGE_TYPE_EVENT = "event"; 
 	/** 
-	 * ÊÂ¼şÀàĞÍ£ºsubscribe(¶©ÔÄ)
+	 * äº‹ä»¶ç±»å‹ï¼šsubscribe(è®¢é˜…)
 	 *  
 	 */ 
 	public static final String EVENT_TYPE_SUBSCRIBE = "subscribe"; 
 	/**
-	 * ÊÂ¼şÀàĞÍ£ºunsubscribe(È¡Ïû¶©ÔÄ)
+	 * äº‹ä»¶ç±»å‹ï¼šunsubscribe(å–æ¶ˆè®¢é˜…)
 	 *  
 	 */
 	public static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe";
 	/**
-	 * ÊÂ¼şÀàĞÍ£ºCLICK(×Ô¶¨Òå²Ëµ¥µã»÷ÊÂ¼ş)
+	 * äº‹ä»¶ç±»å‹ï¼šCLICK(è‡ªå®šä¹‰èœå•ç‚¹å‡»äº‹ä»¶)
 	 *  
 	 */
 	public static final String EVENT_TYPE_CLICK = "CLICK";
 
-	//½«request ÏûÏ¢ ×ª»»³É ÇëÇóÏûÏ¢¶ÔÏó
+	//å°†request æ¶ˆæ¯ è½¬æ¢æˆ è¯·æ±‚æ¶ˆæ¯å¯¹è±¡
 	public static MsgRequest parseXml(HttpServletRequest request) throws Exception {
 		MsgRequest msgReq = new MsgRequest();
 		
-		// ½âÎöXML
+		// è§£æXML
 		InputStream inputStream = request.getInputStream();
 		
 		SAXReader reader = new SAXReader();
@@ -101,12 +101,12 @@ public class MsgXmlUtil {
 		Element root = document.getRootElement();
 		List<Element> elementList = root.elements();
 		
-		// ±éÀú½Úµã£¬·â×°³É¶ÔÏó
+		// éå†èŠ‚ç‚¹ï¼Œå°è£…æˆå¯¹è±¡
 		for (Element e : elementList){
 			String name = e.getName();
 			String text = e.getText();
 			
-			if("MsgType".equals(name)){//ÏûÏ¢ÀàĞÍ
+			if("MsgType".equals(name)){//æ¶ˆæ¯ç±»å‹
 				msgReq.setMsgType(text);
 			}else if("MsgId".equals(name)){
 				msgReq.setMsgId(text);
@@ -116,11 +116,11 @@ public class MsgXmlUtil {
 				msgReq.setToUserName(text);
 			}else if("CreateTime".equals(name)){
 				msgReq.setCreateTime(text);
-			}else if("Content".equals(name)){//ÎÄ±¾ÏûÏ¢
+			}else if("Content".equals(name)){//æ–‡æœ¬æ¶ˆæ¯
 				msgReq.setContent(text);
-			}else if("PicUrl".equals(name)){//Í¼Æ¬ÏûÏ¢
+			}else if("PicUrl".equals(name)){//å›¾ç‰‡æ¶ˆæ¯
 				msgReq.setPicUrl(text);
-			}else if("Location_X".equals(name)){//µØÀíÎ»ÖÃÏûÏ¢
+			}else if("Location_X".equals(name)){//åœ°ç†ä½ç½®æ¶ˆæ¯
 				msgReq.setLocation_X(text);
 			}else if("Location_Y".equals(name)){
 				msgReq.setLocation_Y(text);
@@ -128,7 +128,7 @@ public class MsgXmlUtil {
 				msgReq.setScale(text);
 			}else if("Label".equals(name)){
 				msgReq.setLabel(text);
-			}else if("Event".equals(name)){//ÊÂ¼şÏûÏ¢
+			}else if("Event".equals(name)){//äº‹ä»¶æ¶ˆæ¯
 				msgReq.setEvent(text);
 			}else if("EventKey".equals(name)){
 				msgReq.setEventKey(text);
@@ -141,7 +141,7 @@ public class MsgXmlUtil {
 	
 	
 	/**
-	 * ÎÄ±¾ÏûÏ¢×ª»»³Éxml
+	 * æ–‡æœ¬æ¶ˆæ¯è½¬æ¢æˆxml
 	 * 
 	 * @param text
 	 * @return
@@ -153,7 +153,7 @@ public class MsgXmlUtil {
 	
 	
 	/**
-	 * Í¼ÎÄÏûÏ¢×ª»»³Éxml
+	 * å›¾æ–‡æ¶ˆæ¯è½¬æ¢æˆxml
 	 * 
 	 * @param news
 	 * @return
@@ -165,17 +165,20 @@ public class MsgXmlUtil {
 	}
 	
 	/**
-	 * À©Õ¹xstream£¬ÈÃxml½ÚµãÔö¼ÓCDATA±ê¼Ç
+	 * æ‰©å±•xstreamï¼Œè®©xmlèŠ‚ç‚¹å¢åŠ CDATAæ ‡è®°
 	 */
 	public static XStream xstream = new XStream(new XppDriver() {
+		@Override
 		public HierarchicalStreamWriter createWriter(Writer out) {
 			return new PrettyPrintWriter(out) {
 				boolean CDATA = true;
 				
+				@Override
 				@SuppressWarnings("rawtypes")
 				public void startNode(String name, Class clazz) {
 					super.startNode(name, clazz);
 				}
+				@Override
 				protected void writeText(QuickWriter writer, String text) {
 					if (CDATA) {
 						writer.write("<![CDATA[");

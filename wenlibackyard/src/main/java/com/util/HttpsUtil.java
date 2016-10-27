@@ -14,8 +14,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 import com.bean.AccessToken;
 import com.bean.Menu;
@@ -27,16 +26,16 @@ import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 
 /**
- * @author Zeral
+ * @author Zeral_Zhang
  *
  */
 public class HttpsUtil {
-	private static Logger log = LoggerFactory.getLogger(HttpsUtil.class);
+	private static Logger log = Logger.getLogger(HttpsUtil.class);
 	public final static String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 	public static String menu_create_url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
 	
 	/**
-	 * ��ȡ�����˵�ƾ֤
+	 * 获取创建菜单凭证
 	 * @param appid
 	 * @param appsecret
 	 * @return
@@ -45,7 +44,7 @@ public class HttpsUtil {
 		AccessToken accessToken = null;
 		String requestUrl = access_token_url.replace("APPID", appid).replace("APPSECRET", appsecret);
 		JSONObject jsonObject = httpsRequest(requestUrl, "GET", null);
-		// �������ɹ�
+		// 如果请求成功
 		if(null != jsonObject) {
 			try {
 				accessToken = new AccessToken();
@@ -53,29 +52,29 @@ public class HttpsUtil {
 				accessToken.setExpiresIn(jsonObject.getInt("expires_in"));
 			} catch (JSONException e) {
 				accessToken = null;
-				// ��ȡtokenʧ��
-				log.error("��ȡ token ʧ�� errcode��{} errmsg:{}", jsonObject.getInt("errcode"), jsonObject.getString("errmsg"));
+				// 获取token失败
+				log.error("获取 token 失败 errcode："+jsonObject.getInt("errcode")+" errmsg: " + jsonObject.getString("errmsg"));
 			}
 		}
 		return accessToken;
 	}
 	
 	/**
-     * ��ȡ��ҳ��Ȩƾ֤
+     * 获取网页授权凭证
      * 
-     * @param appId �����˺ŵ�Ψһ��ʶ
-     * @param appSecret �����˺ŵ���Կ
+     * @param appId 公众账号的唯一标识
+     * @param appSecret 公众账号的密钥
      * @param code
      * @return WeixinAouth2Token
      */
     public static WeixinOauth2Token getOauth2AccessToken(String appId, String appSecret, String code) {
         WeixinOauth2Token wat = null;
-        // ƴ�������ַ
+        // 拼接请求地址
         String requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
         requestUrl = requestUrl.replace("APPID", appId);
         requestUrl = requestUrl.replace("SECRET", appSecret);
         requestUrl = requestUrl.replace("CODE", code);
-        // ��ȡ��ҳ��Ȩƾ֤
+        // 获取网页授权凭证
         JSONObject jsonObject = httpsRequest(requestUrl, "GET", null);
         if (null != jsonObject) {
             try {
@@ -89,7 +88,7 @@ public class HttpsUtil {
                 wat = null;
                 int errorCode = jsonObject.getInt("errcode");
                 String errorMsg = jsonObject.getString("errmsg");
-                log.error("��ȡ��ҳ��Ȩƾ֤ʧ�� errcode:{} errmsg:{}", errorCode, errorMsg);
+                log.error("获取网页授权凭证失败 errcode:" + errorCode + " errmsg:" + errorMsg);
             }
         }
         return wat;
@@ -98,36 +97,36 @@ public class HttpsUtil {
     @SuppressWarnings({ "deprecation", "unchecked" })
 	public static SNSUserInfo getSNSUserInfo(String accessToken, String openId) {
         SNSUserInfo snsUserInfo = null;
-        // ƴ�������ַ
+        // 拼接请求地址
         String requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
         requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
-        // ͨ����ҳ��Ȩ��ȡ�û���Ϣ
+        // 通过网页授权获取用户信息
         JSONObject jsonObject = httpsRequest(requestUrl, "GET", null);
 
         if (null != jsonObject) {
             try {
                 snsUserInfo = new SNSUserInfo();
-                // �û��ı�ʶ
+                // 用户的标识
                 snsUserInfo.setOpenId(jsonObject.getString("openid"));
-                // �ǳ�
+                // 昵称
                 snsUserInfo.setNickname(jsonObject.getString("nickname"));
-                // �Ա�1�����ԣ�2��Ů�ԣ�0��δ֪��
+                // 性别（1是男性，2是女性，0是未知）
                 snsUserInfo.setSex(jsonObject.getInt("sex"));
-                // �û����ڹ���
+                // 用户所在国家
                 snsUserInfo.setCountry(jsonObject.getString("country"));
-                // �û�����ʡ��
+                // 用户所在省份
                 snsUserInfo.setProvince(jsonObject.getString("province"));
-                // �û����ڳ���
+                // 用户所在城市
                 snsUserInfo.setCity(jsonObject.getString("city"));
-                // �û�ͷ��
+                // 用户头像
                 snsUserInfo.setHeadImgUrl(jsonObject.getString("headimgurl"));
-                // �û���Ȩ��Ϣ
+                // 用户特权信息
                 snsUserInfo.setPrivilegeList(JSONArray.toList(jsonObject.getJSONArray("privilege"), List.class));
             } catch (Exception e) {
                 snsUserInfo = null;
                 int errorCode = jsonObject.getInt("errcode");
                 String errorMsg = jsonObject.getString("errmsg");
-                log.error("��ȡ�û���Ϣʧ�� errcode:{} errmsg:{}", errorCode, errorMsg);
+                log.error("获取用户信息失败 errcode:" + errorCode + " errmsg:{}" + errorMsg);
             }
         }
         return snsUserInfo;
@@ -136,24 +135,24 @@ public class HttpsUtil {
 	public static int createMenu(Menu menu, String accessToken) {
 		int result = 0;
 		
-		// ƴװ�����˵��� Url
+		// 拼装创建菜单的 Url
 		String url = menu_create_url.replace("ACCESS_TOKEN", accessToken);
-		// ���˵�����ת���� json�ַ���
+		// 将菜单对象转换成 json字符串
 		String jsonMenu = JSONObject.fromObject(menu).toString();
-		// ���ýӿڴ����˵�
+		// 调用接口创建菜单
 		JSONObject jsonObject = httpsRequest(url, "POST", jsonMenu);
 		
 		if(null != jsonObject) {
 			if(0 != jsonObject.getInt("errcode")) {
 				result = jsonObject.getInt("errcode");
-				log.error("�����˵�ʧ�� errorcode:{} errmsg:{}", jsonObject.getInt("errcode"), jsonObject.getString("errmsg"));
+				log.error("创建菜单失败 errorcode:" + jsonObject.getInt("errcode") + " errmsg:" + jsonObject.getString("errmsg"));
 			}
 		}
 		return result;
 	}
 	
 	/**
-	 * ��Https��������ת��ΪJSON����
+	 * 将Https请求内容转化为JSON对象
 	 * 
 	 * @param requestUrl
 	 * @param requestMethod
@@ -165,12 +164,12 @@ public class HttpsUtil {
 		JSONObject jsonObject = null;
 		StringBuffer strbuf = new StringBuffer();
 		try {
-			// ����SSLContext���󣬲�ʹ������ָ�������ι�������ʼ��
+			// 创建SSLContext对象，并使用我们指定的信任管理器初始化
 			TrustManager[] tm = { new MyX509TrustManager() };
 			SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
 
 			sslContext.init(null, tm, new java.security.SecureRandom());
-			// ������SSLContext�����еõ�SSLSocketFactory
+			// 从上述SSLContext对象中得到SSLSocketFactory
 			SSLSocketFactory ssf = sslContext.getSocketFactory();
 			
 			URL url = new URL(requestUrl);
@@ -181,22 +180,22 @@ public class HttpsUtil {
 			httpUrlConn.setDoOutput(true);
 			httpUrlConn.setDoInput(true);
 			httpUrlConn.setUseCaches(false);
-			// ��������ʽ(GET/POST)
+			// 设置请求方式(GET/POST)
 			httpUrlConn.setRequestMethod(requestMethod);
 
 			if ("GET".equalsIgnoreCase(requestMethod)) {
 				httpUrlConn.connect();
 			}
 
-			// ����������Ҫ�ύʱ
+			// 当有数据需要提交时
 			if (null != outputStr) {
 				OutputStream outputStream = httpUrlConn.getOutputStream();
-				// ע������ʽ
+				// 注意编码格式
 				outputStream.write(outputStr.getBytes("UTF-8"));
 				outputStream.close();
 			}
 
-			// �����ص�������ת�����ַ���
+			// 将返回的输入流转换成字符串
 			InputStream inputStream = httpUrlConn.getInputStream();
 			InputStreamReader inputStreamReader = new InputStreamReader(
 					inputStream, "utf-8");
@@ -207,7 +206,7 @@ public class HttpsUtil {
 			while ((str = bufferedReader.readLine()) != null) {
 				strbuf.append(str);
 			}
-			// �ͷ���Դ
+			// 释放资源
 			bufferedReader.close();
 			inputStreamReader.close();
 			inputStream.close();
@@ -215,15 +214,15 @@ public class HttpsUtil {
 			httpUrlConn.disconnect();
 			jsonObject = JSONObject.fromObject(strbuf.toString());
 		} catch (ConnectException e) {
-			log.error("���ӳ�ʱ��{}", e);
+			log.error("连接超时：{}", e);
 		} catch (Exception e) {
-			log.error("https �����쳣:{}", e);
+			log.error("https 请求异常:{}", e);
 		}
 		return jsonObject;
 	}
 	
 	/**
-     * URL���루utf-8��
+     * URL编码（utf-8）
      * 
      * @param source
      * @return

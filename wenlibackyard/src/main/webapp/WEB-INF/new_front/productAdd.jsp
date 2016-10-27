@@ -109,30 +109,36 @@
 	                    <input class="weui-input" type="number" name="productInfo.number" pattern="[0-9]*" placeholder="商品数量"/>
 	                </div>
            	 	</div>
-           	 	<div class="weui-gallery" id="gallery">
-		            <span class="weui-gallery__img" id="galleryImg"></span>
-		            <div class="weui-gallery__opr">
-		                <a href="javascript:" class="weui-gallery__del">
-		                    <i class="weui-icon-delete weui-icon_gallery-delete"></i>
-		                </a>
-		            </div>
-		        </div>
-           	 	 <div class="weui-cell">
-	               <div class="weui-cell__bd">
-	                   <div class="weui-uploader">
-	                       <div class="weui-uploader__hd">
-	                           <p class="weui-uploader__title">图片上传</p>
-	                       </div>
-	                       <div class="weui-uploader__bd">
-	                           <ul class="weui-uploader__files" id="uploaderFiles">
-	                           </ul>
-	                           <div class="weui-uploader__input-box">
-	                               <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple />
-	                           </div>
-	                       </div>
-	                   </div>
-                	</div>
-            	</div>
+           	 	<div class="page__bd">
+			        <div class="weui-gallery" id="gallery">
+			            <span class="weui-gallery__img" id="galleryImg"></span>
+			            <div class="weui-gallery__opr">
+			                <a href="javascript:" class="weui-gallery__del">
+			                    <i class="weui-icon-delete weui-icon_gallery-delete"></i>
+			                </a>
+			            </div>
+			        </div>
+			
+			        <div class="weui-cells weui-cells_form">
+			            <div class="weui-cell">
+			                <div class="weui-cell__bd">
+			                    <div class="weui-uploader">
+			                        <div class="weui-uploader__hd">
+			                            <p class="weui-uploader__title">图片上传</p>
+			                            <div class="weui-uploader__info">0/5</div>
+			                        </div>
+			                        <div class="weui-uploader__bd">
+			                            <ul class="weui-uploader__files" id="uploaderFiles">
+			                            </ul>
+			                            <div class="weui-uploader__input-box">
+			                                <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" />
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
            	</div>
 		</form>
 	</div>
@@ -225,7 +231,8 @@
 			                  },  
 			                  success: function(result){ 
 			                	 var fileInfo = result.split(':');
-		                		 $uploaderFiles.append($(tmpl.replace('#url#', src).replace('#name#', 'fileSrc['+$fileLength+']').replace('#value#', fileInfo[2])));
+		                		 $uploaderFiles.append($(tmpl.replace('#url#', src).replace('#name#', 'productInfo.fileSrcs['+$fileLength+']').replace('#value#', fileInfo[2])));
+		                		 $('.weui-uploader__info').text($fileLength+1+'/5');
 			                  },  
 			                  contentType: false, //必须false才会自动加上正确的Content-Type  
 			                  processData: false  //必须false才会避开jQuery对 formdata 的默认处理  

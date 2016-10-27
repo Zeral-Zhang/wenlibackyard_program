@@ -1,5 +1,9 @@
 package com.test;
 
+import java.util.Arrays;
+
+import org.junit.Test;
+
 public class Base {
 
 	private static int baseStaticInt = 3;
@@ -27,6 +31,12 @@ public class Base {
 	public static void main(String[] args) {
 		new Child();
 	}
+	
+	@Test
+	public void test1() {
+		String s = "1627207:3232483:1627207:3232484:";
+		System.out.println(Arrays.asList(s.substring(0, s.length() - 1).split(":")).toString());
+	}
 }
 
 class Child extends Base {
@@ -53,6 +63,7 @@ class Child extends Base {
 		return 2;
 	}
 
+	@Override
 	public int printInt(String str) {
 		System.out.println(str);
 		return -2;

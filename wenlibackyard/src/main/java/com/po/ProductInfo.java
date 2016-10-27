@@ -1,7 +1,9 @@
 package com.po;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,6 +18,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import org.apache.commons.collections.CollectionUtils;
 
 /**
  * 商品信息表
@@ -44,6 +49,10 @@ public class ProductInfo implements java.io.Serializable {
 	private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
 	private Set<Favorite> favorites = new HashSet<Favorite>(0);
 	
+	/**
+	 * 临时对象，转换图片地址
+	 */
+	private List<String> fileSrcs;
 	
 	// Constructors
 
@@ -152,7 +161,7 @@ public class ProductInfo implements java.io.Serializable {
 	}
 
 	public void setImgs(String imgs) {
-		this.imgs = imgs;
+		this.fileSrcs = Arrays.asList(imgs.substring(0, imgs.length()-1).split(":"));
 	}
 
 	@Column(name = "price", nullable = false, precision = 7, scale = 2)
@@ -219,4 +228,21 @@ public class ProductInfo implements java.io.Serializable {
 	public void setFavorites(Set<Favorite> favorites) {
 		this.favorites = favorites;
 	}
+
+	@Transient
+	public List<String> getFileSrcs() {
+		return fileSrcs;
+	}
+
+	public void setFileSrcs(List<String> fileSrcs) {
+		StringBuffer stringBuffer = new StringBuffer();
+		if (CollectionUtils.isNotEmpty(fileSrcs)) {
+			for (String src : fileSrcs) {
+				stringBuffer.append(src).append(":");
+			}
+			this.setImgs(stringBuffer.toString());
+		}
+	}
+	
+	
 }
