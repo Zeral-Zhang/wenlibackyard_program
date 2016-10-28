@@ -136,8 +136,8 @@
 								<a href="${pageContext.request.contextPath}/find_ProductDetail.action?productId=${product.productId}">
 									<div class="card_img">
 										<img class="card-img-top center-block"
-											src="<%=path%>${product.imgs}"
-											data-src="holder.js/100%x180/" alt="Card image cap">
+											src="<%=path%>/uppic/${product.imgs}"
+											data-src="holder.js/130x150?text=走丢了Y.Y" alt="Card image cap">
 									</div>
 									<div class="card-block">
 										<p class="card-title">${product.productName}160/84A，zara秋冬新款，不包邮不接受议价</p>
@@ -152,8 +152,8 @@
 							<a href="<%=path %>/toProductDetail.action?productId=${product.productId}">
 								<div class="card_img">
 									<img class="card-img-top center-block"
-										src="<%=path%>/images/product/p1.jpg"
-										data-src="holder.js/100%x180/" alt="Card image cap">
+										src="<%=path%>/images/product/p122.jpg"
+										data-src="holder.js/80px180?text=走丢了Y.Y"  alt="Card image cap">
 								</div>
 								<div class="card-block">
 									<p class="card-title">160/84A，zara秋冬新款，不包邮不接受议价</p>
@@ -168,7 +168,7 @@
 								<div class="card_img">
 									<img class="card-img-top center-block"
 										src="<%=path%>/images/product/2.jpg"
-										data-src="holder.js/100%x180/" alt="Card image cap">
+										data-src="holder.js/130x150?text=走丢了Y.Y" alt="Card image cap">
 								</div>
 								<div class="card-block">
 									<p class="card-title">New Balance NB 373系列男鞋复古鞋跑步鞋休闲运动鞋
@@ -184,7 +184,7 @@
 								<div class="card_img">
 									<img class="card-img-top center-block"
 										src="<%=path%>/images/product/2.jpg"
-										data-src="holder.js/100%x180/" alt="Card image cap">
+										data-src="holder.js/130x150?text=走丢了Y.Y" alt="Card image cap">
 								</div>
 								<div class="card-block">
 									<p class="card-title">耐克（NIKE）802611-001 AIR MAX减震 复古休闲鞋
@@ -201,7 +201,7 @@
 								<div class="card_img">
 									<img class="card-img-top center-block"
 										src="<%=path%>/images/product/2.jpg"
-										data-src="holder.js/100%x180/" alt="Card image cap">
+										data-src="holder.js/130x150?text=走丢了Y.Y" alt="Card image cap">
 								</div>
 								<div class="card-block">
 									<p class="card-title">New Balance NB 373系列男鞋复古鞋跑步鞋休闲运动鞋
@@ -217,7 +217,7 @@
 								<div class="card_img">
 									<img class="card-img-top center-block"
 										src="<%=path%>/images/product/2.jpg"
-										data-src="holder.js/100%x180/" alt="Card image cap">
+										data-src="holder.js/130x150?text=走丢了Y.Y" alt="Card image cap">
 								</div>
 								<div class="card-block">
 									<p class="card-title">耐克（NIKE）802611-001 AIR MAX减震 复古休闲鞋
@@ -233,7 +233,7 @@
 								<div class="card_img">
 									<img class="card-img-top center-block"
 										src="<%=path%>/images/product/2.jpg"
-										data-src="holder.js/100%x180/" alt="Card image cap">
+										data-src="holder.js/130x150?text=走丢了Y.Y" alt="Card image cap">
 								</div>
 								<div class="card-block">
 									<p class="card-title">New Balance NB 373系列男鞋复古鞋跑步鞋休闲运动鞋
@@ -251,7 +251,9 @@
 	
 	<script src="<%=path%>/js/jquery.min.js"></script>
 	<script src="<%=path%>/bootstrap/js/bootstrap.js"></script>
+	<script src="<%=path%>/js/holder.js"></script>
 	<script type="text/javascript">
+		Holder.run();
 		$(".nav_btn").click(function(event) {
 			/* Act on the event */
 			$(".nav_pane").toggle().css('height', $("body").height());

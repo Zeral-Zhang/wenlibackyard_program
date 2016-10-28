@@ -962,7 +962,7 @@ button.weui-form-preview__btn {
 .weui-uploader__bd {
   margin-bottom: -4px;
   margin-right: -9px;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .weui-uploader__files {
   list-style: none;

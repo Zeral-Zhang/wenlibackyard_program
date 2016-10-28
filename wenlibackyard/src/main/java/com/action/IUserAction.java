@@ -40,4 +40,10 @@ public interface IUserAction {
 	 * @return
 	 */
 	public String toUserDetail();
+
+	/**
+	 * 用户授权登陆
+	 * @return
+	 */
+	String validateUser();
 }

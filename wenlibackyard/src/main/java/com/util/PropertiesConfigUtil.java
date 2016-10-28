@@ -11,10 +11,10 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * ��account.properties�ĵ����ݵĲ�����
- * ��ȡ΢��appid��appsecret��token��account
+ * 对account.properties文档内容的操作类
+ * 获取微信appid、appsecret、token、account
  * 
- * @author Zeral
+ * @author Zeral_Zhang
  *
  */
 public class PropertiesConfigUtil {

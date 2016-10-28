@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
@@ -28,7 +27,6 @@ public class ProductAction extends BaseAction implements IProductAction {
 	private BizService bizs;
 	private ProductInfo productInfo;
 	private Integer productId;
-	private List<String> fileSrcs;
 
 	private PageBean pageBean;
 
@@ -50,14 +48,6 @@ public class ProductAction extends BaseAction implements IProductAction {
 	@Override
 	public String addProduct() {
 		try {
-			// 添加商品图片信息
-			StringBuffer stringBuffer = new StringBuffer();
-			if (CollectionUtils.isNotEmpty(fileSrcs)) {
-				for (String src : fileSrcs) {
-					stringBuffer.append(src).append(":");
-				}
-				productInfo.setImgs(stringBuffer.toString());
-			}
 			// 添加商品发布日期
 			productInfo.setPbDate(new Date());
 			// 给商品添加用户信息
@@ -152,13 +142,5 @@ public class ProductAction extends BaseAction implements IProductAction {
 
 	public void setProductId(Integer productId) {
 		this.productId = productId;
-	}
-
-	public List<String> getFileSrcs() {
-		return fileSrcs;
-	}
-
-	public void setFileSrcs(List<String> fileSrcs) {
-		this.fileSrcs = fileSrcs;
 	}
 }

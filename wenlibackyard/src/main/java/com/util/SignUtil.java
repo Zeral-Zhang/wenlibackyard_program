@@ -5,28 +5,28 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 /**
- * ÓÃÓÚÑéÖ¤signture,³ÉÎª¿ª·¢Õß
+ * ç”¨äºéªŒè¯signture,æˆä¸ºå¼€å‘è€…
  * 
- * @author Runaway
+ * @author Zeral
  *
  */
 public class SignUtil {
-	//ÑéÖ¤sign
+	//éªŒè¯sign
 		public static boolean validSign(String signature, String tocken, String timestamp, String nonce) {
 			String[] paramArr = new String[] { tocken, timestamp, nonce };
-			//¶Ôtoken¡¢timestamp¡¢nonce ½øĞĞ×ÖµäÅÅĞò£¬²¢Æ´½Ó³É×Ö·û´®
+			//å¯¹tokenã€timestampã€nonce è¿›è¡Œå­—å…¸æ’åºï¼Œå¹¶æ‹¼æ¥æˆå­—ç¬¦ä¸²
 			Arrays.sort(paramArr);
 			StringBuilder sb = new StringBuilder(paramArr[0]);
 			sb.append(paramArr[1]).append(paramArr[2]);
 			String ciphertext = null;
 			try {
 				MessageDigest md = MessageDigest.getInstance("SHA-1");
-				byte[] digest = md.digest(sb.toString().getBytes());// ¶Ô½ÓºóµÄ×Ö·û´®½øĞĞsha1¼ÓÃÜ
+				byte[] digest = md.digest(sb.toString().getBytes());// å¯¹æ¥åçš„å­—ç¬¦ä¸²è¿›è¡Œsha1åŠ å¯†
 				ciphertext = byteToStr(digest);
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
-			// ½«sha1¼ÓÃÜºóµÄ×Ö·û´®Óë  signature ½øĞĞ±È½Ï
+			// å°†sha1åŠ å¯†åçš„å­—ç¬¦ä¸²ä¸  signature è¿›è¡Œæ¯”è¾ƒ
 			return ciphertext != null ? ciphertext.equals(signature.toUpperCase()) : false;
 		}
 
