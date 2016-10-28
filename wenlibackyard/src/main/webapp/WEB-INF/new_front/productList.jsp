@@ -129,30 +129,29 @@
 		<div class="middle container-fluid">
 			<!-- 商品卡片 -->
 			<div class="mid_card">
-				<div class="row card-group">
+				<div id="middleContent" class="row card-group">
 					<s:iterator value="pageBean.pagelist" var="product">
 						<div class="col-xs-6">
 							<div class="card">
 								<a href="${pageContext.request.contextPath}/find_ProductDetail.action?productId=${product.productId}">
 									<div class="card_img">
-										<img class="card-img-top center-block"
-											src="<%=path%>/uppic/${product.imgs}"
-											data-src="holder.js/130x150?text=走丢了Y.Y" alt="Card image cap">
+										<img class="card-img-top center-block" src="<%=path%>${product.fileSrcs[0]}"
+											data-src="holder.js/80px180?text=走丢了Y.Y" alt="Card image cap">
 									</div>
 									<div class="card-block">
-										<p class="card-title">${product.productName}160/84A，zara秋冬新款，不包邮不接受议价</p>
+										<p class="card-title">${product.productName}，${product.brand}，${product.context }</p>
 									</div>
 								</a>
 								<p class="card-text">￥${product.price}</p>
 							</div>
 						</div>
 					</s:iterator>
-					<div class="col-xs-6">
+					<%-- <div class="col-xs-6">
 						<div class="card">
 							<a href="<%=path %>/toProductDetail.action?productId=${product.productId}">
 								<div class="card_img">
 									<img class="card-img-top center-block"
-										src="<%=path%>/images/product/p122.jpg"
+										src="<%=path%>/images/product/p1.jpg"
 										data-src="holder.js/80px180?text=走丢了Y.Y"  alt="Card image cap">
 								</div>
 								<div class="card-block">
@@ -242,9 +241,14 @@
 							</a>
 							<p class="card-text">￥349.00</p>
 						</div>
-					</div>
+					</div> --%>
 				</div>
 			</div>
+			<!-- 分页插件 -->
+			<div id="pagination">
+				<a href="toProductList.action?pageBean.page=${pageBean.page+1}" class="next">next</a>
+			</div>
+			<div class="clearfix"></div>
 		</div>
 	</div>
 	<jsp:include page="foot.jsp"></jsp:include>
@@ -252,8 +256,26 @@
 	<script src="<%=path%>/js/jquery.min.js"></script>
 	<script src="<%=path%>/bootstrap/js/bootstrap.js"></script>
 	<script src="<%=path%>/js/holder.js"></script>
+	<script src="<%=path%>/js/masonry.pkgd.min.js"></script>
+	<script type="text/javascript" src="<%=path %>/js/jquery-ias.min.js"></script>
+	
 	<script type="text/javascript">
-		Holder.run();
+		$('.mid_card').masonry({
+			  itemSelector: '.card',
+			  columnWidth: 200,
+			  gutter: 10
+		});
+	
+	    var ias = $.ias({
+	      container: ".container",
+	      item: ".item",
+	      pagination: "#pagination",
+	      next: ".next a",
+	      delay: 1200
+	    });
+	
+	    
+	  
 		$(".nav_btn").click(function(event) {
 			/* Act on the event */
 			$(".nav_pane").toggle().css('height', $("body").height());
@@ -264,6 +286,45 @@
 			var img_width = $(".card-img-top").width();
 			$(".card_img").css('max-height', img_width);
 		})
+		$(function() {	
+			var pageCount = 1;
+		   var ias = $.ias({
+			  container:  '#middleContent',
+			  item:       '.col-xs-6',
+			  pagination: '#pagination',
+			  next:       '.next',
+			  delay: 1200
+		    });
+		   ias.on('render', function(items) {
+			      $(items).css({ opacity: 0 });
+			    });
+			
+		    ias.on('rendered', function(items) {
+		      msnry.appended(items);
+		    });
+		
+		    ias.extension(new IASSpinnerExtension());
+		    ias.extension(new IASNoneLeftExtension({html: '<div class="ias-noneleft" style="text-align:center"><p><em>You reached the end!</em></p></div>'}));
+		    // Add a loader image which is displayed during loading
+			ias.extension(new IASSpinnerExtension());
+
+			// Add a link after page 2 which has to be clicked to load the next page
+			ias.extension(new IASTriggerExtension({
+				text: '点击加载更多= =', offset: 2
+			}));
+			
+			
+			// Add a text when there are no more pages left to load
+			ias.extension(new IASNoneLeftExtension({
+			    text: '已经到底了', // optionally
+			}));
+		  /* 
+			$('#horizontalTab').easyResponsiveTabs({
+				type : 'default', //Types: default, vertical, accordion
+				width : 'auto', //auto or any width like 600px
+				fit : true // 100% fit in a container
+			}); */
+		});
 	</script>
 </body>
 </html>

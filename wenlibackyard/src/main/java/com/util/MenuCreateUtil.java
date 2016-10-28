@@ -16,7 +16,8 @@ import com.bean.Menu;
  */
 public class MenuCreateUtil {
 	private final static Logger log = Logger.getLogger(MenuCreateUtil.class);
-
+	private final static String ORIGINAL = "https://wenlibackyard.tunnel.qydev.com/wenlibackyard/validateUser";
+	
 	public static void main(String[] args) {
 		Properties prop = PropertiesConfigUtil
 				.getProperties("account.properties");
@@ -60,6 +61,7 @@ public class MenuCreateUtil {
 		CommenButton btn21 = new CommenButton();
 		btn21.setName("我的订单");
 		btn21.setType("click");
+		btn21.setUrl(HttpsUtil.AuthLogin(ORIGINAL, "toProductList"));
 		btn21.setKey("21");
 
 		CommenButton btn22 = new CommenButton();

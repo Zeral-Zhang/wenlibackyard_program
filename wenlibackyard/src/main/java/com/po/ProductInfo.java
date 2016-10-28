@@ -162,6 +162,7 @@ public class ProductInfo implements java.io.Serializable {
 
 	public void setImgs(String imgs) {
 		this.fileSrcs = Arrays.asList(imgs.substring(0, imgs.length()-1).split(":"));
+		this.imgs = imgs;
 	}
 
 	@Column(name = "price", nullable = false, precision = 7, scale = 2)

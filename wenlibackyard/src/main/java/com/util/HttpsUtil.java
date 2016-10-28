@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.ConnectException;
 import java.net.URL;
 import java.util.List;
+import java.util.Properties;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -92,6 +93,22 @@ public class HttpsUtil {
             }
         }
         return wat;
+    }
+    
+	/**
+     * 授权登录
+     * 
+     * @param originUrl 原始地址
+     * 
+     */
+    public static String AuthLogin(String originUrl, String redirectUrl) {
+    	Properties prop = PropertiesConfigUtil.getProperties("account.properties");
+        // 拼接请求地址
+        String requestUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+        requestUrl = requestUrl.replace("APPID", prop.getProperty("appid"));
+        requestUrl = requestUrl.replace("REDIRECT_URI", HttpsUtil.urlEncodeUTF8(originUrl));
+        requestUrl = requestUrl.replace("STATE", redirectUrl);
+        return requestUrl;
     }
     
     @SuppressWarnings({ "deprecation", "unchecked" })

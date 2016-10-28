@@ -36,7 +36,7 @@
 		</nav>
 	</div>
 	<div class="container">
-		<form id="userForm" action="<%=path%>/addProduct.action" method="post">
+		<form id="productForm" action="<%=path%>/addProduct.action" method="post">
 			<input name="user.userId" value="${sessionScope.userInfo.userId}" type="hidden">
 			<div class="weui-cells weui-cells_form">
 				<div class="weui-cell">
@@ -138,6 +138,9 @@
 			                </div>
 			            </div>
 			        </div>
+			        <div class="weui-btn-area">
+			            <a class="weui-btn weui-btn_primary" href="javascript:" onClick="$('#productForm').submit();">确定</a>
+			        </div>
 			    </div>
            	</div>
 		</form>
@@ -231,7 +234,7 @@
 			                  },  
 			                  success: function(result){ 
 			                	 var fileInfo = result.split(':');
-		                		 $uploaderFiles.append($(tmpl.replace('#url#', src).replace('#name#', 'productInfo.fileSrcs['+$fileLength+']').replace('#value#', fileInfo[2])));
+		                		 $uploaderFiles.append($(tmpl.replace('#url#', src).replace('#name#', 'fileSrcs['+$fileLength+']').replace('#value#', fileInfo[2])));
 		                		 $('.weui-uploader__info').text($fileLength+1+'/5');
 			                  },  
 			                  contentType: false, //必须false才会自动加上正确的Content-Type  

@@ -27,6 +27,7 @@ public class ProductAction extends BaseAction implements IProductAction {
 	private BizService bizs;
 	private ProductInfo productInfo;
 	private Integer productId;
+	private List<String> fileSrcs;
 
 	private PageBean pageBean;
 
@@ -52,6 +53,8 @@ public class ProductAction extends BaseAction implements IProductAction {
 			productInfo.setPbDate(new Date());
 			// 给商品添加用户信息
 			productInfo.setUserInfo(getLoginUser());
+			// TODO 直接赋值赋不进去，待研究
+			productInfo.setFileSrcs(fileSrcs);
 
 			boolean flag = bizs.getProductInfobiz().save(productInfo);
 			// 防止重复提交
@@ -79,13 +82,13 @@ public class ProductAction extends BaseAction implements IProductAction {
 	@Action(value = "toProductList", results = {
 			@Result(name = "success", location = "/WEB-INF/new_front/productList.jsp"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp"),
-			@Result(name = "login", location = "/WEB-INF/userLogin.jsp") })
+			@Result(name = "login", location = "/WEB-INF/userLogin.jsp")})
 	@Override
 	public String toProductList() {
-		if (null == getLoginUser()) {
+		/*if (null == getLoginUser()) {
 			getRequest().setAttribute("originURL", "toProductList");
 			return "login";
-		}
+		}*/
 		try {
 			pageBean = pageBean == null ? new PageBean() : pageBean;
 
@@ -143,4 +146,13 @@ public class ProductAction extends BaseAction implements IProductAction {
 	public void setProductId(Integer productId) {
 		this.productId = productId;
 	}
+
+	public List<String> getFileSrcs() {
+		return fileSrcs;
+	}
+
+	public void setFileSrcs(List<String> fileSrcs) {
+		this.fileSrcs = fileSrcs;
+	}
+	
 }

@@ -6,6 +6,7 @@ import java.util.Properties;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
@@ -36,6 +37,7 @@ public class UserAction extends BaseAction implements IUserAction {
 	private SNSUserInfo snsUserInfo;
 	private UserInfo user;
 	private String userid;
+	private String path;
 	/**
 	 * 学院信息
 	 */
@@ -49,7 +51,7 @@ public class UserAction extends BaseAction implements IUserAction {
 	private BizService biz;
 
 	@Action(value = "validateUser", results = {
-			@Result(name = "success", location = "toProductList", type = "redirectAction"),
+			@Result(name = "success", location = "${path}", type = "redirectAction"),
 			@Result(name = "error", location = "/WEB-INF/error.jsp") 
 	})
 	@Override
@@ -59,6 +61,7 @@ public class UserAction extends BaseAction implements IUserAction {
 		// 用户同意授权后，能获取到code
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
+		path = StringUtils.isEmpty(state) ? "toProductList" : state;
 		// 用户同意授权
 		if (!"authdeny".equals(code)) {
 			// 获取网页授权access_token
@@ -73,7 +76,6 @@ public class UserAction extends BaseAction implements IUserAction {
 			snsUserInfo = HttpsUtil.getSNSUserInfo(accessToken, openId);
 			// 设置要传递的参数
 			request.getSession().setAttribute("snsUserInfo", snsUserInfo);
-			request.setAttribute("state", state);
 			return "success";
 		} else {
 			return "error";
@@ -202,4 +204,13 @@ public class UserAction extends BaseAction implements IUserAction {
 	public void setDepartmentlst(List<SchoolInfo> departmentlst) {
 		this.departmentlst = departmentlst;
 	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+	
 }
