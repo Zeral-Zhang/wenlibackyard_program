@@ -26,10 +26,10 @@ public class ProductInfoBizImpl implements IProductInfobBiz {
 	public boolean save(ProductInfo productInfo) {
 		log.info("save Productinfo "+ productInfo.toString() +"");
 		try {
-			// 给商品添加商品类别信息
+			/*// 给商品添加商品类别信息
 			ProductType productType = daos.getProducttypeDAO()
 					.findById(productInfo.getProductType().getProductTypeId());
-			productInfo.setProductType(productType);
+			productInfo.setProductType(productType);*/
 			// 用户信息在action层添加
 			daos.getProductInfoDAO().save(productInfo);
 			log.info("add Productinfo "+ productInfo.toString() +" success");

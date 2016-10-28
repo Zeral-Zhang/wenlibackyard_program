@@ -18,7 +18,7 @@
     under the License.
 
 -->
-<ehcache name="ehCacheTicketRegistryCache" updateCheck="false" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+<ehcache name="ehCacheTicketRegistryCache" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true" monitoring="autodetect" dynamicConfig="true">
 
 	<diskStore path="java.io.tmpdir" />
 

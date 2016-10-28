@@ -36,7 +36,7 @@
 		</nav>
 	</div>
 	<div class="container">
-		<form id="userForm" action="<%=path%>/updateUser.action" method="post">
+		<form id="productForm" action="<%=path%>/addProduct.action" method="post">
 			<input name="user.userId" value="${sessionScope.userInfo.userId}" type="hidden">
 			<div class="weui-cells weui-cells_form">
 				<div class="weui-cell">
@@ -127,12 +127,15 @@
 	                           <ul class="weui-uploader__files" id="uploaderFiles">
 	                           </ul>
 	                           <div class="weui-uploader__input-box">
-	                               <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple />
+	                               <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*"/>
 	                           </div>
 	                       </div>
 	                   </div>
                 	</div>
             	</div>
+            	 <div class="weui-btn-area">
+		            <a class="weui-btn weui-btn_primary" onclick="$('#productForm').submit();" id="showTooltips">确定</a>
+		        </div>
            	</div>
 		</form>
 	</div>
@@ -197,7 +200,7 @@
   	    	    },
   	    	files = e.target.files,
   	    	$fileLength = $('#uploaderFiles li').length;
-	      if($fileLength > 4 || files.length > 5) {
+	      if($fileLength > 4) {
 	    	  alertify.warning('只能上传五张图片');
 	      } else {
 	    	  for (var i = 0, len = files.length; i < len; ++i) {
@@ -207,12 +210,13 @@
 		        	 	 var formData = tests.formdata ? new FormData() : null;
 			        	  formData.append('upload', files[i]);
 				          formData.append('uploadFileName', files[i].name);
+				          formData.append('fileInfo.name', files[i].name);
 				        //ajax异步上传  
 			              $.ajax({  
 			                  url: "<%=path%>/uploadFile",  
 			                  type: "POST",  
 			                  data: formData,
-			                  dataType: "json",
+			                  timeout:	3600 *5,
 			                  xhr: function(){ //获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数  
 			                      myXhr = $.ajaxSettings.xhr();  
 			                      if(myXhr.upload){ //检查upload属性是否存在  
@@ -221,8 +225,9 @@
 			                      }  
 			                      return myXhr; //xhr对象返回给jQuery使用  
 			                  },  
-			                  success: function(result){  
-		                		 $uploaderFiles.append($(tmpl.replace('#url#', src)));
+			                  success: function(result){ 
+			                	 var fileInfo = result.split(":");
+		                		 $uploaderFiles.append($(tmpl.replace('#url#', src))).append('<input type="hidden" name="fileSrcs['+$fileLength+']" value="'+fileInfo[2]+'"/>');
 		                		 alertify.success('上传成功了');
 			                  },  
 			                  contentType: false, //必须false才会自动加上正确的Content-Type  

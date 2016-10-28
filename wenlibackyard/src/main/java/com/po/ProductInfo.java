@@ -90,7 +90,7 @@ public class ProductInfo implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@GeneratedValue
-	@Column(name = "product_id", unique = true, nullable = false)
+	@Column(name = "product_id", unique = true)
 	public Integer getProductId() {
 		return this.productId;
 	}
@@ -137,7 +137,7 @@ public class ProductInfo implements java.io.Serializable {
 		this.brand = brand;
 	}
 
-	@Column(name = "context", nullable = false, length = 65535)
+	@Column(name = "context", length = 65535)
 	public String getContext() {
 		return this.context;
 	}

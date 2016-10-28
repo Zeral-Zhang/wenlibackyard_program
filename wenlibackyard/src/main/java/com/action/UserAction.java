@@ -97,7 +97,7 @@ public class UserAction extends BaseAction implements IUserAction {
 	@Override
 	public String toUserInfo() {
 		if (null == super.getLoginUser()) {
-			getRequest().setAttribute("originURL", "userInfo");
+			getRequest().setAttribute("originURL", "toUserInfo");
 			return "login";
 		}
 		return "success";
@@ -109,12 +109,12 @@ public class UserAction extends BaseAction implements IUserAction {
 	public String update() {
 		try {
 			// 设置用户语言信息
-			user.getUserDetailInfo().setUserLanguage(getRequest().getLocale().toString());
+			getLoginUser().getUserDetailInfo().setUserLanguage(getRequest().getLocale().toString());
 			// 修改用户信息，重新放置用户到session中
 			biz.getUserbiz().update(user);
 			// 通过id找到修改后的用户信息保存到session域中
 			UserInfo newUser = biz.getUserbiz().findUser(user.getUserId());
-			super.setLoginUser(newUser);
+			setLoginUser(newUser);
 			return "success";
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -113,8 +113,7 @@
 		<property name="configLocation" value="classpath:ehcache.xml" />
 	</bean>
 	<ehcache:config cache-manager="cacheManager">
-		<ehcache:evict-expired-elements
-			interval="60" />
+		<ehcache:evict-expired-elements interval="60" />
 	</ehcache:config>
 	<ehcache:annotation-driven />
 

@@ -4,11 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
@@ -48,7 +45,7 @@ public class ProductAction extends BaseAction implements IProductAction {
 		return "success";
 	}
 
-	@Action(value = "addProduct", results = { @Result(name = "success", location = "productList", type = "redirect"),
+	@Action(value = "addProduct", results = { @Result(name = "success", location = "toProductList", type = "redirectAction"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
 	@Override
 	public String addProduct() {
@@ -95,11 +92,8 @@ public class ProductAction extends BaseAction implements IProductAction {
 			@Result(name = "login", location = "/WEB-INF/userLogin.jsp") })
 	@Override
 	public String toProductList() {
-		HttpServletRequest request = ServletActionContext.getRequest();
-		HttpSession session = request.getSession();
-
-		if (null == session.getAttribute("userInfo")) {
-			request.setAttribute("originURL", "toProductList");
+		if (null == getLoginUser()) {
+			getRequest().setAttribute("originURL", "toProductList");
 			return "login";
 		}
 		try {

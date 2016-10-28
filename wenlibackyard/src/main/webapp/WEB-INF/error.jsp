@@ -18,12 +18,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<meta name="description" content="">
 		<meta name="author" content="Runaway">
 
-		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-		<link href="<%=path %>/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+		<link href="<%=path %>/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+		<link href="<%=path %>/css/reset.css" rel="stylesheet" type="text/css" media="all" />
 		<link href="<%=path %>/css/style.css" rel="stylesheet" type="text/css" media="all" />
         <style>
 			.findout{

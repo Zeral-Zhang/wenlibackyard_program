@@ -136,7 +136,7 @@
 								<a href="${pageContext.request.contextPath}/find_ProductDetail.action?productId=${product.productId}">
 									<div class="card_img">
 										<img class="card-img-top center-block"
-											src="<%=path%>/uppic/${product.imgs}"
+											src="<%=path%>${product.imgs}"
 											data-src="holder.js/100%x180/" alt="Card image cap">
 									</div>
 									<div class="card-block">
