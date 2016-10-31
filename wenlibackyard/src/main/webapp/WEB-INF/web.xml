@@ -87,10 +87,10 @@
 	<!-- ==========================初始化数据库listener end================================== -->
 	<error-page>
 		<error-code>404</error-code>
-		<location>/404.html</location>
+		<location>/404.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/500.html</location>
+		<location>/error.jsp</location>
 	</error-page>
 </web-app>

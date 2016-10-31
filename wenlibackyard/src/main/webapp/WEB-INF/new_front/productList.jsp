@@ -133,7 +133,7 @@
 					<s:iterator value="pageBean.pagelist" var="product">
 						<div class="col-xs-6">
 							<div class="card">
-								<a href="${pageContext.request.contextPath}/find_ProductDetail.action?productId=${product.productId}">
+								<a href="${pageContext.request.contextPath}/toProductDetail?productId=${product.productId}">
 									<div class="card_img">
 										<img class="card-img-top center-block"
 											src="<%=path%>${product.fileSrcs[0]}"

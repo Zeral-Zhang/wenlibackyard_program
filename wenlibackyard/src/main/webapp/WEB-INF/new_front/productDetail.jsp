@@ -37,10 +37,10 @@
 				</div>
 				<div class="info_right">
 					<div class="price_area">
-						<span class="pro_price">￥${requestScope.product.price}</span>
+						<span class="pro_price">￥${productInfo.price}</span>
 					</div>
 					<div class="pro_tag">
-						<span class="tag_name">品牌:</span><span>${requestScope.product.brand}</span>
+						<span class="tag_name">品牌:</span><span>${productInfo.brand}</span>
 					</div>
 				</div>
 			</div>
@@ -59,17 +59,17 @@
 			</div>
 			<div class="scroll_img">
 				<div id="lightgallery">
-					<a href="<%=path%>/uppic/${productInfo.imgs}">
-						<img src="<%=path%>/uppic/${productInfo.imgs}">
+					<a href="<%=path%>${productInfo.fileSrcs[0]}">
+						<img src="<%=path%>${productInfo.fileSrcs[0]}">
 					</a>
-					<a href="<%=path %>/images/product/p2.jpg">
-						<img src="<%=path %>/images/product/p2.jpg">
+					<a href="<%=path%>${productInfo.fileSrcs[1]}">
+						<img src="<%=path%>${productInfo.fileSrcs[1]}">
 					</a>
-					<a href="<%=path %>/images/product/p3.jpg">
-						<img src="<%=path %>/images/product/p3.jpg">
+					<a href="<%=path%>${productInfo.fileSrcs[2]}">
+						<img src="<%=path%>${productInfo.fileSrcs[2]}">
 					</a>
-					<a href="<%=path %>/images/product/p4.jpg">
-						<img src="<%=path %>/images/product/p4.jpg">
+					<a href="<%=path%>${productInfo.fileSrcs[3]}">
+						<img src="<%=path%>${productInfo.fileSrcs[3]}">
 					</a>
 				</div>
 				

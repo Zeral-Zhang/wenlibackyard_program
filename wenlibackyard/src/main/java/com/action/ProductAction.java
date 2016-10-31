@@ -114,7 +114,7 @@ public class ProductAction extends BaseAction implements IProductAction {
 	@Override
 	public String toProductDetail() {
 		try {
-			if (productId != null) {
+			if (null != productId) {
 				productInfo = bizs.getProductInfobiz().findDetail(productId);
 			}
 			return "success";
