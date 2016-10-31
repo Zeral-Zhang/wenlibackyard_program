@@ -129,17 +129,18 @@
 		<div class="middle container-fluid">
 			<!-- 商品卡片 -->
 			<div class="mid_card">
-				<div id="middleContent" class="row card-group">
+				<div class="row card-group">
 					<s:iterator value="pageBean.pagelist" var="product">
 						<div class="col-xs-6">
 							<div class="card">
 								<a href="${pageContext.request.contextPath}/find_ProductDetail.action?productId=${product.productId}">
 									<div class="card_img">
-										<img class="card-img-top center-block" src="<%=path%>${product.fileSrcs[0]}"
+										<img class="card-img-top center-block"
+											src="<%=path%>${product.fileSrcs[0]}"
 											data-src="holder.js/80px180?text=走丢了Y.Y" alt="Card image cap">
 									</div>
 									<div class="card-block">
-										<p class="card-title">${product.productName}，${product.brand}，${product.context }</p>
+										<p class="card-title">${product.productName}160/84A，zara秋冬新款，不包邮不接受议价</p>
 									</div>
 								</a>
 								<p class="card-text">￥${product.price}</p>
@@ -151,7 +152,7 @@
 							<a href="<%=path %>/toProductDetail.action?productId=${product.productId}">
 								<div class="card_img">
 									<img class="card-img-top center-block"
-										src="<%=path%>/images/product/p1.jpg"
+										src="<%=path%>/images/product/p122.jpg"
 										data-src="holder.js/80px180?text=走丢了Y.Y"  alt="Card image cap">
 								</div>
 								<div class="card-block">
@@ -256,26 +257,10 @@
 	<script src="<%=path%>/js/jquery.min.js"></script>
 	<script src="<%=path%>/bootstrap/js/bootstrap.js"></script>
 	<script src="<%=path%>/js/holder.js"></script>
-	<script src="<%=path%>/js/masonry.pkgd.min.js"></script>
-	<script type="text/javascript" src="<%=path %>/js/jquery-ias.min.js"></script>
+	<script src="<%=path%>/js/jquery-ias.min.js"></script>
 	
 	<script type="text/javascript">
-		$('.mid_card').masonry({
-			  itemSelector: '.card',
-			  columnWidth: 200,
-			  gutter: 10
-		});
 	
-	    var ias = $.ias({
-	      container: ".container",
-	      item: ".item",
-	      pagination: "#pagination",
-	      next: ".next a",
-	      delay: 1200
-	    });
-	
-	    
-	  
 		$(".nav_btn").click(function(event) {
 			/* Act on the event */
 			$(".nav_pane").toggle().css('height', $("body").height());
@@ -287,24 +272,14 @@
 			$(".card_img").css('max-height', img_width);
 		})
 		$(function() {	
-			var pageCount = 1;
 		   var ias = $.ias({
-			  container:  '#middleContent',
+			  container:  '.mid_card',
 			  item:       '.col-xs-6',
 			  pagination: '#pagination',
 			  next:       '.next',
 			  delay: 1200
 		    });
-		   ias.on('render', function(items) {
-			      $(items).css({ opacity: 0 });
-			    });
-			
-		    ias.on('rendered', function(items) {
-		      msnry.appended(items);
-		    });
 		
-		    ias.extension(new IASSpinnerExtension());
-		    ias.extension(new IASNoneLeftExtension({html: '<div class="ias-noneleft" style="text-align:center"><p><em>You reached the end!</em></p></div>'}));
 		    // Add a loader image which is displayed during loading
 			ias.extension(new IASSpinnerExtension());
 
@@ -325,6 +300,6 @@
 				fit : true // 100% fit in a container
 			}); */
 		});
-	</script>
+	</script>	
 </body>
 </html>
