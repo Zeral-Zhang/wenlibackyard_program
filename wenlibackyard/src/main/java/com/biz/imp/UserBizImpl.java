@@ -29,34 +29,34 @@ public class UserBizImpl implements IUserBiz {
 	}
 
 	@Override
-	public void update(UserInfo userInfo) {
+	public UserDetailInfo update(UserDetailInfo userInfo) {
 		log.info("upate userinfo "+ userInfo.toString() +"");
-		UserInfo oldUser = daos.getUserdao().findById(userInfo.getUserId());
-		UserDetailInfo userDetailInfo = oldUser.getUserDetailInfo();
+		UserDetailInfo userDetailInfo = daos.getUserDetailInfoDAO().findByUserId(userInfo.getUserInfo().getUserId());
 		if(null == userDetailInfo) {
 			userDetailInfo = new UserDetailInfo();
-			userDetailInfo.setUserTel(userInfo.getUserDetailInfo().getUserTel());
-			userDetailInfo.setUserAge(userInfo.getUserDetailInfo().getUserAge());
-			userDetailInfo.setUserLanguage(userInfo.getUserDetailInfo().getUserLanguage());
-			userDetailInfo.setUserProvince(findNameFromCode(userInfo.getUserDetailInfo().getUserProvince()));
-			userDetailInfo.setUserCity(findNameFromCode(userInfo.getUserDetailInfo().getUserCity()));
-			userDetailInfo.setUserClass(userInfo.getUserDetailInfo().getUserClass());
-			userDetailInfo.setUserGrade(userInfo.getUserDetailInfo().getUserGrade());
-			// 保存用户id到用户详细信息表中
-			userDetailInfo.setUserInfo(oldUser);
-			oldUser.setUserDetailInfo(userDetailInfo);
+			userDetailInfo.setUserTel(userInfo.getUserTel());
+			userDetailInfo.setUserAge(userInfo.getUserAge());
+			userDetailInfo.setUserLanguage(userInfo.getUserLanguage());
+			userDetailInfo.setUserProvince(findNameFromCode(userInfo.getUserProvince()));
+			userDetailInfo.setUserCity(findNameFromCode(userInfo.getUserCity()));
+			userDetailInfo.setUserClass(userInfo.getUserClass());
+			userDetailInfo.setUserGrade(userInfo.getUserGrade());
+			userDetailInfo.setUserInfo(userInfo.getUserInfo());
+			userDetailInfo.setSchoolInfo(daos.getSchoolInfoDAO().findByCode(userInfo.getSchoolInfo().getCode()));
+			daos.getUserDetailInfoDAO().save(userDetailInfo);
 		} else {
-			userDetailInfo.setUserTel(userInfo.getUserDetailInfo().getUserTel());
-			userDetailInfo.setUserAge(userInfo.getUserDetailInfo().getUserAge());
-			userDetailInfo.setUserLanguage(userInfo.getUserDetailInfo().getUserLanguage());
-			userDetailInfo.setUserProvince(findNameFromCode(userInfo.getUserDetailInfo().getUserProvince()));
-			userDetailInfo.setUserCity(findNameFromCode(userInfo.getUserDetailInfo().getUserCity()));
-			userDetailInfo.setUserClass(userInfo.getUserDetailInfo().getUserClass());
-			userDetailInfo.setUserGrade(userInfo.getUserDetailInfo().getUserGrade());
-			oldUser.setUserDetailInfo(userDetailInfo);
+			userDetailInfo.setUserTel(userInfo.getUserTel());
+			userDetailInfo.setUserAge(userInfo.getUserAge());
+			userDetailInfo.setUserLanguage(userInfo.getUserLanguage());
+			userDetailInfo.setUserProvince(findNameFromCode(userInfo.getUserProvince()));
+			userDetailInfo.setUserCity(findNameFromCode(userInfo.getUserCity()));
+			userDetailInfo.setUserClass(userInfo.getUserClass());
+			userDetailInfo.setUserGrade(userInfo.getUserGrade());
+			userDetailInfo.setUserInfo(userInfo.getUserInfo());
+			userDetailInfo.setSchoolInfo(daos.getSchoolInfoDAO().findByCode(userInfo.getSchoolInfo().getCode()));
+			daos.getUserDetailInfoDAO().update(userDetailInfo);
 		}
-		oldUser.getUserDetailInfo().setSchoolInfo(daos.getSchoolInfoDAO().findByCode(userInfo.getUserDetailInfo().getSchoolInfo().getCode()));
-		daos.getUserdao().saveOrUpdate(oldUser);
+		return userDetailInfo;
 	}
 
 	public String findNameFromCode(String code) {

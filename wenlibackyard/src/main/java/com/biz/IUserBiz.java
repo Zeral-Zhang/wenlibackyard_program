@@ -1,5 +1,6 @@
 package com.biz;
 
+import com.po.UserDetailInfo;
 import com.po.UserInfo;
 
 public interface IUserBiz {
@@ -14,6 +15,7 @@ public interface IUserBiz {
 	/**
 	 * 修改用户信息，若用户信息不存在，则新建用户信息并保存
 	 * @param userinfo
+	 * @return UserDetailInfo 用户信息
 	 */
-	public void update(UserInfo userInfo);
+	public UserDetailInfo update(UserDetailInfo userInfo);
 }

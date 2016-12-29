@@ -88,7 +88,7 @@ CREATE TABLE `user_detail_info` (
   `user_city` varchar(20) DEFAULT NULL COMMENT '用户城市',
   `user_province` varchar(20) DEFAULT NULL COMMENT '用户省份',
   `user_language` varchar(20) DEFAULT NULL COMMENT '微信使用语言',
-  `user_gender` varchar(1) DEFAULT '0' COMMENT '用户性别',
+  `user_gender` int(2) DEFAULT '0' COMMENT '用户性别，1是男性，2是女性，0是未知',
   `user_age` int(11) NOT NULL DEFAULT '0' COMMENT '用户年龄',
   `school_info_id` int(11) DEFAULT NULL COMMENT '校内信息编号',
   `user_class` varchar(10) DEFAULT NULL COMMENT '学生班级',

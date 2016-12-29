@@ -45,7 +45,7 @@ public class DaoService {
 		this.userdao = userdao;
 	}
 
-	public UserDetailInfoDAO getUserdetailinfoDAO() {
+	public UserDetailInfoDAO getUserDetailInfoDAO() {
 		return userDetailInfoDAO;
 	}
 

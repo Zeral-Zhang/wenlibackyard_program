@@ -4,12 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * 用户信息详情表
@@ -49,9 +50,9 @@ public class UserDetailInfo implements java.io.Serializable {
 	 */
 	private String userLanguage;
 	/**
-	 * 用户性别
+	 * 用户性别（1是男性，2是女性，0是未知）
 	 */
-	private String userGender;
+	private Integer userGender;
 	/**
 	 * 用户班
 	 */
@@ -73,7 +74,7 @@ public class UserDetailInfo implements java.io.Serializable {
 
 
 	public UserDetailInfo(UserInfo userInfo, SchoolInfo schoolInfo, String userTel,
-			String userCity, String userProvince, String userLanguage, String userGender, String userClass,
+			String userCity, String userProvince, String userLanguage, Integer userGender, String userClass,
 			String userGrade, Integer userAge) {
 		this.userInfo = userInfo;
 		this.schoolInfo = schoolInfo;
@@ -89,7 +90,8 @@ public class UserDetailInfo implements java.io.Serializable {
 
 	// Property accessors
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(generator = "paymengtableGenerator")
+ 	@GenericGenerator(name = "paymengtableGenerator", strategy = "uuid")
 	@Column(name = "user_detail_id", unique = true, nullable = false)
 	public Integer getUserDetailId() {
 		return this.userDetailId;
@@ -155,12 +157,12 @@ public class UserDetailInfo implements java.io.Serializable {
 		this.userLanguage = userLanguage;
 	}
 
-	@Column(name = "user_gender", nullable = true, length = 1)
-	public String getUserGender() {
+	@Column(name = "user_gender", length = 2)
+	public Integer getUserGender() {
 		return this.userGender;
 	}
 
-	public void setUserGender(String userGender) {
+	public void setUserGender(Integer userGender) {
 		this.userGender = userGender;
 	}
 	

@@ -7,7 +7,6 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.ConnectException;
 import java.net.URL;
-import java.util.List;
 import java.util.Properties;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -16,13 +15,14 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
 import org.apache.log4j.Logger;
+import org.springframework.util.StringUtils;
 
 import com.bean.AccessToken;
 import com.bean.Menu;
-import com.bean.SNSUserInfo;
 import com.bean.WeixinOauth2Token;
+import com.po.UserDetailInfo;
+import com.po.UserInfo;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 
@@ -111,9 +111,8 @@ public class HttpsUtil {
         return requestUrl;
     }
     
-    @SuppressWarnings({ "deprecation", "unchecked" })
-	public static SNSUserInfo getSNSUserInfo(String accessToken, String openId) {
-        SNSUserInfo snsUserInfo = null;
+	public static UserInfo getSNSUserInfo(String accessToken, String openId) {
+    	UserInfo userInfo = null;
         // 拼接请求地址
         String requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
         requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
@@ -122,31 +121,31 @@ public class HttpsUtil {
 
         if (null != jsonObject) {
             try {
-                snsUserInfo = new SNSUserInfo();
+            	userInfo = new UserInfo();
                 // 用户的标识
-                snsUserInfo.setOpenId(jsonObject.getString("openid"));
+                userInfo.setUserId(jsonObject.getString("openid"));
                 // 昵称
-                snsUserInfo.setNickname(jsonObject.getString("nickname"));
-                // 性别（1是男性，2是女性，0是未知）
-                snsUserInfo.setSex(jsonObject.getInt("sex"));
-                // 用户所在国家
-                snsUserInfo.setCountry(jsonObject.getString("country"));
-                // 用户所在省份
-                snsUserInfo.setProvince(jsonObject.getString("province"));
-                // 用户所在城市
-                snsUserInfo.setCity(jsonObject.getString("city"));
+                userInfo.setUserNickName(jsonObject.getString("nickname"));
                 // 用户头像
-                snsUserInfo.setHeadImgUrl(jsonObject.getString("headimgurl"));
-                // 用户特权信息
-                snsUserInfo.setPrivilegeList(JSONArray.toList(jsonObject.getJSONArray("privilege"), List.class));
+                userInfo.setUserHeadImgUrl(jsonObject.getString("headimgurl"));
+                // 性别（1是男性，2是女性，0是未知）
+                UserDetailInfo detailInfo = new UserDetailInfo();
+                detailInfo.setUserGender(jsonObject.getInt("sex"));
+                // 用户所在省份
+                detailInfo.setUserProvince(StringUtils.isEmpty(jsonObject.getString("province")) ? null : jsonObject.getString("province"));
+                // 用户所在城市
+                detailInfo.setUserCity(StringUtils.isEmpty(jsonObject.getString("city")) ? null : jsonObject.getString("city"));
+                // 获取用户的语言
+                detailInfo.setUserLanguage(jsonObject.getString("language"));
+                userInfo.setUserDetailInfo(detailInfo);
             } catch (Exception e) {
-                snsUserInfo = null;
+            	userInfo = null;
                 int errorCode = jsonObject.getInt("errcode");
                 String errorMsg = jsonObject.getString("errmsg");
                 log.error("获取用户信息失败 errcode:" + errorCode + " errmsg:{}" + errorMsg);
             }
         }
-        return snsUserInfo;
+        return userInfo;
     }
 	
 	public static int createMenu(Menu menu, String accessToken) {

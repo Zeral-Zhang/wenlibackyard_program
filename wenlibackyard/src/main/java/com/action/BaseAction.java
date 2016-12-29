@@ -50,12 +50,4 @@ public class BaseAction extends ActionSupport {
 	public void setLoginUser(UserInfo user) {
 		getRequest().getSession().setAttribute("userInfo", user);
 	}
-	
-	public UserInfo getWeChatLoginUser() {
-		return (UserInfo) getRequest().getSession().getAttribute("weChatUserInfo");
-	}
-
-	public void setWeChatLoginUser(UserInfo user) {
-		getRequest().getSession().setAttribute("weChatUserInfo", user);
-	}
 }

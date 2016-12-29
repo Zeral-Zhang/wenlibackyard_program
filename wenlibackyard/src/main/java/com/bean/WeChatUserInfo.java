@@ -3,12 +3,12 @@ package com.bean;
 import java.util.List;
 
 /**
-* 类名: SNSUserInfo </br>
+* 类名: WeChatUserInfo </br>
 * 描述: 通过网页授权获取的用户信息 </br>
 * 创建时间：  2015-11-27 </br>
 * 发布版本：V1.0  </br>
  */
-public class SNSUserInfo {
+public class WeChatUserInfo {
     // 用户标识
     private String openId;
     // 用户昵称

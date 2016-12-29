@@ -33,11 +33,12 @@
 		<property name="url" value="jdbc:mysql://localhost:3306/wenlibackyard"> </property> 
 		<property name="username" value="root"></property> <property name="password" 
 		value="zxx7235585"></property> </bean> -->
-	<!-- 使用c3p0数据库连接池配置，请在tomcat/context.xml 中添加 <Resource acquireIncrement="10" 
-		auth="Container" driverClass="com.mysql.jdbc.Driver" factory="org.apache.naming.factory.BeanFactory" 
-		jdbcUrl="jdbc:mysql://localhost:3306/wenlibackyard?autoReconnect=false&amp;useUnicode=true&amp;characterEncoding=utf8" 
-		maxIdleTime="25000" maxPoolSize="300" minPoolSize="5" name="jdbc/ZeralDS" 
-		password="shiyue" type="com.mchange.v2.c3p0.ComboPooledDataSource" user="root"/> -->
+	<!-- 使用c3p0数据库连接池配置，请在tomcat/context.xml 中添加<Resource auth="Container" driverClassName="com.mysql.jdbc.Driver"
+		factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory"
+		maxActive="100" maxIdle="30" maxWait="1000" name="jdbc/ZeralDS"
+		password="zxx7235585" type="javax.sql.DataSource"
+		url="jdbc:mysql://localhost:3306/wenlibackyard?autoReconnect=false&amp;useUnicode=true&amp;characterEncoding=utf8"
+		username="root" /> -->
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName">
 			<value>java:comp/env/jdbc/ZeralDS</value>

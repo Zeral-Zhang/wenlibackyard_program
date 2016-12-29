@@ -67,7 +67,7 @@
 				</li>
 				<li class="list-group-item">
 					<a href="javascript:void(0)">语言
-						 <s:if test="#session.userInfo.userDetailInfo == null || #session.userInfo.userDetailInfo.userProvince == null">
+						 <s:if test="#session.userInfo.userDetailInfo == null || #session.userInfo.userDetailInfo.userLanguage == null">
 							<span style="float: right;">请补充用户信息</span>
 						</s:if> 
 						<s:else>
@@ -157,14 +157,13 @@
 				</div>
 				<div class="modal-body">
 					<form id="userForm" action="<%=path%>/updateUser.action" method="post">
-						<input name="user.userId" value="${sessionScope.userInfo.userId}" type="hidden">
 						<div class="weui-cells weui-cells_form">
 							<div class="weui-cell">
 								<div class="weui-cell__hd">
 									<label class="weui-label">年龄</label>
 								</div>
 								<div class="weui-cell__bd">
-									<input class="weui-input" value="${sessionScope.userInfo.userDetailInfo.userAge}" name="user.userDetailInfo.userAge" type="number" pattern="[0-9]*"
+									<input class="weui-input" value="${sessionScope.userInfo.userDetailInfo.userAge}" name="userDetail.userAge" type="number" pattern="[0-9]*"
 										placeholder="请输入年龄" />
 								</div>
 							</div>
@@ -173,19 +172,19 @@
 									<label class="weui-label">手机号</label>
 								</div>
 								<div class="weui-cell__bd">
-									<input class="weui-input" type="tel" value="${sessionScope.userInfo.userDetailInfo.userTel}" name="user.userDetailInfo.userTel" placeholder="请输入手机号">
+									<input class="weui-input" type="tel" value="${sessionScope.userInfo.userDetailInfo.userTel}" name="userDetail.userTel" placeholder="请输入手机号">
 								</div>
 							</div>
 							<div class="weui-cells__title">请选择您所在的城市信息</div>
 							<div class="weui-cells">
 								<div class="weui-cell weui-cell_select weui-cell_select-before">
 									<div class="weui-cell__hd">
-										<select class="weui-select" id="province" name="user.userDetailInfo.userProvince">
+										<select class="weui-select" id="province" name="userDetail.userProvince">
 											<option value="0">请选择</option>
 										</select> 
 									</div>
 									<div class="weui-cell__hd">
-										<select class="weui-select" id="city" name="user.userDetailInfo.userCity">
+										<select class="weui-select" id="city" name="userDetail.userCity">
 											<option selected value="0">请选择</option>
 										</select>  
 									</div>
@@ -195,7 +194,7 @@
 							<div class="weui-cells">
 								<div class="weui-cell weui-cell_select weui-cell_select-before">
 									<div class="weui-cell__hd">
-										<select style="width: 200px;" class="weui-select" id="college">
+										<select style="width: 200px;" class="weui-select" id="college" >
 											<option value="0">请选择</option>
 											<c:forEach items="${schoolInfolst }" var="schoolInfo">
 												<option value="${schoolInfo.code }" ${userInfo.userDetailInfo.schoolInfo.PCode eq schoolInfo.code ? 'selected' : '' }>${schoolInfo.name }</option>
@@ -203,7 +202,7 @@
 										</select>
 									</div>
 									<div class="weui-cell__hd">
-										<select class="weui-select" style="width: 300px;" id="department" name="user.userDetailInfo.schoolInfo.code">
+										<select class="weui-select" style="width: 300px;" id="department" name="userDetail.schoolInfo.code">
 											<option selected value="0">请选择</option>
 											<c:forEach items="${departmentlst }" var="schoolInfo">
 												<option value="${schoolInfo.code }" ${userInfo.userDetailInfo.schoolInfo.code eq schoolInfo.code ? 'selected' : '' }>${schoolInfo.name }</option>
@@ -217,7 +216,7 @@
 									<label class="weui-label">年级</label>
 								</div>
 								<div class="weui-cell__bd">
-									<input class="weui-input" type="number" pattern="[0-9]*" value="${sessionScope.userInfo.userDetailInfo.userGrade}" name="user.userDetailInfo.userGrade"
+									<input class="weui-input" type="number" pattern="[0-9]*" value="${sessionScope.userInfo.userDetailInfo.userGrade}" name="userDetail.userGrade"
 										placeholder="请输入年级" />
 								</div>
 							</div>
@@ -226,7 +225,7 @@
 									<label class="weui-label">班级</label>
 								</div>
 								<div class="weui-cell__bd">
-									<input class="weui-input" type="number" pattern="[0-9]*" value="${sessionScope.userInfo.userDetailInfo.userClass}" name="user.userDetailInfo.userClass"
+									<input class="weui-input" type="number" pattern="[0-9]*" value="${sessionScope.userInfo.userDetailInfo.userClass}" name="userDetail.userClass"
 										placeholder="请输入班级" />
 								</div>
 							</div>

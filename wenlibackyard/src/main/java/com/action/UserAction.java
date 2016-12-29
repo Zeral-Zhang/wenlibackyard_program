@@ -1,5 +1,6 @@
 package com.action;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
@@ -13,9 +14,10 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.stereotype.Controller;
 
-import com.bean.SNSUserInfo;
 import com.bean.WeixinOauth2Token;
+import com.constant.WenlibackyardConstant;
 import com.po.SchoolInfo;
+import com.po.UserDetailInfo;
 import com.po.UserInfo;
 import com.service.biz.BizService;
 import com.util.HttpsUtil;
@@ -34,8 +36,8 @@ public class UserAction extends BaseAction implements IUserAction {
 
 	private static final long serialVersionUID = 1L;
 
-	private SNSUserInfo snsUserInfo;
-	private UserInfo user;
+	private UserInfo userInfo;
+	private UserDetailInfo userDetail;
 	private String userid;
 	private String path;
 	/**
@@ -73,9 +75,9 @@ public class UserAction extends BaseAction implements IUserAction {
 			// 用户标识
 			String openId = weixinOauth2Token.getOpenId();
 			// 获取用户信息
-			snsUserInfo = HttpsUtil.getSNSUserInfo(accessToken, openId);
+			userInfo = HttpsUtil.getSNSUserInfo(accessToken, openId);
 			// 设置要传递的参数
-			request.getSession().setAttribute("snsUserInfo", snsUserInfo);
+			request.getSession().setAttribute("userInfo", userInfo);
 			return "success";
 		} else {
 			return "error";
@@ -95,7 +97,7 @@ public class UserAction extends BaseAction implements IUserAction {
 	public String toUserDetail() {
 		try {
 			schoolInfolst = biz.getSchoolInfoBiz().findColleges();
-			if (null != getLoginUser().getUserDetailInfo()) {
+			if (null != getLoginUser().getUserDetailInfo() && null != getLoginUser().getUserDetailInfo().getSchoolInfo()) {
 				departmentlst = biz.getSchoolInfoBiz().findByCollegeId(getLoginUser().getUserDetailInfo().getSchoolInfo().getPCode());
 			}
 		} catch (Exception e) {
@@ -139,9 +141,13 @@ public class UserAction extends BaseAction implements IUserAction {
 			@Result(name = "login", location = "/WEB-INF/userLogin.jsp") })
 	@Override
 	public String toUserInfo() {
-		if (null == super.getLoginUser()) {
-			getRequest().setAttribute("originURL", "toUserInfo");
-			return "login";
+		try {
+			if (null == super.getLoginUser()) {
+				getResponse().sendRedirect(HttpsUtil.AuthLogin(WenlibackyardConstant.VALIDATE_URL, "toUserInfo"));
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return "success";
 	}
@@ -151,13 +157,12 @@ public class UserAction extends BaseAction implements IUserAction {
 	@Override
 	public String update() {
 		try {
-			// 设置用户语言信息
-			getLoginUser().getUserDetailInfo().setUserLanguage(getRequest().getLocale().toString());
-			// 修改用户信息，重新放置用户到session中
-			biz.getUserbiz().update(user);
-			// 通过id找到修改后的用户信息保存到session域中
-			UserInfo newUser = biz.getUserbiz().findUser(user.getUserId());
-			setLoginUser(newUser);
+			UserInfo oldUser = getLoginUser();
+			userDetail.setUserInfo(oldUser);
+			userDetail.setUserGender(oldUser.getUserDetailInfo().getUserGender());
+			userDetail.setUserLanguage(oldUser.getUserDetailInfo().getUserLanguage());
+			// 将修改后的用户信息保存到session域中
+			getLoginUser().setUserDetailInfo(biz.getUserbiz().update(userDetail));
 			return "success";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -165,20 +170,13 @@ public class UserAction extends BaseAction implements IUserAction {
 		}
 	}
 
-	public SNSUserInfo getSnsUserInfo() {
-		return snsUserInfo;
+
+	public UserDetailInfo getUserDetail() {
+		return userDetail;
 	}
 
-	public void setSnsUserInfo(SNSUserInfo snsUserInfo) {
-		this.snsUserInfo = snsUserInfo;
-	}
-
-	public UserInfo getUser() {
-		return user;
-	}
-
-	public void setUser(UserInfo user) {
-		this.user = user;
+	public void setUserDetail(UserDetailInfo userDetail) {
+		this.userDetail = userDetail;
 	}
 
 	public String getUserid() {
