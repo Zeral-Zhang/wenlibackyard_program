@@ -54,7 +54,7 @@ public class OrderBizImpl implements IOrderBiz {
 		log.info("保存" + user.toString() + "订单");
 		try {
 			// 取出购物车信息存入订单表中，并清空购物车, 同时减少商品数量
-			Map<Integer, ShopCarItem> items = myCar.getItems();
+			Map<String, ShopCarItem> items = myCar.getItems();
 			OrderMain orderMain = new OrderMain();
 			orderMain.setSumPrice(myCar.getSumPrice());
 			orderMain.setUserInfo(user);
@@ -63,7 +63,7 @@ public class OrderBizImpl implements IOrderBiz {
 			// 存入订单主表信息
 			daos.getOrdermainDAO().save(orderMain);
 
-			for (Integer key : items.keySet()) {
+			for (String key : items.keySet()) {
 				ShopCarItem item = items.get(key);
 				OrderDetail orderdetail = new OrderDetail();
 				orderdetail.setNum(item.getNum());

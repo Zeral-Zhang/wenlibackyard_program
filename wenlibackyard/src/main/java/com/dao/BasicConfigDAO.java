@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.bean.AccessToken;
+import com.constant.WenlibackyardConstant;
 import com.po.BasicConfig;
 
 
@@ -50,6 +52,30 @@ public class BasicConfigDAO extends BaseDAO<BasicConfig, String> {
 	public List<BasicConfig> findPlatformSet() {
 		String hql = "from BasicConfig bc where bc.basicConfigId like ?";
 		return findByHQL(hql, "max%Size");
+	}
+
+	public AccessToken getToken() {
+		AccessToken accessToken = null;
+		BasicConfig token = findByBasicConfigId(WenlibackyardConstant.ACCESS_TOKEN);
+		if(null != token) {
+			accessToken = new AccessToken();
+			accessToken.setToken(token.getValue());
+			accessToken.setExpiresIn(Long.parseLong(token.getName()));
+		}
+		return accessToken;
+	}
+	
+	public void setToken(AccessToken token) throws Exception {
+		if(null != token) {
+			BasicConfig config = findByBasicConfigId(WenlibackyardConstant.ACCESS_TOKEN);
+			if(null == config) {
+				config = new BasicConfig(WenlibackyardConstant.ACCESS_TOKEN, String.valueOf(System.currentTimeMillis()/1000+token.getExpiresIn()), token.getToken());
+			} else {
+				config.setName(String.valueOf(System.currentTimeMillis()/1000+token.getExpiresIn()));
+				config.setValue(token.getToken());
+			}
+			saveOrUpdate(config);
+		}
 	}
 
 }

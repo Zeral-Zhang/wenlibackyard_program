@@ -1,7 +1,5 @@
 package com.action;
 
-import java.io.IOException;
-
 import javax.annotation.Resource;
 
 import org.apache.struts2.ServletActionContext;
@@ -26,7 +24,7 @@ public class CoreAction implements ICoreAction {
 	}
 
 	@Action(value = "handleCore")
-	public String handle() {
+	public void handle() {
 		String method = ServletActionContext.getRequest().getMethod();
 		try {
 			if ("POST".equalsIgnoreCase(method)) {
@@ -34,10 +32,8 @@ public class CoreAction implements ICoreAction {
 			} else {
 				bizs.getCorebiz().checkSignature();
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
 	}
 }

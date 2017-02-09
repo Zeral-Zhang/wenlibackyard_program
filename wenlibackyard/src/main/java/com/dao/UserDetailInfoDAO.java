@@ -18,7 +18,7 @@ public class UserDetailInfoDAO extends BaseDAO<UserDetailInfo, Integer> {
 	public static final String USER_LANGUAGE = "userLanguage";
 	public static final String USER_GENDER = "userGender";
 	public static final String USER_AGE = "userAge";
-	public static final String USER_ID = "userInfo.userId";
+	public static final String USER_ID = "userInfo";
 
 	@SuppressWarnings("unchecked")
 	public List<UserDetailInfo> findByProperty(String propertyName, Object value) {

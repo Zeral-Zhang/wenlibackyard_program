@@ -22,9 +22,6 @@ import com.po.UserInfo;
 import com.service.biz.BizService;
 import com.util.HttpsUtil;
 import com.util.PropertiesConfigUtil;
-import com.util.WebUtil;
-
-import net.sf.json.JSONObject;
 
 /**
  * @author Zeral_Zhang
@@ -51,7 +48,8 @@ public class UserAction extends BaseAction implements IUserAction {
 
 	@Resource(name = "BizService")
 	private BizService biz;
-
+	
+	
 	@Action(value = "validateUser", results = {
 			@Result(name = "success", location = "${path}", type = "redirectAction"),
 			@Result(name = "error", location = "/WEB-INF/error.jsp") 
@@ -65,7 +63,7 @@ public class UserAction extends BaseAction implements IUserAction {
 		String state = request.getParameter("state");
 		path = StringUtils.isEmpty(state) ? "toProductList" : state;
 		// 用户同意授权
-		if (!"authdeny".equals(code)) {
+		if (StringUtils.isNotBlank(code)) {
 			// 获取网页授权access_token
 			WeixinOauth2Token weixinOauth2Token = HttpsUtil
 					.getOauth2AccessToken(prop.getProperty("appid"),
@@ -96,45 +94,18 @@ public class UserAction extends BaseAction implements IUserAction {
 	@Override
 	public String toUserDetail() {
 		try {
+			UserInfo user = getLoginUser();
+			user.setUserDetailInfo(biz.getUserbiz().findUserDetail(getLoginUser().getUserId()));
 			schoolInfolst = biz.getSchoolInfoBiz().findColleges();
-			if (null != getLoginUser().getUserDetailInfo() && null != getLoginUser().getUserDetailInfo().getSchoolInfo()) {
-				departmentlst = biz.getSchoolInfoBiz().findByCollegeId(getLoginUser().getUserDetailInfo().getSchoolInfo().getPCode());
+			if (null != user.getUserDetailInfo() && null != user.getUserDetailInfo().getSchoolInfo()) {
+				departmentlst = biz.getSchoolInfoBiz().findByCollegeId(user.getUserDetailInfo().getSchoolInfo().getPCode());
 			}
+			setLoginUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "failed";
 		}
 		return "success";
-	}
-
-	@Action(value = "login_User")
-	@Override
-	public void login() {
-		JSONObject object = null;
-		try {
-			if ("".equals(userid)) {
-				object = new JSONObject();
-				object.put("status", "0");
-				WebUtil.sendJSONObjectResponse(object);
-			} else {
-				UserInfo userInfo = biz.getUserbiz().findUser(userid);
-				if (userInfo == null) {
-					object = new JSONObject();
-					object.put("status", "-1");
-					WebUtil.sendJSONObjectResponse(object);
-				} else {
-					super.setLoginUser(userInfo);
-					object = new JSONObject();
-					object.put("status", "1");
-					WebUtil.sendJSONObjectResponse(object);
-				}
-			}
-		} catch (Exception e) {
-			object = new JSONObject();
-			object.put("status", "-1");
-			WebUtil.sendJSONObjectResponse(object);
-		}
-
 	}
 
 	@Action(value = "toUserInfo", results = { @Result(name = "success", location = "/WEB-INF/new_front/userInfo.jsp"),
@@ -146,7 +117,6 @@ public class UserAction extends BaseAction implements IUserAction {
 				getResponse().sendRedirect(HttpsUtil.AuthLogin(WenlibackyardConstant.VALIDATE_URL, "toUserInfo"));
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "success";
@@ -157,17 +127,14 @@ public class UserAction extends BaseAction implements IUserAction {
 	@Override
 	public String update() {
 		try {
-			UserInfo oldUser = getLoginUser();
-			userDetail.setUserInfo(oldUser);
-			userDetail.setUserGender(oldUser.getUserDetailInfo().getUserGender());
-			userDetail.setUserLanguage(oldUser.getUserDetailInfo().getUserLanguage());
+			userDetail.setUserInfo(getLoginUser().getUserId());
 			// 将修改后的用户信息保存到session域中
 			getLoginUser().setUserDetailInfo(biz.getUserbiz().update(userDetail));
-			return "success";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "failed";
 		}
+		return "success";
 	}
 
 
@@ -210,5 +177,4 @@ public class UserAction extends BaseAction implements IUserAction {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	
 }

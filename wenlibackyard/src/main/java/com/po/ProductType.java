@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 
 /**
  * 商品类别表
@@ -24,7 +26,7 @@ public class ProductType implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	// Fields
 
-	private Integer productTypeId;
+	private String productTypeId;
 	private Integer parentId;
 	private String productTypeName;
 	private Integer isDelete;
@@ -57,13 +59,14 @@ public class ProductType implements java.io.Serializable {
 
 	// Property accessors
 	@Id
-	@GeneratedValue
-	@Column(name = "product_type_id", unique = true, nullable = false)
-	public Integer getProductTypeId() {
+	@GeneratedValue(generator = "paymentableGenerator")
+	@GenericGenerator(name = "paymentableGenerator", strategy = "uuid")
+	@Column(name = "product_type_id", unique = true, nullable = false, length = 32)
+	public String getProductTypeId() {
 		return this.productTypeId;
 	}
 
-	public void setProductTypeId(Integer productTypeId) {
+	public void setProductTypeId(String productTypeId) {
 		this.productTypeId = productTypeId;
 	}
 

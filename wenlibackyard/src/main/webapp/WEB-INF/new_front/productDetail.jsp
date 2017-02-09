@@ -53,7 +53,7 @@
 				<div class="price_loc">
 					<div class="user_loc">
 						<div class="loc_img"></div>
-						<div class="loc_area">陕西省西安市雁塔区</div>
+						<div class="loc_area">${productInfo.userInfo.userProvince}${productInfo.userInfo.userCity}</div>
 					</div>
 				</div>
 			</div>

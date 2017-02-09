@@ -77,7 +77,7 @@ public class DaoService {
 		this.productInfoDAO = productInfoDAO;
 	}
 
-	public ProductTypeDAO getProducttypeDAO() {
+	public ProductTypeDAO getProductTypeDAO() {
 		return productTypeDAO;
 	}
 

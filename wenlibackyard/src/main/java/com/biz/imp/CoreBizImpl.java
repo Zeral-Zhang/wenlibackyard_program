@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Properties;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,9 +13,13 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.stereotype.Service;
 
+import com.bean.AccessToken;
+import com.bean.WeixinOauth2Token;
 import com.bean.req.MsgRequest;
 import com.bean.resp.MsgResponseText;
 import com.biz.ICoreBiz;
+import com.service.dao.DaoService;
+import com.util.HttpsUtil;
 import com.util.MsgXmlUtil;
 import com.util.PropertiesConfigUtil;
 import com.util.SignUtil;
@@ -22,6 +27,9 @@ import com.util.SignUtil;
 @Service("CoreBizImpl")
 public class CoreBizImpl implements ICoreBiz {
 	private static final Logger log = Logger.getLogger(CoreBizImpl.class);
+	
+	@Resource(name = "DaoService")
+	private DaoService daos;
 	@Override
 	public void checkSignature() {
 		log.info("##### valid url ");
@@ -69,7 +77,7 @@ public class CoreBizImpl implements ICoreBiz {
 					.getMsgType())) {
 				// 订阅
 				if (msgRequest.equals(MsgXmlUtil.EVENT_TYPE_SUBSCRIBE)) {
-					responseText("感谢您的关注 /::) /::) /::)");
+					responseText(msgRequest, "感谢您的关注 /::) /::) /::)");
 				}
 				// 取消订阅
 				else if (msgRequest.equals(MsgXmlUtil.EVENT_TYPE_UNSUBSCRIBE)) {
@@ -78,6 +86,7 @@ public class CoreBizImpl implements ICoreBiz {
 				// 自定义菜单点击事件
 				else if (msgRequest.equals(MsgXmlUtil.EVENT_TYPE_CLICK)) {
 					// TODO 取消订阅后用户再收不到公众号发送的消息，因此不需要回复 消息
+					responseText(msgRequest, "感谢您的关注 /::) /::) /::)");
 				}
 				
 			} else if (MsgXmlUtil.REQ_MESSAGE_TYPE_LOCATION.equals(msgRequest // 处理用户位置信息
@@ -88,23 +97,23 @@ public class CoreBizImpl implements ICoreBiz {
 				buffer.append("地理位置经度： " + msgRequest.getLocation_Y()).append("\n");
 				buffer.append("地图缩放大小： " + msgRequest.getScale()).append("\n");
 				buffer.append("地理位置信息： " + msgRequest.getLabel()).append("\n");
-				responseText(buffer.toString());
+				responseText(msgRequest, buffer.toString());
 			} else if (MsgXmlUtil.REQ_MESSAGE_TYPE_TEXT.equals(msgRequest // 处理文本消息
 					.getMsgType())) {
-				if ("?".equals(msgRequest.getContent())) {
+				if ("?".equals(msgRequest.getContent()) || "？".equals(msgRequest.getContent())) {
 					StringBuffer buffer = new StringBuffer();
 					buffer.append("您好，这里是文理后院，请回复数字选择服务：").append("\n\n");
 					buffer.append("1 最新商品").append("\n");
 					buffer.append("2 发布商品").append("\n");
 					buffer.append("3 我的订单").append("\n");
 					buffer.append("回复“?”显示此帮助菜单");
-					responseText(buffer.toString());
+					responseText(msgRequest, buffer.toString());
 				} else if ("1".equals(msgRequest.getContent())) {
-					responseText("这里是最新商品");
+					responseText(msgRequest, "这里是最新商品");
 				} else if ("2".equals(msgRequest.getContent())) {
-					responseText("这里可以发布商品");
+					responseText(msgRequest, "这里可以发布商品");
 				} else if ("3".equals(msgRequest.getContent())) {
-					responseText("这里是你的订单");
+					responseText(msgRequest, "这里是你的订单");
 				} else {
 					StringBuffer buffer = new StringBuffer();
 					buffer.append("您好，这里是文理后院，请回复数字选择服务：").append("\n\n");
@@ -112,22 +121,20 @@ public class CoreBizImpl implements ICoreBiz {
 					buffer.append("2 发布商品").append("\n");
 					buffer.append("3 我的订单").append("\n");
 					buffer.append("回复“?”显示此帮助菜单");
-					responseText(buffer.toString());
+					responseText(msgRequest, buffer.toString());
 				}
 			} else {
-				responseText("你的请求类型暂时无法处理，请尝试其它方式 /::) /::) /::)");
+				responseText(msgRequest, "你的请求类型暂时无法处理，请尝试其它方式 /::) /::) /::)");
 			}
 		} catch (Exception e) {
 			throw new RuntimeException("process msg exception", e);
 		}
 	}
 	
-	private void responseText(String responseStr) {
+	private void responseText(MsgRequest msgRequest, String responseStr) {
 		log.info("##### response msg  ");
-		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
 		try {
-			MsgRequest msgRequest = MsgXmlUtil.parseXml(request);// 获取发送的消息
 			MsgResponseText responseText = new MsgResponseText();
 			responseText.setToUserName(msgRequest.getFromUserName());
 			responseText.setFromUserName(msgRequest.getToUserName());
@@ -146,5 +153,22 @@ public class CoreBizImpl implements ICoreBiz {
 		} catch (Exception e) {
 			throw new RuntimeException("response msg Exception", e);
 		}
+	}
+
+	@Override
+	public AccessToken getToken() {
+		AccessToken accessToken = daos.getBasicConfigDAO().getToken();
+		try {
+			Properties prop = PropertiesConfigUtil.getProperties("account.properties");
+			if(null == accessToken || System.currentTimeMillis()/1000 > accessToken.getExpiresIn()) {
+				WeixinOauth2Token weixinOauth2Token = HttpsUtil
+						.getOauth2AccessToken(prop.getProperty("appid"),
+								prop.getProperty("appsecret"), code);
+				daos.getBasicConfigDAO().setToken(accessToken);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return accessToken;
 	}
 }

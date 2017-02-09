@@ -18,7 +18,7 @@ public class ProductTypeBizImpl implements IProductTypeBiz {
 	@Override
 	public List<ProductType> findProuctType() {
 		try {
-			List<ProductType> productTypelst = daos.getProducttypeDAO().findAll();
+			List<ProductType> productTypelst = daos.getProductTypeDAO().findAll();
 			if(productTypelst != null) {
 				return productTypelst;
 			}

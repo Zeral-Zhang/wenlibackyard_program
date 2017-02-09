@@ -6,15 +6,15 @@ import java.util.Map;
 import com.po.ProductInfo;
 
 public class MyCar {
-	private Map<Integer, ShopCarItem> items = new HashMap<Integer, ShopCarItem>();
+	private Map<String, ShopCarItem> items = new HashMap<String, ShopCarItem>();
     private float sumPrice;//总价
     
-    public Map<Integer, ShopCarItem> getItems()
+    public Map<String, ShopCarItem> getItems()
     {
         return items;
     }
     
-    public void setItems(Map<Integer, ShopCarItem> items)
+    public void setItems(Map<String, ShopCarItem> items)
     {
         this.items = items;
     }
@@ -33,7 +33,7 @@ public class MyCar {
 		this.sumPrice = sumPrice;
 	}
 	
-	public Map<Integer, ShopCarItem> add(ProductInfo product,int num){
+	public Map<String, ShopCarItem> add(ProductInfo product,int num){
 		ShopCarItem sc = items.get(product.getProductId());
 		if(null != sc){
 			if(sc.getNum() == 1 && num < 0) {
@@ -55,7 +55,7 @@ public class MyCar {
 		return items;
 	}
 	
-	public Map<Integer, ShopCarItem> dec(ProductInfo product, int num) {
+	public Map<String, ShopCarItem> dec(ProductInfo product, int num) {
 		ShopCarItem sc = items.get(product.getProductId());
 		if (sc != null) {
 			sc.setNum(sc.getNum() - num);
@@ -67,9 +67,9 @@ public class MyCar {
 	}
 
 
-	public Map<Integer, ShopCarItem> remove(Integer id) {
+	public Map<String, ShopCarItem> remove(String productId) {
 		if(items.size() > 0) {
-			items.remove(id);
+			items.remove(productId);
 		}
 		return items;
 	}
@@ -77,7 +77,7 @@ public class MyCar {
 	public float sumPrice() {
 		this.setSumPrice(0);
 		if (items != null && items.size() > 0) {
-			for (Integer key : items.keySet()) {
+			for (String key : items.keySet()) {
 				this.sumPrice += items.get(key).getPrice();
 			}
 			

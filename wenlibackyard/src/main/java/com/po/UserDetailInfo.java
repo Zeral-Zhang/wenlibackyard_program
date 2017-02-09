@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -24,11 +23,11 @@ public class UserDetailInfo implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	// Fields
 
-	private Integer userDetailId;
+	private String userDetailId;
 	/**
 	 * 用户基本信息
 	 */
-	private UserInfo userInfo;
+	private String userInfo;
 	/**
 	 * 系
 	 */
@@ -37,22 +36,6 @@ public class UserDetailInfo implements java.io.Serializable {
 	 * 用户电话
 	 */
 	private String userTel;
-	/**
-	 * 用户城市
-	 */
-	private String userCity;
-	/**
-	 * 用户省
-	 */
-	private String userProvince;
-	/**
-	 * 微信使用语言
-	 */
-	private String userLanguage;
-	/**
-	 * 用户性别（1是男性，2是女性，0是未知）
-	 */
-	private Integer userGender;
 	/**
 	 * 用户班
 	 */
@@ -73,41 +56,25 @@ public class UserDetailInfo implements java.io.Serializable {
 	}
 
 
-	public UserDetailInfo(UserInfo userInfo, SchoolInfo schoolInfo, String userTel,
-			String userCity, String userProvince, String userLanguage, Integer userGender, String userClass,
-			String userGrade, Integer userAge) {
-		this.userInfo = userInfo;
-		this.schoolInfo = schoolInfo;
-		this.userTel = userTel;
-		this.userCity = userCity;
-		this.userProvince = userProvince;
-		this.userLanguage = userLanguage;
-		this.userGender = userGender;
-		this.userClass = userClass;
-		this.userGrade = userGrade;
-		this.userAge = userAge;
-	}
-
 	// Property accessors
 	@Id
 	@GeneratedValue(generator = "paymengtableGenerator")
  	@GenericGenerator(name = "paymengtableGenerator", strategy = "uuid")
-	@Column(name = "user_detail_id", unique = true, nullable = false)
-	public Integer getUserDetailId() {
+	@Column(name = "user_detail_id", unique = true, nullable = false, length = 32)
+	public String getUserDetailId() {
 		return this.userDetailId;
 	}
 
-	public void setUserDetailId(Integer userDetailId) {
+	public void setUserDetailId(String userDetailId) {
 		this.userDetailId = userDetailId;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id")
-	public UserInfo getUserInfo() {
+	@Column(name = "user_id", length = 32)
+	public String getUserInfo() {
 		return this.userInfo;
 	}
 
-	public void setUserInfo(UserInfo userinfo) {
+	public void setUserInfo(String userinfo) {
 		this.userInfo = userinfo;
 	}
 
@@ -128,42 +95,6 @@ public class UserDetailInfo implements java.io.Serializable {
 
 	public void setUserTel(String userTel) {
 		this.userTel = userTel;
-	}
-
-	@Column(name = "user_city", length = 20)
-	public String getUserCity() {
-		return this.userCity;
-	}
-
-	public void setUserCity(String userCity) {
-		this.userCity = userCity;
-	}
-
-	@Column(name = "user_province", length = 20)
-	public String getUserProvince() {
-		return this.userProvince;
-	}
-
-	public void setUserProvince(String userProvince) {
-		this.userProvince = userProvince;
-	}
-
-	@Column(name = "user_language", length = 20)
-	public String getUserLanguage() {
-		return this.userLanguage;
-	}
-
-	public void setUserLanguage(String userLanguage) {
-		this.userLanguage = userLanguage;
-	}
-
-	@Column(name = "user_gender", length = 2)
-	public Integer getUserGender() {
-		return this.userGender;
-	}
-
-	public void setUserGender(Integer userGender) {
-		this.userGender = userGender;
 	}
 	
 	@Column(name = "user_class", length = 10)
@@ -191,13 +122,5 @@ public class UserDetailInfo implements java.io.Serializable {
 
 	public void setUserAge(Integer userAge) {
 		this.userAge = userAge;
-	}
-
-	@Override
-	public String toString() {
-		return "UserDetailInfo [userDetailId=" + userDetailId + ", userInfo=" + userInfo + ", schoolInfo=" + schoolInfo
-				+ ", userTel=" + userTel + ", userCity=" + userCity + ", userProvince=" + userProvince
-				+ ", userLanguage=" + userLanguage + ", userGender=" + userGender + ", userClass=" + userClass
-				+ ", userGrade=" + userGrade + ", userAge=" + userAge + "]";
 	}
 }

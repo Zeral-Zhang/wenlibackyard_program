@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+
 /**
  * 订单主表
  * @author Zeral
@@ -33,7 +35,7 @@ public class OrderMain implements java.io.Serializable {
 
 	// Fields
 
-	private Integer orderMainId;
+	private String orderMainId;
 	private UserInfo userInfo;
 	/**
 	 * 销售单状态（0-未处理，1-已处理，2-以发货，3-已收货）
@@ -73,13 +75,14 @@ public class OrderMain implements java.io.Serializable {
 
 	// Property accessors
 	@Id
-	@GeneratedValue
-	@Column(name = "order_main_id", unique = true, nullable = false)
-	public Integer getOrderMainId() {
+	@GeneratedValue(generator = "paymentableGenerator")
+	@GenericGenerator(name = "paymentableGenerator", strategy = "uuid")
+	@Column(name = "order_main_id", unique = true, nullable = false, length = 32)
+	public String getOrderMainId() {
 		return this.orderMainId;
 	}
 
-	public void setOrderMainId(Integer orderMainId) {
+	public void setOrderMainId(String orderMainId) {
 		this.orderMainId = orderMainId;
 	}
 

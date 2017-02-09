@@ -42,7 +42,7 @@ public class OrderMainDAO extends BaseDAO<OrderMain, Integer> {
 		String hql="from Ordermain o where o.userinfo.userId = ? order by o.confirmDate desc";
 		Query query=getCurrentSession().createQuery(hql).setParameter(0, userId);
 		query.setFirstResult(pageBean.getOffset());
-		query.setMaxResults(pageBean.getRows());
+		query.setMaxResults(pageBean.getPageSize());
 		return query.list();
 	}
 

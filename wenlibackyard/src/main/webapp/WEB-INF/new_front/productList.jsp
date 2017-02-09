@@ -130,14 +130,14 @@
 			<!-- 商品卡片 -->
 			<div class="mid_card">
 				<div class="row card-group">
-					<s:iterator value="pageBean.pagelist" var="product">
+					<c:forEach items="${pageBean.pagelist}" var="product">
 						<div class="col-xs-6">
 							<div class="card">
 								<a href="${pageContext.request.contextPath}/toProductDetail?productId=${product.productId}">
 									<div class="card_img">
 										<img class="card-img-top center-block"
 											src="<%=path%>${product.fileSrcs[0]}"
-											data-src="holder.js/80px180?text=走丢了Y.Y" alt="Card image cap">
+											data-src="holder.js/80px180?text=走丢了Y.Y">
 									</div>
 									<div class="card-block">
 										<p class="card-title">${product.productName}160/84A，zara秋冬新款，不包邮不接受议价</p>
@@ -146,7 +146,7 @@
 								<p class="card-text">￥${product.price}</p>
 							</div>
 						</div>
-					</s:iterator>
+					</c:forEach>
 					<%-- <div class="col-xs-6">
 						<div class="card">
 							<a href="<%=path %>/toProductDetail.action?productId=${product.productId}">
@@ -244,10 +244,10 @@
 						</div>
 					</div> --%>
 				</div>
-			</div>
-			<!-- 分页插件 -->
-			<div id="pagination">
-				<a href="toProductList.action?pageBean.page=${pageBean.page+1}" class="next">next</a>
+				<!-- 分页插件 -->
+				<div id="pagination">
+					<a href="toProductList.action?pageBean.page=${pageBean.page+1}&pageBean.totalCount=${pageBean.totalCount}" class="next">next</a>
+				</div>
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -258,6 +258,7 @@
 	<script src="<%=path%>/bootstrap/js/bootstrap.js"></script>
 	<script src="<%=path%>/js/holder.js"></script>
 	<script src="<%=path%>/js/jquery-ias.min.js"></script>
+	<script src="<%=path%>/js/masonry.pkgd.min.js"></script>
 	
 	<script type="text/javascript">
 	
@@ -270,10 +271,9 @@
 			/* body... */
 			var img_width = $(".card-img-top").width();
 			$(".card_img").css('max-height', img_width);
-		})
-		$(function() {	
+			
 		   var ias = $.ias({
-			  container:  '.mid_card',
+			  container:  '.card-group',
 			  item:       '.col-xs-6',
 			  pagination: '#pagination',
 			  next:       '.next',

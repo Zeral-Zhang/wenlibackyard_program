@@ -42,8 +42,8 @@ public class OrderAction implements IOrderAction {
 			// 购买成功，商品数量减少
 			if (bizs.getOrderBiz().saveOrder(myCar, user)) {
 				session.removeAttribute("mycar");
-				Map<Integer, ShopCarItem> items = myCar.getItems();
-				for (Integer productInfoId : items.keySet()) {
+				Map<String, ShopCarItem> items = myCar.getItems();
+				for (String productInfoId : items.keySet()) {
 					ProductInfo product = bizs.getProductInfobiz().findDetail(productInfoId);
 					product.setNumber(product.getNumber() - items.get(productInfoId).getNum());
 					bizs.getProductInfobiz().update(product);
@@ -69,7 +69,7 @@ public class OrderAction implements IOrderAction {
 			String userId = user.getUserId();
 			pageBean = new PageBean();
 			pageBean.setPage(1);
-			pageBean.setRows(8);
+			pageBean.setPageSize(8);
 			mainlst = bizs.getOrderBiz().findAllMain(userId, pageBean);
 			return "success";
 		} catch (Exception e) {

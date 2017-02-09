@@ -1,40 +1,51 @@
 package com.po;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 
 /**
- * 用户信息表
+ * 用户信息实体Bean
+ * 用户信息来自微信用户数据
  * @author Zeral
  *
  */
 @Entity
-@Table(name = "user_info")
 public class UserInfo implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 	// Fields
 
+	/**
+	 * 用户openId
+	 */
 	private String userId;
+	/**
+	 * 用户昵称
+	 */
 	private String userNickName;
+	/**
+	 * 用户头像地址
+	 */
 	private String userHeadImgUrl;
-	private Set<OrderMain> orderMains = new HashSet<OrderMain>(0);
+	/**
+	 * 用户性别（1是男性，2是女性，0是未知）
+	 */
+	private Integer userGender;
+	/**
+	 * 用户城市
+	 */
+	private String userCity;
+	/**
+	 * 用户省
+	 */
+	private String userProvince;
+	/**
+	 * 用户使用语言
+	 */
+	private String userLanguage;
+
 	private UserDetailInfo userDetailInfo;
-	private Set<Favorite> favorites = new HashSet<Favorite>(0);
-	private Set<ProductInfo> productInfos = new HashSet<ProductInfo>(0);
 	
 	// Constructors
 
@@ -42,29 +53,7 @@ public class UserInfo implements java.io.Serializable {
 	public UserInfo() {
 	}
 
-	/** minimal constructor */
-	public UserInfo(String userNickName, String userHeadImgUrl) {
-		this.userNickName = userNickName;
-		this.userHeadImgUrl = userHeadImgUrl;
-	}
-
-	/** full constructor */
-	public UserInfo(String userNickName, String userHeadImgUrl,
-			Set<OrderMain> orderMains, UserDetailInfo userDetailInfo,
-			Set<Favorite> favorites, Set<ProductInfo> productInfos) {
-		this.userNickName = userNickName;
-		this.userHeadImgUrl = userHeadImgUrl;
-		this.orderMains = orderMains;
-		this.userDetailInfo = userDetailInfo;
-		this.favorites = favorites;
-		this.productInfos = productInfos;
-	}
-
-	// Property accessors
 	@Id
-	@GeneratedValue(generator = "paymengtableGenerator")
- 	@GenericGenerator(name = "paymengtableGenerator", strategy = "uuid")
-	@Column(name = "user_id", unique = true, nullable = false, length = 60)
 	public String getUserId() {
 		return this.userId;
 	}
@@ -73,7 +62,6 @@ public class UserInfo implements java.io.Serializable {
 		this.userId = userId;
 	}
 
-	@Column(name = "user_nick_name", nullable = false, length = 20)
 	public String getUserNickName() {
 		return this.userNickName;
 	}
@@ -82,49 +70,52 @@ public class UserInfo implements java.io.Serializable {
 		this.userNickName = userNickName;
 	}
 
-	@Column(name = "user_head_img_url", nullable = false, length = 300)
 	public String getUserHeadImgUrl() {
 		return this.userHeadImgUrl;
+	}
+	
+	public Integer getUserGender() {
+		return userGender;
+	}
+
+	public void setUserGender(Integer userGender) {
+		this.userGender = userGender;
+	}
+
+	public String getUserCity() {
+		return userCity;
+	}
+
+	public void setUserCity(String userCity) {
+		this.userCity = userCity;
+	}
+
+	public String getUserProvince() {
+		return userProvince;
+	}
+
+	public void setUserProvince(String userProvince) {
+		this.userProvince = userProvince;
 	}
 
 	public void setUserHeadImgUrl(String userHeadImgUrl) {
 		this.userHeadImgUrl = userHeadImgUrl;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userInfo")
-	public Set<OrderMain> getOrderMains() {
-		return this.orderMains;
+	public String getUserLanguage() {
+		return userLanguage;
 	}
 
-	public void setOrderMains(Set<OrderMain> ordermains) {
-		this.orderMains = ordermains;
+	public void setUserLanguage(String userLanguage) {
+		this.userLanguage = userLanguage;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userInfo")
 	public UserDetailInfo getUserDetailInfo() {
-		return this.userDetailInfo;
+		return userDetailInfo;
 	}
 
-	public void setUserDetailInfo(UserDetailInfo userdetailinfo) {
-		this.userDetailInfo = userdetailinfo;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userInfo")
-	public Set<Favorite> getFavorites() {
-		return this.favorites;
-	}
-
-	public void setFavorites(Set<Favorite> favorites) {
-		this.favorites = favorites;
-	}
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userInfo")
-	public Set<ProductInfo> getProductInfos() {
-		return this.productInfos;
-	}
-	
-	public void setProductInfos(Set<ProductInfo> productInfos) {
-		this.productInfos = productInfos;
+	public void setUserDetailInfo(UserDetailInfo userDetailInfo) {
+		this.userDetailInfo = userDetailInfo;
 	}
 
 }

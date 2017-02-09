@@ -8,10 +8,10 @@ package com.action;
  */
 public interface IUserAction {
 
-	/**
-	 * 模拟用户登录，用于本地测试
-	 */
-	public void login();
+//	/**
+//	 * 模拟用户登录，用于本地测试
+//	 */
+//	public void login();
 
 	/**
 	 * 修改用户信息
@@ -46,4 +46,5 @@ public interface IUserAction {
 	 * @return
 	 */
 	String validateUser();
+	
 }

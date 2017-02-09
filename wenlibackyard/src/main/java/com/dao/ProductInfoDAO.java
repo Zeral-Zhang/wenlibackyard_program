@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import com.po.ProductInfo;
 
 @Service("ProductInfoDAO")
-public class ProductInfoDAO extends BaseDAO<ProductInfo, Integer> {
+public class ProductInfoDAO extends BaseDAO<ProductInfo, String> {
 	// property constants
 	public static final String PRODUCT_NAME = "productName";
 	public static final String BRAND = "brand";

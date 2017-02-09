@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
@@ -22,6 +21,7 @@ import org.hibernate.type.Type;
 import org.springframework.stereotype.Service;
 
 import com.bean.PageBean;
+import com.util.IPageInfo;
 
 /**
  * 持久层基础类
@@ -32,8 +32,6 @@ import com.bean.PageBean;
  */
 @Service("BaseDAO")
 public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializable> {
-	private static final Logger log = Logger
-			.getLogger(BaseDAO.class);
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -49,51 +47,27 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	}
 
 	public void save(M model) {
-		try {
-			getCurrentSession().save(model);
-		} catch (Exception e) {
-			log.debug("save failed", e);
-		}
+		getCurrentSession().save(model);
 	}
 
 	public void saveOrUpdate(M model) {
-		try {
-			getCurrentSession().saveOrUpdate(model);
-		} catch (Exception e) {
-			log.debug("saveOrUpdate failed", e);
-		}
+		getCurrentSession().saveOrUpdate(model);
 	}
 
 	public void update(M model) {
-		try {
-			getCurrentSession().update(model);
-		} catch (Exception e) {
-			log.debug("update failed", e);
-		}
+		getCurrentSession().update(model);
 	}
 
 	public void merge(M model) {
-		try {
-			getCurrentSession().merge(model);
-		} catch (Exception e) {
-			log.debug("merge failed", e);
-		}
+		getCurrentSession().merge(model);
 	}
 
 	public void delete(PK id) {
-		try {
-			getCurrentSession().delete(this.findById(id));
-		} catch (Exception e) {
-			log.debug("delete failed", e);
-		}
+		getCurrentSession().delete(this.findById(id));
 	}
 
 	public void deleteObject(M model) {
-		try {
-			getCurrentSession().delete(model);
-		} catch (Exception e) {
-			log.debug("deleteobject failed", e);
-		}
+		getCurrentSession().delete(model);
 	}
 
 	
@@ -136,7 +110,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	public List<M> findByCriteria(PageBean pageBean, Order... orders) {
 		Criteria c = this.getCurrentSession().createCriteria(this.getClass());
 		c.setFirstResult(pageBean.getOffset());
-		c.setMaxResults(pageBean.getRows());
+		c.setMaxResults(pageBean.getPageSize());
 		for (Order order : orders) {
 			c.addOrder(order);
 		}
@@ -182,7 +156,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	public List<M> findByExample(M model, PageBean pageBean, Order... orders) {
 		Criteria criteria = getExampleCriteria(model);
 		criteria.setFirstResult(pageBean.getOffset());
-		criteria.setMaxResults(pageBean.getRows());
+		criteria.setMaxResults(pageBean.getPageSize());
 		pageBean.setTotalCount(this.count(model));
 		for (Order order : orders) {
 			criteria.addOrder(order);
@@ -239,11 +213,11 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 	 */
 	
 	@SuppressWarnings("unchecked")
-	public List<M> findAll(PageBean pageBean,Order... orders) {
+	public List<M> findAll(IPageInfo pageInfo,Order... orders) {
 		Criteria criteria = getCurrentSession().createCriteria(this.getEntityClass());
-		criteria.setFirstResult(pageBean.getOffset());
-		criteria.setMaxResults(pageBean.getRows());
-		pageBean.setTotalCount(countAll());
+		criteria.setFirstResult(pageInfo.getOffset());
+		criteria.setMaxResults(pageInfo.getPageSize());
+		pageInfo.setTotalCount(countAll());
 		for (Order order : orders) {
 			criteria.addOrder(order);
 		}
@@ -299,7 +273,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		Query query = getCurrentSession().createQuery(hql);
 		setParameters(query, paramlist);
 		query.setFirstResult(pageBean.getOffset());
-		query.setMaxResults(pageBean.getRows());
+		query.setMaxResults(pageBean.getPageSize());
 		@SuppressWarnings("unchecked")
 		List<T> results = query.list();
 		String countHQL = hql.replaceFirst("(?i).*?from", "select count(*) from");
@@ -323,7 +297,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		Query query = getCurrentSession().createQuery(queryHql);
 		setParameters(query, paramlist);
 		query.setFirstResult(pageBean.getOffset());
-		query.setMaxResults(pageBean.getRows());
+		query.setMaxResults(pageBean.getPageSize());
 		@SuppressWarnings("unchecked")
 		List<T> results = query.list();
 		long count  = this.getCount(countHql, paramlist);
@@ -366,7 +340,7 @@ public class BaseDAO<M extends java.io.Serializable, PK extends java.io.Serializ
 		Query query = getCurrentSession().createQuery(hql);
 		setParameters(query, paramlist);
 		query.setFirstResult(pageBean.getOffset());
-		query.setMaxResults(pageBean.getRows());
+		query.setMaxResults(pageBean.getPageSize());
 		@SuppressWarnings("unchecked")
 		List<M> results = query.list();
 		String countHQL = hql.replaceFirst("(?i).*?from", "select count(*) from");

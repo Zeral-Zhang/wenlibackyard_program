@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * 商品信息表
@@ -34,9 +35,9 @@ public class ProductInfo implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;	
 	// Fields
 	
-	private Integer productId;
+	private String productId;
 	private ProductType productType;
-	private UserInfo userInfo;
+	private String userInfoId;
 	private String productName;
 	private String brand;
 	private String context;
@@ -49,6 +50,7 @@ public class ProductInfo implements java.io.Serializable {
 	private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
 	private Set<Favorite> favorites = new HashSet<Favorite>(0);
 	
+	private UserInfo userInfo;
 	/**
 	 * 临时对象，转换图片地址
 	 */
@@ -60,51 +62,16 @@ public class ProductInfo implements java.io.Serializable {
 	public ProductInfo() {
 	}
 
-	/** minimal constructor */
-	public ProductInfo(ProductType productType, UserInfo userInfo,
-			String productName, String context, String imgs, Float price,
-			Integer number, Date pbDate, Integer state) {
-		this.productType = productType;
-		this.userInfo = userInfo;
-		this.productName = productName;
-		this.context = context;
-		this.imgs = imgs;
-		this.price = price;
-		this.number = number;
-		this.pbDate = pbDate;
-		this.state = state;
-	}
-
-	/** full constructor */
-	public ProductInfo(ProductType productType, UserInfo userInfo,
-			String productName, String brand, String context, String imgs,
-			Float price, Integer number, Date buyDate, Date pbDate,
-			Integer state, Set<OrderDetail> orderDetails,
-			Set<Favorite> favorites) {
-		this.productType = productType;
-		this.userInfo = userInfo;
-		this.productName = productName;
-		this.brand = brand;
-		this.context = context;
-		this.imgs = imgs;
-		this.price = price;
-		this.number = number;
-		this.buyDate = buyDate;
-		this.pbDate = pbDate;
-		this.state = state;
-		this.orderDetails = orderDetails;
-		this.favorites = favorites;
-	}
-
 	// Property accessors
 	@Id
-	@GeneratedValue
-	@Column(name = "product_id", unique = true)
-	public Integer getProductId() {
+	@GeneratedValue(generator = "paymengtableGenerator")
+ 	@GenericGenerator(name = "paymengtableGenerator", strategy = "uuid")
+	@Column(name = "product_id", unique = true, nullable = false, length = 32)
+	public String getProductId() {
 		return this.productId;
 	}
 
-	public void setProductId(Integer productId) {
+	public void setProductId(String productId) {
 		this.productId = productId;
 	}
 
@@ -118,14 +85,13 @@ public class ProductInfo implements java.io.Serializable {
 		this.productType = productType;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id", nullable = false)
-	public UserInfo getUserInfo() {
-		return this.userInfo;
+	@Column(name = "user_id", nullable = false)
+	public String getUserInfoId() {
+		return this.userInfoId;
 	}
 
-	public void setUserInfo(UserInfo userInfo) {
-		this.userInfo = userInfo;
+	public void setUserInfoId(String userInfoId) {
+		this.userInfoId = userInfoId;
 	}
 
 	@Column(name = "product_name", nullable = false, length = 20)
@@ -228,6 +194,15 @@ public class ProductInfo implements java.io.Serializable {
 
 	public void setFavorites(Set<Favorite> favorites) {
 		this.favorites = favorites;
+	}
+
+	@Transient
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
 	@Transient

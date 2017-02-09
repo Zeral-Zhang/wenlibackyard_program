@@ -40,6 +40,29 @@
 		<div class="row" role="main">
 			<ul class="list-group">
 				<li class="list-group-item">
+					<a href="javascript:void(0)">城市 
+						<span style="float: right;"> 
+							<s:property value="#session.userInfo.userProvince" /> 
+							<s:property value="#session.userInfo.userCity" />
+						</span>
+					</a>
+				</li>
+				<li class="list-group-item">
+					<a href="javascript:void(0)">语言
+						<span style="float: right;"> 
+							${sessionScope.userInfo.userLanguage}
+							<!--用于设置国际化文件  -->
+						</span>
+					</a>
+				</li>
+				<li class="list-group-item">
+					<a href="javascript:void(0)">性别
+						<span style="float: right;"> 
+							${sessionScope.userInfo.userGender eq 1 ? '男' : '女'}
+						</span>
+					</a>
+				</li>
+				<li class="list-group-item">
 					<a href="javascript:void(0)">
 						电话
 						<s:if
@@ -49,32 +72,6 @@
 						<s:else>
 							<span style="float: right;"><s:property
 									value="#session.userInfo.userDetailInfo.userTel" /></span>
-						</s:else>
-					</a>
-				</li>
-				<li class="list-group-item">
-					<a href="javascript:void(0)">城市 
-						<s:if test="#session.userInfo.userDetailInfo == null || #session.userInfo.userDetailInfo.userProvince == null">
-							<span style="float: right;">请补充城市信息</span>
-						</s:if> 
-						<s:else>
-							<span style="float: right;"> 
-								<s:property value="#session.userInfo.userDetailInfo.userProvince" /> 
-								<s:property value="#session.userInfo.userDetailInfo.userCity" />
-							</span>
-						</s:else>
-					</a>
-				</li>
-				<li class="list-group-item">
-					<a href="javascript:void(0)">语言
-						 <s:if test="#session.userInfo.userDetailInfo == null || #session.userInfo.userDetailInfo.userLanguage == null">
-							<span style="float: right;">请补充用户信息</span>
-						</s:if> 
-						<s:else>
-							<span style="float: right;"> 
-								${sessionScope.userInfo.userDetailInfo.userLanguage}
-								<!--用于设置国际化文件  -->
-							</span>
 						</s:else>
 					</a>
 				</li>
@@ -175,21 +172,6 @@
 									<input class="weui-input" type="tel" value="${sessionScope.userInfo.userDetailInfo.userTel}" name="userDetail.userTel" placeholder="请输入手机号">
 								</div>
 							</div>
-							<div class="weui-cells__title">请选择您所在的城市信息</div>
-							<div class="weui-cells">
-								<div class="weui-cell weui-cell_select weui-cell_select-before">
-									<div class="weui-cell__hd">
-										<select class="weui-select" id="province" name="userDetail.userProvince">
-											<option value="0">请选择</option>
-										</select> 
-									</div>
-									<div class="weui-cell__hd">
-										<select class="weui-select" id="city" name="userDetail.userCity">
-											<option selected value="0">请选择</option>
-										</select>  
-									</div>
-								</div>
-							</div>
 							<div class="weui-cells__title">请选择您所在的院系信息</div>
 							<div class="weui-cells">
 								<div class="weui-cell weui-cell_select weui-cell_select-before">
@@ -251,29 +233,6 @@
 			function objInit(obj) { // 下拉列表框初始化
 				return $(obj).html("<option value='0'>请选择</option>");
 			}
-			// 初始化省份信息
-			$.get("initProvince.action", function(data) {
-				$.each(data, function(i, item) {
-					$("#province").append(
-							"<option value='" + item.code + "'>" + item.name
-									+ "</option>");
-				});
-			}, "json");
-
-			// 根据省份code查找城市信息
-			$("#province").change(
-					function() {
-						objInit("#city");
-						$.get("loadCitys.action", {
-							code : $(this).val()
-						}, function(data) {
-							$.each(data, function(i, item) {
-								$("#city").append(
-										"<option value='" + item.code + "'>"
-												+ item.name + "</option>");
-							});
-						}, "json");
-					});
 
 			// 根据院code查找城系信息
 			$("#college").change(

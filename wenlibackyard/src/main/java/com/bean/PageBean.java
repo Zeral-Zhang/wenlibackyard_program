@@ -3,34 +3,61 @@ package com.bean;
 import java.io.Serializable;
 import java.util.List;
 
-public class PageBean implements Serializable {
-	/**
-	 * 
-	 */
+import com.util.IPageInfo;
+
+/**
+ * 
+ * @author: ZeralZhang
+ * @date: 2017年1月8日
+ */
+public class PageBean implements IPageInfo,  Serializable {
+	
 	private static final long serialVersionUID = 1L;
 	public static final Integer DEFAULT_PAGE = 0;
-	public static final Integer DEFAULT_ROWS = 8;
+	public static final Integer DEFAULT_SIZE = 8;
 
-	private int page = DEFAULT_PAGE; // 当前页
-	private int rows = DEFAULT_ROWS; // 每页记录数
-	private int maxpage; // 最大页数
-	private long totalCount; // 总记录数
-	private int offset; // 偏移量，从第几条记录开始(nowPage-1)*pageSize
+	/**
+	 * 当前页
+	 */
+	private int page = DEFAULT_PAGE; 
+	/**
+	 * 每页记录数
+	 */
+	private int pageSize = DEFAULT_SIZE; 
+	/**
+	 * 记录总条数
+	 */
+	private long totalCount; 
+	/**
+	 * 偏移量，从第几条记录开始(nowPage-1)*pageSize
+	 */
+	private int offset; 
+	/**
+	 * 数据
+	 */
 	private List<?> pagelist;
 
 	public PageBean() {
-		super();
 	}
 
-	public PageBean(int page, int rows, int maxpage, List<?> pagelist) {
+	public PageBean(int pageNo, int pageSize) {
 		super();
-		this.page = page;
-		this.rows = rows;
-		this.maxpage = maxpage;
-		this.pagelist = pagelist;
-		
+		this.offset = pageSize * pageNo;
+		this.pageSize = pageSize;
 	}
 
+	/**
+	 * 获取总页数
+	 * @return
+	 */
+	public int getPageCount() {
+		return (int) Math.ceil((0.0 + this.totalCount) / this.pageSize);
+	}
+
+	/**
+	 * 获取当前页
+	 * @return
+	 */
 	public int getPage() {
 		return page;
 	}
@@ -43,24 +70,16 @@ public class PageBean implements Serializable {
 		}
 	}
 
-	public int getRows() {
-		return rows;
+	public int getPageSize() {
+		return pageSize;
 	}
 
-	public void setRows(int rows) {
-		if(rows < 1) {
-			this.rows = rows;
+	public void setPageSize(int pageSize) {
+		if(pageSize < 1) {
+			this.pageSize = DEFAULT_SIZE;
 		} else {
-			this.rows = rows;
+			this.pageSize = pageSize;
 		}
-	}
-
-	public int getMaxpage() {
-		return maxpage;
-	}
-
-	public void setMaxpage(int maxpage) {
-		this.maxpage = maxpage;
 	}
 
 	public List<?> getPagelist() {
@@ -83,17 +102,11 @@ public class PageBean implements Serializable {
 		if(offset != 0){
 			return offset;
 		}
-		return this.page * this.rows;
+		return this.page * this.pageSize;
 	}
 
 	public void setOffset(int offset) {
 		this.offset = offset;
-	}
-
-	@Override
-	public String toString() {
-		return "PageBean [page=" + page + ", rows=" + rows + ", maxpage="
-				+ maxpage + ", pagelist=" + pagelist + "]";
 	}
 
 }

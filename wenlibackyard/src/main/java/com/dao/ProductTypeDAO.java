@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.po.ProductType;
 
 @Service("ProductTypeDAO")
-public class ProductTypeDAO extends BaseDAO<ProductType, Integer> {
+public class ProductTypeDAO extends BaseDAO<ProductType, String> {
 	// property constants
 	public static final String PARENT_ID = "parentId";
 	public static final String PRODUCT_TYPE_NAME = "productTypeName";

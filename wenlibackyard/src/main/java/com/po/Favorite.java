@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+
 /**
  * 收藏夹
  * @author Zeral
@@ -25,7 +27,7 @@ public class Favorite implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	// Fields
 
-	private Integer favoriteId;
+	private String favoriteId;
 	private ProductInfo productInfo;
 	private UserInfo userInfo;
 	private Date createDate;
@@ -55,13 +57,14 @@ public class Favorite implements java.io.Serializable {
 
 	// Property accessors
 	@Id
-	@GeneratedValue
-	@Column(name = "favorite_id", unique = true, nullable = false)
-	public Integer getFavoriteId() {
+	@GeneratedValue(generator = "paymentableGenerator")
+	@GenericGenerator(name = "paymentableGenerator", strategy = "uuid")
+	@Column(name = "favorite_id", unique = true, nullable = false, length = 32)
+	public String getFavoriteId() {
 		return this.favoriteId;
 	}
 
-	public void setFavoriteId(Integer favoriteId) {
+	public void setFavoriteId(String favoriteId) {
 		this.favoriteId = favoriteId;
 	}
 

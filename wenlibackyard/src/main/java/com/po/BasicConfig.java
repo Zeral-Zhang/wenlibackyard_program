@@ -79,7 +79,7 @@ public class BasicConfig implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "VALUE", length = 100)
+	@Column(name = "VALUE", length = 400)
 	public String getValue() {
 		return this.value;
 	}

@@ -32,7 +32,6 @@ public class SchoolInfoAction implements ISchoolInfoAction {
 			List<SchoolInfo> schoolInfolst = biz.getSchoolInfoBiz().findByCollegeId(code);
 			WebUtil.sendJSONArrayResponse(schoolInfolst);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

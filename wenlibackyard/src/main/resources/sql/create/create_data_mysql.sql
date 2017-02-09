@@ -1,40 +1,3 @@
--- 插入学生测试信息
-INSERT INTO user_info (
-	user_id,
-	user_nick_name,
-	user_head_img_url
-)
-VALUES
-	(
-		'oiWvevjkVHoyqDZaxh5bbWEr6wGA',
-		'fighting',
-		'http://wx.qlogo.cn/mmopen/PXYO9ericCm2qQdNDEYjgiaNhTd33u3VTHusQpoJjdswnYHWvNVHkNeuCp9baL5G3myng04Qjsu6F8Osr13Y2JvddGMP87IEias/0'
-	);
-
-INSERT INTO user_info (
-	user_id,
-	user_nick_name,
-	user_head_img_url
-)
-VALUES
-	(
-		'Zeral',
-		'Zeral Zhang.',
-		'http://wx.qlogo.cn/mmopen/PXYO9ericCm0T5VmHe8wmD0OwcZsabltJDdGOp8NxjqznWYzFskYJUamEAmMNUXO1icJHemYYIx2DKJQ7icdianaB3OHpNtOMKVN/0'
-	);
-
-INSERT INTO user_info (
-	user_id,
-	user_nick_name,
-	user_head_img_url
-)
-VALUES
-	(
-		'oiWvevnWaNIIxTekSHPzqJin-sKc',
-		'waiting',
-		'http://wx.qlogo.cn/mmopen/7otE3h9Tibap2VAeswWk1ZHsd4zVofGk6aPBOAahAU8xbeRJAGCZrVJxocEjEp4UmJ283JpnGkuP9FyHnY323VIbIXNMHmNuy/0'
-	);
-
 -- 插入商品类型信息
 INSERT INTO `product_type` (
 	`product_type_id`,
@@ -23935,6 +23898,7 @@ VALUES
 
 -- ----------------------------
 -- Records of school_info
+-- 将三级目录暂时修改为二级目录
 -- ----------------------------
 INSERT INTO `school_info` VALUES ('1', '1', '人文学院', null, '0');
 INSERT INTO `school_info` VALUES ('2', '2', '外国语学院', null, '0');
@@ -23949,13 +23913,20 @@ INSERT INTO `school_info` VALUES ('10', '10', '政治学院', null, '0');
 INSERT INTO `school_info` VALUES ('11', '11', '计算机科学系', '3', '1');
 INSERT INTO `school_info` VALUES ('12', '12', '电子工程系', '3', '1');
 INSERT INTO `school_info` VALUES ('13', '13', '数学系', '3', '1');
-INSERT INTO `school_info` VALUES ('14', '111', '计算机与科学技术', '11', '2');
-INSERT INTO `school_info` VALUES ('15', '112', '软件工程', '11', '2');
-INSERT INTO `school_info` VALUES ('16', '113', '电子商务', '11', '2');
-INSERT INTO `school_info` VALUES ('17', '121', '电子信息工程', '12', '2');
-INSERT INTO `school_info` VALUES ('18', '122', '物联网工程', '12', '2');
-INSERT INTO `school_info` VALUES ('19', '131', '数学与应用数学', '13', '2');
-INSERT INTO `school_info` VALUES ('20', '132', '信息与计算科学', '13', '2');
+--INSERT INTO `school_info` VALUES ('14', '111', '计算机与科学技术', '11', '1');
+--INSERT INTO `school_info` VALUES ('15', '112', '软件工程', '11', '1');
+--INSERT INTO `school_info` VALUES ('16', '113', '电子商务', '11', '1');
+--INSERT INTO `school_info` VALUES ('17', '121', '电子信息工程', '12', '1');
+--INSERT INTO `school_info` VALUES ('18', '122', '物联网工程', '12', '1');
+--INSERT INTO `school_info` VALUES ('19', '131', '数学与应用数学', '13', '1');
+--INSERT INTO `school_info` VALUES ('20', '132', '信息与计算科学', '13', '1');
+INSERT INTO `school_info` VALUES ('14', '111', '计算机与科学技术', '3', '1');
+INSERT INTO `school_info` VALUES ('15', '112', '软件工程', '3', '2');
+INSERT INTO `school_info` VALUES ('16', '113', '电子商务', '3', '2');
+INSERT INTO `school_info` VALUES ('17', '121', '电子信息工程', '3', '2');
+INSERT INTO `school_info` VALUES ('18', '122', '物联网工程', '3', '2');
+INSERT INTO `school_info` VALUES ('19', '131', '数学与应用数学', '3', '2');
+INSERT INTO `school_info` VALUES ('20', '132', '信息与计算科学', '3', '2');
 INSERT INTO `school_info` VALUES ('21', '41', '机械设计制造及其自动化专业', '4', '1');
 INSERT INTO `school_info` VALUES ('22', '42', '材料科学与工程专业', '4', '1');
 INSERT INTO `school_info` VALUES ('23', '43', '测控技术与仪器专业', '4', '1');

@@ -26,7 +26,7 @@ public class ProductAction extends BaseAction implements IProductAction {
 	@Resource(name = "BizService")
 	private BizService bizs;
 	private ProductInfo productInfo;
-	private Integer productId;
+	private String productId;
 	private List<String> fileSrcs;
 
 	private PageBean pageBean;
@@ -52,15 +52,9 @@ public class ProductAction extends BaseAction implements IProductAction {
 			// 添加商品发布日期
 			productInfo.setPbDate(new Date());
 			// 给商品添加用户信息
-			productInfo.setUserInfo(getLoginUser());
-			// TODO 直接赋值赋不进去，待研究
+			productInfo.setUserInfoId(getLoginUser().getUserId());
 			productInfo.setFileSrcs(fileSrcs);
-
-			boolean flag = bizs.getProductInfobiz().save(productInfo);
-			// 防止重复提交
-			if (flag) {
-				productInfo = null;
-			}
+			bizs.getProductInfobiz().save(productInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "failed";
@@ -92,18 +86,13 @@ public class ProductAction extends BaseAction implements IProductAction {
 		try {
 			pageBean = pageBean == null ? new PageBean() : pageBean;
 
-			pageBean.setMaxpage(bizs.getProductInfobiz().findMaxPage(pageBean.getRows()));
-			if (pageBean.getPage() > pageBean.getMaxpage()) {
-				pageBean.setPage(PageBean.DEFAULT_PAGE);
-			}
-
 			// 获取当前页的记录集合
 			List<ProductInfo> lsemp = bizs.getProductInfobiz().findAll(pageBean);
 			// 封装数据到PageBean
 			pageBean.setPagelist(lsemp);
-
 			return "success";
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "failed";
 		}
 	}
@@ -116,9 +105,11 @@ public class ProductAction extends BaseAction implements IProductAction {
 		try {
 			if (null != productId) {
 				productInfo = bizs.getProductInfobiz().findDetail(productId);
+				productInfo.setUserInfo(bizs.getUserbiz().findByOpenId(productInfo.getUserInfoId()));
 			}
 			return "success";
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "failed";
 		}
 	}
@@ -139,11 +130,11 @@ public class ProductAction extends BaseAction implements IProductAction {
 		this.pageBean = pageBean;
 	}
 
-	public Integer getProductId() {
+	public String getProductId() {
 		return productId;
 	}
 
-	public void setProductId(Integer productId) {
+	public void setProductId(String productId) {
 		this.productId = productId;
 	}
 

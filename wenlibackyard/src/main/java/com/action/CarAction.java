@@ -21,7 +21,7 @@ import com.util.WebUtil;
 public class CarAction implements ICarAction {
 	@Resource(name = "BizService")
 	private BizService bizs;
-	private Integer productId;
+	private String productId;
 	private Integer num;
 
 	@Action(value = "add_Car", results = { @Result(name = "success", location = "shopCar", type = "redirect"),
@@ -36,7 +36,7 @@ public class CarAction implements ICarAction {
 			}
 			if (productId != null) {
 				ProductInfo productInfo = bizs.getProductInfobiz().findDetail(productId);
-				Map<Integer, ShopCarItem> items = car.add(productInfo, num);
+				Map<String, ShopCarItem> items = car.add(productInfo, num);
 				car.setItems(items);
 				car.sumPrice();
 				session.setAttribute("mycar", car);
@@ -67,7 +67,7 @@ public class CarAction implements ICarAction {
 				return;
 			}
 			if (productId != null) {
-				Map<Integer, ShopCarItem> items = car.remove(productId);
+				Map<String, ShopCarItem> items = car.remove(productId);
 				car.setItems(items);
 				car.sumPrice();
 				session.setAttribute("mycar", car);
@@ -89,7 +89,7 @@ public class CarAction implements ICarAction {
 			}
 			if (productId != null) {
 				ProductInfo product = bizs.getProductInfobiz().findDetail(productId);
-				Map<Integer, ShopCarItem> items = car.add(product, num);
+				Map<String, ShopCarItem> items = car.add(product, num);
 				car.setItems(items);
 				car.sumPrice();
 				session.setAttribute("mycar", car);
@@ -99,11 +99,11 @@ public class CarAction implements ICarAction {
 		}
 	}
 
-	public Integer getProductId() {
+	public String getProductId() {
 		return productId;
 	}
 
-	public void setProductId(Integer productId) {
+	public void setProductId(String productId) {
 		this.productId = productId;
 	}
 

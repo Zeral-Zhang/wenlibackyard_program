@@ -20,7 +20,6 @@ import org.springframework.util.StringUtils;
 import com.bean.AccessToken;
 import com.bean.Menu;
 import com.bean.WeixinOauth2Token;
-import com.po.UserDetailInfo;
 import com.po.UserInfo;
 
 import net.sf.json.JSONException;
@@ -32,8 +31,8 @@ import net.sf.json.JSONObject;
  */
 public class HttpsUtil {
 	private static Logger log = Logger.getLogger(HttpsUtil.class);
-	public final static String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
-	public static String menu_create_url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
+	public final static String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
+	public final static String MENU_CREATE_URL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
 	
 	/**
 	 * 获取创建菜单凭证
@@ -43,7 +42,7 @@ public class HttpsUtil {
 	 */
 	public static AccessToken getAccessToken(String appid, String appsecret) {
 		AccessToken accessToken = null;
-		String requestUrl = access_token_url.replace("APPID", appid).replace("APPSECRET", appsecret);
+		String requestUrl = ACCESS_TOKEN_URL.replace("APPID", appid).replace("APPSECRET", appsecret);
 		JSONObject jsonObject = httpsRequest(requestUrl, "GET", null);
 		// 如果请求成功
 		if(null != jsonObject) {
@@ -129,19 +128,54 @@ public class HttpsUtil {
                 // 用户头像
                 userInfo.setUserHeadImgUrl(jsonObject.getString("headimgurl"));
                 // 性别（1是男性，2是女性，0是未知）
-                UserDetailInfo detailInfo = new UserDetailInfo();
-                detailInfo.setUserGender(jsonObject.getInt("sex"));
+                userInfo.setUserGender(jsonObject.getInt("sex"));
                 // 用户所在省份
-                detailInfo.setUserProvince(StringUtils.isEmpty(jsonObject.getString("province")) ? null : jsonObject.getString("province"));
+                userInfo.setUserProvince(StringUtils.isEmpty(jsonObject.getString("province")) ? null : jsonObject.getString("province"));
                 // 用户所在城市
-                detailInfo.setUserCity(StringUtils.isEmpty(jsonObject.getString("city")) ? null : jsonObject.getString("city"));
+                userInfo.setUserCity(StringUtils.isEmpty(jsonObject.getString("city")) ? null : jsonObject.getString("city"));
                 // 获取用户的语言
-                detailInfo.setUserLanguage(jsonObject.getString("language"));
-                userInfo.setUserDetailInfo(detailInfo);
+                userInfo.setUserLanguage(jsonObject.getString("language"));
             } catch (Exception e) {
             	userInfo = null;
                 int errorCode = jsonObject.getInt("errcode");
                 String errorMsg = jsonObject.getString("errmsg");
+                e.printStackTrace();
+                log.error("获取用户信息失败 errcode:" + errorCode + " errmsg:{}" + errorMsg);
+            }
+        }
+        return userInfo;
+    }
+	
+	public static UserInfo getUserInfo(String accessToken, String openId) {
+    	UserInfo userInfo = null;
+        // 拼接请求地址
+        String requestUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID";
+        requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
+        // 通过网页授权获取用户信息
+        JSONObject jsonObject = httpsRequest(requestUrl, "GET", null);
+
+        if (null != jsonObject) {
+            try {
+            	userInfo = new UserInfo();
+                // 用户的标识
+                userInfo.setUserId(jsonObject.getString("openid"));
+                // 昵称
+                userInfo.setUserNickName(jsonObject.getString("nickname"));
+                // 用户头像
+                userInfo.setUserHeadImgUrl(jsonObject.getString("headimgurl"));
+                // 性别（1是男性，2是女性，0是未知）
+                userInfo.setUserGender(jsonObject.getInt("sex"));
+                // 用户所在省份
+                userInfo.setUserProvince(StringUtils.isEmpty(jsonObject.getString("province")) ? null : jsonObject.getString("province"));
+                // 用户所在城市
+                userInfo.setUserCity(StringUtils.isEmpty(jsonObject.getString("city")) ? null : jsonObject.getString("city"));
+                // 获取用户的语言
+                userInfo.setUserLanguage(jsonObject.getString("language"));
+            } catch (Exception e) {
+            	userInfo = null;
+                int errorCode = jsonObject.getInt("errcode");
+                String errorMsg = jsonObject.getString("errmsg");
+                e.printStackTrace();
                 log.error("获取用户信息失败 errcode:" + errorCode + " errmsg:{}" + errorMsg);
             }
         }
@@ -152,7 +186,7 @@ public class HttpsUtil {
 		int result = 0;
 		
 		// 拼装创建菜单的 Url
-		String url = menu_create_url.replace("ACCESS_TOKEN", accessToken);
+		String url = MENU_CREATE_URL.replace("ACCESS_TOKEN", accessToken);
 		// 将菜单对象转换成 json字符串
 		String jsonMenu = JSONObject.fromObject(menu).toString();
 		// 调用接口创建菜单

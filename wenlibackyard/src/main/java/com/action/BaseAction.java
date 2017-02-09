@@ -23,7 +23,7 @@ import com.po.UserInfo;
 public class BaseAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	protected final Logger log = Logger.getLogger(this.getClass());
 	protected UserInfo user;
 	

@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 /**
  * 订单详情表
  * @author Zeral
@@ -21,7 +23,7 @@ public class OrderDetail implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	// Fields
 
-	private Integer orderDetailId;
+	private String orderDetailId;
 	private ProductInfo productInfo;
 	private OrderMain orderMain;
 	private Integer num;
@@ -51,13 +53,14 @@ public class OrderDetail implements java.io.Serializable {
 
 	// Property accessors
 	@Id
-	@GeneratedValue
-	@Column(name = "order_detail_id", unique = true, nullable = false)
-	public Integer getOrderDetailId() {
+	@GeneratedValue(generator = "paymentableGenerator")
+	@GenericGenerator(name = "paymentableGenerator", strategy = "uuid")
+	@Column(name = "order_detail_id", unique = true, nullable = false, length=32)
+	public String getOrderDetailId() {
 		return this.orderDetailId;
 	}
 
-	public void setOrderDetailId(Integer orderDetailId) {
+	public void setOrderDetailId(String orderDetailId) {
 		this.orderDetailId = orderDetailId;
 	}
 

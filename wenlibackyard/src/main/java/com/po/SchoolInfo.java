@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 /**
  * 院系信息表
  * @author Zeral
@@ -23,7 +25,7 @@ public class SchoolInfo implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	// Fields
 
-	private Integer schoolInfoId;
+	private String schoolInfoId;
 	private String code;
 	private String name;
 	private String PCode;
@@ -48,13 +50,14 @@ public class SchoolInfo implements java.io.Serializable {
 
 	// Property accessors
 	@Id
-	@GeneratedValue
-	@Column(name = "school_info_id", unique = true, nullable = false)
-	public Integer getSchoolInfoId() {
+	@GeneratedValue(generator = "paymentableGenerator")
+	@GenericGenerator(name = "paymentableGenerator", strategy = "uuid")
+	@Column(name = "school_info_id", unique = true, nullable = false, length = 32)
+	public String getSchoolInfoId() {
 		return this.schoolInfoId;
 	}
 
-	public void setSchoolInfoId(Integer schoolInfoId) {
+	public void setSchoolInfoId(String schoolInfoId) {
 		this.schoolInfoId = schoolInfoId;
 	}
 
