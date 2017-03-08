@@ -49,8 +49,7 @@ public class CarAction implements ICarAction {
 	}
 
 	@Action(value = "shopCar", results = { 
-			@Result(name = "success", location = "/WEB-INF/shopcar.jsp"),
-			@Result(name = "failed", location = "/WEB-INF/error.jsp") 
+			@Result(name = "success", location = "/WEB-INF/new_front/shopCar.jsp") 
 		})
 	public String initShopCar() {
 		return "success";
@@ -77,16 +76,18 @@ public class CarAction implements ICarAction {
 		}
 	}
 
-	@Action(value = "changeQuantity")
+	@Action(value = "changeQuantity", results = { 
+			@Result(name = "success", location = "/WEB-INF/new_front/shopCar.jsp") 
+		})
 	@Override
-	public void changeQuantity() {
+	public String changeQuantity() {
 		HttpSession session = WebUtil.getSession();
 		try {
 			MyCar car = (MyCar) session.getAttribute("mycar");
-			if (car == null) {
+			/*if (car == null) {
 				WebUtil.sendInfoMsg("购物车为空");
 				return;
-			}
+			}*/
 			if (productId != null) {
 				ProductInfo product = bizs.getProductInfobiz().findDetail(productId);
 				Map<String, ShopCarItem> items = car.add(product, num);
@@ -94,8 +95,10 @@ public class CarAction implements ICarAction {
 				car.sumPrice();
 				session.setAttribute("mycar", car);
 			}
+			return "success"; 
 		} catch (Exception e) {
-			WebUtil.sendErrorMsg("修改商品数量出错");
+//			WebUtil.sendErrorMsg("修改商品数量出错");
+			return "failed";
 		}
 	}
 

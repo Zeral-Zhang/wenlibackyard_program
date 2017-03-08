@@ -14,10 +14,12 @@ import org.springframework.stereotype.Controller;
 import com.bean.MyCar;
 import com.bean.PageBean;
 import com.bean.ShopCarItem;
+import com.constant.WenlibackyardConstant;
 import com.po.OrderMain;
 import com.po.ProductInfo;
 import com.po.UserInfo;
 import com.service.biz.BizService;
+import com.util.HttpsUtil;
 import com.util.WebUtil;
 
 @Controller
@@ -39,6 +41,10 @@ public class OrderAction implements IOrderAction {
 		try {
 			MyCar myCar = (MyCar) session.getAttribute("mycar");
 			UserInfo user = (UserInfo) session.getAttribute("userInfo");
+			if (null == user) {
+				WebUtil.getResponse().sendRedirect(HttpsUtil.AuthLogin(WenlibackyardConstant.VALIDATE_URL, "addOrder"));
+				return null;
+			}
 			// 购买成功，商品数量减少
 			if (bizs.getOrderBiz().saveOrder(myCar, user)) {
 				session.removeAttribute("mycar");
@@ -46,13 +52,18 @@ public class OrderAction implements IOrderAction {
 				for (String productInfoId : items.keySet()) {
 					ProductInfo product = bizs.getProductInfobiz().findDetail(productInfoId);
 					product.setNumber(product.getNumber() - items.get(productInfoId).getNum());
-					bizs.getProductInfobiz().update(product);
+					if(product.getNumber().equals(0)) {
+						bizs.getProductInfobiz().delete(productInfoId);
+					} else {
+						bizs.getProductInfobiz().update(product);
+					}
 				}
 				return "success";
 			} else {
 				return "failed";
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "failed";
 		}
 	}

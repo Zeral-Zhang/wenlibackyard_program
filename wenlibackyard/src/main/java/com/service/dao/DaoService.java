@@ -93,7 +93,7 @@ public class DaoService {
 		this.orderDetailDAO = orderDetailDAO;
 	}
 
-	public OrderMainDAO getOrdermainDAO() {
+	public OrderMainDAO getOrderMainDAO() {
 		return orderMainDAO;
 	}
 

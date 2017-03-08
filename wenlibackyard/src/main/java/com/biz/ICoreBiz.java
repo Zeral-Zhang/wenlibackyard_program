@@ -2,8 +2,6 @@ package com.biz;
 
 import java.io.IOException;
 
-import com.bean.AccessToken;
-
 public interface ICoreBiz {
 	/**
 	 * 开发者Token验证
@@ -16,9 +14,4 @@ public interface ICoreBiz {
 	 * @throws IOException
 	 */
 	public void handleRequest();
-	
-	/**
-	 * 得到认证AccessToken
-	 */
-	public AccessToken getToken();
 }

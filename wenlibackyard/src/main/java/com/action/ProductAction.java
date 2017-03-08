@@ -28,6 +28,7 @@ public class ProductAction extends BaseAction implements IProductAction {
 	private ProductInfo productInfo;
 	private String productId;
 	private List<String> fileSrcs;
+	private String search;
 
 	private PageBean pageBean;
 
@@ -86,15 +87,20 @@ public class ProductAction extends BaseAction implements IProductAction {
 		try {
 			pageBean = pageBean == null ? new PageBean() : pageBean;
 
-			// 获取当前页的记录集合
-			List<ProductInfo> lsemp = bizs.getProductInfobiz().findAll(pageBean);
+			List<ProductInfo> lsemp = null;
+			if(null != search) {
+				lsemp = bizs.getProductInfobiz().findByNameLike(pageBean, search);
+			} else {
+				// 获取当前页的记录集合
+				lsemp = bizs.getProductInfobiz().findAll(pageBean);
+			}
 			// 封装数据到PageBean
 			pageBean.setPagelist(lsemp);
-			return "success";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "failed";
 		}
+		return "success";
 	}
 
 	@Action(value = "toProductDetail", results = {
@@ -144,6 +150,14 @@ public class ProductAction extends BaseAction implements IProductAction {
 
 	public void setFileSrcs(List<String> fileSrcs) {
 		this.fileSrcs = fileSrcs;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
 	}
 	
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String path = request.getContextPath();
 %>
@@ -8,20 +10,22 @@
 	<head>
 		<meta charset="UTF-8">
 		<!-- Required meta tags always come first -->
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 		<title>文理后院</title>
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="<%=path %>/bootstrap/css/bootstrap.css">
 		<link rel="stylesheet" href="<%=path %>/css/lightgallery.css">
 		<link rel="stylesheet" href="<%=path %>/css/reset.css">
+		<link rel="stylesheet" href="<%=path %>/css/style.css">
+		<link rel="stylesheet" href="<%=path %>/css/alertify.css">
 	</head>
 	<body>
 		<!-- 顶部导航 -->
 		<div class="top">
 			<!-- 按钮 -->
 			<nav class="navbar navbar-light bg-faded pro_nav">
-				<a href="<%=path %>/toProductList"><div class="go_back"></div></a>
+				<a href="javascript:history.go(-1);"><div class="go_back"></div></a>
 				<div class="container">商品详情</div>
 			</nav>
 		</div>
@@ -46,9 +50,14 @@
 			</div>
 			
 			<div class="product_info">
-				
-				<div>
-					<p>${productInfo.context}</p>
+				<div class="pro_tag">
+						<span class="tag_name">购买日期:</span><span><fmt:formatDate value="${productInfo.buyDate}" type="date" pattern="yyyy-MM-dd"/></span>
+				</div>
+				<div class="pro_tag">
+						<span class="tag_name">发布日期:</span><span><fmt:formatDate value="${productInfo.pbDate}" type="date" pattern="yyyy-MM-dd"/></span>
+				</div>
+				<div class="pro_tag">
+						<span class="tag_name">商品描述:</span><p>${productInfo.context}</p>
 				</div>
 				<div class="price_loc">
 					<div class="user_loc">
@@ -59,34 +68,88 @@
 			</div>
 			<div class="scroll_img">
 				<div id="lightgallery">
-					<a href="<%=path%>${productInfo.fileSrcs[0]}">
-						<img src="<%=path%>${productInfo.fileSrcs[0]}">
-					</a>
-					<a href="<%=path%>${productInfo.fileSrcs[1]}">
-						<img src="<%=path%>${productInfo.fileSrcs[1]}">
-					</a>
-					<a href="<%=path%>${productInfo.fileSrcs[2]}">
-						<img src="<%=path%>${productInfo.fileSrcs[2]}">
-					</a>
-					<a href="<%=path%>${productInfo.fileSrcs[3]}">
-						<img src="<%=path%>${productInfo.fileSrcs[3]}">
-					</a>
+					<c:forEach items="${productInfo.fileSrcs }" var="img">
+						<a href="<%=path%>${img}">
+							<img src="<%=path%>${img}" data-src="holder.js/100px180?text=走丢了Y.Y" alt="图片走丢了">
+						</a>
+					</c:forEach>
 				</div>
-				
+			</div>
+			<div class="container" id="buyBtn">
+				<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#myModal">加入购物车</button>
 			</div>
 		</div>
-		<jsp:include page="foot.jsp"></jsp:include>
+		
+		<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">确认购买</h4>
+				</div>
+				<div class="modal-body">
+				        <div class="container">
+				           <p>请选择购买数量：</p><span class="tag_name">库存：${productInfo.number }</span>
+				           <div class="input-group"> 
+								<div class="quantity-select">                           
+									<div class="entry value-minus">&nbsp;</div>
+									<div class="entry value">1</div>
+									<div class="entry value-plus active" data-number="${productInfo.number }">&nbsp;</div>
+								</div>
+							</div>
+				        </div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" id="addCar" class="btn btn-success btn-default pull-left"><span class="glyphicon glyphicon-shopping-cart"></span>确认</button>
+					<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<jsp:include page="foot.jsp"></jsp:include>
 		
 		<script src="<%=path %>/js/jquery.min.js"></script>
 		<script src="<%=path %>/bootstrap/js/bootstrap.js"></script>
 		<script src="<%=path %>/js/lightgallery.js"></script>
+		<script src="<%=path%>/js/holder.js"></script>
+		<script src="<%=path%>/js/alertify.js"></script>
 		<script type="text/javascript">
+			$(function() {
+				var intoURI = document.referrer;
+				if(intoURI.includes('toUserSaling')) {
+					$('#buyBtn').remove();
+				}
+			});
+			
 			$(".nav_btn").click(function(event) {
 				/* Act on the event */
 				$(".nav_pane").toggle().css('height', $("body").height());
 				$(".bottom").toggle();
 			});
 			lightGallery(document.getElementById('lightgallery'));
+			
+			<!--quantity-->
+			$('.value-plus').on('click', function(){
+				var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
+				if(newVal > $(this).data("number")) {
+					alertify.error('商品数量超过库存！');
+					return;
+				}
+				divUpd.text(newVal);
+			});
+
+			$('.value-minus').on('click', function(){
+				var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
+				if(newVal>=1) divUpd.text(newVal);
+			});
+			<!--quantity-->
+			
+			$("#addCar").click(function() {
+				var num = $(".value").text();
+				window.location.href = "${pageContext.request.contextPath}/add_Car?productId=${productInfo.productId}&&num=" + num + "";
+			});
 		</script>
 	</body>
 </html>

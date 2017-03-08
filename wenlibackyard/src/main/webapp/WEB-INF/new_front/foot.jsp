@@ -19,7 +19,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="<%=path %>/toShopCar">
+				<a href="<%=path %>/shopCar">
 					<div class="link_img3"></div> 购物车
 				</a>
 			</li>

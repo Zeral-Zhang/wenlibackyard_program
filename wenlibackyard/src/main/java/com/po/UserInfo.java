@@ -118,4 +118,11 @@ public class UserInfo implements java.io.Serializable {
 		this.userDetailInfo = userDetailInfo;
 	}
 
+	@Override
+	public String toString() {
+		return "UserInfo [userId=" + userId + ", userNickName=" + userNickName + "]";
+	}
+	
+	
+
 }

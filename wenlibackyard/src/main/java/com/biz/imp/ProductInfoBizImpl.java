@@ -1,12 +1,16 @@
 package com.biz.imp;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import com.bean.PageBean;
 import com.biz.IProductInfobBiz;
 import com.dao.BaseDAO;
+import com.po.OrderMain;
 import com.po.ProductInfo;
 import com.po.ProductType;
 import com.service.dao.DaoService;
@@ -62,4 +66,21 @@ public class ProductInfoBizImpl extends BaseBizImpl<ProductInfo> implements IPro
 		return daos.getProductInfoDAO();
 	}
 
+	@Override
+	public List<ProductInfo> findByUserId(PageBean pageBean, String userId) {
+		String hql = "from ProductInfo info where info.userInfoId = ? order by info.pbDate desc";
+		return daos.getProductInfoDAO().findByHQL(hql, pageBean, userId);
+	}
+
+	@Override
+	public List<ProductInfo> findByNameLike(PageBean pageBean, String name) {
+		String hql = "from ProductInfo info where info.productName like ?";
+		return daos.getProductInfoDAO().findByHQL(hql, pageBean, "%" + name + "%");
+	}
+
+	@Override
+	public List<OrderMain> findOrderMain(PageBean pageBean, String userId) {
+		String hql = "from OrderMain main where main.userInfoId = ?";
+		return daos.getOrderMainDAO().findByHQL(hql, pageBean, userId);
+	}
 }

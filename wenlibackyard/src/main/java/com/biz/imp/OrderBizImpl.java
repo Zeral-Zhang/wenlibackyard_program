@@ -42,7 +42,7 @@ public class OrderBizImpl implements IOrderBiz {
 	@Override
 	public List<OrderMain> findAllMain(String userId, PageBean pageBean) {
 		try {
-			List<OrderMain> mainlst = daos.getOrdermainDAO().findAllByUser(userId, pageBean);
+			List<OrderMain> mainlst = daos.getOrderMainDAO().findAllByUser(userId, pageBean);
 			return mainlst;
 		} catch (Exception e) {
 			throw new RuntimeException("findAllMain exception", e);
@@ -57,11 +57,11 @@ public class OrderBizImpl implements IOrderBiz {
 			Map<String, ShopCarItem> items = myCar.getItems();
 			OrderMain orderMain = new OrderMain();
 			orderMain.setSumPrice(myCar.getSumPrice());
-			orderMain.setUserInfo(user);
+			orderMain.setUserInfoId(user.getUserId());
 			orderMain.setState(OrderMain.UN_HANDLE);
 			orderMain.setBuyDate(new Date());
 			// 存入订单主表信息
-			daos.getOrdermainDAO().save(orderMain);
+			daos.getOrderMainDAO().save(orderMain);
 
 			for (String key : items.keySet()) {
 				ShopCarItem item = items.get(key);
@@ -76,6 +76,7 @@ public class OrderBizImpl implements IOrderBiz {
 			log.info("保存" + user.toString() + "订单成功");
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error("保存" + user.toString() + "订单失败", e);
 			return false;
 		}

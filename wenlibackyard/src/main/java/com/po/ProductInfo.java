@@ -36,16 +36,49 @@ public class ProductInfo implements java.io.Serializable {
 	// Fields
 	
 	private String productId;
+	/**
+	 * 商品类型
+	 */
 	private ProductType productType;
+	/**
+	 * 用户id
+	 */
 	private String userInfoId;
+	/**
+	 * 商品名称
+	 */
 	private String productName;
+	/**
+	 * 商标
+	 */
 	private String brand;
+	/**
+	 * 描述
+	 */
 	private String context;
+	/**
+	 * 图片
+	 */
 	private String imgs;
+	/**
+	 * 价格
+	 */
 	private Float price;
+	/**
+	 * 数量
+	 */
 	private Integer number;
+	/**
+	 * 购买日期
+	 */
 	private Date buyDate;
+	/**
+	 * 发布日期
+	 */
 	private Date pbDate;
+	/**
+	 * 状态
+	 */
 	private Integer state;
 	private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
 	private Set<Favorite> favorites = new HashSet<Favorite>(0);

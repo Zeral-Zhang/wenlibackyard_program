@@ -14,8 +14,11 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.stereotype.Controller;
 
+import com.bean.PageBean;
 import com.bean.WeixinOauth2Token;
 import com.constant.WenlibackyardConstant;
+import com.po.OrderMain;
+import com.po.ProductInfo;
 import com.po.SchoolInfo;
 import com.po.UserDetailInfo;
 import com.po.UserInfo;
@@ -37,6 +40,7 @@ public class UserAction extends BaseAction implements IUserAction {
 	private UserDetailInfo userDetail;
 	private String userid;
 	private String path;
+	private PageBean pageBean;
 	/**
 	 * 学院信息
 	 */
@@ -108,8 +112,9 @@ public class UserAction extends BaseAction implements IUserAction {
 		return "success";
 	}
 
-	@Action(value = "toUserInfo", results = { @Result(name = "success", location = "/WEB-INF/new_front/userInfo.jsp"),
-			@Result(name = "login", location = "/WEB-INF/userLogin.jsp") })
+	@Action(value = "toUserInfo", results = { 
+			@Result(name = "success", location = "/WEB-INF/new_front/userInfo.jsp") 
+			})
 	@Override
 	public String toUserInfo() {
 		try {
@@ -118,10 +123,43 @@ public class UserAction extends BaseAction implements IUserAction {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			return "failed";
 		}
 		return "success";
 	}
 
+	@Action(value = "toUserSaling", results = { 
+			@Result(name = "success", location = "/WEB-INF/new_front/userSaling.jsp") 
+			})
+	@Override
+	public String toUserSaling() {
+		try {
+			pageBean = pageBean == null ? new PageBean() : pageBean;
+			List<ProductInfo> lsemp = biz.getProductInfobiz().findByUserId(pageBean, getLoginUser().getUserId());
+			pageBean.setPagelist(lsemp);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "failed";
+		}
+		return "success";
+	}
+	
+	@Action(value = "toUserPayed", results = { 
+			@Result(name = "success", location = "/WEB-INF/new_front/userPayed.jsp") 
+			})
+	@Override
+	public String toUserPayed() {
+		try {
+			pageBean = pageBean == null ? new PageBean() : pageBean;
+			List<OrderMain> lsemp = biz.getProductInfobiz().findOrderMain(pageBean, getLoginUser().getUserId());
+			pageBean.setPagelist(lsemp);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "failed";
+		}
+		return "success";
+	}
+	
 	@Action(value = "updateUser", results = { @Result(name="success", location="toUserDetail",type="redirectAction"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
 	@Override
@@ -176,5 +214,13 @@ public class UserAction extends BaseAction implements IUserAction {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public PageBean getPageBean() {
+		return pageBean;
+	}
+
+	public void setPageBean(PageBean pageBean) {
+		this.pageBean = pageBean;
 	}
 }

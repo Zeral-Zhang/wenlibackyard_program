@@ -56,6 +56,12 @@
 					</div>
 				</div>
 				<div class="weui-cell">
+	                <div class="weui-cell__hd"><label class="weui-label">商品数量</label></div>
+	                <div class="weui-cell__bd">
+	                    <input class="weui-input" type="number" name="productInfo.number" pattern="[0-9]*" placeholder="商品数量"/>
+	                </div>
+           	 	</div>
+				<div class="weui-cell">
 	                <div class="weui-cell__hd">
 	                	<label for="" class="weui-label">购买日期</label>
 	                </div>
@@ -103,12 +109,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="weui-cell">
-	                <div class="weui-cell__hd"><label class="weui-label">商品数量</label></div>
-	                <div class="weui-cell__bd">
-	                    <input class="weui-input" type="number" name="productInfo.number" pattern="[0-9]*" placeholder="商品数量"/>
-	                </div>
-           	 	</div>
            	 	<div class="page__bd">
 			        <div class="weui-gallery" id="gallery">
 			            <span class="weui-gallery__img" id="galleryImg"></span>

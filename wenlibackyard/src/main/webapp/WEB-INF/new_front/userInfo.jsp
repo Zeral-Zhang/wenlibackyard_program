@@ -19,7 +19,6 @@
 	<body>
 		<!-- 顶部导航 -->
 		<div class="top">
-			<!-- 按钮 -->
 			<nav class="navbar navbar-light bg-faded about_nav">
 				<span class="container">个人中心</span>
 			</nav>
@@ -37,7 +36,7 @@
 					</div>
 				</li>
 				<li class="list-group-item">
-					<a href="#">
+					<a href="<%=path %>/toUserSaling">
 						<div class="list_img1"></div>正在售卖<span class="label label-default label-pill stay_right">1</span>
 					</a>
 				</li>
@@ -47,12 +46,12 @@
 					</a>
 				</li>
 				<li class="list-group-item">
-					<a href="#">
+					<a href="<%=path %>/toUserPayed">
 						<div class="list_img3"></div>我买到的<span class="label label-default label-pill stay_right">4</span>
 					</a>
 				</li>
 				<li class="list-group-item">
-					<a href="#">
+					<a href="<%=path %>/toUserFavorite">
 						<div class="list_img4"></div>我的收藏<span class="label label-default label-pill stay_right">5</span>
 					</a>
 				</li>

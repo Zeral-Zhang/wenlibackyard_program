@@ -47,7 +47,7 @@ public class MyCar {
 		}else{
 			ShopCarItem shopcar = new ShopCarItem();
 			shopcar.setNum(num);
-			shopcar.setPrice(product.getPrice());
+			shopcar.setPrice(product.getPrice()*num);
 			shopcar.setProduct(product);
 			items.put(product.getProductId(), shopcar);
 		}

@@ -27,11 +27,11 @@
 		<!-- 按钮 -->
 		<nav class="navbar navbar-light bg-faded">
 			<div style="float:left;">
-		    	<a href="<%=path %>/toProductList" class="add_btn"><img src="<%=path%>/images/add.png" /></a>
+		    	<a href="<%=path %>/toProductAdd" class="add_btn"><img src="<%=path%>/images/add.png" /></a>
 			</div>
-			<div class="input-group">
+			<div class="input-group" style="margin: 0 auto">
 			    	<input type="text" class="form-control" placeholder="请输入商品关键字" />
-			      	<span><a href="#" class="search_btn"><img src="<%=path%>/images/search.png" /></a></span>
+			      	<span><a href="javascript:void(0);" class="search_btn"><img src="<%=path%>/images/search.png" /></a></span>
 		      	</div>
 			<button class="navbar-toggler nav_btn" type="button">
 				<img src="<%=path%>/images/icon/more.png">
@@ -111,138 +111,28 @@
 		</div>
 	</div>
 	<div class="container">
-		<div id="horizontalTab"
-			style="display: block; width: 100%; margin: 0px;">
-			<ul class="resp-tabs-list">
-				<li class="resp-tab-item" aria-controls="tab_item-0" role="tab">
-					<span>最新发布</span>
-				</li>
-				<li class="resp-tab-item" aria-controls="tab_item-1" role="tab">
-					<span>最多人气</span>
-				</li>
-				<li class="resp-tab-item" aria-controls="tab_item-2" role="tab">
-					<span>随意看看</span>
-				</li>
-			</ul>
-		</div>
 		<!-- 页面中部 -->
 		<div class="middle container-fluid">
 			<!-- 商品卡片 -->
 			<div class="mid_card">
 				<div class="row card-group">
 					<c:forEach items="${pageBean.pagelist}" var="product">
-						<div class="col-xs-6">
+						<div class="col-md-3 col-xs-6">
 							<div class="card">
 								<a href="${pageContext.request.contextPath}/toProductDetail?productId=${product.productId}">
 									<div class="card_img">
 										<img class="card-img-top center-block"
 											src="<%=path%>${product.fileSrcs[0]}"
-											data-src="holder.js/80px180?text=走丢了Y.Y">
+											data-src="holder.js/80px180?text=走丢了Y.Y" alt="图片走丢了">
 									</div>
 									<div class="card-block">
-										<p class="card-title">${product.productName}160/84A，zara秋冬新款，不包邮不接受议价</p>
+										<p class="card-title">${product.productName}，${product.brand }，${product.context }</p>
 									</div>
 								</a>
 								<p class="card-text">￥${product.price}</p>
 							</div>
 						</div>
 					</c:forEach>
-					<%-- <div class="col-xs-6">
-						<div class="card">
-							<a href="<%=path %>/toProductDetail.action?productId=${product.productId}">
-								<div class="card_img">
-									<img class="card-img-top center-block"
-										src="<%=path%>/images/product/p122.jpg"
-										data-src="holder.js/80px180?text=走丢了Y.Y"  alt="Card image cap">
-								</div>
-								<div class="card-block">
-									<p class="card-title">160/84A，zara秋冬新款，不包邮不接受议价</p>
-								</div>
-							</a>
-							<p class="card-text">￥349.00</p>
-						</div>
-					</div>
-					<div class="col-xs-6">
-						<div class="card">
-							<a href="#">
-								<div class="card_img">
-									<img class="card-img-top center-block"
-										src="<%=path%>/images/product/2.jpg"
-										data-src="holder.js/130x150?text=走丢了Y.Y" alt="Card image cap">
-								</div>
-								<div class="card-block">
-									<p class="card-title">New Balance NB 373系列男鞋复古鞋跑步鞋休闲运动鞋
-										ML373GRN/浅灰色 41.5</p>
-								</div>
-							</a>
-							<p class="card-text">￥349.00</p>
-						</div>
-					</div>
-					<div class="col-xs-6">
-						<div class="card">
-							<a href="#">
-								<div class="card_img">
-									<img class="card-img-top center-block"
-										src="<%=path%>/images/product/2.jpg"
-										data-src="holder.js/130x150?text=走丢了Y.Y" alt="Card image cap">
-								</div>
-								<div class="card-block">
-									<p class="card-title">耐克（NIKE）802611-001 AIR MAX减震 复古休闲鞋
-										运动鞋 奥利奥配色 US9码</p>
-
-								</div>
-							</a>
-							<p class="card-text">￥748.00</p>
-						</div>
-					</div>
-					<div class="col-xs-6">
-						<div class="card">
-							<a href="#">
-								<div class="card_img">
-									<img class="card-img-top center-block"
-										src="<%=path%>/images/product/2.jpg"
-										data-src="holder.js/130x150?text=走丢了Y.Y" alt="Card image cap">
-								</div>
-								<div class="card-block">
-									<p class="card-title">New Balance NB 373系列男鞋复古鞋跑步鞋休闲运动鞋
-										ML373GRN/浅灰色 41.5</p>
-								</div>
-							</a>
-							<p class="card-text">￥349.00</p>
-						</div>
-					</div>
-					<div class="col-xs-6">
-						<div class="card">
-							<a href="#">
-								<div class="card_img">
-									<img class="card-img-top center-block"
-										src="<%=path%>/images/product/2.jpg"
-										data-src="holder.js/130x150?text=走丢了Y.Y" alt="Card image cap">
-								</div>
-								<div class="card-block">
-									<p class="card-title">耐克（NIKE）802611-001 AIR MAX减震 复古休闲鞋
-										运动鞋 奥利奥配色 US9码</p>
-								</div>
-							</a>
-							<p class="card-text">￥748.00</p>
-						</div>
-					</div>
-					<div class="col-xs-6">
-						<div class="card">
-							<a href="#">
-								<div class="card_img">
-									<img class="card-img-top center-block"
-										src="<%=path%>/images/product/2.jpg"
-										data-src="holder.js/130x150?text=走丢了Y.Y" alt="Card image cap">
-								</div>
-								<div class="card-block">
-									<p class="card-title">New Balance NB 373系列男鞋复古鞋跑步鞋休闲运动鞋
-										ML373GRN/浅灰色 41.5</p>
-								</div>
-							</a>
-							<p class="card-text">￥349.00</p>
-						</div>
-					</div> --%>
 				</div>
 				<!-- 分页插件 -->
 				<div id="pagination">
@@ -266,6 +156,12 @@
 			/* Act on the event */
 			$(".nav_pane").toggle().css('height', $("body").height());
 			$(".bottom").toggle();
+		});
+		$('.search_btn').click(function() {
+			var search = $(this).closest('.input-group').children("input").val();
+			if(search.length != 0) {
+				window.location.href = '${pageContext.request.contextPath}/toProductList?search='+search;
+			}
 		});
 		$(function() {
 			/* body... */
@@ -293,6 +189,7 @@
 			ias.extension(new IASNoneLeftExtension({
 			    text: '已经到底了', // optionally
 			}));
+			
 		  /* 
 			$('#horizontalTab').easyResponsiveTabs({
 				type : 'default', //Types: default, vertical, accordion

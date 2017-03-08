@@ -46,5 +46,17 @@ public interface IUserAction {
 	 * @return
 	 */
 	String validateUser();
+
+	/**
+	 * 初始化用户正在售卖页面
+	 * @return
+	 */
+	String toUserSaling();
+	
+	/**
+	 * 初始化用户已经购买列表
+	 * @return
+	 */
+	String toUserPayed();
 	
 }

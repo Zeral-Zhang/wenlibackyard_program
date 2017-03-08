@@ -29,7 +29,7 @@ public class Favorite implements java.io.Serializable {
 
 	private String favoriteId;
 	private ProductInfo productInfo;
-	private UserInfo userInfo;
+	private String userInfoId;
 	private Date createDate;
 	private String context;
 
@@ -37,22 +37,6 @@ public class Favorite implements java.io.Serializable {
 
 	/** default constructor */
 	public Favorite() {
-	}
-
-	/** minimal constructor */
-	public Favorite(ProductInfo productInfo, UserInfo userInfo, Date createDate) {
-		this.productInfo = productInfo;
-		this.userInfo = userInfo;
-		this.createDate = createDate;
-	}
-
-	/** full constructor */
-	public Favorite(ProductInfo productInfo, UserInfo userInfo,
-			Date createDate, String context) {
-		this.productInfo = productInfo;
-		this.userInfo = userInfo;
-		this.createDate = createDate;
-		this.context = context;
 	}
 
 	// Property accessors
@@ -78,14 +62,13 @@ public class Favorite implements java.io.Serializable {
 		this.productInfo = productInfo;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id",  nullable = false)
-	public UserInfo getUserInfo() {
-		return this.userInfo;
+	@Column(name = "user_id",  nullable = false)
+	public String getUserInfoId() {
+		return this.userInfoId;
 	}
 
-	public void setUserInfo(UserInfo userInfo) {
-		this.userInfo = userInfo;
+	public void setUserInfoId(String userInfoId) {
+		this.userInfoId = userInfoId;
 	}
 
 	@Temporal(TemporalType.DATE)

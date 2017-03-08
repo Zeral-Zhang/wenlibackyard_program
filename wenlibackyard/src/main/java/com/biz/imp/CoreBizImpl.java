@@ -13,13 +13,10 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.stereotype.Service;
 
-import com.bean.AccessToken;
-import com.bean.WeixinOauth2Token;
 import com.bean.req.MsgRequest;
 import com.bean.resp.MsgResponseText;
 import com.biz.ICoreBiz;
 import com.service.dao.DaoService;
-import com.util.HttpsUtil;
 import com.util.MsgXmlUtil;
 import com.util.PropertiesConfigUtil;
 import com.util.SignUtil;
@@ -153,22 +150,5 @@ public class CoreBizImpl implements ICoreBiz {
 		} catch (Exception e) {
 			throw new RuntimeException("response msg Exception", e);
 		}
-	}
-
-	@Override
-	public AccessToken getToken() {
-		AccessToken accessToken = daos.getBasicConfigDAO().getToken();
-		try {
-			Properties prop = PropertiesConfigUtil.getProperties("account.properties");
-			if(null == accessToken || System.currentTimeMillis()/1000 > accessToken.getExpiresIn()) {
-				WeixinOauth2Token weixinOauth2Token = HttpsUtil
-						.getOauth2AccessToken(prop.getProperty("appid"),
-								prop.getProperty("appsecret"), code);
-				daos.getBasicConfigDAO().setToken(accessToken);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return accessToken;
 	}
 }

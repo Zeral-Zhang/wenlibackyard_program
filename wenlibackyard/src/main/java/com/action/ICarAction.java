@@ -21,5 +21,5 @@ public interface ICarAction {
 	/**
 	 * 增加或减少购物车商品数量
 	 */
-	public void changeQuantity();
+	public String changeQuantity();
 }
