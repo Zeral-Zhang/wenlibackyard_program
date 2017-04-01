@@ -77,6 +77,18 @@ public class ProductInfoBizImpl extends BaseBizImpl<ProductInfo> implements IPro
 		String hql = "from ProductInfo info where info.productName like ?";
 		return daos.getProductInfoDAO().findByHQL(hql, pageBean, "%" + name + "%");
 	}
+	
+	@Override
+	public List<ProductInfo> findByTypeAndNameLike(PageBean pageBean, String productTypeId, String name) {
+		String hql = "from ProductInfo info where info.productType.productTypeId = ? and info.productName like ?";
+		return daos.getProductInfoDAO().findByHQL(hql, pageBean, productTypeId, "%" + name + "%");
+	}
+	
+	@Override
+	public List<ProductInfo> findByType(PageBean pageBean, String productTypeId) {
+		String hql = "from ProductInfo info where info.productType.productTypeId = ?";
+		return daos.getProductInfoDAO().findByHQL(hql, pageBean, productTypeId);
+	}
 
 	@Override
 	public List<OrderMain> findOrderMain(PageBean pageBean, String userId) {

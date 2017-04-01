@@ -17,6 +17,7 @@
 		<link rel="stylesheet" href="<%=path %>/bootstrap/css/bootstrap.css">
 		<link rel="stylesheet" href="<%=path %>/css/lightgallery.css">
 		<link rel="stylesheet" href="<%=path %>/css/reset.css">
+		<link rel="stylesheet" href="<%=path %>/css/weui.css">
 		<link rel="stylesheet" href="<%=path %>/css/style.css">
 		<link rel="stylesheet" href="<%=path %>/css/alertify.css">
 	</head>
@@ -49,16 +50,23 @@
 				</div>
 			</div>
 			
-			<div class="product_info">
-				<div class="pro_tag">
-						<span class="tag_name">购买日期:</span><span><fmt:formatDate value="${productInfo.buyDate}" type="date" pattern="yyyy-MM-dd"/></span>
-				</div>
-				<div class="pro_tag">
-						<span class="tag_name">发布日期:</span><span><fmt:formatDate value="${productInfo.pbDate}" type="date" pattern="yyyy-MM-dd"/></span>
-				</div>
-				<div class="pro_tag">
-						<span class="tag_name">商品描述:</span><p>${productInfo.context}</p>
-				</div>
+			<div class="weui-form-preview__bd">
+				 <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">类型</label>
+                    <span class="weui-form-preview__value">${productInfo.productType.productTypeName }</span>
+                </div>
+                <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">购买日期</label>
+                    <span class="weui-form-preview__value"><fmt:formatDate value="${productInfo.buyDate}" type="date" pattern="yyyy-MM-dd"/></span>
+                </div>
+                <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">发布日期</label>
+                    <span class="weui-form-preview__value"><fmt:formatDate value="${productInfo.pbDate}" type="date" pattern="yyyy-MM-dd"/></span>
+                </div>
+                <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">商品描述</label>
+                    <span class="weui-form-preview__value">${productInfo.context }</span>
+                </div>
 				<div class="price_loc">
 					<div class="user_loc">
 						<div class="loc_img"></div>

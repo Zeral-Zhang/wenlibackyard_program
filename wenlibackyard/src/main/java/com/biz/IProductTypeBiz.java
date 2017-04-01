@@ -8,7 +8,13 @@ public interface IProductTypeBiz {
 	/**
 	 * 初始化商品列表
 	 * @return
-	 * @throws Exception 
 	 */
-	public List<ProductType> findProuctType() throws Exception;
+	public List<ProductType> findProuctType();
+	
+	/**
+	 * 根据商品类型Id查询
+	 * @param productTypeId
+	 * @return
+	 */
+	ProductType findById(String productTypeId);
 }

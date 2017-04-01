@@ -26,91 +26,19 @@
 	<div class="top">
 		<!-- 按钮 -->
 		<nav class="navbar navbar-light bg-faded">
-			<div style="float:left;">
-		    	<a href="<%=path %>/toProductAdd" class="add_btn"><img src="<%=path%>/images/add.png" /></a>
-			</div>
+			<a href="<%=path%>/toProductList"><span class="go_back"></span></a>
 			<div class="input-group" style="margin: 0 auto">
-			    	<input type="text" class="form-control" placeholder="请输入商品关键字" value="${search }" />
-			      	<span><a href="javascript:void(0);" class="search_btn"><img src="<%=path%>/images/search.png" /></a></span>
-		      	</div>
-			<button class="navbar-toggler nav_btn" type="button">
-				<img src="<%=path%>/images/icon/more.png">
-			</button>
+		    	<input type="text" class="form-control" placeholder="请输入商品关键字" value="${search }" />
+		      	<span><a href="javascript:void(0);" class="search_btn"><img src="<%=path%>/images/search.png" /></a></span>
+		    </div>
 		</nav>
-		<!-- 分类 -->
-		<div class="nav_pane">
-			<div class="container">
-				<ul class="nav_ul">
-					<div class="row">
-						<li class="col-xs-4"><a href="<%=path %>/toProductCateList?productTypeId=1"> <img
-								src="<%=path%>/images/list/1.jpg" /> 电脑/配件
-						</a></li>
-						<li class="col-xs-4"><a href="<%=path %>/toProductCateList?productTypeId=2"> <img
-								src="<%=path%>/images/list/2.jpg" /> 手机
-						</a></li>
-						<li class="col-xs-4"><a href="<%=path %>/toProductCateList?productTypeId=3"> <img
-								src="<%=path%>/images/list/3.jpg" /> 相机/摄像机
-						</a></li>
-						<li class="col-xs-4"><a href="<%=path %>/toProductCateList?productTypeId=4"> <img
-								src="<%=path%>/images/list/4.jpg" /> 女装
-						</a></li>
-						<li class="col-xs-4"><a href="<%=path %>/toProductCateList?productTypeId=5"> <img
-								src="<%=path%>/images/list/5.jpg" /> 男装
-						</a></li>
-						<li class="col-xs-4"><a href="<%=path %>/toProductCateList?productTypeId=6"> <img
-								src="<%=path%>/images/list/6.jpg" /> 化妆品
-						</a></li>
-						<li class="col-xs-4"><a href="<%=path %>/toProductCateList?productTypeId=7"> <img
-								src="<%=path%>/images/list/7.jpg" /> 生活用品
-						</a></li>
-						<li class="col-xs-4"><a href="<%=path %>/toProductCateList?productTypeId=8"> <img
-								src="<%=path%>/images/list/8.jpg" /> 书刊音像
-						</a></li>
-						<li class="col-xs-4"><a href="<%=path %>/toProductCateList?productTypeId=9"> <img
-								src="<%=path%>/images/list/9.jpg" /> 交通工具
-						</a></li>
-						<li class="col-xs-4"><a href="<%=path %>/toProductCateList?productTypeId=10"> <img
-								src="<%=path%>/images/list/10.jpg" /> 家用电器
-						</a></li>
-						<li class="col-xs-4"><a href="<%=path %>/toProductCateList?productTypeId=11"> <img
-								src="<%=path%>/images/list/11.jpg" /> 珠宝首饰
-						</a></li>
-					</div>
-				</ul>
-			</div>
-		</div>
-		<!-- 轮播图 -->
-		<div class="mid_silde">
-			<div id="carousel-example-generic" class="carousel slide"
-				data-ride="carousel">
-				<ol class="carousel-indicators">
-					<li data-target="#carousel-example-generic" data-slide-to="0"
-						class="active"></li>
-					<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-				</ol>
-				<div class="carousel-inner" role="listbox">
-					<div class="carousel-item active">
-						<img src="<%=path%>/images/1.jpg"
-							data-src="holder.js/900x500/auto/#777:#555/text:First slide"
-							alt="First slide">
-					</div>
-					<div class="carousel-item">
-						<img src="<%=path%>/images/2.jpg"
-							data-src="holder.js/900x500/auto/#666:#444/text:Second slide"
-							alt="Second slide">
-					</div>
-				</div>
-				<a class="left carousel-control" href="#carousel-example-generic"
-					role="button" data-slide="prev"> <span class="icon-prev"
-					aria-hidden="true"></span>
-				</a> <a class="right carousel-control" href="#carousel-example-generic"
-					role="button" data-slide="next"> <span class="icon-next"
-					aria-hidden="true"></span>
-				</a>
-			</div>
-		</div>
 	</div>
 	<div class="container">
+		<div class="page-head">
+			<div class="container">
+				<h3>${productType.productTypeName }</h3>
+			</div>
+		</div>
 		<!-- 页面中部 -->
 		<div class="middle container-fluid">
 			<!-- 商品卡片 -->
@@ -136,7 +64,7 @@
 				</div>
 				<!-- 分页插件 -->
 				<div id="pagination">
-					<a href="toProductList.action?pageBean.page=${pageBean.page+1}&pageBean.totalCount=${pageBean.totalCount}&search=${search}" class="next">next</a>
+					<a href="toProductCateList.action?pageBean.page=${pageBean.page+1}&productTypeId=${productTypeId}&search=${search}" class="next">next</a>
 				</div>
 			</div>
 			<div class="clearfix"></div>
@@ -160,7 +88,7 @@
 		$('.search_btn').click(function() {
 			var search = $(this).closest('.input-group').children("input").val();
 			if(search.length != 0) {
-				window.location.href = '${pageContext.request.contextPath}/toProductList.action?search='+search;
+				window.location.href = '${pageContext.request.contextPath}/toProductCateList.action?productTypeId=${productTypeId}&search='+search;
 				var pageA = $('#pagination > a');
 				pageA.attr("href", pageA.href+"?search="+search);
 			} else {

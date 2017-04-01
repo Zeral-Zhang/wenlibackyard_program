@@ -34,4 +34,20 @@ public interface IProductInfobBiz extends IBaseBiz<ProductInfo> {
 	 * @return
 	 */
 	public List<OrderMain> findOrderMain(PageBean pageBean, String userId);
+
+	/**
+	 * 根据商品类型和名称模糊查询
+	 * @param pageBean
+	 * @param name
+	 * @return
+	 */
+	List<ProductInfo> findByTypeAndNameLike(PageBean pageBean, String productTypeId, String name);
+
+	/**
+	 * 根据商品类型查询商品列表信息
+	 * @param pageBean
+	 * @param productTypeId
+	 * @return
+	 */
+	List<ProductInfo> findByType(PageBean pageBean, String productTypeId);
 }

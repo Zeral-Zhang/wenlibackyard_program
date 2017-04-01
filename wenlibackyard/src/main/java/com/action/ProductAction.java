@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
+import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Controller;
 
 import com.bean.PageBean;
@@ -29,6 +30,8 @@ public class ProductAction extends BaseAction implements IProductAction {
 	private String productId;
 	private List<String> fileSrcs;
 	private String search;
+	private String productTypeId;
+	private ProductType productType;
 
 	private PageBean pageBean;
 
@@ -76,8 +79,8 @@ public class ProductAction extends BaseAction implements IProductAction {
 
 	@Action(value = "toProductList", results = {
 			@Result(name = "success", location = "/WEB-INF/new_front/productList.jsp"),
-			@Result(name = "failed", location = "/WEB-INF/error.jsp"),
-			@Result(name = "login", location = "/WEB-INF/userLogin.jsp")})
+			@Result(name = "failed", location = "/WEB-INF/error.jsp")
+			})
 	@Override
 	public String toProductList() {
 		/*if (null == getLoginUser()) {
@@ -92,10 +95,36 @@ public class ProductAction extends BaseAction implements IProductAction {
 				lsemp = bizs.getProductInfobiz().findByNameLike(pageBean, search);
 			} else {
 				// 获取当前页的记录集合
-				lsemp = bizs.getProductInfobiz().findAll(pageBean);
+				lsemp = bizs.getProductInfobiz().findAll(pageBean, Order.desc("pbDate"));
 			}
 			// 封装数据到PageBean
 			pageBean.setPagelist(lsemp);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "failed";
+		}
+		return "success";
+	}
+	
+	@Action(value = "toProductCateList", results = {
+			@Result(name = "success", location = "/WEB-INF/new_front/productCateList.jsp"),
+			@Result(name = "failed", location = "/WEB-INF/error.jsp")
+			})
+	@Override
+	public String toProductCateList() {
+		try {
+			pageBean = pageBean == null ? new PageBean() : pageBean;
+			
+			List<ProductInfo> lsemp = null;
+			if(null != search) {
+				lsemp = bizs.getProductInfobiz().findByTypeAndNameLike(pageBean, productTypeId, search);
+			} else {
+				// 获取当前页的记录集合
+				lsemp = bizs.getProductInfobiz().findByType(pageBean, productTypeId);
+			}
+			// 封装数据到PageBean
+			pageBean.setPagelist(lsemp);
+			productType = bizs.getProductTypebiz().findById(productTypeId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "failed";
@@ -158,6 +187,22 @@ public class ProductAction extends BaseAction implements IProductAction {
 
 	public void setSearch(String search) {
 		this.search = search;
+	}
+
+	public String getProductTypeId() {
+		return productTypeId;
+	}
+
+	public void setProductTypeId(String productTypeId) {
+		this.productTypeId = productTypeId;
+	}
+
+	public ProductType getProductType() {
+		return productType;
+	}
+
+	public void setProductType(ProductType productType) {
+		this.productType = productType;
 	}
 	
 }

@@ -23,4 +23,10 @@ public interface IProductAction {
 	 * @return
 	 */
 	public String toProductDetail();
+
+	/**
+	 * 查找某个类别的商品列表
+	 * @return
+	 */
+	public String toProductCateList();
 }

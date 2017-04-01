@@ -47,6 +47,16 @@ public class FileAction extends BaseAction {
 			log.error(e.getMessage(), e);
 		}
 	}
+	
+	@Action("delFile")
+	public void delFile() {
+		try {
+			this.bizs.getFileInfoBiz().delFile(fileInfo.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage(), e);
+		}
+	}
 
 	public File getUpload() {
 		return upload;

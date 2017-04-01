@@ -31,6 +31,15 @@ public class FileInfoBizImpl implements IFileInfoBiz {
 			e.printStackTrace();
 		}
 	}
+	
+	public void delFile(String fileInfoId) {
+		try {
+			this.fileInfoDao.delete(fileInfoId);
+		} catch (Exception e) {
+			log.error("删除文件失败", e);
+			e.printStackTrace();
+		}
+	}
 
 	public File uploadFile(File source, String fileInfoName) {
 		try {

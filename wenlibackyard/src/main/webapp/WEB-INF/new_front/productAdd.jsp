@@ -31,7 +31,7 @@
 	<div class="top">
 		<!-- 按钮 -->
 		<nav class="navbar navbar-light bg-faded about_nav">
-			<a href="<%=path%>/toUserInfo"><span class="go_back"></span></a>
+			<a href="javascript:history.go(-1);"><span class="go_back"></span></a>
 			<span class="container">添加商品</span>
 		</nav>
 	</div>
@@ -113,7 +113,7 @@
 			        <div class="weui-gallery" id="gallery">
 			            <span class="weui-gallery__img" id="galleryImg"></span>
 			            <div class="weui-gallery__opr">
-			                <a href="javascript:" class="weui-gallery__del">
+			                <a id="galleryDel" href="javascript:" class="weui-gallery__del">
 			                    <i class="weui-icon-delete weui-icon_gallery-delete"></i>
 			                </a>
 			            </div>
@@ -129,10 +129,10 @@
 			                        </div>
 			                        <div class="weui-uploader__bd">
 			                            <ul class="weui-uploader__files" id="uploaderFiles">
+			                            	<div class="weui-uploader__input-box">
+			                                	<input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple />
+			                           		</div>
 			                            </ul>
-			                            <div class="weui-uploader__input-box">
-			                                <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" />
-			                            </div>
 			                        </div>
 			                    </div>
 			                </div>
@@ -190,9 +190,14 @@
 	      var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)">' +
 	      		     '<input type="hidden" name="#name#" value="#value#"/>' +
 	      		     '</li>',
+	      statusTmpl = '<li class="weui-uploader__file weui-uploader__file_status">' +
+              	       '<div class="weui-uploader__file-content"></div>' +
+          			   '</li>',
 	      $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),
+	      $galleryDel = $("#galleryDel"),
 	      $uploaderInput = $("#uploaderInput"),
-	      $uploaderFiles = $("#uploaderFiles")
+	      $uploaderFiles = $("#uploaderFiles"),
+	      fileCounter = 0
 	      ;
 	
 	  $uploaderInput.on("change", function(e){
@@ -208,7 +213,7 @@
   	    	    },
   	    	files = e.target.files,
   	    	$fileLength = $('#uploaderFiles li').length;
-	      if($fileLength > 4) {
+	      if(fileCounter > 4) {
 	    	  alertify.warning('只能上传五张图片');
 	      } else {
 	    	  for (var i = 0, len = files.length; i < len; ++i) {
@@ -221,45 +226,73 @@
 				          formData.append('fileInfo.name', files[i].name);
 				        //ajax异步上传  
 			              $.ajax({  
-			                  url: "<%=path%>/uploadFile",  
+			                  url: "<%=path%>/uploadFile.action",  
 			                  type: "POST",  
 			                  data: formData,
 			                  xhr: function(){ //获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数  
 			                      myXhr = $.ajaxSettings.xhr();  
 			                      if(myXhr.upload){ //检查upload属性是否存在  
+			                    	  $uploaderFiles.append(statusTmpl);
 			                          //绑定progress事件的回调函数  
 			                          myXhr.upload.addEventListener('progress',progressHandlingFunction, false);   
 			                      }  
 			                      return myXhr; //xhr对象返回给jQuery使用  
 			                  },  
-			                  success: function(result){ 
-			                	 var fileInfo = result.split(':');
-		                		 $uploaderFiles.append($(tmpl.replace('#url#', src).replace('#name#', 'fileSrcs['+$fileLength+']').replace('#value#', fileInfo[2])));
-		                		 $('.weui-uploader__info').text($fileLength+1+'/5');
-			                  },  
+			                  success: function(result){
+			                	  if(result) {
+			                		 var fileInfo = result.split(':');
+			                		 fileCounter+=1;
+			                		 $uploaderFiles.append($(tmpl.replace('#url#', '<%=path%>'+fileInfo[2]).replace('#name#', 'fileSrcs['+$fileLength+']').replace('#value#', fileInfo[0])));
+			                		 $('.weui-uploader__info').text(fileCounter+'/5');  
+			                	  }
+			                  },
+			                  error: function() {
+			                	  alertify.warning('上传失败/(ㄒoㄒ)/~~');
+			                  },
 			                  contentType: false, //必须false才会自动加上正确的Content-Type  
 			                  processData: false  //必须false才会避开jQuery对 formdata 的默认处理  
 			              }); 
 		        	  } else {
 		        		  alertify.warning('你的格式不对呦');
 		        	  }
-		    	  }
-	      }
+	    	  	}
+	     	}
+	      this.value = '';
 	  });
 	  
-		//上传进度回调函数：  
-	    function progressHandlingFunction(e) {  
+		//上传进度回调函数：仅为前端上传进度，不包含后端处理进度，需改善；  
+	    function progressHandlingFunction(e) { 
+			var content = $('li:last div', $uploaderFiles);
 	        if (e.lengthComputable) {  
-	            $('progress').attr({value : e.loaded, max : e.total}); //更新数据到进度条  
 	            var percent = e.loaded/e.total*100;  
-	            $('#progress').html(e.loaded + "/" + e.total+" bytes. " + percent.toFixed(2) + "%");  
+	            content.text(percent.toFixed(2) + "%");
+	            if(content.text() == '100.00%') {
+	            	content.closest('li').remove();
+	            }
 	        }  
 	    } 
 		
 	  $uploaderFiles.on("click", "li", function(){
 	      $galleryImg.attr("style", this.getAttribute("style"));
+	      $galleryDel.attr('name', $('input:hidden', this).val());
 	      $gallery.fadeIn(100);
 	  });
+	  
+	  $galleryDel.on("click", function() {
+		var fileId = $(this).attr("name");
+		$.ajax({  
+            url: "<%=path%>/delFile.action",  
+            type: "POST",  
+            data: "fileInfo.id="+fileId,
+            success: function(){
+            	$("li input[value="+fileId+"]", $uploaderFiles).parent().remove();
+            	fileCounter-=1;
+            	$('.weui-uploader__info').text(fileCounter+'/5'); 
+            	$gallery.fadeOut(100);
+            }
+		}); 
+	  });
+	  
 	  $gallery.on("click", function(){
 	      $gallery.fadeOut(100);
 	  });

@@ -13,4 +13,5 @@ public interface IFileInfoBiz {
 
 	public abstract File uploadAndSaveFile(String paramString, File paramFile, FileInfo paramFileInfo);
 
+	public abstract void delFile(String fileInfoId);
 }

@@ -106,11 +106,11 @@ public class CoreBizImpl implements ICoreBiz {
 					buffer.append("回复“?”显示此帮助菜单");
 					responseText(msgRequest, buffer.toString());
 				} else if ("1".equals(msgRequest.getContent())) {
-					responseText(msgRequest, "这里是最新商品");
+					responseText(msgRequest, "这里是你的最新商品\nHttp://wenlibackyard.tunnel.qydev.com/wenlibackyard/toProductList");
 				} else if ("2".equals(msgRequest.getContent())) {
-					responseText(msgRequest, "这里可以发布商品");
+					responseText(msgRequest, "这里可以发布商品\nHttp://wenlibackyard.tunnel.qydev.com/wenlibackyard/toProductAdd");
 				} else if ("3".equals(msgRequest.getContent())) {
-					responseText(msgRequest, "这里是你的订单");
+					responseText(msgRequest, "这里是你的订单\nHttp://wenlibackyard.tunnel.qydev.com/wenlibackyard/toUserPayed");
 				} else {
 					StringBuffer buffer = new StringBuffer();
 					buffer.append("您好，这里是文理后院，请回复数字选择服务：").append("\n\n");
@@ -151,4 +151,5 @@ public class CoreBizImpl implements ICoreBiz {
 			throw new RuntimeException("response msg Exception", e);
 		}
 	}
+	
 }
