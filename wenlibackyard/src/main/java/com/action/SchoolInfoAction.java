@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.Result;
 import org.springframework.stereotype.Controller;
 
 import com.po.SchoolInfo;
@@ -24,7 +25,9 @@ public class SchoolInfoAction implements ISchoolInfoAction {
 	@Resource(name = "BizService")
 	private BizService biz;
 	private String code;
+	private List<SchoolInfo> schoolInfolst;
 
+	
 	@Override
 	@Action(value = "loadDepartments")
 	public void loadDepartments() {
@@ -35,6 +38,19 @@ public class SchoolInfoAction implements ISchoolInfoAction {
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	@Action(value = "toDiscovery", results = { @Result(name = "success", location = "/WEB-INF/new_front/discovery.jsp"),
+			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
+	public String toDiscovery() {
+		try {
+			schoolInfolst = biz.getSchoolInfoBiz().findColleges();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "failed";
+		}
+		return "success";
+	}
 
 	public String getCode() {
 		return code;
@@ -42,6 +58,14 @@ public class SchoolInfoAction implements ISchoolInfoAction {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public List<SchoolInfo> getSchoolInfolst() {
+		return schoolInfolst;
+	}
+
+	public void setSchoolInfolst(List<SchoolInfo> schoolInfolst) {
+		this.schoolInfolst = schoolInfolst;
 	}
 
 }

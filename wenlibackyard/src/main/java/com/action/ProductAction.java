@@ -32,6 +32,7 @@ public class ProductAction extends BaseAction implements IProductAction {
 	private String search;
 	private String productTypeId;
 	private ProductType productType;
+	private String schoolInfoId;
 
 	private PageBean pageBean;
 
@@ -39,12 +40,6 @@ public class ProductAction extends BaseAction implements IProductAction {
 			@Result(name = "success", location = "/WEB-INF/new_front/productAdd.jsp"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
 	public String toProductAdd() {
-		return "success";
-	}
-
-	@Action(value = "productCategory", results = { @Result(name = "success", location = "/WEB-INF/productCategory.jsp"),
-			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
-	public String initProductCategory() {
 		return "success";
 	}
 
@@ -148,6 +143,30 @@ public class ProductAction extends BaseAction implements IProductAction {
 			return "failed";
 		}
 	}
+	
+	@Action(value = "toSchoolInfoProduct", results = {
+			@Result(name = "success", location = "/WEB-INF/new_front/collegeProductList.jsp"),
+			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
+	@Override
+	public String toSchoolInfoProduct() {
+		try {
+			pageBean = pageBean == null ? new PageBean() : pageBean;
+
+			List<ProductInfo> lsemp = null;
+			if(null != search) {
+				/*lsemp = bizs.getProductInfobiz().findByUserSchoolInfoIdAndNameLike(pageBean, search);*/
+			} else {
+				// 获取当前页的记录集合
+				lsemp = bizs.getProductInfobiz().findByUserSchoolInfoId(pageBean, schoolInfoId);
+			}
+			// 封装数据到PageBean
+			pageBean.setPagelist(lsemp);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "failed";
+		}
+	}
 
 	public ProductInfo getProductInfo() {
 		return productInfo;
@@ -203,6 +222,14 @@ public class ProductAction extends BaseAction implements IProductAction {
 
 	public void setProductType(ProductType productType) {
 		this.productType = productType;
+	}
+
+	public String getSchoolInfoId() {
+		return schoolInfoId;
+	}
+
+	public void setSchoolInfoId(String schoolInfoId) {
+		this.schoolInfoId = schoolInfoId;
 	}
 	
 }

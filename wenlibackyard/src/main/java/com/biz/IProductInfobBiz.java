@@ -50,4 +50,12 @@ public interface IProductInfobBiz extends IBaseBiz<ProductInfo> {
 	 * @return
 	 */
 	List<ProductInfo> findByType(PageBean pageBean, String productTypeId);
+
+	/**
+	 * 根据商品发布用户的学院查找商品列表信息
+	 * @param pageBean
+	 * @param schoolInfoId
+	 * @return
+	 */
+	public List<ProductInfo> findByUserSchoolInfoId(PageBean pageBean, String schoolInfoId);
 }

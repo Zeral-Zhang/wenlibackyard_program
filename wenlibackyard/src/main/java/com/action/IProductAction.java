@@ -29,4 +29,10 @@ public interface IProductAction {
 	 * @return
 	 */
 	public String toProductCateList();
+
+	/**
+	 * 初始化某个学院的商品列表
+	 * @return
+	 */
+	public String toSchoolInfoProduct();
 }

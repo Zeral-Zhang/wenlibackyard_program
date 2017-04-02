@@ -95,4 +95,9 @@ public class ProductInfoBizImpl extends BaseBizImpl<ProductInfo> implements IPro
 		String hql = "from OrderMain main where main.userInfoId = ?";
 		return daos.getOrderMainDAO().findByHQL(hql, pageBean, userId);
 	}
+
+	@Override
+	public List<ProductInfo> findByUserSchoolInfoId(PageBean pageBean, String schoolInfoId) {
+		return daos.getProductInfoDAO().findByUserSchoolInfoId(pageBean, schoolInfoId);
+	}
 }

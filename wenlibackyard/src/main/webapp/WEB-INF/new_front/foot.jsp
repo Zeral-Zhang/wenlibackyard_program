@@ -14,7 +14,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="<%=path %>/toProductCategory">
+				<a href="<%=path %>/toDiscovery">
 					<div class="link_img2"></div> 发&nbsp;&nbsp;现
 				</a>
 			</li>
