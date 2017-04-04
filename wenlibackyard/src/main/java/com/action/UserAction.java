@@ -134,6 +134,10 @@ public class UserAction extends BaseAction implements IUserAction {
 	@Override
 	public String toUserSaling() {
 		try {
+			if (null == super.getLoginUser()) {
+				getResponse().sendRedirect(HttpsUtil.AuthLogin(WenlibackyardConstant.VALIDATE_URL, "toUserSaling"));
+				return null;
+			}
 			pageBean = pageBean == null ? new PageBean() : pageBean;
 			List<ProductInfo> lsemp = biz.getProductInfobiz().findByUserId(pageBean, getLoginUser().getUserId());
 			pageBean.setPagelist(lsemp);
@@ -150,6 +154,10 @@ public class UserAction extends BaseAction implements IUserAction {
 	@Override
 	public String toUserPayed() {
 		try {
+			if (null == super.getLoginUser()) {
+				getResponse().sendRedirect(HttpsUtil.AuthLogin(WenlibackyardConstant.VALIDATE_URL, "toUserSaling"));
+				return null;
+			}
 			pageBean = pageBean == null ? new PageBean() : pageBean;
 			List<OrderMain> lsemp = biz.getProductInfobiz().findOrderMain(pageBean, getLoginUser().getUserId());
 			pageBean.setPagelist(lsemp);

@@ -277,10 +277,11 @@
 					<groupId>org.apache.tomcat.maven</groupId>
 					<artifactId>tomcat7-maven-plugin</artifactId>
 					<configuration>
-						<url>http://42.96.153.31:8080/manager/text</url>
+						<url>http://42.96.153.31/manager/text</url>
 						<path>/${project.build.finalName}</path>
 						<username>Zeral</username>
 						<password>Zeral</password>
+						<update>true</update>
 						<uriEncoding>UTF-8</uriEncoding>
 					</configuration>
 					<version>2.2</version>

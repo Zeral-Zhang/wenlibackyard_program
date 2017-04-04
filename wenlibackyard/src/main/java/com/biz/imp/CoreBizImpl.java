@@ -81,9 +81,16 @@ public class CoreBizImpl implements ICoreBiz {
 					// TODO 取消订阅后用户再收不到公众号发送的消息，因此不需要回复 消息
 				}
 				// 自定义菜单点击事件
-				else if (msgRequest.equals(MsgXmlUtil.EVENT_TYPE_CLICK)) {
-					// TODO 取消订阅后用户再收不到公众号发送的消息，因此不需要回复 消息
-					responseText(msgRequest, "感谢您的关注 /::) /::) /::)");
+				else if (msgRequest.getEvent().equals(MsgXmlUtil.EVENT_TYPE_CLICK)) {
+					if(msgRequest.getEventKey().equals("31")) {
+						StringBuffer buffer = new StringBuffer();
+						buffer.append("我们的成员：").append("\n\n");
+						buffer.append("欧阳雪涛，LOL只会瑞文，和上路打单机，从不管队友").append("\n");
+						buffer.append("景园， 吃货，也有点懒，一天傻开心").append("\n");
+						buffer.append("蔡菲，人送外号菲姐，管事的").append("\n");
+						buffer.append("张星星， 天马行空，不切实际");
+						responseText(msgRequest, buffer.toString());
+					}
 				}
 				
 			} else if (MsgXmlUtil.REQ_MESSAGE_TYPE_LOCATION.equals(msgRequest // 处理用户位置信息

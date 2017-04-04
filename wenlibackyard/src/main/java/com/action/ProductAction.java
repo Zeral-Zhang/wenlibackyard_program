@@ -1,10 +1,12 @@
 package com.action;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
@@ -12,10 +14,13 @@ import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Controller;
 
 import com.bean.PageBean;
+import com.constant.WenlibackyardConstant;
 import com.po.ProductInfo;
 import com.po.ProductType;
 import com.service.biz.BizService;
+import com.util.HttpsUtil;
 import com.util.WebUtil;
+
 
 @Controller
 @Namespace("/")
@@ -40,6 +45,14 @@ public class ProductAction extends BaseAction implements IProductAction {
 			@Result(name = "success", location = "/WEB-INF/new_front/productAdd.jsp"),
 			@Result(name = "failed", location = "/WEB-INF/error.jsp") })
 	public String toProductAdd() {
+		try {
+			if (null == super.getLoginUser()) {
+				getResponse().sendRedirect(HttpsUtil.AuthLogin(WenlibackyardConstant.VALIDATE_URL, "toUserInfo"));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "failed";
+		}
 		return "success";
 	}
 
@@ -86,7 +99,7 @@ public class ProductAction extends BaseAction implements IProductAction {
 			pageBean = pageBean == null ? new PageBean() : pageBean;
 
 			List<ProductInfo> lsemp = null;
-			if(null != search) {
+			if(StringUtils.isNotBlank(search)) {
 				lsemp = bizs.getProductInfobiz().findByNameLike(pageBean, search);
 			} else {
 				// 获取当前页的记录集合
@@ -111,7 +124,7 @@ public class ProductAction extends BaseAction implements IProductAction {
 			pageBean = pageBean == null ? new PageBean() : pageBean;
 			
 			List<ProductInfo> lsemp = null;
-			if(null != search) {
+			if(StringUtils.isNotBlank(search)) {
 				lsemp = bizs.getProductInfobiz().findByTypeAndNameLike(pageBean, productTypeId, search);
 			} else {
 				// 获取当前页的记录集合

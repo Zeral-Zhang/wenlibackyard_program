@@ -9,6 +9,7 @@ import com.bean.Button;
 import com.bean.CommenButton;
 import com.bean.ComplexButton;
 import com.bean.Menu;
+import com.constant.WenlibackyardConstant;
 
 /**
  * @author Zeral_Zhang
@@ -16,7 +17,6 @@ import com.bean.Menu;
  */
 public class MenuCreateUtil {
 	private final static Logger log = Logger.getLogger(MenuCreateUtil.class);
-	private final static String ORIGINAL = "https://wenlibackyard.tunnel.qydev.com/wenlibackyard/validateUser";
 	
 	public static void main(String[] args) {
 		Properties prop = PropertiesConfigUtil
@@ -45,44 +45,43 @@ public class MenuCreateUtil {
 		CommenButton btn11 = new CommenButton();
 		btn11.setName("旧物出售");
 		btn11.setType("click");
-		btn11.setKey("11");
+		btn11.setType("view");
+		btn11.setUrl(WenlibackyardConstant.SERVER_URL+"wenlibackyard/toProductAdd");
 
 		CommenButton btn12 = new CommenButton();
-		btn12.setName("分类查询");
+		btn12.setName("学院查询");
 		btn12.setType("click");
-		btn12.setKey("12");
+		btn12.setType("view");
+		btn12.setUrl(WenlibackyardConstant.SERVER_URL+"wenlibackyard/toDiscovery");
 
 		CommenButton btn13 = new CommenButton();
 		btn13.setName("进入后院");
 		btn13.setType("click");
 		btn13.setType("view");
-		btn13.setUrl("http://wenlibackyard.tunnel.qydev.com/wenlibackyard/toProductList");
+		btn13.setUrl(WenlibackyardConstant.SERVER_URL+"wenlibackyard/toProductList");
 
 		CommenButton btn21 = new CommenButton();
 		btn21.setName("我的订单");
 		btn21.setType("click");
-		btn21.setUrl(HttpsUtil.AuthLogin(ORIGINAL, "toProductList"));
-		btn21.setKey("21");
+		btn21.setType("view");
+		btn21.setUrl(WenlibackyardConstant.SERVER_URL+"wenlibackyard/toUserPayed");
 
 		CommenButton btn22 = new CommenButton();
-		btn22.setName("我的收藏");
+		btn22.setName("我的旧物");
 		btn22.setType("click");
-		btn22.setKey("22");
-
+		btn22.setType("view");
+		btn22.setUrl(WenlibackyardConstant.SERVER_URL+"wenlibackyard/toUserSaling");
+		
 		CommenButton btn23 = new CommenButton();
-		btn23.setName("发布商品");
+		btn23.setName("我的购物车");
 		btn23.setType("click");
-		btn23.setKey("23");
+		btn23.setType("view");
+		btn23.setUrl(WenlibackyardConstant.SERVER_URL+"wenlibackyard/shopCar");
 
 		CommenButton btn31 = new CommenButton();
 		btn31.setName("团队介绍");
 		btn31.setType("click");
 		btn31.setKey("31");
-
-		CommenButton btn32 = new CommenButton();
-		btn32.setName("意见建议");
-		btn32.setType("click");
-		btn32.setKey("32");
 
 		ComplexButton mainBtn1 = new ComplexButton();
 		mainBtn1.setName("文理后院");
@@ -94,7 +93,7 @@ public class MenuCreateUtil {
 
 		ComplexButton mainBtn3 = new ComplexButton();
 		mainBtn3.setName("关于我们");
-		mainBtn3.setSub_button(new CommenButton[] { btn31, btn32 });
+		mainBtn3.setSub_button(new CommenButton[] { btn31 });
 
 		Menu menu = new Menu();
 		menu.setButton(new Button[] { mainBtn1, mainBtn2, mainBtn3 });

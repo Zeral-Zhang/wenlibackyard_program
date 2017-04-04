@@ -1,8 +1,9 @@
 package com.util;
 
+import com.constant.WenlibackyardConstant;
+
 public class TestUrl {
 	public static void main(String[] args) {
-		String original = "http://wenlibackyard.tunnel.qydev.com/wenlibackyard/validateUser";
-		System.out.println(HttpsUtil.AuthLogin(original, "toProductList"));
+		System.out.println(HttpsUtil.AuthLogin(WenlibackyardConstant.VALIDATE_URL, "toProductAdd"));
 	}
 }

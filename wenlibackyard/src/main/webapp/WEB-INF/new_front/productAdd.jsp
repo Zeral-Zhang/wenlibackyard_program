@@ -37,7 +37,6 @@
 	</div>
 	<div class="container">
 		<form id="productForm" action="<%=path%>/addProduct.action" method="post">
-			<input name="user.userId" value="${sessionScope.userInfo.userId}" type="hidden">
 			<div class="weui-cells weui-cells_form">
 				<div class="weui-cell">
 					<div class="weui-cell__hd">
@@ -52,7 +51,7 @@
 						<label class="weui-label">品牌</label>
 					</div>
 					<div class="weui-cell__bd">
-						<input class="weui-input" placeholder="请输入商品品牌" name="productInfo.brand" type="text"/>
+						<input class="weui-input" placeholder="请输入商品品牌" name="productInfo.brand" type="text" />
 					</div>
 				</div>
 				<div class="weui-cell">
@@ -130,7 +129,8 @@
 			                        <div class="weui-uploader__bd">
 			                            <ul class="weui-uploader__files" id="uploaderFiles">
 			                            	<div class="weui-uploader__input-box">
-			                                	<input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple />
+			                            	<!-- 微信安卓多图上传存在兼容性问题， 暂时去掉multiple -->
+			                                	<input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*"  />
 			                           		</div>
 			                            </ul>
 			                        </div>
@@ -139,7 +139,7 @@
 			            </div>
 			        </div>
 			        <div class="weui-btn-area">
-			            <a class="weui-btn weui-btn_primary" href="javascript:" onClick="$('#productForm').submit();">确定</a>
+			            <input type="submit" class="weui-btn weui-btn_primary" value="确定" />
 			        </div>
 			    </div>
            	</div>
@@ -164,9 +164,6 @@
 									+ "</option>");
 				});
 			}, "json");
-			$("form").submit(function(e){
- 				 dosubmit;
-			});
 		var isCommitted = false;//表单是否已经提交标识，默认为false
 	        function dosubmit(){
 	             if(isCommitted==false){
@@ -188,7 +185,7 @@
 			});
 		});
 	      var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)">' +
-	      		     '<input type="hidden" name="#name#" value="#value#"/>' +
+	      		     '<input type="hidden" id="#id#" name="#name#" value="#value#"/>' +
 	      		     '</li>',
 	      statusTmpl = '<li class="weui-uploader__file weui-uploader__file_status">' +
               	       '<div class="weui-uploader__file-content"></div>' +
@@ -200,6 +197,23 @@
 	      fileCounter = 0
 	      ;
 	
+		 $("form").submit(function(e){
+			var inputs = $(':input:not([id="uploaderInput"])', $(this));
+			// 表单项未填写不能提交表单
+			for(var i=0, len=inputs.length; i < len; i++) {
+				if(inputs[i].value == "") {
+					alertify.warning('请补充完整表单');
+					return false;
+				}
+			}
+			// 未上传图片不能提交表单
+			if(fileCounter < 1) {
+				alertify.warning('请至少上传一张图片');
+				return false;
+			}
+			// 防止重复提交
+			dosubmit;
+		});
 	  $uploaderInput.on("change", function(e){
 	      var src, 
       		url = window.URL || window.webkitURL || window.mozURL, 
@@ -211,9 +225,8 @@
   	    	      'image/jpeg': true,
   	    	      'image/gif': true
   	    	    },
-  	    	files = e.target.files,
-  	    	$fileLength = $('#uploaderFiles li').length;
-	      if(fileCounter > 4) {
+  	    	files = e.target.files;
+	      if(fileCounter > 4 || files.length > 5) {
 	    	  alertify.warning('只能上传五张图片');
 	      } else {
 	    	  for (var i = 0, len = files.length; i < len; ++i) {
@@ -232,7 +245,6 @@
 			                  xhr: function(){ //获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数  
 			                      myXhr = $.ajaxSettings.xhr();  
 			                      if(myXhr.upload){ //检查upload属性是否存在  
-			                    	  $uploaderFiles.append(statusTmpl);
 			                          //绑定progress事件的回调函数  
 			                          myXhr.upload.addEventListener('progress',progressHandlingFunction, false);   
 			                      }  
@@ -241,8 +253,8 @@
 			                  success: function(result){
 			                	  if(result) {
 			                		 var fileInfo = result.split(':');
+			                		 $uploaderFiles.append($(tmpl.replace('#url#', '<%=path%>'+fileInfo[2]).replace('#name#', 'fileSrcs['+fileCounter+']').replace('#value#', fileInfo[2]).replace('#id#', fileInfo[0])));
 			                		 fileCounter+=1;
-			                		 $uploaderFiles.append($(tmpl.replace('#url#', '<%=path%>'+fileInfo[2]).replace('#name#', 'fileSrcs['+$fileLength+']').replace('#value#', fileInfo[0])));
 			                		 $('.weui-uploader__info').text(fileCounter+'/5');  
 			                	  }
 			                  },
@@ -262,19 +274,15 @@
 	  
 		//上传进度回调函数：仅为前端上传进度，不包含后端处理进度，需改善；  
 	    function progressHandlingFunction(e) { 
-			var content = $('li:last div', $uploaderFiles);
 	        if (e.lengthComputable) {  
-	            var percent = e.loaded/e.total*100;  
-	            content.text(percent.toFixed(2) + "%");
-	            if(content.text() == '100.00%') {
-	            	content.closest('li').remove();
-	            }
+	            /* var percent = e.loaded/e.total*100;  
+	            content.text(percent.toFixed(2) + "%"); */
 	        }  
 	    } 
 		
 	  $uploaderFiles.on("click", "li", function(){
 	      $galleryImg.attr("style", this.getAttribute("style"));
-	      $galleryDel.attr('name', $('input:hidden', this).val());
+	      $galleryDel.attr('name', $('input:hidden', this).attr('id'));
 	      $gallery.fadeIn(100);
 	  });
 	  
@@ -285,7 +293,7 @@
             type: "POST",  
             data: "fileInfo.id="+fileId,
             success: function(){
-            	$("li input[value="+fileId+"]", $uploaderFiles).parent().remove();
+            	$("li input[id="+fileId+"]", $uploaderFiles).parent().remove();
             	fileCounter-=1;
             	$('.weui-uploader__info').text(fileCounter+'/5'); 
             	$gallery.fadeOut(100);
