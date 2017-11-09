@@ -1,13 +1,13 @@
 # 文理后院代码
 [![GitHub Stars](https://img.shields.io/github/stars/IgorAntun/node-chat.svg)](https://github.com/Zeral-Zhang/wenlibackyard_program/stargazers) [![GitHub Issues](https://img.shields.io/github/issues/IgorAntun/node-chat.svg)](https://github.com/Zeral-Zhang/wenlibackyard_program/issues) [![Current Version](https://img.shields.io/badge/version-1.0.7-green.svg)](https://github.com/Zeral-Zhang/wenlibackyard_program/node-chat) [![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://igorantun.com/chat) " [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/IgorAntun/node-chat?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-这是一个使用JavaSSH做为后端框架的Maven项目，项目设计被用来作为微信公众号版的一个校园二手购物网站，旨在给学生提供平台来进行旧物交易，或者二手物品转手操作，现在项目还处于完善阶段。
+这是一个使用JavaSSH做为后端框架的Maven项目，项目设计被用来作为微信公众号版的一个校园二手购物网站，旨在给学生提供平台来进行旧物交易，或者二手物品转手操作。
 
 ![Chat Preview](http://i.imgur.com/lgRe8z4.png)
 
 ## Demo
 你可以使用该链接访问网页独立版的文理后院，建议使用手机访问。 ~~https://zeral.site/wenlibackyard~~ *(demo 现在不可用)*
-- 微信测试号暂时不可用，项目处于维护期
+- 微信测试号暂时不可用，服务器到期
 
 ---
 
@@ -77,8 +77,6 @@
 ## 作者
 
 * **Zeral** - *项目整体搭建* - [个人主页介绍https://zeral.site](https://zeral.site)
-
-请查看该列表 [contributors](https://github.com/Zeral-Zhang/wenlibackyard_program/contributors) 参与该项目人员。
 
 ## License
 
