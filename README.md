@@ -1,9 +1,6 @@
 # 文理后院代码
-[![GitHub Stars](https://img.shields.io/github/stars/IgorAntun/node-chat.svg)](https://github.com/Zeral-Zhang/wenlibackyard_program/stargazers) [![Current Version](https://img.shields.io/badge/version-1.0.0-green.svg)]
 
 这是一个使用JavaSSH做为后端框架的Maven项目，项目设计被用来作为微信公众号版的一个校园二手购物网站，旨在给学生提供平台来进行旧物交易，或者二手物品转手操作。
-
-![Chat Preview](http://i.imgur.com/lgRe8z4.png)
 
 ## Demo
 你可以使用该链接访问网页独立版的文理后院，建议使用手机访问。 ~~https://zeral.site/wenlibackyard~~ *(demo 现在不可用)*
