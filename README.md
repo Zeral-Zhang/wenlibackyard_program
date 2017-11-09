@@ -1,5 +1,5 @@
 # 文理后院代码
-[![GitHub Stars](https://img.shields.io/github/stars/IgorAntun/node-chat.svg)](https://github.com/Zeral-Zhang/wenlibackyard_program/stargazers) [![GitHub Issues](https://img.shields.io/github/issues/IgorAntun/node-chat.svg)](https://github.com/Zeral-Zhang/wenlibackyard_program/issues) [![Current Version](https://img.shields.io/badge/version-1.0.7-green.svg)](https://github.com/Zeral-Zhang/wenlibackyard_program/node-chat) [![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://igorantun.com/chat) " [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/IgorAntun/node-chat?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![GitHub Stars](https://img.shields.io/github/stars/IgorAntun/node-chat.svg)](https://github.com/Zeral-Zhang/wenlibackyard_program/stargazers) [![Current Version](https://img.shields.io/badge/version-1.0.0-green.svg)]
 
 这是一个使用JavaSSH做为后端框架的Maven项目，项目设计被用来作为微信公众号版的一个校园二手购物网站，旨在给学生提供平台来进行旧物交易，或者二手物品转手操作。
 
