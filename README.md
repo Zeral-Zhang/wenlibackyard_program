@@ -73,7 +73,7 @@
 
 ## 作者
 
-* **Zeral** - *项目整体搭建* - [个人主页介绍https://zeral.site](https://zeral.site)
+* **Zeral** - *项目整体搭建* - [个人主页介绍https://zeral-zhang.github.io](https://zeral-zhang.github.io)
 
 ## License
 
