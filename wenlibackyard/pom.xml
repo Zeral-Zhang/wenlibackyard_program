@@ -11,7 +11,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.1.6.RELEASE</spring.version>
-		<spring.simple-xml.version>2.6.7</spring.simple-xml.version>
+		<spring.simple-xml.version>2.7.1</spring.simple-xml.version>
 		<hibernate.version>4.3.8.Final</hibernate.version>
 		<struts2.version>2.3.20</struts2.version>
 		<dom4j.version>1.6.1</dom4j.version>
